@@ -119,7 +119,7 @@ class TemporalEngine {
 		if ($reading->isStale($this->clock, $this->settings->maxTimeUpdateTemp())) {
 			if ($this->memory->temperatureAlert() == 0) {
 				$this->actuator->failure();
-				$this->log->error($this->translator->translate("{{Attention il n'y a pas eu de mise à jour de la température depuis plus de}}") . ' ' . $this->settings->maxTimeUpdateTemp() . ' ' . $this->translator->translate('{{minutes}}') . ' (' . $reading->collectDate() . ')');
+				$this->log->error($this->translator->translate("{{Attention il n'y a pas eu de mise à jour de la température depuis plus de}}") . ' : ' . $this->settings->maxTimeUpdateTemp() . ' ' . $this->translator->translate('{{minutes}}') . ' (' . $reading->collectDate() . ')');
 			}
 			$this->log->debug($this->translator->translate("{{Je ne fais rien car il n'y a pas eu de mise a jour de la température depuis plus de}}") . ' ' . $this->settings->maxTimeUpdateTemp() . ' ' . $this->translator->translate('{{minutes}}'));
 			$this->memory->setTemperatureAlert(1);

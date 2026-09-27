@@ -104,6 +104,15 @@ class SensorWatchTest extends TestCase {
 		$this->assertSame(array(), $this->actions->executed);
 	}
 
+	public function testStaleSensorMessage() {
+		$this->settings->values['maxTimeUpdateTemp'] = 60;
+		$this->sensors->collectDate = '2026-01-15 08:59:59';
+
+		$this->check();
+
+		$this->assertContains('error Attention il n\'y a pas eu de mise à jour de la température depuis plus de : 60 minutes (2026-01-15 08:59:59)', $this->log->lines);
+	}
+
 	public function testStaleSensorIsFailure() {
 		$this->settings->values['maxTimeUpdateTemp'] = 60;
 		$this->sensors->collectDate = '2026-01-15 08:59:59';

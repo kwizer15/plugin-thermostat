@@ -85,7 +85,7 @@ class HysteresisEngine {
 		if ($reading->isStale($this->clock, $this->settings->maxTimeUpdateTemp())) {
 			if ($this->memory->temperatureAlert() == 0) {
 				$this->actuator->failure();
-				$this->log->error($this->translator->translate("{{Attention il n'y a pas eu de mise à jour de la température depuis plus de}}") . ' : ' . $this->settings->maxTimeUpdateTemp() . 'min (' . $reading->collectDate() . ')');
+				$this->log->error($this->translator->translate("{{Attention il n'y a pas eu de mise à jour de la température depuis plus de}}") . ' : ' . $this->settings->maxTimeUpdateTemp() . ' ' . $this->translator->translate('{{minutes}}') . ' (' . $reading->collectDate() . ')');
 			}
 			$this->memory->setTemperatureAlert(1);
 			$this->display->setStatus($this->labels->sensorFailure());

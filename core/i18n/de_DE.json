@@ -223,7 +223,8 @@
         "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Bitte beachten Sie, dass es seit mehr als keine Temperaturaktualisierung gibt",
         "Je dois chauffer": "Ich muss aufheizen",
         "Je dois refroidir": "Ich muss mich abkühlen",
-        "Je m'arrête": "Ich halte an"
+        "Je m'arrête": "Ich halte an",
+        "minutes": "Protokoll"
     },
     "plugins\/thermostat\/core\/src\/Domain\/Engine\/TemporalEngine.php": {
         "Début calcul temporel": "Berechnung der Startzeit",

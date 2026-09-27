@@ -128,6 +128,14 @@ class HysteresisEngineTest extends TestCase {
 		$this->assertSame(array('#heater#'), $this->actions->executed);
 	}
 
+	public function testStaleSensorMessage() {
+		$this->sensors->collectDate = '2026-01-15 08:59:59';
+
+		$this->run_();
+
+		$this->assertContains('error Attention il n\'y a pas eu de mise à jour de la température depuis plus de : 60 minutes (2026-01-15 08:59:59)', $this->log->lines);
+	}
+
 	public function testStaleSensorWithoutFailureActionsStillReportsFailure() {
 		$this->settings->values['failure'] = array();
 		$this->sensors->collectDate = '2026-01-15 08:59:59';

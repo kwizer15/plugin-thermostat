@@ -223,7 +223,8 @@
         "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Please note there has been no temperature update for more than",
         "Je dois chauffer": "I have to heat up",
         "Je dois refroidir": "I have to cool down",
-        "Je m'arrête": "I stop"
+        "Je m'arrête": "I stop",
+        "minutes": "minutes"
     },
     "plugins\/thermostat\/core\/src\/Domain\/Engine\/TemporalEngine.php": {
         "Début calcul temporel": "Start time calculation",
