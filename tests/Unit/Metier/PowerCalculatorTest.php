@@ -17,7 +17,7 @@ class PowerCalculatorTest extends TestCase {
 	}
 
 	private function compute($_consigne, $_tempIn, $_tempOut, $_allowOverfull = false) {
-		return (new thermostatPowerCalculator($this->settings, $this->memory, $this->log))->compute($_consigne, $_tempIn, $_tempOut, $_allowOverfull);
+		return (new thermostatPowerCalculator($this->settings, $this->memory, $this->log, new IdentityTranslator()))->compute($_consigne, $_tempIn, $_tempOut, $_allowOverfull);
 	}
 
 	public function testHeatingPowerCombinesIndoorAndOutdoorGaps() {

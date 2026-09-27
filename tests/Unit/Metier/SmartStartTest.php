@@ -28,7 +28,7 @@ class SmartStartTest extends TestCase {
 	}
 
 	private function smartStart() {
-		return new thermostatSmartStart($this->settings, $this->memory, $this->calendar, $this->sensors, $this->display, $this->controls, new NumericEvaluator(), new thermostatPowerCalculator($this->settings, $this->memory, $this->log), $this->scheduling, $this->log);
+		return new thermostatSmartStart($this->settings, $this->memory, $this->calendar, $this->sensors, $this->display, $this->controls, new NumericEvaluator(), new thermostatPowerCalculator($this->settings, $this->memory, $this->log, new IdentityTranslator()), $this->scheduling, $this->log, new IdentityTranslator());
 	}
 
 	private function event($_date, $_consigne = '21') {

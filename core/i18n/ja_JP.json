@@ -257,9 +257,7 @@
     "plugins\/thermostat\/core\/class\/thermostatHysteresisDecision.class.php": {
         "Calcul": "計算",
         "consigne": "オーダー",
-        "état précédent": "état précédent",
-        "Chauffage": "加熱",
-        "Climatisation": "Climatisation"
+        "état précédent": "état précédent"
     },
     "plugins\/thermostat\/core\/class\/thermostatHysteresisEngine.class.php": {
         "Lancement du calcul d'hystérésis": "Lancement du calcul d'hystérésis",

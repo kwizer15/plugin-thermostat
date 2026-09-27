@@ -28,8 +28,9 @@ class thermostatSmartStart {
 	private $powerCalculator;
 	private $scheduler;
 	private $log;
+	private $translator;
 
-	public function __construct(thermostatSmartStartSettings $_settings, thermostatSmartStartMemory $_memory, thermostatCalendar $_calendar, thermostatSensors $_sensors, thermostatDisplay $_display, thermostatControls $_controls, thermostatEvaluator $_evaluator, thermostatPowerCalculator $_powerCalculator, thermostatScheduling $_scheduler, thermostatLog $_log) {
+	public function __construct(thermostatSmartStartSettings $_settings, thermostatSmartStartMemory $_memory, thermostatCalendar $_calendar, thermostatSensors $_sensors, thermostatDisplay $_display, thermostatControls $_controls, thermostatEvaluator $_evaluator, thermostatPowerCalculator $_powerCalculator, thermostatScheduling $_scheduler, thermostatLog $_log, thermostatTranslator $_translator) {
 		$this->settings = $_settings;
 		$this->memory = $_memory;
 		$this->calendar = $_calendar;
@@ -40,6 +41,7 @@ class thermostatSmartStart {
 		$this->powerCalculator = $_powerCalculator;
 		$this->scheduler = $_scheduler;
 		$this->log = $_log;
+		$this->translator = $_translator;
 	}
 
 	public function plan() {
@@ -49,28 +51,28 @@ class thermostatSmartStart {
 		if (!$this->calendar->available()) {
 			return '';
 		}
-		$this->log->debug(__('Plugin agenda détecté', __FILE__));
+		$this->log->debug($this->translator->translate('{{Plugin agenda détecté}}'));
 		$next = $this->calendar->nextEvent();
 		if ($next == null || $next['date'] == '') {
-			$this->log->debug(__('Smartstart : aucun événement trouvé', __FILE__));
+			$this->log->debug($this->translator->translate('{{Smartstart : aucun événement trouvé}}'));
 			return '';
 		}
 		$cycle = $this->evaluator->evaluate($this->settings->cycle());
 		if ($next['date'] != '' && strtotime($next['date']) > strtotime(date('Y-m-d H:i:s'))) {
 			$temporal_data = $this->powerCalculator->compute($this->evaluator->evaluate($next['consigne']), $this->sensors->indoorTemperature(), $this->sensors->outdoorTemperature(), true);
 			if ($temporal_data['power'] < 0) {
-				$this->log->debug(__('Smartstart non pris en compte car power < 0 ', __FILE__) . ' ' . $temporal_data['power']);
+				$this->log->debug($this->translator->translate('{{Smartstart non pris en compte car power < 0 }}') . ' ' . $temporal_data['power']);
 				return;
 			}
 			$duration = round(($temporal_data['power'] * $cycle) / 100 * $this->settings->anticipationFactor());
 			if ($duration < 5) {
-				$this->log->debug(__('Smartstart non pris en compte car la durée', __FILE__) . ' ' . $duration);
+				$this->log->debug($this->translator->translate('{{Smartstart non pris en compte car la durée}}') . ' ' . $duration);
 				return '';
 			}
 			$next['schedule'] = date('Y-m-d H:i:s', strtotime('-' . $duration . ' min ' . $next['date']));
-			$this->log->debug(__('Durée Smartstart', __FILE__) . ' : ' . $duration . ' ' . __('à', __FILE__) . ' ' . $next['date'] . ' ' . __('programmation', __FILE__) . ' : ' . $next['schedule']);
+			$this->log->debug($this->translator->translate('{{Durée Smartstart}}') . ' : ' . $duration . ' ' . $this->translator->translate('{{à}}') . ' ' . $next['date'] . ' ' . $this->translator->translate('{{programmation}}') . ' : ' . $next['schedule']);
 			if (strtotime($next['schedule']) > (strtotime('now') + 120)) {
-				$this->log->debug(__('Prochain Smartstart', __FILE__) . ' : ' . $next['schedule']);
+				$this->log->debug($this->translator->translate('{{Prochain Smartstart}}') . ' : ' . $next['schedule']);
 				$this->scheduler->reschedule($next['schedule'], false, $next);
 			}
 		}
@@ -83,15 +85,15 @@ class thermostatSmartStart {
 		if (!$this->settings->smartStartEnabled()) {
 			return;
 		}
-		$this->log->debug(__('Next info', __FILE__) . ' : ' . print_r($_options['next'], true));
+		$this->log->debug($this->translator->translate('{{Next info}}') . ' : ' . print_r($_options['next'], true));
 		if ($this->display->locked()) {
-			$this->log->debug(__('Thermostat verrouillé je ne fais rien', __FILE__));
+			$this->log->debug($this->translator->translate('{{Thermostat verrouillé je ne fais rien}}'));
 		} else if ($_options['next']['type'] == 'thermostat') {
-			$this->log->debug(__('Type thermostat envoi de la consigne', __FILE__) . ' : ' . $_options['next']['consigne']);
+			$this->log->debug($this->translator->translate('{{Type thermostat envoi de la consigne}}') . ' : ' . $_options['next']['consigne']);
 			$this->remember($_options['next']);
 			$this->controls->requestSetpoint($_options['next']['consigne']);
 		} else if ($_options['next']['type'] == 'mode' && isset($_options['next']['cmd']) && $this->controls->modeExists($_options['next']['cmd'])) {
-			$this->log->debug(__('Type mode envoi de la commande', __FILE__) . ' : ' . $_options['next']['cmd']);
+			$this->log->debug($this->translator->translate('{{Type mode envoi de la commande}}') . ' : ' . $_options['next']['cmd']);
 			$this->remember($_options['next']);
 			$this->controls->runMode($_options['next']['cmd']);
 		}
@@ -122,7 +124,7 @@ class thermostatSmartStart {
 		$needed = $smartStart['consigne'] - $smartStart['temperature'];
 		$achieved = $_temperature - $smartStart['temperature'];
 		if ($needed < 0.5 || $achieved <= 0) {
-			$this->log->debug(__('Smartstart : pas d\'apprentissage', __FILE__) . ' (' . $needed . ' / ' . $achieved . ')');
+			$this->log->debug($this->translator->translate('{{Smartstart : pas d\'apprentissage}}') . ' (' . $needed . ' / ' . $achieved . ')');
 			return;
 		}
 		$factor = $this->settings->anticipationFactor();
@@ -130,6 +132,6 @@ class thermostatSmartStart {
 		$target = $factor * min(max($needed / $achieved, 0.5), 2);
 		$factor = min(max(($factor * $count + $target) / ($count + 1), 0.5), 3);
 		$this->settings->storeAnticipation(round($factor, 2), min($count + 1, 10));
-		$this->log->debug(__('Smartstart : nouvelle anticipation', __FILE__) . ' : ' . round($factor, 2) . ' (' . $achieved . '/' . $needed . '°C)');
+		$this->log->debug($this->translator->translate('{{Smartstart : nouvelle anticipation}}') . ' : ' . round($factor, 2) . ' (' . $achieved . '/' . $needed . '°C)');
 	}
 }

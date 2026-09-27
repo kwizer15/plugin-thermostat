@@ -21,22 +21,24 @@ class thermostatPowerCalculator {
 	private $settings;
 	private $memory;
 	private $log;
+	private $translator;
 
-	public function __construct(thermostatPowerSettings $_settings, thermostatPowerMemory $_memory, thermostatLog $_log) {
+	public function __construct(thermostatPowerSettings $_settings, thermostatPowerMemory $_memory, thermostatLog $_log, thermostatTranslator $_translator) {
 		$this->settings = $_settings;
 		$this->memory = $_memory;
 		$this->log = $_log;
+		$this->translator = $_translator;
 	}
 
 	public function compute($_consigne, $_tempIn, $_tempOut, $_allowOverfull = false) {
 		$temp_out = $_tempOut;
 		$temp_in = $_tempIn;
 		if (!is_numeric($temp_out)) {
-			$this->log->debug(__('Attention température extérieure erronée', __FILE__) . ' : ' . $temp_out);
+			$this->log->debug($this->translator->translate('{{Attention température extérieure erronée}}') . ' : ' . $temp_out);
 			$temp_out = $_consigne;
 		}
 
-		$this->log->debug(__('Température intérieure', __FILE__) . ' : ' . $temp_in . ' - ' . __('Température extérieure', __FILE__) . ' : ' . $temp_out . ' - ' . __('Consigne', __FILE__) . ' : ' . $_consigne);
+		$this->log->debug($this->translator->translate('{{Température intérieure}}') . ' : ' . $temp_in . ' - ' . $this->translator->translate('{{Température extérieure}}') . ' : ' . $temp_out . ' - ' . $this->translator->translate('{{Consigne}}') . ' : ' . $_consigne);
 		$diff_in = $_consigne - $temp_in;
 		$diff_out = $_consigne - $temp_out;
 		$direction = ($_consigne > $temp_in) ? +1 : -1;
@@ -46,17 +48,17 @@ class thermostatPowerCalculator {
 		if ($direction > 0 && (($temp_in > ($_consigne - 0.5) && $this->memory->lastState() == 'cool') || ($_consigne - $temp_out) < $this->settings->directionDeltaCool())) {
 			$direction = -1;
 		}
-		$this->log->debug(__('Direction', __FILE__) . ' : ' . $direction);
+		$this->log->debug($this->translator->translate('{{Direction}}') . ' : ' . $direction);
 		if ($temp_in >= ($_consigne + 1.5) && $direction == 1) {
 			if ($this->memory->temperatureAlert() == 0) {
-				$this->log->debug(__('La température est supérieure à la consigne de plus de 1.5°C, je ne fais rien', __FILE__));
+				$this->log->debug($this->translator->translate('{{La température est supérieure à la consigne de plus de 1.5°C, je ne fais rien}}'));
 			}
 			$this->memory->setTemperatureAlert(1);
 			return array('power' => 0, 'direction' => $direction);
 		}
 		if ($temp_in <= ($_consigne - 1.5) && $direction == -1) {
 			if ($this->memory->temperatureAlert() == 0) {
-				$this->log->debug(__('La température est inférieure à la consigne de plus de 1.5°C, je ne fais rien', __FILE__));
+				$this->log->debug($this->translator->translate('{{La température est inférieure à la consigne de plus de 1.5°C, je ne fais rien}}'));
 			}
 			$this->memory->setTemperatureAlert(1);
 			return array('power' => 0, 'direction' => $direction);
@@ -72,11 +74,11 @@ class thermostatPowerCalculator {
 		$lastPower = $this->memory->lastPower();
 		if (!$_allowOverfull && $fullCycleOffset != '' && $fullCycleOffset > 0 && $lastPower >= $this->settings->heatHotThreshold()) {
 			if ($lastPower >= 100) {
-				$this->log->debug(__('Cycle précédent à 100%, applique offset', __FILE__) . ' : ' . $fullCycleOffset . '%');
+				$this->log->debug($this->translator->translate('{{Cycle précédent à 100%, applique offset}}') . ' : ' . $fullCycleOffset . '%');
 				$power -= $fullCycleOffset;
 			} else {
-				$this->log->debug(__('Cycle précédent à', __FILE__) . ' ' . $lastPower . '%, ' . __('applique offset', __FILE__) . ' : ' . $fullCycleOffset . '%');
-				$this->log->debug(__('Puissance de chauffe du cycle', __FILE__) . ' : ' . $power . '% - ' . $fullCycleOffset . '% + ' . (100 - $lastPower) . '%');
+				$this->log->debug($this->translator->translate('{{Cycle précédent à}}') . ' ' . $lastPower . '%, ' . $this->translator->translate('{{applique offset}}') . ' : ' . $fullCycleOffset . '%');
+				$this->log->debug($this->translator->translate('{{Puissance de chauffe du cycle}}') . ' : ' . $power . '% - ' . $fullCycleOffset . '% + ' . (100 - $lastPower) . '%');
 				$power -= $fullCycleOffset - (100 - $lastPower);
 			}
 		}

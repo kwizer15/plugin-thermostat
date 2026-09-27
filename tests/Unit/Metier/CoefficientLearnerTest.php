@@ -17,7 +17,7 @@ class CoefficientLearnerTest extends TestCase {
 	}
 
 	private function learn($_tempIn, $_tempOut) {
-		(new thermostatCoefficientLearner($this->settings, $this->memory, $this->log))->learn($_tempIn, $_tempOut);
+		(new thermostatCoefficientLearner($this->settings, $this->memory, $this->log, new IdentityTranslator()))->learn($_tempIn, $_tempOut);
 	}
 
 	public function testLearnsIndoorHeatFromTemperatureRise() {

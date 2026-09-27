@@ -15,7 +15,7 @@ class HysteresisDecisionTest extends TestCase {
 	}
 
 	private function decide($_temp, $_status = 'Arrêté', $_lastState = '', $_consigne = 20) {
-		return (new thermostatHysteresisDecision($this->settings, $this->log))->decide($_temp, $_consigne, $_status, $_lastState);
+		return (new thermostatHysteresisDecision($this->settings, $this->log, new thermostatStatusLabels(new IdentityTranslator()), new IdentityTranslator()))->decide($_temp, $_consigne, $_status, $_lastState);
 	}
 
 	/**

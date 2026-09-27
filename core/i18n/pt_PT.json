@@ -257,9 +257,7 @@
     "plugins\/thermostat\/core\/class\/thermostatHysteresisDecision.class.php": {
         "Calcul": "Cálculo",
         "consigne": "Pedido",
-        "état précédent": "estado anterior",
-        "Chauffage": "Aquecimento",
-        "Climatisation": "Ar condicionado"
+        "état précédent": "estado anterior"
     },
     "plugins\/thermostat\/core\/class\/thermostatHysteresisEngine.class.php": {
         "Lancement du calcul d'hystérésis": "Iniciando o cálculo de histerese",

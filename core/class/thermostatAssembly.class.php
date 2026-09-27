@@ -73,11 +73,11 @@ class thermostatAssembly {
 	}
 
 	public function powerCalculator() {
-		return new thermostatPowerCalculator($this->settings(), $this->memory(), $this->log());
+		return new thermostatPowerCalculator($this->settings(), $this->memory(), $this->log(), $this->translator('thermostatPowerCalculator'));
 	}
 
 	public function coefficientLearner() {
-		return new thermostatCoefficientLearner($this->settings(), $this->memory(), $this->log());
+		return new thermostatCoefficientLearner($this->settings(), $this->memory(), $this->log(), $this->translator('thermostatCoefficientLearner'));
 	}
 
 	public function scheduler() {
@@ -85,7 +85,7 @@ class thermostatAssembly {
 	}
 
 	public function smartStart() {
-		return new thermostatSmartStart($this->settings(), $this->memory(), $this->calendar(), $this->sensors(), $this->display(), new thermostatJeedomControls($this->thermostat), $this->evaluator(), $this->powerCalculator(), $this->scheduler(), $this->log());
+		return new thermostatSmartStart($this->settings(), $this->memory(), $this->calendar(), $this->sensors(), $this->display(), new thermostatJeedomControls($this->thermostat), $this->evaluator(), $this->powerCalculator(), $this->scheduler(), $this->log(), $this->translator('thermostatSmartStart'));
 	}
 
 	public function actuator() {
@@ -101,7 +101,7 @@ class thermostatAssembly {
 	}
 
 	public function hysteresisEngine() {
-		return new thermostatHysteresisEngine($this->settings(), $this->memory(), $this->display(), $this->sensors(), $this->actuator(), new thermostatHysteresisDecision($this->settings(), $this->log()), $this->log());
+		return new thermostatHysteresisEngine($this->settings(), $this->memory(), $this->display(), $this->sensors(), $this->actuator(), new thermostatHysteresisDecision($this->settings(), $this->log(), $this->statusLabels(), $this->translator('thermostatHysteresisDecision')), $this->log());
 	}
 
 	public function sensorWatch() {

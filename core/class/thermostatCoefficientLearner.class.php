@@ -21,18 +21,20 @@ class thermostatCoefficientLearner {
 	private $settings;
 	private $memory;
 	private $log;
+	private $translator;
 
-	public function __construct(thermostatLearningSettings $_settings, thermostatCycleMemory $_memory, thermostatLog $_log) {
+	public function __construct(thermostatLearningSettings $_settings, thermostatCycleMemory $_memory, thermostatLog $_log, thermostatTranslator $_translator) {
 		$this->settings = $_settings;
 		$this->memory = $_memory;
 		$this->log = $_log;
+		$this->translator = $_translator;
 	}
 
 	public function learn($_temp_in, $_temp_out) {
 		if ($this->memory->consecutiveFailures() >= 3 || $this->settings->autolearn() != 1 || strtotime($this->settings->cycleEndDate()) >= strtotime('now')) {
 			return;
 		}
-		$this->log->debug(__('Démarre auto-apprentissage', __FILE__));
+		$this->log->debug($this->translator->translate('{{Démarre auto-apprentissage}}'));
 		$lastPower = $this->memory->lastPower();
 		if ($lastPower >= 100 || $lastPower <= 0) {
 			return;

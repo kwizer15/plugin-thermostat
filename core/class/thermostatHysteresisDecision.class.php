@@ -20,10 +20,14 @@ class thermostatHysteresisDecision {
 
 	private $settings;
 	private $log;
+	private $labels;
+	private $translator;
 
-	public function __construct(thermostatHysteresisSettings $_settings, thermostatLog $_log) {
+	public function __construct(thermostatHysteresisSettings $_settings, thermostatLog $_log, thermostatStatusLabels $_labels, thermostatTranslator $_translator) {
 		$this->settings = $_settings;
 		$this->log = $_log;
+		$this->labels = $_labels;
+		$this->translator = $_translator;
 	}
 
 	public function decide($_temp, $_consigne, $_status, $_lastState) {
@@ -32,7 +36,7 @@ class thermostatHysteresisDecision {
 		$positive = ($this->settings->positiveHysteresis() == 1);
 		$hysteresis_low = ($allowMode == 'heat' && $positive) ? $_consigne : $_consigne - $threshold;
 		$hysteresis_hight = ($allowMode == 'cool' && $positive) ? $_consigne : $_consigne + $threshold;
-		$this->log->debug(__('Calcul', __FILE__) . ' => ' . __('consigne', __FILE__) . ' : ' . $_consigne . ' hysteresis_low : ' . $hysteresis_low . ' hysteresis_hight : ' . $hysteresis_hight . ' temp : ' . $_temp . ' ' . __('état précédent', __FILE__) . ' : ' . $_lastState);
+		$this->log->debug($this->translator->translate('{{Calcul}}') . ' => ' . $this->translator->translate('{{consigne}}') . ' : ' . $_consigne . ' hysteresis_low : ' . $hysteresis_low . ' hysteresis_hight : ' . $hysteresis_hight . ' temp : ' . $_temp . ' ' . $this->translator->translate('{{état précédent}}') . ' : ' . $_lastState);
 		$action = 'none';
 		if ($_temp < $hysteresis_low) {
 			$action = 'heat';
@@ -46,10 +50,10 @@ class thermostatHysteresisDecision {
 		if ($action == 'cool' && $_lastState == 'heat' && ($_consigne + 2 * $threshold) > $_temp) {
 			$action = 'none';
 		}
-		if ($_status == __('Chauffage', __FILE__) && $_temp > $hysteresis_hight) {
+		if ($_status == $this->labels->heating() && $_temp > $hysteresis_hight) {
 			$action = 'stop';
 		}
-		if ($_status == __('Climatisation', __FILE__) && $_temp < ($_consigne - $threshold)) {
+		if ($_status == $this->labels->cooling() && $_temp < ($_consigne - $threshold)) {
 			$action = 'stop';
 		}
 		if (($action == 'cool' || $action == 'heat') && $allowMode != 'all' && $allowMode != $action) {
