@@ -715,18 +715,6 @@ parameters:
 			path: core/class/thermostat.class.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:translator\(\) has parameter \$_class with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#1 \$string of function substr expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
 			message: '#^Argument of an invalid type list\<array\<string, list\<array\<string, array\<string, bool\|float\|int\|string\|null\>\|string\>\>\|string\>\>\|string supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
 			count: 1
@@ -1393,48 +1381,6 @@ parameters:
 			path: core/src/Domain/Window/Windows.php
 
 		-
-			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 2
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Cannot access offset ''cmd'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Cannot access offset ''options'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Cannot access offset ''slider'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Cannot access offset mixed on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Cannot access offset string on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
 			message: '#^Cannot call method event\(\) on cmd\|false\.$#'
 			identifier: method.nonObject
 			count: 1
@@ -1447,55 +1393,19 @@ parameters:
 			path: core/src/Jeedom/ActionList.php
 
 		-
-			message: '#^Cannot call method getMessage\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\ActionList\:\:logError\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\ActionList\:\:logError\(\) has parameter \$_action with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\ActionList\:\:logError\(\) has parameter \$_exception with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\ActionList\:\:options\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\ActionList\:\:options\(\) has parameter \$_action with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\ActionList\:\:options\(\) has parameter \$_consigne with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Parameter \#2 \$replace of function str_replace expects array\<string\>\|string, mixed given\.$#'
+			message: '#^Parameter \#2 \$_consigne of static method Jeedom\\Plugin\\Thermostat\\Jeedom\\ActionList\:\:options\(\) expects bool\|float\|int\|string\|null, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: core/src/Jeedom/ActionList.php
 
 		-
-			message: '#^Parameter \#3 \$subject of function str_replace expects array\<string\>\|string, mixed given\.$#'
+			message: '#^Parameter \#2 \$replace of function str_replace expects array\<string\>\|string, bool\|float\|int\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/src/Jeedom/ActionList.php
+
+		-
+			message: '#^Parameter \#3 \$subject of function str_replace expects array\<string\>\|string, bool\|float\|int\|string\|null given\.$#'
 			identifier: argument.type
 			count: 1
 			path: core/src/Jeedom/ActionList.php
@@ -1603,12 +1513,6 @@ parameters:
 			path: core/src/Jeedom/Calendar.php
 
 		-
-			message: '#^Binary operation "\." between ''\#'' and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 2
-			path: core/src/Jeedom/Commands.php
-
-		-
 			message: '#^Cannot access offset ''isVisible'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 2
@@ -1621,24 +1525,6 @@ parameters:
 			path: core/src/Jeedom/Commands.php
 
 		-
-			message: '#^Cannot call method event\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Cannot call method execCmd\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Cannot call method execute\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
 			message: '#^Cannot call method getGeneric_type\(\) on cmd\|false\|null\.$#'
 			identifier: method.nonObject
 			count: 1
@@ -1648,12 +1534,6 @@ parameters:
 			message: '#^Cannot call method getId\(\) on cmd\|false\.$#'
 			identifier: method.nonObject
 			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Cannot call method getId\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 5
 			path: core/src/Jeedom/Commands.php
 
 		-
@@ -1675,139 +1555,13 @@ parameters:
 			path: core/src/Jeedom/Commands.php
 
 		-
-			message: '#^Cannot call method save\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 16
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Cannot call method setConfiguration\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 10
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Cannot call method setDisplay\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Cannot call method setGeneric_type\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 9
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Cannot call method setIsHistorized\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 6
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Cannot call method setIsVisible\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 16
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Cannot call method setName\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 16
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Cannot call method setOrder\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Cannot call method setTemplate\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 10
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Cannot call method setUnite\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 6
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Cannot call method setValue\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 4
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Commands\:\:define\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Commands\:\:definePower\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Commands\:\:firstInfoCmdId\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Commands\:\:firstInfoCmdId\(\) has parameter \$_expression with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Commands\:\:removePower\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Commands\:\:upsertCmd\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Commands\:\:upsertCmd\(\) has parameter \$_logicalId with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Commands\:\:upsertCmd\(\) has parameter \$_onCreate with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Commands\:\:upsertCmd\(\) has parameter \$_subType with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Commands\:\:upsertCmd\(\) has parameter \$_type with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Parameter \#1 \$_id of static method cmd\:\:byId\(\) expects int\|string, mixed given\.$#'
+			message: '#^Parameter \#1 \$_expression of method Jeedom\\Plugin\\Thermostat\\Jeedom\\Commands\:\:firstInfoCmdId\(\) expects string, mixed given\.$#'
 			identifier: argument.type
-			count: 1
+			count: 2
 			path: core/src/Jeedom/Commands.php
 
 		-
-			message: '#^Parameter \#2 \$_logicalId of method eqLogic\:\:getCmd\(\) expects string\|null, mixed given\.$#'
+			message: '#^Parameter \#2 \$_events of method Jeedom\\Plugin\\Thermostat\\Jeedom\\Scheduler\:\:listen\(\) expects list\<string\>, non\-empty\-list\<int\|string\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: core/src/Jeedom/Commands.php
@@ -1815,19 +1569,13 @@ parameters:
 		-
 			message: '#^Parameter \#2 \$subject of function preg_match_all expects string, mixed given\.$#'
 			identifier: argument.type
-			count: 2
+			count: 1
 			path: core/src/Jeedom/Commands.php
 
 		-
 			message: '#^Possibly invalid array key type mixed\.$#'
 			identifier: offsetAccess.invalidOffset
 			count: 5
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Trying to invoke mixed but it''s not a callable\.$#'
-			identifier: callable.nonCallable
-			count: 1
 			path: core/src/Jeedom/Commands.php
 
 		-
@@ -1969,12 +1717,6 @@ parameters:
 			path: core/src/Jeedom/Memory.php
 
 		-
-			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
 			message: '#^Binary operation "\+" between mixed and 10 results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
@@ -1993,60 +1735,6 @@ parameters:
 			path: core/src/Jeedom/Scheduler.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Scheduler\:\:forget\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Scheduler\:\:forget\(\) has parameter \$_function with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Scheduler\:\:listen\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Scheduler\:\:listen\(\) has parameter \$_events with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Scheduler\:\:listen\(\) has parameter \$_function with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Scheduler\:\:options\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Scheduler\:\:runHysteresisCron\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Scheduler\:\:unschedule\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Scheduler\:\:watchdog\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
 			message: '#^Parameter \#1 \$_date of static method cron\:\:convertDateToCron\(\) expects string, int\|false given\.$#'
 			identifier: argument.type
 			count: 1
@@ -2054,12 +1742,6 @@ parameters:
 
 		-
 			message: '#^Parameter \#1 \$expression of class Cron\\CronExpression constructor expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 2
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Parameter \#2 \$_function of static method listener\:\:byClassAndFunction\(\) expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 2
 			path: core/src/Jeedom/Scheduler.php

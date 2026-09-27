@@ -33,6 +33,9 @@ class Scheduler implements Scheduling {
 		$this->log = $_log;
 	}
 
+	/**
+	 * @return array{thermostat_id: int}
+	 */
 	private function options() {
 		return array('thermostat_id' => intval($this->thermostat->getId()));
 	}
@@ -71,6 +74,9 @@ class Scheduler implements Scheduling {
 		$cron->save();
 	}
 
+	/**
+	 * @return void
+	 */
 	public function unschedule() {
 		$cron = \cron::byClassAndFunction('thermostat', 'pull', $this->options());
 		if (is_object($cron)) {
@@ -85,6 +91,11 @@ class Scheduler implements Scheduling {
 		$this->forget('updatePerformance');
 	}
 
+	/**
+	 * @param string $_function
+	 * @param list<string> $_events
+	 * @return void
+	 */
 	public function listen($_function, $_events) {
 		$listener = \listener::byClassAndFunction('thermostat', $_function, $this->options());
 		if (!is_object($listener)) {
@@ -100,6 +111,10 @@ class Scheduler implements Scheduling {
 		$listener->save();
 	}
 
+	/**
+	 * @param string $_function
+	 * @return void
+	 */
 	public function forget($_function) {
 		$listener = \listener::byClassAndFunction('thermostat', $_function, $this->options());
 		if (is_object($listener)) {
@@ -107,6 +122,9 @@ class Scheduler implements Scheduling {
 		}
 	}
 
+	/**
+	 * @return void
+	 */
 	public function watchdog() {
 		if ($this->thermostat->getConfiguration('engine', 'temporal') == 'temporal' && date('i') % 10 == 0) {
 			$cron = \cron::byClassAndFunction('thermostat', 'pull', array('thermostat_id' => intval($this->thermostat->getId())));
@@ -127,6 +145,9 @@ class Scheduler implements Scheduling {
 		}
 	}
 
+	/**
+	 * @return void
+	 */
 	public function runHysteresisCron() {
 		if ($this->thermostat->getConfiguration('engine', 'temporal') == 'hysteresis' && $this->thermostat->getConfiguration('hysteresis_cron') != '') {
 			try {

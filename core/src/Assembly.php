@@ -62,6 +62,9 @@ class Assembly {
 		return new Log($this->thermostat->getHumanName());
 	}
 
+	/**
+	 * @param class-string $_class
+	 */
 	public function translator($_class): Translator {
 		return new Translator(dirname(__FILE__) . '/' . str_replace('\\', '/', substr($_class, strlen(__NAMESPACE__) + 1)) . '.php');
 	}

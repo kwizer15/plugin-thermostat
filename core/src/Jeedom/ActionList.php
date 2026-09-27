@@ -37,6 +37,11 @@ class ActionList implements Actions {
 		$this->translator = $_translator;
 	}
 
+	/**
+	 * @param array{cmd: string, options?: array<string, scalar|null>} $_action
+	 * @param scalar|null $_consigne
+	 * @return array<string, mixed>
+	 */
 	public static function options($_action, $_consigne) {
 		$options = array();
 		if (isset($_action['options'])) {
@@ -88,7 +93,11 @@ class ActionList implements Actions {
 		return $thermostatCmd;
 	}
 
-	private function logError($_action, $_exception) {
+	/**
+	 * @param array{cmd: string, options?: array<string, scalar|null>} $_action
+	 * @return void
+	 */
+	private function logError($_action, \Exception $_exception) {
 		$this->log->error($this->translator->translate("{{Erreur lors de l'exécution de}}") . ' ' . $_action['cmd'] . '. ' . $this->translator->translate('{{Détails}}') . ' : ' . $_exception->getMessage());
 	}
 }

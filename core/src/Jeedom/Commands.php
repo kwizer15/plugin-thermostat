@@ -35,6 +35,13 @@ class Commands {
 		$this->translator = $_translator;
 	}
 
+	/**
+	 * @param string $_logicalId
+	 * @param string $_type
+	 * @param string $_subType
+	 * @param (callable(\thermostatCmd): void)|null $_onCreate
+	 * @return \cmd
+	 */
 	private function upsertCmd($_logicalId, $_type, $_subType, $_onCreate = null) {
 		$cmd = $this->thermostat->getCmd(null, $_logicalId);
 		if (!is_object($cmd)) {
@@ -50,6 +57,10 @@ class Commands {
 		return $cmd;
 	}
 
+	/**
+	 * @param string $_expression
+	 * @return string|null
+	 */
 	private function firstInfoCmdId($_expression) {
 		preg_match_all("/#([0-9]*)#/", $_expression, $matches);
 		foreach ($matches[1] as $cmd_id) {
@@ -63,6 +74,9 @@ class Commands {
 		return null;
 	}
 
+	/**
+	 * @return void
+	 */
 	public function define() {
 		$order = $this->upsertCmd('order', 'info', 'numeric', function ($cmd) {
 			$cmd->setIsVisible(0);
@@ -300,6 +314,9 @@ class Commands {
 		}
 	}
 
+	/**
+	 * @return void
+	 */
 	public function definePower() {
 		$power = $this->upsertCmd('power', 'info', 'numeric', function ($cmd) {
 			$cmd->setTemplate('dashboard', 'line');
@@ -313,6 +330,9 @@ class Commands {
 		$power->save();
 	}
 
+	/**
+	 * @return void
+	 */
 	public function removePower() {
 		$power = $this->thermostat->getCmd(null, 'power');
 		if (is_object($power)) {
