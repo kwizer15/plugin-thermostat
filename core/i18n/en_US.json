@@ -280,17 +280,25 @@
         "Isolation froid": "Cold insulation",
         "Performance": "Performance",
         "Puissance": "Power",
-        "Action chauffage": "Heating action",
-        "Action froid": "Cooling action",
-        "Action stop": "Stop action",
-        "Action défaillance sonde": "Probe failure action",
-        "Action défaillance chauffage": "Heating failure action",
-        "Défaillance chauffage": "Heating failure",
         "Aucun": "None"
     },
     "plugins\/thermostat\/core\/class\/thermostatActionList.class.php": {
         "Erreur lors de l'exécution de": "Error executing",
         "Détails": "Details"
+    },
+    "plugins\/thermostat\/core\/class\/thermostatActuator.class.php": {
+        "Off": "Off",
+        "Suspendu": "Suspended",
+        "Chauffage": "Heating",
+        "Action chauffage": "Heating action",
+        "Climatisation": "Air conditioning",
+        "Action froid": "Cooling action",
+        "Arrêté": "Stopped",
+        "Action stop": "Stop action",
+        "Action défaillance sonde": "Probe failure action",
+        "Défaillance sonde": "Probe failure",
+        "Action défaillance chauffage": "Heating failure action",
+        "Défaillance chauffage": "Heating failure"
     },
     "plugins\/thermostat\/core\/class\/thermostatCoefficientLearner.class.php": {
         "Démarre auto-apprentissage": "Starts self-learning"

@@ -280,17 +280,25 @@
         "Isolation froid": "Kälteisolierung",
         "Performance": "Leistung",
         "Puissance": "Macht",
-        "Action chauffage": "Heizwirkung",
-        "Action froid": "Kalte Aktion",
-        "Action stop": "Aktion stoppen",
-        "Action défaillance sonde": "Aktion bei Sondenausfall",
-        "Action défaillance chauffage": "Aktion bei Heizungsausfall",
-        "Défaillance chauffage": "Heizungsfehler",
         "Aucun": "Ohne"
     },
     "plugins\/thermostat\/core\/class\/thermostatActionList.class.php": {
         "Erreur lors de l'exécution de": "Fehler beim Ausführen",
         "Détails": "Einzelheiten"
+    },
+    "plugins\/thermostat\/core\/class\/thermostatActuator.class.php": {
+        "Off": "Aus",
+        "Suspendu": "Ausgesetzt",
+        "Chauffage": "Heizung",
+        "Action chauffage": "Heizwirkung",
+        "Climatisation": "Klimaanlage",
+        "Action froid": "Kalte Aktion",
+        "Arrêté": "Verhaftet",
+        "Action stop": "Aktion stoppen",
+        "Action défaillance sonde": "Aktion bei Sondenausfall",
+        "Défaillance sonde": "Sondenfehler",
+        "Action défaillance chauffage": "Aktion bei Heizungsausfall",
+        "Défaillance chauffage": "Heizungsfehler"
     },
     "plugins\/thermostat\/core\/class\/thermostatCoefficientLearner.class.php": {
         "Démarre auto-apprentissage": "Startet Selbstlernen"

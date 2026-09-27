@@ -280,17 +280,25 @@
         "Isolation froid": "Isolation froid",
         "Performance": "Performance",
         "Puissance": "パワー",
-        "Action chauffage": "Action chauffage",
-        "Action froid": "Action froid",
-        "Action stop": "Action stop",
-        "Action défaillance sonde": "Action défaillance sonde",
-        "Action défaillance chauffage": "Action défaillance chauffage",
-        "Défaillance chauffage": "Défaillance chauffage",
         "Aucun": "何でもありません"
     },
     "plugins\/thermostat\/core\/class\/thermostatActionList.class.php": {
         "Erreur lors de l'exécution de": "Erreur lors de l'exécution de",
         "Détails": "Détails"
+    },
+    "plugins\/thermostat\/core\/class\/thermostatActuator.class.php": {
+        "Off": "オフ",
+        "Suspendu": "Suspendu",
+        "Chauffage": "加熱",
+        "Action chauffage": "Action chauffage",
+        "Climatisation": "Climatisation",
+        "Action froid": "Action froid",
+        "Arrêté": "逮捕",
+        "Action stop": "Action stop",
+        "Action défaillance sonde": "Action défaillance sonde",
+        "Défaillance sonde": "Défaillance sonde",
+        "Action défaillance chauffage": "Action défaillance chauffage",
+        "Défaillance chauffage": "Défaillance chauffage"
     },
     "plugins\/thermostat\/core\/class\/thermostatCoefficientLearner.class.php": {
         "Démarre auto-apprentissage": "Démarre auto-apprentissage"

@@ -21,6 +21,7 @@ require_once dirname(__FILE__) . '/thermostatActionList.class.php';
 require_once dirname(__FILE__) . '/thermostatPowerCalculator.class.php';
 require_once dirname(__FILE__) . '/thermostatCoefficientLearner.class.php';
 require_once dirname(__FILE__) . '/thermostatSmartStart.class.php';
+require_once dirname(__FILE__) . '/thermostatActuator.class.php';
 
 class thermostat extends eqLogic {
 
@@ -315,17 +316,7 @@ class thermostat extends eqLogic {
 				try {
 					$c = new Cron\CronExpression(checkAndFixCron($thermostat->getConfiguration('repeat_commande_cron')), new Cron\FieldFactory);
 					if ($c->isDue()) {
-						switch ($thermostat->getCmd(null, 'status')->execCmd()) {
-							case __('Chauffage', __FILE__):
-								$thermostat->heat(true);
-								break;
-							case __('Arrêté', __FILE__):
-								$thermostat->stopThermostat(true);
-								break;
-							case __('Climatisation', __FILE__):
-								$thermostat->cool(true);
-								break;
-						}
+						(new thermostatActuator($thermostat))->repeat();
 					}
 				} catch (Exception $e) {
 					log::add(__CLASS__, 'error', $thermostat->getHumanName() . ' : ' . $e->getMessage());
@@ -1057,141 +1048,31 @@ class thermostat extends eqLogic {
 	}
 
 	public function heat($_repeat = false) {
-		if (!$_repeat) {
-			if ($this->getCmd(null, 'mode')->execCmd() == __('Off', __FILE__) || $this->getCmd(null, 'status')->execCmd() == __('Suspendu', __FILE__)) {
-				return false;
-			}
-			if ($this->getConfiguration('allow_mode', 'all') != 'all' && $this->getConfiguration('allow_mode', 'all') != 'heat') {
-				$this->stopThermostat();
-				return false;
-			}
-			if (count($this->getConfiguration('heating')) == 0) {
-				$this->stopThermostat();
-				return false;
-			}
-		}
-		$this->getCmd(null, 'status')->event(__('Chauffage', __FILE__));
-		log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Action chauffage', __FILE__));
-		(new thermostatActionList($this))->execute($this->getConfiguration('heating'), true);
-		if (!$_repeat) {
-			$this->refresh();
-			$this->setCache('lastState', 'heat');
-			$this->getCmd(null, 'actif')->event(1);
-		}
-		return true;
+		return (new thermostatActuator($this))->heat($_repeat);
 	}
 
 	public function cool($_repeat = false) {
-		if (!$_repeat) {
-			if ($this->getCmd(null, 'mode')->execCmd() == __('Off', __FILE__) || $this->getCmd(null, 'status')->execCmd() == __('Suspendu', __FILE__)) {
-				return false;
-			}
-			if ($this->getConfiguration('allow_mode', 'all') != 'all' && $this->getConfiguration('allow_mode', 'all') != 'cool') {
-				$this->stopThermostat();
-				return false;
-			}
-			if (count($this->getConfiguration('cooling')) == 0) {
-				$this->stopThermostat();
-				return false;
-			}
-		}
-		$this->getCmd(null, 'status')->event(__('Climatisation', __FILE__));
-		log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Action froid', __FILE__));
-		(new thermostatActionList($this))->execute($this->getConfiguration('cooling'), true);
-		if (!$_repeat) {
-			$this->refresh();
-			$this->setCache('lastState', 'cool');
-			$this->getCmd(null, 'actif')->event(1);
-		}
-		return true;
+		return (new thermostatActuator($this))->cool($_repeat);
 	}
 
 	public function stopThermostat($_repeat = false, $_suspend = false) {
-		if (!$_repeat && $this->getCmd(null, 'status')->execCmd() == __('Arrêté', __FILE__)) {
-			$power = $this->getCmd(null, 'power');
-			if (is_object($power) && $power->execCmd() > 0) {
-				$_repeat = true;
-			}else{
-			   return;
-			}
-		}
-		log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Action stop', __FILE__));
-		(new thermostatActionList($this))->execute($this->getConfiguration('stoping'), true);
-		$power = $this->getCmd(null, 'power');
-		if (is_object($power)) {
-			$power->event(0);
-		}
-		$this->getCmd(null, 'actif')->event(0);
-
-		if (!$_suspend) {
-			$this->getCmd(null, 'status')->event(__('Arrêté', __FILE__));
-		}
-		if ($_repeat) {
-			return;
-		}
-		$this->save(true);
+		(new thermostatActuator($this))->stop($_repeat, $_suspend);
 	}
 
 	public function orderChange() {
-		if ($this->getCmd(null, 'mode')->execCmd() == __('Off', __FILE__) || $this->getCmd(null, 'status')->execCmd() == __('Suspendu', __FILE__)) {
-			return;
-		}
-		if (!is_array($this->getConfiguration('orderChange')) || count($this->getConfiguration('orderChange')) == 0) {
-			return;
-		}
-		(new thermostatActionList($this))->execute($this->getConfiguration('orderChange'), true, array('modeChange' => true));
+		(new thermostatActuator($this))->orderChange();
 	}
 
 	public function failure($_failureRepeat = 999) {
-		if ($this->getCmd(null, 'mode')->execCmd() == __('Off', __FILE__) || $this->getCmd(null, 'status')->execCmd() == __('Suspendu', __FILE__)) {
-			return;
-		}
-		if (!is_array($this->getConfiguration('failure')) || count($this->getConfiguration('failure')) == 0) {
-			return;
-		}
-		log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Action défaillance sonde', __FILE__));
-		(new thermostatActionList($this))->execute($this->getConfiguration('failure'), false);
-		$this->getCmd(null, 'status')->event(__('Défaillance sonde', __FILE__));
+		(new thermostatActuator($this))->failure();
 	}
 
 	public function failureActuator() {
-		if ($this->getCmd(null, 'mode')->execCmd() == __('Off', __FILE__) || $this->getCmd(null, 'status')->execCmd() == __('Suspendu', __FILE__)) {
-			return;
-		}
-		if (!is_array($this->getConfiguration('failureActuator')) || count($this->getConfiguration('failureActuator')) == 0) {
-			return;
-		}
-		log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Action défaillance chauffage', __FILE__));
-		(new thermostatActionList($this))->execute($this->getConfiguration('failureActuator'), false);
-		$this->getCmd(null, 'status')->event(__('Défaillance chauffage', __FILE__));
+		(new thermostatActuator($this))->failureActuator();
 	}
 
 	public function executeMode($_name) {
-		$thermostatCmd = false;
-		$consigne = $this->getCmd(null, 'order')->execCmd();
-		foreach ($this->getConfiguration('existingMode') as $existingMode) {
-			if ($_name == $existingMode['name']) {
-				foreach ($existingMode['actions'] as $action) {
-					try {
-						$options = thermostatActionList::options($action, $consigne);
-						$cmd = (is_numeric(str_replace('#', '', $action['cmd']))) ? cmd::byString($action['cmd']) : '';
-						if (is_object($cmd) && $cmd->getEqLogic_id() == $this->getId() && $cmd->getLogicalId() == 'thermostat') {
-							$thermostatCmd = true;
-							$this->getCmd(null, 'order')->event(scenarioExpression::createAndExec('condition', $options['slider']));
-						} else {
-							scenarioExpression::createAndExec('action', $action['cmd'], $options);
-						}
-					} catch (Exception $e) {
-						(new thermostatActionList($this))->logError($action, $e);
-					}
-				}
-			}
-		}
-		$this->getCmd(null, 'mode')->event($_name);
-		if ($thermostatCmd == true) {
-			$this->orderChange();
-		}
-		$this->runEngine();
+		(new thermostatActuator($this))->executeMode($_name);
 	}
 
 	public function runtimeByDay($_startDate = null, $_endDate = null) {
