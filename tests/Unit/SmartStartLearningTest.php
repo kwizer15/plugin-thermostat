@@ -62,6 +62,14 @@ class SmartStartLearningTest extends ThermostatTestCase {
 		$this->assertSame(2.0, $thermostat->getConfiguration('smart_start_factor'));
 	}
 
+	public function testRatioIsBoundedBelowPerEvent() {
+		$thermostat = $this->pendingThermostat(array('smart_start_factor' => 2), 19.5, 20, 21.5);
+
+		$this->runTemporal($thermostat);
+
+		$this->assertSame(1.0, $thermostat->getConfiguration('smart_start_factor'));
+	}
+
 	public function testFactorIsBounded() {
 		$high = $this->pendingThermostat(array('smart_start_factor' => 2.5), 18, 20, 19);
 		$this->runTemporal($high);
