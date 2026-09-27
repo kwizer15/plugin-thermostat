@@ -9,6 +9,31 @@ abstract class ThermostatTestCase extends TestCase {
 	/** @var eqLogic */
 	private $device;
 
+	protected $heater;
+	protected $stopper;
+	protected $cooler;
+	protected $failureAction;
+	protected $actuatorFailureAction;
+
+	protected function equippedThermostat(array $_configuration = array(), $_indoor = 19, $_outdoor = 5, $_order = 20) {
+		$this->heater = $this->actuator('heat');
+		$this->stopper = $this->actuator('stop');
+		$this->cooler = $this->actuator('cool');
+		$this->failureAction = $this->actuator('failure');
+		$this->actuatorFailureAction = $this->actuator('failureActuator');
+		$thermostat = $this->createThermostat(array_merge(array(
+			'heating' => array($this->action($this->heater)),
+			'stoping' => array($this->action($this->stopper)),
+			'cooling' => array($this->action($this->cooler)),
+			'failure' => array($this->action($this->failureAction)),
+			'failureActuator' => array($this->action($this->actuatorFailureAction)),
+		), $_configuration));
+		$this->setValueOf($thermostat, 'temperature', $_indoor);
+		$this->setValueOf($thermostat, 'temperature_outdoor', $_outdoor);
+		$this->setValueOf($thermostat, 'order', $_order);
+		return $thermostat;
+	}
+
 	/** @var array */
 	private $phpErrors = array();
 
@@ -137,5 +162,13 @@ abstract class ThermostatTestCase extends TestCase {
 
 	protected function cronWithOptions(array $_options) {
 		return cron::byClassAndFunction('thermostat', 'pull', $_options);
+	}
+
+	protected function executed() {
+		$names = array();
+		foreach (scenarioExpression::executedCmds() as $cmd) {
+			$names[] = cmd::byId(str_replace('#', '', $cmd))->getName();
+		}
+		return $names;
 	}
 }

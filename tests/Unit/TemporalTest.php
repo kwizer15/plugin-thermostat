@@ -2,41 +2,8 @@
 
 class TemporalTest extends ThermostatTestCase {
 
-	private $heater;
-	private $stopper;
-	private $cooler;
-	private $failureAction;
-	private $actuatorFailureAction;
-
-	private function thermostat(array $_configuration = array(), $_indoor = 19, $_outdoor = 5, $_order = 20) {
-		$this->heater = $this->actuator('heat');
-		$this->stopper = $this->actuator('stop');
-		$this->cooler = $this->actuator('cool');
-		$this->failureAction = $this->actuator('failure');
-		$this->actuatorFailureAction = $this->actuator('failureActuator');
-		$thermostat = $this->createThermostat(array_merge(array(
-			'heating' => array($this->action($this->heater)),
-			'stoping' => array($this->action($this->stopper)),
-			'cooling' => array($this->action($this->cooler)),
-			'failure' => array($this->action($this->failureAction)),
-			'failureActuator' => array($this->action($this->actuatorFailureAction)),
-		), $_configuration));
-		$this->setValueOf($thermostat, 'temperature', $_indoor);
-		$this->setValueOf($thermostat, 'temperature_outdoor', $_outdoor);
-		$this->setValueOf($thermostat, 'order', $_order);
-		return $thermostat;
-	}
-
 	private function runTemporal(thermostat $_thermostat) {
 		thermostat::temporal(array('thermostat_id' => $_thermostat->getId()));
-	}
-
-	private function executed() {
-		$names = array();
-		foreach (scenarioExpression::executedCmds() as $cmd) {
-			$names[] = cmd::byId(str_replace('#', '', $cmd))->getName();
-		}
-		return $names;
 	}
 
 	private function pullSchedule(thermostat $_thermostat) {
@@ -56,7 +23,7 @@ class TemporalTest extends ThermostatTestCase {
 	}
 
 	public function testHeatsForPowerShareOfCycle() {
-		$thermostat = $this->thermostat();
+		$thermostat = $this->equippedThermostat();
 
 		$this->runTemporal($thermostat);
 
@@ -75,7 +42,7 @@ class TemporalTest extends ThermostatTestCase {
 	}
 
 	public function testPullCronIsOneShotWithTimeout() {
-		$thermostat = $this->thermostat(array('cycle' => 30));
+		$thermostat = $this->equippedThermostat(array('cycle' => 30));
 
 		$this->runTemporal($thermostat);
 
@@ -86,7 +53,7 @@ class TemporalTest extends ThermostatTestCase {
 	}
 
 	public function testPersistsThermostatEachCycle() {
-		$thermostat = $this->thermostat();
+		$thermostat = $this->equippedThermostat();
 		eqLogic::$saves = array();
 
 		$this->runTemporal($thermostat);
@@ -96,7 +63,7 @@ class TemporalTest extends ThermostatTestCase {
 	}
 
 	public function testSuspendedThermostatOnlyReschedules() {
-		$thermostat = $this->thermostat();
+		$thermostat = $this->equippedThermostat();
 		$this->setValueOf($thermostat, 'status', 'Suspendu');
 
 		$this->runTemporal($thermostat);
@@ -107,7 +74,7 @@ class TemporalTest extends ThermostatTestCase {
 	}
 
 	public function testModeOffStops() {
-		$thermostat = $this->thermostat();
+		$thermostat = $this->equippedThermostat();
 		$this->setValueOf($thermostat, 'mode', 'Off');
 		$this->setValueOf($thermostat, 'status', 'Chauffage');
 
@@ -120,7 +87,7 @@ class TemporalTest extends ThermostatTestCase {
 	}
 
 	public function testModeOffAlreadyStoppedDoesNothing() {
-		$thermostat = $this->thermostat();
+		$thermostat = $this->equippedThermostat();
 		$this->setValueOf($thermostat, 'mode', 'Off');
 		$this->setValueOf($thermostat, 'status', 'Arrêté');
 
@@ -130,7 +97,7 @@ class TemporalTest extends ThermostatTestCase {
 	}
 
 	public function testStaleSensorTriggersFailureOnce() {
-		$thermostat = $this->thermostat(array('maxTimeUpdateTemp' => 30));
+		$thermostat = $this->equippedThermostat(array('maxTimeUpdateTemp' => 30));
 		$this->setValueOf($thermostat, 'temperature', 19, '2026-01-15 09:29:00');
 
 		$this->runTemporal($thermostat);
@@ -143,7 +110,7 @@ class TemporalTest extends ThermostatTestCase {
 	}
 
 	public function testSensorUpdatedWithinDelayIsUsed() {
-		$thermostat = $this->thermostat(array('maxTimeUpdateTemp' => 30));
+		$thermostat = $this->equippedThermostat(array('maxTimeUpdateTemp' => 30));
 		$this->setValueOf($thermostat, 'temperature', 19, '2026-01-15 09:31:00');
 
 		$this->runTemporal($thermostat);
@@ -152,7 +119,7 @@ class TemporalTest extends ThermostatTestCase {
 	}
 
 	public function testIndoorTemperatureNeverReceived() {
-		$thermostat = $this->thermostat(array(), '');
+		$thermostat = $this->equippedThermostat(array(), '');
 		$this->cmdOf($thermostat, 'temperature')->setCache(array('value' => '', 'collectDate' => '', 'valueDate' => ''));
 
 		$this->runTemporal($thermostat);
@@ -163,7 +130,7 @@ class TemporalTest extends ThermostatTestCase {
 	}
 
 	public function testTooShortCycleStops() {
-		$thermostat = $this->thermostat(array(), 19.9, 20);
+		$thermostat = $this->equippedThermostat(array(), 19.9, 20);
 
 		$this->runTemporal($thermostat);
 
@@ -174,7 +141,7 @@ class TemporalTest extends ThermostatTestCase {
 	}
 
 	public function testStoveBoilerKeepsHeatingOnLowPower() {
-		$thermostat = $this->thermostat(array('stove_boiler' => 1), 19.7, 20);
+		$thermostat = $this->equippedThermostat(array('stove_boiler' => 1), 19.7, 20);
 		$thermostat->setCache('lastState', 'heat');
 
 		$this->runTemporal($thermostat);
@@ -184,7 +151,7 @@ class TemporalTest extends ThermostatTestCase {
 	}
 
 	public function testStoveBoilerDoesNotStartOnLowPower() {
-		$thermostat = $this->thermostat(array('stove_boiler' => 1), 19.7, 20);
+		$thermostat = $this->equippedThermostat(array('stove_boiler' => 1), 19.7, 20);
 
 		$this->runTemporal($thermostat);
 
@@ -192,7 +159,7 @@ class TemporalTest extends ThermostatTestCase {
 	}
 
 	public function testStoveBoilerStopsBelowOnePercent() {
-		$thermostat = $this->thermostat(array('stove_boiler' => 1), 19.95, 20);
+		$thermostat = $this->equippedThermostat(array('stove_boiler' => 1), 19.95, 20);
 		$thermostat->setCache('lastState', 'heat');
 
 		$this->runTemporal($thermostat);
@@ -201,7 +168,7 @@ class TemporalTest extends ThermostatTestCase {
 	}
 
 	public function testFullCycleSchedulesStopOnEpoch() {
-		$thermostat = $this->thermostat(array(), 10, -10);
+		$thermostat = $this->equippedThermostat(array(), 10, -10);
 
 		$this->runTemporal($thermostat);
 
@@ -211,7 +178,7 @@ class TemporalTest extends ThermostatTestCase {
 	}
 
 	public function testDirectionChangeStopsBeforeCooling() {
-		$thermostat = $this->thermostat(array(), 25, 30, 22);
+		$thermostat = $this->equippedThermostat(array(), 25, 30, 22);
 		$thermostat->setCache('lastState', 'heat');
 
 		$this->runTemporal($thermostat);
@@ -223,7 +190,7 @@ class TemporalTest extends ThermostatTestCase {
 	}
 
 	public function testCoolingNotAllowedStops() {
-		$thermostat = $this->thermostat(array('allow_mode' => 'heat'), 25, 30, 22);
+		$thermostat = $this->equippedThermostat(array('allow_mode' => 'heat'), 25, 30, 22);
 
 		$this->runTemporal($thermostat);
 
@@ -232,7 +199,7 @@ class TemporalTest extends ThermostatTestCase {
 	}
 
 	public function testDetectsActuatorFailureAfterTwoCycles() {
-		$thermostat = $this->thermostat(array('coeff_indoor_heat_autolearn' => 30), 17.5);
+		$thermostat = $this->equippedThermostat(array('coeff_indoor_heat_autolearn' => 30), 17.5);
 		$thermostat->setCache(array('lastState' => 'heat', 'lastOrder' => 20, 'lastTempIn' => 18));
 
 		$this->runTemporal($thermostat);
@@ -247,7 +214,7 @@ class TemporalTest extends ThermostatTestCase {
 	}
 
 	public function testActuatorFailureCounterResets() {
-		$thermostat = $this->thermostat(array('coeff_indoor_heat_autolearn' => 30), 19.5);
+		$thermostat = $this->equippedThermostat(array('coeff_indoor_heat_autolearn' => 30), 19.5);
 		$thermostat->setCache(array('lastState' => 'heat', 'lastOrder' => 20, 'lastTempIn' => 18, 'nbConsecutiveFaillure' => 1));
 
 		$this->runTemporal($thermostat);
@@ -256,7 +223,7 @@ class TemporalTest extends ThermostatTestCase {
 	}
 
 	public function testLearnsIndoorHeatCoefficient() {
-		$thermostat = $this->thermostat();
+		$thermostat = $this->equippedThermostat();
 		$thermostat->setCache(array('lastState' => 'heat', 'last_power' => 50, 'lastOrder' => 20, 'lastTempIn' => 18));
 
 		$this->runTemporal($thermostat);
@@ -268,7 +235,7 @@ class TemporalTest extends ThermostatTestCase {
 	}
 
 	public function testLearnsOutdoorHeatCoefficient() {
-		$thermostat = $this->thermostat(array(), 18.5);
+		$thermostat = $this->equippedThermostat(array(), 18.5);
 		$thermostat->setCache(array('lastState' => 'heat', 'last_power' => 50, 'lastOrder' => 20, 'lastTempIn' => 19));
 
 		$this->runTemporal($thermostat);
@@ -279,7 +246,7 @@ class TemporalTest extends ThermostatTestCase {
 	}
 
 	public function testLearnsIndoorCoolCoefficient() {
-		$thermostat = $this->thermostat(array(), 24, 30, 22);
+		$thermostat = $this->equippedThermostat(array(), 24, 30, 22);
 		$thermostat->setCache(array('lastState' => 'cool', 'last_power' => 50, 'lastOrder' => 22, 'lastTempIn' => 25));
 
 		$this->runTemporal($thermostat);
@@ -289,7 +256,7 @@ class TemporalTest extends ThermostatTestCase {
 	}
 
 	public function testLearnsOutdoorCoolCoefficient() {
-		$thermostat = $this->thermostat(array(), 24.5, 30, 22);
+		$thermostat = $this->equippedThermostat(array(), 24.5, 30, 22);
 		$thermostat->setCache(array('lastState' => 'cool', 'last_power' => 50, 'lastOrder' => 22, 'lastTempIn' => 24));
 
 		$this->runTemporal($thermostat);
@@ -299,7 +266,7 @@ class TemporalTest extends ThermostatTestCase {
 	}
 
 	public function testAutolearnCounterIsCappedAtFifty() {
-		$thermostat = $this->thermostat(array('coeff_indoor_heat_autolearn' => 50));
+		$thermostat = $this->equippedThermostat(array('coeff_indoor_heat_autolearn' => 50));
 		$thermostat->setCache(array('lastState' => 'heat', 'last_power' => 50, 'lastOrder' => 20, 'lastTempIn' => 18));
 
 		$this->runTemporal($thermostat);
@@ -309,7 +276,7 @@ class TemporalTest extends ThermostatTestCase {
 	}
 
 	public function testNegativeLearnedCoefficientBecomesZero() {
-		$thermostat = $this->thermostat(array(), 25);
+		$thermostat = $this->equippedThermostat(array(), 25);
 		$thermostat->setCache(array('lastState' => 'heat', 'last_power' => 50, 'lastOrder' => 20, 'lastTempIn' => 26));
 
 		$this->runTemporal($thermostat);
@@ -321,7 +288,7 @@ class TemporalTest extends ThermostatTestCase {
 	 * @dataProvider noLearningCases
 	 */
 	public function testDoesNotLearn(array $_configuration, array $_cache) {
-		$thermostat = $this->thermostat($_configuration);
+		$thermostat = $this->equippedThermostat($_configuration);
 		$thermostat->setCache(array_merge(array('lastState' => 'heat', 'last_power' => 50, 'lastOrder' => 20, 'lastTempIn' => 18), $_cache));
 
 		$this->runTemporal($thermostat);
@@ -339,7 +306,7 @@ class TemporalTest extends ThermostatTestCase {
 	}
 
 	public function testLearningOnlyOncePerCycle() {
-		$thermostat = $this->thermostat();
+		$thermostat = $this->equippedThermostat();
 		$thermostat->setCache(array('lastState' => 'heat', 'last_power' => 50, 'lastOrder' => 20, 'lastTempIn' => 18));
 		$this->runTemporal($thermostat);
 
@@ -350,7 +317,7 @@ class TemporalTest extends ThermostatTestCase {
 	}
 
 	public function testDeltaOrderRetriesAboveSetpoint() {
-		$thermostat = $this->thermostat();
+		$thermostat = $this->equippedThermostat();
 		$thermostat->setCache('deltaOrder', 1);
 
 		$this->runTemporal($thermostat);
@@ -360,7 +327,7 @@ class TemporalTest extends ThermostatTestCase {
 	}
 
 	public function testDeltaOrderKeepsZeroPower() {
-		$thermostat = $this->thermostat(array(), 21);
+		$thermostat = $this->equippedThermostat(array(), 21);
 		$thermostat->setCache('deltaOrder', 1);
 
 		$this->runTemporal($thermostat);
