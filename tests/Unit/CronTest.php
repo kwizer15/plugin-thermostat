@@ -1,5 +1,9 @@
 <?php
 
+namespace Jeedom\Plugin\Thermostat\Tests\Unit;
+
+use Jeedom\Plugin\Thermostat\Tests\ThermostatTestCase;
+
 class CronTest extends ThermostatTestCase {
 
 	/**
@@ -9,7 +13,7 @@ class CronTest extends ThermostatTestCase {
 		$thermostat = $this->equippedThermostat(array('repeat_commande_cron' => '* * * * *'));
 		$this->setValueOf($thermostat, 'status', $_status);
 
-		thermostat::cron();
+		\thermostat::cron();
 
 		$this->assertSame($_expected, $this->executed());
 		$this->assertSame($_status, $this->valueOf($thermostat, 'status'));
@@ -28,7 +32,7 @@ class CronTest extends ThermostatTestCase {
 		$thermostat = $this->equippedThermostat(array('repeat_commande_cron' => '30 * * * *'));
 		$this->setValueOf($thermostat, 'status', 'Chauffage');
 
-		thermostat::cron();
+		\thermostat::cron();
 
 		$this->assertSame(array(), $this->executed());
 	}
@@ -36,9 +40,9 @@ class CronTest extends ThermostatTestCase {
 	public function testInvalidRepeatCronIsLogged() {
 		$thermostat = $this->equippedThermostat(array('repeat_commande_cron' => 'n\'importe quoi'));
 
-		thermostat::cron();
+		\thermostat::cron();
 
-		$this->assertCount(1, log::messages('error'));
+		$this->assertCount(1, \log::messages('error'));
 	}
 
 	public function testIgnoresDisabledThermostats() {
@@ -46,7 +50,7 @@ class CronTest extends ThermostatTestCase {
 		$this->setValueOf($thermostat, 'status', 'Chauffage');
 		$thermostat->setIsEnable(0);
 
-		thermostat::cron();
+		\thermostat::cron();
 
 		$this->assertSame(array(), $this->executed());
 	}
@@ -56,10 +60,10 @@ class CronTest extends ThermostatTestCase {
 		$this->setValueOf($thermostat, 'status', 'Suspendu');
 		$thermostat->setCache('window::state::open', strtotime('2026-01-15 09:49:00'));
 
-		thermostat::cron();
-		thermostat::cron();
+		\thermostat::cron();
+		\thermostat::cron();
 
-		$this->assertSame(array('[Salon] Attention le thermostat est suspendu à cause d\'une fenêtre ouverte depuis : 11minutes'), log::messages('error'));
+		$this->assertSame(array('[Salon] Attention le thermostat est suspendu à cause d\'une fenêtre ouverte depuis : 11minutes'), \log::messages('error'));
 		$this->assertSame(1, $thermostat->getCache('alertSendForWindow'));
 	}
 
@@ -68,9 +72,9 @@ class CronTest extends ThermostatTestCase {
 		$this->setValueOf($thermostat, 'status', 'Suspendu');
 		$thermostat->setCache('window::state::open', strtotime('2026-01-15 09:51:00'));
 
-		thermostat::cron();
+		\thermostat::cron();
 
-		$this->assertSame(array(), log::messages('error'));
+		$this->assertSame(array(), \log::messages('error'));
 	}
 
 	public function testWindowAlertResetsWhenNoLongerSuspended() {
@@ -78,7 +82,7 @@ class CronTest extends ThermostatTestCase {
 		$thermostat->setCache('window::state::open', strtotime('2026-01-15 09:49:00'));
 		$thermostat->setCache('alertSendForWindow', 1);
 
-		thermostat::cron();
+		\thermostat::cron();
 
 		$this->assertSame(0, $thermostat->getCache('alertSendForWindow'));
 	}
@@ -86,7 +90,7 @@ class CronTest extends ThermostatTestCase {
 	public function testReschedulesMissingTemporalCronEveryTenMinutes() {
 		$thermostat = $this->equippedThermostat();
 
-		thermostat::cron();
+		\thermostat::cron();
 
 		$this->assertSame('02 10 15 01 *', $this->cronWithOptions(array('thermostat_id' => $thermostat->getId()))->getSchedule());
 	}
@@ -95,7 +99,7 @@ class CronTest extends ThermostatTestCase {
 		$this->setNow('2026-01-15 10:01:00');
 		$this->equippedThermostat();
 
-		thermostat::cron();
+		\thermostat::cron();
 
 		$this->assertSame(array(), $this->pullCrons());
 	}
@@ -104,7 +108,7 @@ class CronTest extends ThermostatTestCase {
 		$thermostat = $this->equippedThermostat();
 		$thermostat->reschedule('2026-01-15 10:40:00');
 
-		thermostat::cron();
+		\thermostat::cron();
 
 		$this->assertSame('40 10 15 01 *', $this->cronWithOptions(array('thermostat_id' => $thermostat->getId()))->getSchedule());
 	}
@@ -114,7 +118,7 @@ class CronTest extends ThermostatTestCase {
 		$thermostat->reschedule('2026-01-15 10:40:00');
 		$this->cronWithOptions(array('thermostat_id' => $thermostat->getId()))->setSchedule('invalide')->save();
 
-		thermostat::cron();
+		\thermostat::cron();
 
 		$this->assertSame('02 10 15 01 *', $this->cronWithOptions(array('thermostat_id' => $thermostat->getId()))->getSchedule());
 	}
@@ -128,7 +132,7 @@ class CronTest extends ThermostatTestCase {
 		));
 		$this->setInfo($indoor, 18);
 
-		thermostat::cron();
+		\thermostat::cron();
 
 		$this->assertSame(18.0, $this->valueOf($thermostat, 'temperature'));
 		$this->assertSame(array('heat'), $this->executed());
@@ -138,37 +142,37 @@ class CronTest extends ThermostatTestCase {
 		$thermostat = $this->equippedThermostat(array('maxTimeUpdateTemp' => 30));
 		$this->setValueOf($thermostat, 'temperature', 19, '2026-01-15 09:29:00');
 
-		thermostat::cron();
-		thermostat::cron();
+		\thermostat::cron();
+		\thermostat::cron();
 
 		$this->assertSame(array('failure'), $this->executed());
-		$this->assertCount(1, log::messages('error'));
+		$this->assertCount(1, \log::messages('error'));
 		$this->assertSame(1, $thermostat->getCache('temp_threshold'));
 	}
 
 	public function testTemperatureBelowMinimumIsFailure() {
 		$thermostat = $this->equippedThermostat(array('temperature_indoor_min' => 12), 11);
 
-		thermostat::cron();
+		\thermostat::cron();
 
 		$this->assertSame(array('failure'), $this->executed());
-		$this->assertSame(array('[Salon] Attention la température intérieure est en dessous du seuil autorisé : 11'), log::messages('error'));
+		$this->assertSame(array('[Salon] Attention la température intérieure est en dessous du seuil autorisé : 11'), \log::messages('error'));
 	}
 
 	public function testTemperatureAboveMaximumIsFailure() {
 		$thermostat = $this->equippedThermostat(array('temperature_indoor_max' => 28), 29);
 
-		thermostat::cron();
+		\thermostat::cron();
 
 		$this->assertSame(array('failure'), $this->executed());
-		$this->assertSame(array('[Salon] Attention la température intérieure est au dessus du seuil autorisé : 29'), log::messages('error'));
+		$this->assertSame(array('[Salon] Attention la température intérieure est au dessus du seuil autorisé : 29'), \log::messages('error'));
 	}
 
 	public function testTemperatureBackInRangeResetsFlag() {
 		$thermostat = $this->equippedThermostat(array('temperature_indoor_min' => 12, 'temperature_indoor_max' => 28));
 		$thermostat->setCache('temp_threshold', 1);
 
-		thermostat::cron();
+		\thermostat::cron();
 
 		$this->assertSame(0, $thermostat->getCache('temp_threshold'));
 		$this->assertSame(array(), $this->executed());
@@ -178,8 +182,8 @@ class CronTest extends ThermostatTestCase {
 		$thermostat = $this->equippedThermostat(array('temperature_indoor_min' => 12), 11);
 		$this->setValueOf($thermostat, 'mode', 'off');
 
-		thermostat::cron();
+		\thermostat::cron();
 
-		$this->assertSame(array(), log::messages('error'));
+		$this->assertSame(array(), \log::messages('error'));
 	}
 }

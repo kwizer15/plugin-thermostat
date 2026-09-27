@@ -1,5 +1,7 @@
 <?php
 
+namespace Jeedom\Plugin\Thermostat\Tests\Metier;
+
 use Jeedom\Plugin\Thermostat\Domain\Actuator\Settings as ActuatorSettings;
 use Jeedom\Plugin\Thermostat\Domain\Command\Settings as CommandSettings;
 use Jeedom\Plugin\Thermostat\Domain\Engine\HysteresisSettings;

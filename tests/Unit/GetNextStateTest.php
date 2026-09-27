@@ -1,10 +1,14 @@
 <?php
 
+namespace Jeedom\Plugin\Thermostat\Tests\Unit;
+
+use Jeedom\Plugin\Thermostat\Tests\ThermostatTestCase;
+
 class GetNextStateTest extends ThermostatTestCase {
 
 	private function calendar($_isEnable = 1) {
-		plugin::install('calendar');
-		$calendar = new calendar();
+		\plugin::install('calendar');
+		$calendar = new \calendar();
 		$calendar->setName('Agenda');
 		$calendar->setEqType_name('calendar');
 		$calendar->setIsEnable($_isEnable);
@@ -23,7 +27,7 @@ class GetNextStateTest extends ThermostatTestCase {
 		return $thermostat;
 	}
 
-	private function mode(thermostat $_thermostat, $_name) {
+	private function mode(\thermostat $_thermostat, $_name) {
 		foreach ($_thermostat->getCmd(null, 'modeAction', null, true) as $mode) {
 			if ($mode->getName() == $_name) {
 				return $mode;
@@ -31,12 +35,12 @@ class GetNextStateTest extends ThermostatTestCase {
 		}
 	}
 
-	private function eventOnStart($_calendar, cmd $_cmd, $_date, array $_options = array()) {
-		return calendar_event::create($_calendar, array(array('cmd' => '#' . $_cmd->getId() . '#', 'options' => $_options)), array(), array('start' => array('date' => $_date)));
+	private function eventOnStart($_calendar, \cmd $_cmd, $_date, array $_options = array()) {
+		return \calendar_event::create($_calendar, array(array('cmd' => '#' . $_cmd->getId() . '#', 'options' => $_options)), array(), array('start' => array('date' => $_date)));
 	}
 
 	private function smartCrons() {
-		return cron::searchClassAndFunction('thermostat', 'pull', '"smartThermostat":1');
+		return \cron::searchClassAndFunction('thermostat', 'pull', '"smartThermostat":1');
 	}
 
 	public function testSchedulesSmartStartBeforeModeEvent() {
@@ -84,7 +88,7 @@ class GetNextStateTest extends ThermostatTestCase {
 		$thermostat = $this->thermostatWithModes(array('Confort' => '21'));
 		$calendar = $this->calendar();
 		$mode = $this->mode($thermostat, 'Confort');
-		calendar_event::create($calendar, array(), array(array('cmd' => '#' . $mode->getId() . '#')), array('end' => array('date' => '2026-01-15 20:00:00')));
+		\calendar_event::create($calendar, array(), array(array('cmd' => '#' . $mode->getId() . '#')), array('end' => array('date' => '2026-01-15 20:00:00')));
 
 		$thermostat->getNextState();
 
@@ -139,10 +143,10 @@ class GetNextStateTest extends ThermostatTestCase {
 	public function testRequiresActiveCalendarPlugin() {
 		$thermostat = $this->thermostatWithModes(array('Confort' => '21'));
 		$this->eventOnStart($this->calendar(), $this->mode($thermostat, 'Confort'), '2026-01-15 18:00:00');
-		plugin::install('calendar', 0);
+		\plugin::install('calendar', 0);
 
 		$this->assertSame('', $thermostat->getNextState());
-		plugin::reset();
+		\plugin::reset();
 		$this->assertSame('', $thermostat->getNextState());
 		$this->assertSame(array(), $this->smartCrons());
 	}
@@ -176,7 +180,7 @@ class GetNextStateTest extends ThermostatTestCase {
 		$thermostat = $this->equippedThermostat();
 		$this->eventOnStart($this->calendar(), $this->cmdOf($thermostat, 'thermostat'), '2026-01-15 18:00:00', array('slider' => 22));
 
-		thermostat::temporal(array('thermostat_id' => $thermostat->getId()));
+		\thermostat::temporal(array('thermostat_id' => $thermostat->getId()));
 
 		$this->assertSame(array('heat'), $this->executed());
 		$this->assertCount(1, $this->smartCrons());
@@ -186,7 +190,7 @@ class GetNextStateTest extends ThermostatTestCase {
 		$thermostat = $this->thermostatWithModes(array('Confort' => '21'));
 		$this->eventOnStart($this->calendar(), $this->mode($thermostat, 'Confort'), '2026-01-15 18:00:00');
 
-		thermostat::temporal(array('thermostat_id' => $thermostat->getId()));
+		\thermostat::temporal(array('thermostat_id' => $thermostat->getId()));
 
 		$this->assertCount(1, $this->smartCrons());
 	}
@@ -196,7 +200,7 @@ class GetNextStateTest extends ThermostatTestCase {
 		$thermostat->setConfiguration('smart_start', 0)->save();
 		$this->eventOnStart($this->calendar(), $this->mode($thermostat, 'Confort'), '2026-01-15 18:00:00');
 
-		thermostat::temporal(array('thermostat_id' => $thermostat->getId()));
+		\thermostat::temporal(array('thermostat_id' => $thermostat->getId()));
 
 		$this->assertSame(array(), $this->smartCrons());
 	}

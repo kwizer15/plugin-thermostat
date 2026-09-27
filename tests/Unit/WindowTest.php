@@ -1,18 +1,22 @@
 <?php
 
+namespace Jeedom\Plugin\Thermostat\Tests\Unit;
+
+use Jeedom\Plugin\Thermostat\Tests\ThermostatTestCase;
+
 class WindowTest extends ThermostatTestCase {
 
 	private function windowThermostat(array $_windows, array $_configuration = array()) {
 		return $this->equippedThermostat(array_merge(array('window' => $_windows), $_configuration));
 	}
 
-	private function windowConfig(cmd $_sensor, array $_options = array()) {
+	private function windowConfig(\cmd $_sensor, array $_options = array()) {
 		return array_merge(array('cmd' => '#' . $_sensor->getId() . '#'), $_options);
 	}
 
-	private function notify(thermostat $_thermostat, cmd $_sensor, $_value) {
+	private function notify(\thermostat $_thermostat, \cmd $_sensor, $_value) {
 		$this->setInfo($_sensor, $_value);
-		thermostat::window(array('thermostat_id' => $_thermostat->getId(), 'event_id' => $_sensor->getId(), 'value' => $_value));
+		\thermostat::window(array('thermostat_id' => $_thermostat->getId(), 'event_id' => $_sensor->getId(), 'value' => $_value));
 	}
 
 	public function testOpeningSuspendsThermostat() {
@@ -63,7 +67,7 @@ class WindowTest extends ThermostatTestCase {
 		$window = $this->sensor(0, 'binary');
 		$thermostat = $this->windowThermostat(array($this->windowConfig($window)));
 
-		thermostat::window(array('thermostat_id' => $thermostat->getId(), 'event_id' => $window->getId(), 'value' => 1));
+		\thermostat::window(array('thermostat_id' => $thermostat->getId(), 'event_id' => $window->getId(), 'value' => 1));
 
 		$this->assertSame(array(), $this->executed());
 		$this->assertSame('', $this->valueOf($thermostat, 'status'));
@@ -83,7 +87,7 @@ class WindowTest extends ThermostatTestCase {
 		$window = $this->sensor(0, 'binary');
 		$thermostat = $this->windowThermostat(array($this->windowConfig($window)));
 		$this->notify($thermostat, $window, 1);
-		scenarioExpression::reset();
+		\scenarioExpression::reset();
 
 		$this->notify($thermostat, $window, 0);
 
@@ -99,7 +103,7 @@ class WindowTest extends ThermostatTestCase {
 		$thermostat = $this->windowThermostat(array($this->windowConfig($window)), array('engine' => 'hysteresis'));
 		$this->setValueOf($thermostat, 'temperature', 18);
 		$this->notify($thermostat, $window, 1);
-		scenarioExpression::reset();
+		\scenarioExpression::reset();
 
 		$this->notify($thermostat, $window, 0);
 
@@ -112,7 +116,7 @@ class WindowTest extends ThermostatTestCase {
 		$thermostat = $this->windowThermostat(array($this->windowConfig($window), $this->windowConfig($other)));
 		$this->notify($thermostat, $window, 1);
 		$this->setInfo($other, 1);
-		scenarioExpression::reset();
+		\scenarioExpression::reset();
 
 		$this->notify($thermostat, $window, 0);
 
@@ -126,7 +130,7 @@ class WindowTest extends ThermostatTestCase {
 		$thermostat = $this->windowThermostat(array($this->windowConfig($window), $this->windowConfig($other, array('restartTime' => 5))));
 		$this->notify($thermostat, $window, 1);
 		$thermostat->setCache('window::close::' . $other->getId() . '::datetime', '2026-01-15 09:57:00');
-		scenarioExpression::reset();
+		\scenarioExpression::reset();
 
 		$this->notify($thermostat, $window, 0);
 

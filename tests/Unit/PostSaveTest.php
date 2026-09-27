@@ -1,8 +1,12 @@
 <?php
 
+namespace Jeedom\Plugin\Thermostat\Tests\Unit;
+
+use Jeedom\Plugin\Thermostat\Tests\ThermostatTestCase;
+
 class PostSaveTest extends ThermostatTestCase {
 
-	private function logicalIds(thermostat $_thermostat) {
+	private function logicalIds(\thermostat $_thermostat) {
 		$return = array();
 		foreach ($_thermostat->getCmd() as $cmd) {
 			$return[] = $cmd->getLogicalId();
@@ -11,8 +15,8 @@ class PostSaveTest extends ThermostatTestCase {
 		return $return;
 	}
 
-	private function listenerFor(thermostat $_thermostat, $_function) {
-		return listener::byClassAndFunction('thermostat', $_function, array('thermostat_id' => intval($_thermostat->getId())));
+	private function listenerFor(\thermostat $_thermostat, $_function) {
+		return \listener::byClassAndFunction('thermostat', $_function, array('thermostat_id' => intval($_thermostat->getId())));
 	}
 
 	public function testCreatesCommandsForTemporalEngine() {
@@ -245,7 +249,7 @@ class PostSaveTest extends ThermostatTestCase {
 		$thermostat->save();
 
 		$this->assertFalse($this->cronWithOptions(array('thermostat_id' => $thermostat->getId())));
-		$this->assertSame(array('#' . $stop->getId() . '#'), scenarioExpression::executedCmds());
+		$this->assertSame(array('#' . $stop->getId() . '#'), \scenarioExpression::executedCmds());
 		$this->assertSame('Arrêté', $this->valueOf($thermostat, 'status'));
 	}
 
@@ -262,7 +266,7 @@ class PostSaveTest extends ThermostatTestCase {
 		$thermostat->setIsEnable(0);
 		$thermostat->save();
 
-		$this->assertSame(array(), cron::all());
-		$this->assertSame(array(), listener::all());
+		$this->assertSame(array(), \cron::all());
+		$this->assertSame(array(), \listener::all());
 	}
 }

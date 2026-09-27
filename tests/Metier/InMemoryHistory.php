@@ -1,5 +1,7 @@
 <?php
 
+namespace Jeedom\Plugin\Thermostat\Tests\Metier;
+
 use Jeedom\Plugin\Thermostat\Domain\Statistics\History;
 
 class InMemoryHistory implements History {

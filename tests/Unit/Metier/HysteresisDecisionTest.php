@@ -1,10 +1,15 @@
 <?php
 
+namespace Jeedom\Plugin\Thermostat\Tests\Unit\Metier;
+
 require_once __DIR__ . '/../../Metier/bootstrap.php';
 
-use PHPUnit\Framework\TestCase;
 use Jeedom\Plugin\Thermostat\Domain\Engine\HysteresisDecision;
 use Jeedom\Plugin\Thermostat\Domain\StatusLabels;
+use Jeedom\Plugin\Thermostat\Tests\Metier\IdentityTranslator;
+use Jeedom\Plugin\Thermostat\Tests\Metier\InMemorySettings;
+use Jeedom\Plugin\Thermostat\Tests\Metier\RecordingLog;
+use PHPUnit\Framework\TestCase;
 
 class HysteresisDecisionTest extends TestCase {
 

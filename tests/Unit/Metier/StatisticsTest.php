@@ -1,9 +1,14 @@
 <?php
 
+namespace Jeedom\Plugin\Thermostat\Tests\Unit\Metier;
+
 require_once __DIR__ . '/../../Metier/bootstrap.php';
 
-use PHPUnit\Framework\TestCase;
 use Jeedom\Plugin\Thermostat\Domain\Statistics\Statistics;
+use Jeedom\Plugin\Thermostat\Tests\Metier\InMemoryHistory;
+use Jeedom\Plugin\Thermostat\Tests\Metier\InMemorySettings;
+use Jeedom\Plugin\Thermostat\Tests\Metier\NumericEvaluator;
+use PHPUnit\Framework\TestCase;
 
 class StatisticsTest extends TestCase {
 

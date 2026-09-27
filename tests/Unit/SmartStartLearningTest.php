@@ -1,5 +1,9 @@
 <?php
 
+namespace Jeedom\Plugin\Thermostat\Tests\Unit;
+
+use Jeedom\Plugin\Thermostat\Tests\ThermostatTestCase;
+
 class SmartStartLearningTest extends ThermostatTestCase {
 
 	private function pendingThermostat(array $_configuration, $_startTemperature, $_consigne, $_temperatureAtEvent, $_eventDate = '2026-01-15 10:00:00') {
@@ -13,8 +17,8 @@ class SmartStartLearningTest extends ThermostatTestCase {
 		return $thermostat;
 	}
 
-	private function runTemporal(thermostat $_thermostat) {
-		thermostat::temporal(array('thermostat_id' => $_thermostat->getId()));
+	private function runTemporal(\thermostat $_thermostat) {
+		\thermostat::temporal(array('thermostat_id' => $_thermostat->getId()));
 	}
 
 	public function testLearnsFromLatePreheat() {
@@ -130,7 +134,7 @@ class SmartStartLearningTest extends ThermostatTestCase {
 	public function testPullRemembersSmartStart() {
 		$thermostat = $this->equippedThermostat(array(), 18.5, 5, 17);
 
-		thermostat::pull(array('thermostat_id' => intval($thermostat->getId()), 'smartThermostat' => 1, 'next' => array('type' => 'thermostat', 'consigne' => '21', 'date' => '2026-01-15 11:00:00')));
+		\thermostat::pull(array('thermostat_id' => intval($thermostat->getId()), 'smartThermostat' => 1, 'next' => array('type' => 'thermostat', 'consigne' => '21', 'date' => '2026-01-15 11:00:00')));
 
 		$this->assertSame(array(
 			'start' => self::NOW,
@@ -145,7 +149,7 @@ class SmartStartLearningTest extends ThermostatTestCase {
 		$thermostat->setConfiguration('existingMode', array(array('name' => 'Confort', 'actions' => array($this->action($this->cmdOf($thermostat, 'thermostat'), array('slider' => '21'))))))->save();
 		$mode = $thermostat->getCmd(null, 'modeAction', null, true)[0];
 
-		thermostat::pull(array('thermostat_id' => intval($thermostat->getId()), 'smartThermostat' => 1, 'next' => array('type' => 'mode', 'cmd' => $mode->getId(), 'consigne' => '21', 'date' => '2026-01-15 11:00:00')));
+		\thermostat::pull(array('thermostat_id' => intval($thermostat->getId()), 'smartThermostat' => 1, 'next' => array('type' => 'mode', 'cmd' => $mode->getId(), 'consigne' => '21', 'date' => '2026-01-15 11:00:00')));
 
 		$this->assertSame('2026-01-15 11:00:00', $thermostat->getCache('smartStart')['date']);
 		$this->assertSame(21, $thermostat->getCache('smartStart')['consigne']);
@@ -155,7 +159,7 @@ class SmartStartLearningTest extends ThermostatTestCase {
 		$thermostat = $this->equippedThermostat();
 		$this->setValueOf($thermostat, 'lock_state', 1);
 
-		thermostat::pull(array('thermostat_id' => intval($thermostat->getId()), 'smartThermostat' => 1, 'next' => array('type' => 'thermostat', 'consigne' => '21', 'date' => '2026-01-15 11:00:00')));
+		\thermostat::pull(array('thermostat_id' => intval($thermostat->getId()), 'smartThermostat' => 1, 'next' => array('type' => 'thermostat', 'consigne' => '21', 'date' => '2026-01-15 11:00:00')));
 
 		$this->assertSame('', $thermostat->getCache('smartStart'));
 	}

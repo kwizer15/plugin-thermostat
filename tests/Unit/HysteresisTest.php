@@ -1,17 +1,21 @@
 <?php
 
+namespace Jeedom\Plugin\Thermostat\Tests\Unit;
+
+use Jeedom\Plugin\Thermostat\Tests\ThermostatTestCase;
+
 class HysteresisTest extends ThermostatTestCase {
 
 	private function hysteresisThermostat(array $_configuration = array(), $_indoor = 20) {
 		return $this->equippedThermostat(array_merge(array('engine' => 'hysteresis'), $_configuration), $_indoor);
 	}
 
-	private function runHysteresis(thermostat $_thermostat) {
-		thermostat::hysteresis(array('thermostat_id' => $_thermostat->getId()));
+	private function runHysteresis(\thermostat $_thermostat) {
+		\thermostat::hysteresis(array('thermostat_id' => $_thermostat->getId()));
 	}
 
 	public function testUnknownThermostatIsIgnored() {
-		thermostat::hysteresis(array('thermostat_id' => 999));
+		\thermostat::hysteresis(array('thermostat_id' => 999));
 
 		$this->assertSame(array(), $this->executed());
 	}
@@ -150,13 +154,13 @@ class HysteresisTest extends ThermostatTestCase {
 		$this->runHysteresis($thermostat);
 
 		$this->assertSame(array('failure'), $this->executed());
-		$this->assertCount(1, log::messages('error'));
+		$this->assertCount(1, \log::messages('error'));
 		$this->assertSame('Défaillance sonde', $this->valueOf($thermostat, 'status'));
 	}
 
 	public function testHistorizesSetpointOnEachRun() {
 		$thermostat = $this->hysteresisThermostat();
-		cmd::$history = array();
+		\cmd::$history = array();
 
 		$this->runHysteresis($thermostat);
 		$this->runHysteresis($thermostat);
@@ -164,7 +168,7 @@ class HysteresisTest extends ThermostatTestCase {
 		$this->assertSame(array(
 			array('cmd' => 'order', 'value' => 20.0, 'datetime' => ''),
 			array('cmd' => 'order', 'value' => 20.0, 'datetime' => ''),
-		), cmd::$history);
+		), \cmd::$history);
 	}
 
 	public function testHeatingNotAllowedDoesNothing() {

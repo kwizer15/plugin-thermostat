@@ -1,25 +1,29 @@
 <?php
 
+namespace Jeedom\Plugin\Thermostat\Tests\Unit;
+
+use Jeedom\Plugin\Thermostat\Tests\ThermostatTestCase;
+
 class TemporalTest extends ThermostatTestCase {
 
-	private function runTemporal(thermostat $_thermostat) {
-		thermostat::temporal(array('thermostat_id' => $_thermostat->getId()));
+	private function runTemporal(\thermostat $_thermostat) {
+		\thermostat::temporal(array('thermostat_id' => $_thermostat->getId()));
 	}
 
-	private function pullSchedule(thermostat $_thermostat) {
+	private function pullSchedule(\thermostat $_thermostat) {
 		$cron = $this->cronWithOptions(array('thermostat_id' => $_thermostat->getId()));
 		return is_object($cron) ? $cron->getSchedule() : null;
 	}
 
-	private function stopSchedule(thermostat $_thermostat) {
+	private function stopSchedule(\thermostat $_thermostat) {
 		$cron = $this->cronWithOptions(array('thermostat_id' => $_thermostat->getId(), 'stop' => 1));
 		return is_object($cron) ? $cron->getSchedule() : null;
 	}
 
 	public function testUnknownThermostatIsIgnored() {
-		thermostat::temporal(array('thermostat_id' => 999));
+		\thermostat::temporal(array('thermostat_id' => 999));
 
-		$this->assertSame(array(), cron::all());
+		$this->assertSame(array(), \cron::all());
 	}
 
 	public function testHeatsForPowerShareOfCycle() {
@@ -54,11 +58,11 @@ class TemporalTest extends ThermostatTestCase {
 
 	public function testPersistsThermostatEachCycle() {
 		$thermostat = $this->equippedThermostat();
-		eqLogic::$saves = array();
+		\eqLogic::$saves = array();
 
 		$this->runTemporal($thermostat);
 
-		$this->assertSame(array(array('id' => $thermostat->getId(), 'direct' => true)), eqLogic::$saves);
+		$this->assertSame(array(array('id' => $thermostat->getId(), 'direct' => true)), \eqLogic::$saves);
 	}
 
 	public function testSuspendedThermostatOnlyReschedules() {
@@ -103,7 +107,7 @@ class TemporalTest extends ThermostatTestCase {
 		$this->runTemporal($thermostat);
 
 		$this->assertSame(array('failure'), $this->executed());
-		$this->assertCount(1, log::messages('error'));
+		$this->assertCount(1, \log::messages('error'));
 		$this->assertSame('Défaillance sonde', $this->valueOf($thermostat, 'status'));
 		$this->assertSame(1, $thermostat->getCache('temp_threshold'));
 	}
@@ -124,7 +128,7 @@ class TemporalTest extends ThermostatTestCase {
 		$this->runTemporal($thermostat);
 
 		$this->assertSame(array(), $this->executed());
-		$this->assertCount(1, log::messages('error'));
+		$this->assertCount(1, \log::messages('error'));
 		$this->assertSame('Défaillance sonde', $this->valueOf($thermostat, 'status'));
 	}
 
@@ -232,7 +236,7 @@ class TemporalTest extends ThermostatTestCase {
 
 		$this->assertSame(2, $thermostat->getCache('nbConsecutiveFaillure'));
 		$this->assertSame(array('heat', 'failureActuator', 'heat'), $this->executed());
-		$this->assertSame(array('[Salon] Attention une défaillance du chauffage est détectée'), log::messages('error'));
+		$this->assertSame(array('[Salon] Attention une défaillance du chauffage est détectée'), \log::messages('error'));
 	}
 
 	public function testActuatorFailureCounterResets() {

@@ -1,9 +1,13 @@
 <?php
 
+namespace Jeedom\Plugin\Thermostat\Tests\Unit\Metier;
+
 require_once __DIR__ . '/../../Metier/bootstrap.php';
 
-use PHPUnit\Framework\TestCase;
 use Jeedom\Plugin\Thermostat\Domain\Configuration\Configuration;
+use Jeedom\Plugin\Thermostat\Tests\Metier\IdentityTranslator;
+use Jeedom\Plugin\Thermostat\Tests\Metier\InMemoryConfigurationStore;
+use PHPUnit\Framework\TestCase;
 
 class ConfigurationTest extends TestCase {
 
@@ -64,7 +68,7 @@ class ConfigurationTest extends TestCase {
 	 * @dataProvider invalid
 	 */
 	public function testRejectsInvalidConfiguration(array $_values, $_message) {
-		$this->expectException(Exception::class);
+		$this->expectException(\Exception::class);
 		$this->expectExceptionMessage($_message);
 
 		$this->apply($_values);

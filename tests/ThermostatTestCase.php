@@ -1,5 +1,7 @@
 <?php
 
+namespace Jeedom\Plugin\Thermostat\Tests;
+
 use PHPUnit\Framework\TestCase;
 
 abstract class ThermostatTestCase extends TestCase {
@@ -47,18 +49,18 @@ abstract class ThermostatTestCase extends TestCase {
 			$this->phpErrors[] = $_message . ' (' . basename($_file) . ':' . $_line . ')';
 			return true;
 		});
-		cache::reset();
-		log::reset();
-		jeedom::reset();
-		scenarioExpression::reset();
-		cron::reset();
-		listener::reset();
-		plugin::reset();
-		eqLogic::reset();
-		cmd::reset();
-		calendar_event::reset();
+		\cache::reset();
+		\log::reset();
+		\jeedom::reset();
+		\scenarioExpression::reset();
+		\cron::reset();
+		\listener::reset();
+		\plugin::reset();
+		\eqLogic::reset();
+		\cmd::reset();
+		\calendar_event::reset();
 		$this->setNow(self::NOW);
-		$this->device = new eqLogic();
+		$this->device = new \eqLogic();
 		$this->device->setName('Device');
 		$this->device->setEqType_name('virtual');
 		$this->device->save();
@@ -97,7 +99,7 @@ abstract class ThermostatTestCase extends TestCase {
 	}
 
 	protected function sensor($_value, $_subType = 'numeric', $_collectDate = null) {
-		$cmd = new cmd();
+		$cmd = new \cmd();
 		$cmd->setEqLogic_id($this->device->getId());
 		$cmd->setName('Sensor');
 		$cmd->setType('info');
@@ -108,7 +110,7 @@ abstract class ThermostatTestCase extends TestCase {
 	}
 
 	protected function actuator($_name = 'Actuator') {
-		$cmd = new cmd();
+		$cmd = new \cmd();
 		$cmd->setEqLogic_id($this->device->getId());
 		$cmd->setName($_name);
 		$cmd->setType('action');
@@ -117,12 +119,12 @@ abstract class ThermostatTestCase extends TestCase {
 		return $cmd;
 	}
 
-	protected function setInfo(cmd $_cmd, $_value, $_collectDate = null) {
+	protected function setInfo(\cmd $_cmd, $_value, $_collectDate = null) {
 		$date = ($_collectDate === null) ? date('Y-m-d H:i:s') : $_collectDate;
 		$_cmd->setCache(array('value' => $_cmd->formatValue($_value), 'collectDate' => $date, 'valueDate' => $date));
 	}
 
-	protected function action(cmd $_cmd, array $_options = array()) {
+	protected function action(\cmd $_cmd, array $_options = array()) {
 		return array('cmd' => '#' . $_cmd->getId() . '#', 'options' => $_options);
 	}
 
@@ -130,7 +132,7 @@ abstract class ThermostatTestCase extends TestCase {
 	 * @return thermostat
 	 */
 	protected function createThermostat(array $_configuration = array(), $_isEnable = 1) {
-		$thermostat = new thermostat();
+		$thermostat = new \thermostat();
 		$thermostat->setName('Salon');
 		$thermostat->setEqType_name('thermostat');
 		$thermostat->setIsEnable($_isEnable);
@@ -141,30 +143,30 @@ abstract class ThermostatTestCase extends TestCase {
 		return $thermostat;
 	}
 
-	protected function cmdOf(thermostat $_thermostat, $_logicalId) {
+	protected function cmdOf(\thermostat $_thermostat, $_logicalId) {
 		return $_thermostat->getCmd(null, $_logicalId);
 	}
 
-	protected function valueOf(thermostat $_thermostat, $_logicalId) {
+	protected function valueOf(\thermostat $_thermostat, $_logicalId) {
 		return $this->cmdOf($_thermostat, $_logicalId)->execCmd();
 	}
 
-	protected function setValueOf(thermostat $_thermostat, $_logicalId, $_value, $_collectDate = null) {
+	protected function setValueOf(\thermostat $_thermostat, $_logicalId, $_value, $_collectDate = null) {
 		$this->setInfo($this->cmdOf($_thermostat, $_logicalId), $_value, $_collectDate);
 	}
 
 	protected function pullCrons() {
-		return cron::searchClassAndFunction('thermostat', 'pull');
+		return \cron::searchClassAndFunction('thermostat', 'pull');
 	}
 
 	protected function cronWithOptions(array $_options) {
-		return cron::byClassAndFunction('thermostat', 'pull', $_options);
+		return \cron::byClassAndFunction('thermostat', 'pull', $_options);
 	}
 
 	protected function executed() {
 		$names = array();
-		foreach (scenarioExpression::executedCmds() as $cmd) {
-			$names[] = cmd::byId(str_replace('#', '', $cmd))->getName();
+		foreach (\scenarioExpression::executedCmds() as $cmd) {
+			$names[] = \cmd::byId(str_replace('#', '', $cmd))->getName();
 		}
 		return $names;
 	}

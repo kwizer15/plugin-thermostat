@@ -1,10 +1,13 @@
 <?php
 
+namespace Jeedom\Plugin\Thermostat\Tests\Unit\Metier;
+
 require_once __DIR__ . '/../../Metier/bootstrap.php';
 
-use PHPUnit\Framework\TestCase;
 use Jeedom\Plugin\Thermostat\Domain\StatusLabels;
 use Jeedom\Plugin\Thermostat\Domain\Translator;
+use Jeedom\Plugin\Thermostat\Tests\Metier\IdentityTranslator;
+use PHPUnit\Framework\TestCase;
 
 class StatusLabelsTest extends TestCase {
 

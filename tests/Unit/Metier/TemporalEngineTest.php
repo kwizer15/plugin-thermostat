@@ -1,8 +1,9 @@
 <?php
 
+namespace Jeedom\Plugin\Thermostat\Tests\Unit\Metier;
+
 require_once __DIR__ . '/../../Metier/bootstrap.php';
 
-use PHPUnit\Framework\TestCase;
 use Jeedom\Plugin\Thermostat\Domain\Actuator\Actuator;
 use Jeedom\Plugin\Thermostat\Domain\Cycle\Planner;
 use Jeedom\Plugin\Thermostat\Domain\Engine\TemporalEngine;
@@ -10,6 +11,20 @@ use Jeedom\Plugin\Thermostat\Domain\Learning\CoefficientLearner;
 use Jeedom\Plugin\Thermostat\Domain\Power\Calculator;
 use Jeedom\Plugin\Thermostat\Domain\SmartStart\SmartStart;
 use Jeedom\Plugin\Thermostat\Domain\StatusLabels;
+use Jeedom\Plugin\Thermostat\Tests\Metier\CountingPersistence;
+use Jeedom\Plugin\Thermostat\Tests\Metier\CountingRunner;
+use Jeedom\Plugin\Thermostat\Tests\Metier\FixedSensors;
+use Jeedom\Plugin\Thermostat\Tests\Metier\IdentityTranslator;
+use Jeedom\Plugin\Thermostat\Tests\Metier\InMemoryDisplay;
+use Jeedom\Plugin\Thermostat\Tests\Metier\InMemoryMemory;
+use Jeedom\Plugin\Thermostat\Tests\Metier\InMemorySettings;
+use Jeedom\Plugin\Thermostat\Tests\Metier\NumericEvaluator;
+use Jeedom\Plugin\Thermostat\Tests\Metier\RecordingActions;
+use Jeedom\Plugin\Thermostat\Tests\Metier\RecordingControls;
+use Jeedom\Plugin\Thermostat\Tests\Metier\RecordingLog;
+use Jeedom\Plugin\Thermostat\Tests\Metier\RecordingScheduling;
+use Jeedom\Plugin\Thermostat\Tests\Metier\ScriptedCalendar;
+use PHPUnit\Framework\TestCase;
 
 class TemporalEngineTest extends TestCase {
 

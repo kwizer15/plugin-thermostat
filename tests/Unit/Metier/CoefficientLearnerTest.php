@@ -1,9 +1,15 @@
 <?php
 
+namespace Jeedom\Plugin\Thermostat\Tests\Unit\Metier;
+
 require_once __DIR__ . '/../../Metier/bootstrap.php';
 
-use PHPUnit\Framework\TestCase;
 use Jeedom\Plugin\Thermostat\Domain\Learning\CoefficientLearner;
+use Jeedom\Plugin\Thermostat\Tests\Metier\IdentityTranslator;
+use Jeedom\Plugin\Thermostat\Tests\Metier\InMemoryMemory;
+use Jeedom\Plugin\Thermostat\Tests\Metier\InMemorySettings;
+use Jeedom\Plugin\Thermostat\Tests\Metier\RecordingLog;
+use PHPUnit\Framework\TestCase;
 
 class CoefficientLearnerTest extends TestCase {
 

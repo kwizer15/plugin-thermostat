@@ -1,5 +1,9 @@
 <?php
 
+namespace Jeedom\Plugin\Thermostat\Tests\Unit;
+
+use Jeedom\Plugin\Thermostat\Tests\ThermostatTestCase;
+
 class PreSaveTest extends ThermostatTestCase {
 
 	public function testAppliesDefaultsOnEmptyConfiguration() {
@@ -80,7 +84,7 @@ class PreSaveTest extends ThermostatTestCase {
 	 * @dataProvider invalidConfigurations
 	 */
 	public function testRejectsInvalidConfiguration(array $_configuration, $_message) {
-		$this->expectException(Exception::class);
+		$this->expectException(\Exception::class);
 		$this->expectExceptionMessage($_message);
 
 		$this->createThermostat($_configuration);

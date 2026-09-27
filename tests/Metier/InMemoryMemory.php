@@ -1,5 +1,7 @@
 <?php
 
+namespace Jeedom\Plugin\Thermostat\Tests\Metier;
+
 use Jeedom\Plugin\Thermostat\Domain\Actuator\StateMemory;
 use Jeedom\Plugin\Thermostat\Domain\Command\Memory as CommandMemory;
 use Jeedom\Plugin\Thermostat\Domain\Engine\Memory as EngineMemory;

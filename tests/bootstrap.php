@@ -7,4 +7,3 @@ if (getenv('FAKETIME_TIMESTAMP_FILE') === false) {
 
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../core/class/thermostat.class.php';
-require_once __DIR__ . '/ThermostatTestCase.php';

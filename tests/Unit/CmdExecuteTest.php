@@ -1,8 +1,12 @@
 <?php
 
+namespace Jeedom\Plugin\Thermostat\Tests\Unit;
+
+use Jeedom\Plugin\Thermostat\Tests\ThermostatTestCase;
+
 class CmdExecuteTest extends ThermostatTestCase {
 
-	private function execute(thermostat $_thermostat, $_logicalId, $_options = null) {
+	private function execute(\thermostat $_thermostat, $_logicalId, $_options = null) {
 		return $this->cmdOf($_thermostat, $_logicalId)->execCmd($_options);
 	}
 
@@ -12,7 +16,7 @@ class CmdExecuteTest extends ThermostatTestCase {
 		$this->execute($thermostat, 'deltaOrder', array('slider' => 2));
 
 		$this->assertSame(2, $thermostat->getCache('deltaOrder'));
-		$this->assertSame(array(), eqLogic::$refreshedWidgets);
+		$this->assertSame(array(), \eqLogic::$refreshedWidgets);
 	}
 
 	public function testLockAndUnlock() {
@@ -20,11 +24,11 @@ class CmdExecuteTest extends ThermostatTestCase {
 
 		$this->execute($thermostat, 'lock');
 		$this->assertSame(1, $this->valueOf($thermostat, 'lock_state'));
-		$this->assertSame(array($thermostat->getId()), eqLogic::$refreshedWidgets);
+		$this->assertSame(array($thermostat->getId()), \eqLogic::$refreshedWidgets);
 
 		$this->execute($thermostat, 'unlock');
 		$this->assertSame(0, $this->valueOf($thermostat, 'lock_state'));
-		$this->assertCount(1, eqLogic::$refreshedWidgets);
+		$this->assertCount(1, \eqLogic::$refreshedWidgets);
 	}
 
 	public function testOffsetsAreSaved() {
@@ -114,7 +118,7 @@ class CmdExecuteTest extends ThermostatTestCase {
 		$this->assertSame(array(), $this->executed());
 		$this->assertSame('', $this->valueOf($thermostat, 'mode'));
 		$this->assertSame(20.0, $this->valueOf($thermostat, 'order'));
-		$this->assertCount(3, eqLogic::$refreshedWidgets);
+		$this->assertCount(3, \eqLogic::$refreshedWidgets);
 	}
 
 	public function testLockDoesNotBlockConfigurationCommands() {
@@ -241,6 +245,6 @@ class CmdExecuteTest extends ThermostatTestCase {
 	}
 
 	public function testDoesNotRemoveUserCommands() {
-		$this->assertTrue((new thermostatCmd())->dontRemoveCmd());
+		$this->assertTrue((new \thermostatCmd())->dontRemoveCmd());
 	}
 }

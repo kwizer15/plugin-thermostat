@@ -1,7 +1,9 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
+namespace Jeedom\Plugin\Thermostat\Tests\Unit;
+
 use Jeedom\Plugin\Thermostat\Jeedom\Translator;
+use PHPUnit\Framework\TestCase;
 
 class JeedomTranslatorTest extends TestCase {
 

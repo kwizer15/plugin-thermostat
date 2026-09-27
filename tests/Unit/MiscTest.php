@@ -1,5 +1,9 @@
 <?php
 
+namespace Jeedom\Plugin\Thermostat\Tests\Unit;
+
+use Jeedom\Plugin\Thermostat\Tests\ThermostatTestCase;
+
 class MiscTest extends ThermostatTestCase {
 
 	public function testStartRestartsEnabledThermostats() {
@@ -13,7 +17,7 @@ class MiscTest extends ThermostatTestCase {
 		$disabled = $this->equippedThermostat();
 		$disabled->setIsEnable(0);
 
-		thermostat::start();
+		\thermostat::start();
 
 		$this->assertSame(array('stop', 'heat', 'heat'), $this->executed());
 		$this->assertSame('Chauffage', $this->valueOf($off, 'status'));
@@ -27,7 +31,7 @@ class MiscTest extends ThermostatTestCase {
 		$this->assertSame(array(
 			array('detail' => 'Thermostat [Salon]', 'help' => 'Action', 'who' => '#' . $sensor->getId() . '#'),
 			array('detail' => 'Thermostat [Salon]', 'help' => 'Action', 'who' => '#999#'),
-		), thermostat::deadCmd());
+		), \thermostat::deadCmd());
 	}
 
 	public function testRescheduleCreatesOneShotCron() {
@@ -57,8 +61,8 @@ class MiscTest extends ThermostatTestCase {
 
 		$thermostat->remove();
 
-		$this->assertSame(array(), cron::all());
-		$this->assertSame(array(), listener::all());
+		$this->assertSame(array(), \cron::all());
+		$this->assertSame(array(), \listener::all());
 	}
 
 	public function testCalculDju() {
@@ -67,16 +71,16 @@ class MiscTest extends ThermostatTestCase {
 
 		$this->assertNull($thermostat->calculDju());
 
-		cmd::$statistics[$outdoor->getId()] = array('min' => 2, 'max' => 8);
+		\cmd::$statistics[$outdoor->getId()] = array('min' => 2, 'max' => 8);
 		$this->assertSame(13, $thermostat->calculDju('2026-01-10'));
 	}
 
 	public function testUpdatePerformance() {
 		$consumption = $this->sensor(26);
 		$thermostat = $this->equippedThermostat(array('consumption' => '#' . $consumption->getId() . '#'));
-		cmd::$statistics[$this->cmdOf($thermostat, 'temperature_outdoor')->getId()] = array('min' => 2, 'max' => 8);
+		\cmd::$statistics[$this->cmdOf($thermostat, 'temperature_outdoor')->getId()] = array('min' => 2, 'max' => 8);
 
-		thermostat::updatePerformance(array('thermostat_id' => $thermostat->getId()));
+		\thermostat::updatePerformance(array('thermostat_id' => $thermostat->getId()));
 
 		$this->assertSame(2.0, $this->valueOf($thermostat, 'performance'));
 	}
@@ -84,9 +88,9 @@ class MiscTest extends ThermostatTestCase {
 	public function testUpdatePerformanceIgnoresWarmDays() {
 		$consumption = $this->sensor(26);
 		$thermostat = $this->equippedThermostat(array('consumption' => '#' . $consumption->getId() . '#'));
-		cmd::$statistics[$this->cmdOf($thermostat, 'temperature_outdoor')->getId()] = array('min' => 18, 'max' => 22);
+		\cmd::$statistics[$this->cmdOf($thermostat, 'temperature_outdoor')->getId()] = array('min' => 18, 'max' => 22);
 
-		thermostat::updatePerformance(array('thermostat_id' => $thermostat->getId()));
+		\thermostat::updatePerformance(array('thermostat_id' => $thermostat->getId()));
 
 		$this->assertSame('', $this->valueOf($thermostat, 'performance'));
 	}
@@ -95,19 +99,19 @@ class MiscTest extends ThermostatTestCase {
 		$consumption = $this->sensor(26);
 		$thermostat = $this->equippedThermostat(array('consumption' => '#' . $consumption->getId() . '#'));
 
-		thermostat::updatePerformance(array('thermostat_id' => $thermostat->getId()));
-		thermostat::updatePerformance(array('thermostat_id' => 999));
+		\thermostat::updatePerformance(array('thermostat_id' => $thermostat->getId()));
+		\thermostat::updatePerformance(array('thermostat_id' => 999));
 
 		$this->assertSame('', $this->valueOf($thermostat, 'performance'));
 	}
 
 	public function testRuntimeByDay() {
 		$thermostat = $this->equippedThermostat();
-		cmd::$histories[$this->cmdOf($thermostat, 'actif')->getId()] = array(
-			new history('2026-01-14 08:00:00', 1),
-			new history('2026-01-14 09:30:00', 0),
-			new history('2026-01-14 23:00:00', 1),
-			new history('2026-01-15 01:00:00', 0),
+		\cmd::$histories[$this->cmdOf($thermostat, 'actif')->getId()] = array(
+			new \history('2026-01-14 08:00:00', 1),
+			new \history('2026-01-14 09:30:00', 0),
+			new \history('2026-01-14 23:00:00', 1),
+			new \history('2026-01-15 01:00:00', 0),
 		);
 
 		$runtime = $thermostat->runtimeByDay('2026-01-13', '2026-01-15');

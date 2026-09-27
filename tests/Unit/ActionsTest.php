@@ -1,5 +1,9 @@
 <?php
 
+namespace Jeedom\Plugin\Thermostat\Tests\Unit;
+
+use Jeedom\Plugin\Thermostat\Tests\ThermostatTestCase;
+
 class ActionsTest extends ThermostatTestCase {
 
 	public function testHeatExecutesActionsWithSetpoint() {
@@ -8,7 +12,7 @@ class ActionsTest extends ThermostatTestCase {
 
 		$this->assertTrue($thermostat->heat());
 
-		$this->assertSame(array('message' => 'Consigne 20.5 °C', 'title' => '20.5'), scenarioExpression::$calls[0]['options']);
+		$this->assertSame(array('message' => 'Consigne 20.5 °C', 'title' => '20.5'), \scenarioExpression::$calls[0]['options']);
 		$this->assertSame('heat', $thermostat->getCache('lastState'));
 		$this->assertSame(1, $this->valueOf($thermostat, 'actif'));
 	}
@@ -29,12 +33,12 @@ class ActionsTest extends ThermostatTestCase {
 		$broken = $this->actuator('broken');
 		$thermostat = $this->equippedThermostat();
 		$thermostat->setConfiguration('heating', array($this->action($broken), $this->action($this->heater)))->save();
-		scenarioExpression::$failingCmds = array('#' . $broken->getId() . '#');
+		\scenarioExpression::$failingCmds = array('#' . $broken->getId() . '#');
 
 		$thermostat->heat();
 
 		$this->assertSame(array('heat'), $this->executed());
-		$this->assertSame(array('[Salon] Erreur lors de l\'exécution de #' . $broken->getId() . '#. Détails : Échec de #' . $broken->getId() . '#'), log::messages('error'));
+		$this->assertSame(array('[Salon] Erreur lors de l\'exécution de #' . $broken->getId() . '#. Détails : Échec de #' . $broken->getId() . '#'), \log::messages('error'));
 	}
 
 	public function testHeatRefusedWhenSuspended() {
@@ -61,12 +65,12 @@ class ActionsTest extends ThermostatTestCase {
 	public function testHeatNotAllowedWhenAlreadyStoppedSendsNothing() {
 		$thermostat = $this->equippedThermostat(array('allow_mode' => 'cool'));
 		$this->setValueOf($thermostat, 'status', 'Arrêté');
-		cmd::$events = array();
+		\cmd::$events = array();
 
 		$this->assertFalse($thermostat->heat());
 
 		$this->assertSame(array(), $this->executed());
-		$this->assertSame(array(), cmd::$events);
+		$this->assertSame(array(), \cmd::$events);
 	}
 
 	public function testHeatNotAllowedStops() {
@@ -148,12 +152,12 @@ class ActionsTest extends ThermostatTestCase {
 	public function testCoolNotAllowedWhenAlreadyStoppedSendsNothing() {
 		$thermostat = $this->equippedThermostat(array('allow_mode' => 'heat'));
 		$this->setValueOf($thermostat, 'status', 'Arrêté');
-		cmd::$events = array();
+		\cmd::$events = array();
 
 		$this->assertFalse($thermostat->cool());
 
 		$this->assertSame(array(), $this->executed());
-		$this->assertSame(array(), cmd::$events);
+		$this->assertSame(array(), \cmd::$events);
 	}
 
 	public function testStopExecutesActions() {
@@ -161,7 +165,7 @@ class ActionsTest extends ThermostatTestCase {
 		$this->setValueOf($thermostat, 'status', 'Chauffage');
 		$this->setValueOf($thermostat, 'power', 40);
 		$this->setValueOf($thermostat, 'actif', 1);
-		eqLogic::$saves = array();
+		\eqLogic::$saves = array();
 
 		$thermostat->stopThermostat();
 
@@ -169,7 +173,7 @@ class ActionsTest extends ThermostatTestCase {
 		$this->assertSame('Arrêté', $this->valueOf($thermostat, 'status'));
 		$this->assertSame(0, $this->valueOf($thermostat, 'actif'));
 		$this->assertSame(0.0, $this->valueOf($thermostat, 'power'));
-		$this->assertSame(array(array('id' => $thermostat->getId(), 'direct' => true)), eqLogic::$saves);
+		$this->assertSame(array(array('id' => $thermostat->getId(), 'direct' => true)), \eqLogic::$saves);
 	}
 
 	public function testStopAlreadyStoppedDoesNothing() {
@@ -186,7 +190,7 @@ class ActionsTest extends ThermostatTestCase {
 		$this->setValueOf($thermostat, 'status', 'Chauffage');
 		$this->setValueOf($thermostat, 'actif', 1);
 		$this->setValueOf($thermostat, 'power', 40);
-		eqLogic::$saves = array();
+		\eqLogic::$saves = array();
 
 		$thermostat->stopThermostat(true);
 
@@ -194,20 +198,20 @@ class ActionsTest extends ThermostatTestCase {
 		$this->assertSame(0, $this->valueOf($thermostat, 'actif'));
 		$this->assertSame(0.0, $this->valueOf($thermostat, 'power'));
 		$this->assertSame('Arrêté', $this->valueOf($thermostat, 'status'));
-		$this->assertSame(array(), eqLogic::$saves);
+		$this->assertSame(array(), \eqLogic::$saves);
 	}
 
 	public function testStopAlreadyStoppedWithPowerResendsActions() {
 		$thermostat = $this->equippedThermostat();
 		$this->setValueOf($thermostat, 'status', 'Arrêté');
 		$this->setValueOf($thermostat, 'power', 40);
-		eqLogic::$saves = array();
+		\eqLogic::$saves = array();
 
 		$thermostat->stopThermostat();
 
 		$this->assertSame(array('stop'), $this->executed());
 		$this->assertSame(0.0, $this->valueOf($thermostat, 'power'));
-		$this->assertSame(array(), eqLogic::$saves);
+		$this->assertSame(array(), \eqLogic::$saves);
 	}
 
 	public function testStopForSuspensionKeepsStatus() {
@@ -242,8 +246,8 @@ class ActionsTest extends ThermostatTestCase {
 		$thermostat->orderChange();
 
 		$this->assertSame(array('notify', 'target'), $this->executed());
-		$this->assertSame(array('message' => '20', 'modeChange' => true), scenarioExpression::$calls[0]['options']);
-		$this->assertSame(array('modeChange' => true), scenarioExpression::$calls[1]['options']);
+		$this->assertSame(array('message' => '20', 'modeChange' => true), \scenarioExpression::$calls[0]['options']);
+		$this->assertSame(array('modeChange' => true), \scenarioExpression::$calls[1]['options']);
 	}
 
 	/**
@@ -325,8 +329,8 @@ class ActionsTest extends ThermostatTestCase {
 
 		$this->assertSame(21.0, $this->valueOf($thermostat, 'order'));
 		$this->assertSame('Confort', $this->valueOf($thermostat, 'mode'));
-		$this->assertSame(array('#' . $notify->getId() . '#', 'log', '#' . $this->heater->getId() . '#'), scenarioExpression::executedCmds());
-		$this->assertSame(array('message' => '20'), scenarioExpression::$calls[0]['options']);
+		$this->assertSame(array('#' . $notify->getId() . '#', 'log', '#' . $this->heater->getId() . '#'), \scenarioExpression::executedCmds());
+		$this->assertSame(array('message' => '20'), \scenarioExpression::$calls[0]['options']);
 	}
 
 	public function testExecuteModeTriggersOrderChangeOnlyWithSetpoint() {
@@ -339,7 +343,7 @@ class ActionsTest extends ThermostatTestCase {
 		$thermostat->executeMode('Absent');
 		$this->assertSame(array('heat'), $this->executed());
 
-		scenarioExpression::reset();
+		\scenarioExpression::reset();
 		$thermostat->executeMode('Confort');
 		$this->assertSame(array('orderChanged', 'heat'), $this->executed());
 	}

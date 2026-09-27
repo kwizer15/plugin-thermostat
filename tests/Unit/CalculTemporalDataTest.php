@@ -1,5 +1,9 @@
 <?php
 
+namespace Jeedom\Plugin\Thermostat\Tests\Unit;
+
+use Jeedom\Plugin\Thermostat\Tests\ThermostatTestCase;
+
 class CalculTemporalDataTest extends ThermostatTestCase {
 
 	private function thermostatAt($_indoor, $_outdoor, array $_configuration = array()) {
