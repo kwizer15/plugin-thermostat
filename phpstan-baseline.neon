@@ -73,18 +73,6 @@ parameters:
 			path: core/class/thermostat.class.php
 
 		-
-			message: '#^Cannot call method close\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method coefficientLearner\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
 			message: '#^Cannot call method commandHandler\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 1
@@ -205,18 +193,6 @@ parameters:
 			path: core/class/thermostat.class.php
 
 		-
-			message: '#^Cannot call method learn\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method learnCoefficient\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
 			message: '#^Cannot call method listen\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 2
@@ -226,12 +202,6 @@ parameters:
 			message: '#^Cannot call method log\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 7
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method open\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
 			path: core/class/thermostat.class.php
 
 		-
@@ -248,12 +218,6 @@ parameters:
 
 		-
 			message: '#^Cannot call method powerCalculator\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method remember\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: core/class/thermostat.class.php
@@ -309,7 +273,7 @@ parameters:
 		-
 			message: '#^Cannot call method smartStart\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 4
+			count: 2
 			path: core/class/thermostat.class.php
 
 		-
@@ -369,7 +333,7 @@ parameters:
 		-
 			message: '#^Cannot call method windows\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 5
+			count: 3
 			path: core/class/thermostat.class.php
 
 		-
@@ -493,36 +457,6 @@ parameters:
 			path: core/class/thermostat.class.php
 
 		-
-			message: '#^Method thermostat\:\:learnCoefficient\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Method thermostat\:\:learnCoefficient\(\) has parameter \$_key with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Method thermostat\:\:learnCoefficient\(\) has parameter \$_measured with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Method thermostat\:\:learnSmartStart\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Method thermostat\:\:learnSmartStart\(\) has parameter \$_temperature with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
 			message: '#^Method thermostat\:\:orderChange\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -554,18 +488,6 @@ parameters:
 
 		-
 			message: '#^Method thermostat\:\:pull\(\) has parameter \$_options with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Method thermostat\:\:rememberSmartStart\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Method thermostat\:\:rememberSmartStart\(\) has parameter \$_next with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
 			path: core/class/thermostat.class.php
@@ -674,30 +596,6 @@ parameters:
 
 		-
 			message: '#^Method thermostat\:\:window\(\) has parameter \$_option with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Method thermostat\:\:windowClose\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Method thermostat\:\:windowClose\(\) has parameter \$_window with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Method thermostat\:\:windowOpen\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Method thermostat\:\:windowOpen\(\) has parameter \$_window with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
 			path: core/class/thermostat.class.php

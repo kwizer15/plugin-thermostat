@@ -94,7 +94,7 @@ class CoefficientLearner {
 	 * @param int|float $_measured
 	 * @return int|float
 	 */
-	public function learnCoefficient($_key, $_measured) {
+	private function learnCoefficient($_key, $_measured) {
 		$count = $this->settings->learnedCount($_key);
 		$coeff = ($this->settings->coefficient($_key) * $count + $_measured) / ($count + 1);
 		if ($coeff < 0 || !is_numeric($coeff)) {

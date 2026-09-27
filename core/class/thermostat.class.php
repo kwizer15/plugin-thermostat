@@ -187,16 +187,6 @@ class thermostat extends eqLogic {
 		return $return;
 	}
 
-	public function windowClose($_window) {
-		log::add(__CLASS__, 'warning', $this->getHumanName() . ' thermostat::windowClose appelé de l\'extérieur, voir thermostatWindows');
-		return $this->assembly()->windows()->close($_window);
-	}
-
-	public function windowOpen($_window) {
-		log::add(__CLASS__, 'warning', $this->getHumanName() . ' thermostat::windowOpen appelé de l\'extérieur, voir thermostatWindows');
-		return $this->assembly()->windows()->open($_window);
-	}
-
 	public function reschedule($_next = null, $_stop = false, $_smartThermostat = false) {
 		$this->assembly()->scheduler()->reschedule($_next, $_stop, $_smartThermostat);
 	}
@@ -249,21 +239,6 @@ class thermostat extends eqLogic {
 		} else {
 			$scheduler->unschedule();
 		}
-	}
-
-	public function rememberSmartStart($_next) {
-		log::add(__CLASS__, 'warning', $this->getHumanName() . ' thermostat::rememberSmartStart appelé de l\'extérieur, voir thermostatSmartStart');
-		return $this->assembly()->smartStart()->remember($_next);
-	}
-
-	public function learnSmartStart($_temperature) {
-		log::add(__CLASS__, 'warning', $this->getHumanName() . ' thermostat::learnSmartStart appelé de l\'extérieur, voir thermostatSmartStart');
-		return $this->assembly()->smartStart()->learn($_temperature);
-	}
-
-	public function learnCoefficient($_key, $_measured) {
-		log::add(__CLASS__, 'warning', $this->getHumanName() . ' thermostat::learnCoefficient appelé de l\'extérieur, voir thermostatCoefficientLearner');
-		return $this->assembly()->coefficientLearner()->learnCoefficient($_key, $_measured);
 	}
 
 	public function runEngine() {
