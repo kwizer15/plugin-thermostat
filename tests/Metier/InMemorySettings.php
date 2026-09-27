@@ -1,6 +1,6 @@
 <?php
 
-class InMemorySettings implements thermostatPowerSettings, thermostatLearningSettings, thermostatSmartStartSettings, thermostatHysteresisSettings, thermostatActuatorSettings, thermostatWindowSettings {
+class InMemorySettings implements thermostatPowerSettings, thermostatLearningSettings, thermostatSmartStartSettings, thermostatHysteresisSettings, thermostatActuatorSettings, thermostatWindowSettings, thermostatEngineSettings {
 
 	public $values = array(
 		'coeff_indoor_heat' => 10,
@@ -35,6 +35,12 @@ class InMemorySettings implements thermostatPowerSettings, thermostatLearningSet
 		'existingMode' => array(),
 		'window' => array(),
 		'window_alertIfOpenMoreThan' => '',
+		'maxTimeUpdateTemp' => 60,
+		'smart_start' => 0,
+		'stove_boiler' => 0,
+		'minCycleDuration' => 5,
+		'offsetHeatFaillure' => 1,
+		'offsetColdFaillure' => 1,
 	);
 
 	public $published = array();
@@ -161,5 +167,33 @@ class InMemorySettings implements thermostatPowerSettings, thermostatLearningSet
 
 	public function windowAlertDelay() {
 		return $this->values['window_alertIfOpenMoreThan'];
+	}
+
+	public function maxTimeUpdateTemp() {
+		return $this->values['maxTimeUpdateTemp'];
+	}
+
+	public function smartStartEnabled() {
+		return $this->values['smart_start'] == 1;
+	}
+
+	public function stoveBoiler() {
+		return $this->values['stove_boiler'];
+	}
+
+	public function minCycleDuration() {
+		return $this->values['minCycleDuration'];
+	}
+
+	public function heatFailureOffset() {
+		return $this->values['offsetHeatFaillure'];
+	}
+
+	public function coldFailureOffset() {
+		return $this->values['offsetColdFaillure'];
+	}
+
+	public function setCycleEndDate($_datetime) {
+		$this->values['endDate'] = $_datetime;
 	}
 }

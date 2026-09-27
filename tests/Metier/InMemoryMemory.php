@@ -1,6 +1,6 @@
 <?php
 
-class InMemoryMemory implements thermostatPowerMemory, thermostatCycleMemory, thermostatSmartStartMemory, thermostatStateMemory, thermostatWindowMemory {
+class InMemoryMemory implements thermostatPowerMemory, thermostatCycleMemory, thermostatSmartStartMemory, thermostatStateMemory, thermostatWindowMemory, thermostatEngineMemory {
 
 	public $values = array(
 		'lastState' => '',
@@ -12,6 +12,8 @@ class InMemoryMemory implements thermostatPowerMemory, thermostatCycleMemory, th
 		'smartStart' => '',
 		'window::state::open' => -1,
 		'alertSendForWindow' => 0,
+		'lastTempOut' => '',
+		'deltaOrder' => 0,
 	);
 
 	public function __construct(array $_values = array()) {
@@ -88,5 +90,29 @@ class InMemoryMemory implements thermostatPowerMemory, thermostatCycleMemory, th
 
 	public function setAlertSent($_sent) {
 		$this->values['alertSendForWindow'] = $_sent;
+	}
+
+	public function setLastOrder($_order) {
+		$this->values['lastOrder'] = $_order;
+	}
+
+	public function setLastTempIn($_temperature) {
+		$this->values['lastTempIn'] = $_temperature;
+	}
+
+	public function setLastTempOut($_temperature) {
+		$this->values['lastTempOut'] = $_temperature;
+	}
+
+	public function setLastPower($_power) {
+		$this->values['last_power'] = $_power;
+	}
+
+	public function setConsecutiveFailures($_count) {
+		$this->values['nbConsecutiveFaillure'] = $_count;
+	}
+
+	public function deltaOrder() {
+		return $this->values['deltaOrder'];
 	}
 }

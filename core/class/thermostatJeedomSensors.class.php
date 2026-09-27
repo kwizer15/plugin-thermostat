@@ -31,4 +31,9 @@ class thermostatJeedomSensors implements thermostatSensors {
 	public function outdoorTemperature() {
 		return $this->eqLogic->getCmd(null, 'temperature_outdoor')->execCmd();
 	}
+	public function indoorReading() {
+		$cmd = $this->eqLogic->getCmd(null, 'temperature');
+		$value = $cmd->execCmd();
+		return new thermostatReading($value, $cmd->getCollectDate(), $cmd->getValueDate());
+	}
 }

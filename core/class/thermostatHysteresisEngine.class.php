@@ -18,17 +18,19 @@
 
 class thermostatHysteresisEngine {
 
-	private $thermostat;
 	private $settings;
 	private $memory;
+	private $display;
+	private $sensors;
 	private $actuator;
 	private $decision;
 	private $log;
 
-	public function __construct($_thermostat, thermostatEngineSettings $_settings, thermostatEngineMemory $_memory, thermostatActuator $_actuator, thermostatHysteresisDecision $_decision, thermostatLog $_log) {
-		$this->thermostat = $_thermostat;
+	public function __construct(thermostatEngineSettings $_settings, thermostatEngineMemory $_memory, thermostatDisplay $_display, thermostatSensors $_sensors, thermostatActuator $_actuator, thermostatHysteresisDecision $_decision, thermostatLog $_log) {
 		$this->settings = $_settings;
 		$this->memory = $_memory;
+		$this->display = $_display;
+		$this->sensors = $_sensors;
 		$this->actuator = $_actuator;
 		$this->decision = $_decision;
 		$this->log = $_log;
@@ -36,32 +38,32 @@ class thermostatHysteresisEngine {
 
 	public function run() {
 		$this->log->debug(__("Lancement du calcul d'hystérésis", __FILE__));
-		$status = $this->thermostat->getCmd(null, 'status')->execCmd();
+		$status = $this->display->status();
 		if ($status == __('Suspendu', __FILE__)) {
 			$this->log->debug(__('Thermostat suspendu je ne fais rien', __FILE__));
 			return;
 		}
-		if ($this->thermostat->getCmd(null, 'mode')->execCmd() == __('Off', __FILE__)) {
+		if ($this->display->mode() == __('Off', __FILE__)) {
 			$this->log->debug(__('Thermostat arrêté je ne fais rien', __FILE__));
 			if ($status != __('Arrêté', __FILE__)) {
 				$this->actuator->stop();
 			}
 			return;
 		}
-		$cmd = $this->thermostat->getCmd(null, 'temperature');
-		$temp = $cmd->execCmd();
-		if ($cmd->getCollectDate() != '' && $cmd->getCollectDate() < date('Y-m-d H:i:s', strtotime('-' . $this->settings->maxTimeUpdateTemp() . ' minutes' . date('Y-m-d H:i:s')))) {
+		$reading = $this->sensors->indoorReading();
+		$temp = $reading->value();
+		if ($reading->collectDate() != '' && $reading->collectDate() < date('Y-m-d H:i:s', strtotime('-' . $this->settings->maxTimeUpdateTemp() . ' minutes' . date('Y-m-d H:i:s')))) {
 			if ($this->memory->temperatureAlert() == 0) {
 				$this->actuator->failure();
-				$this->log->error(__("Attention il n'y a pas eu de mise à jour de la température depuis plus de", __FILE__) . ' : ' . $this->settings->maxTimeUpdateTemp() . 'min (' . $cmd->getCollectDate() . ')');
+				$this->log->error(__("Attention il n'y a pas eu de mise à jour de la température depuis plus de", __FILE__) . ' : ' . $this->settings->maxTimeUpdateTemp() . 'min (' . $reading->collectDate() . ')');
 			}
 			$this->memory->setTemperatureAlert(1);
-			$this->thermostat->getCmd(null, 'status')->event(__('Défaillance sonde', __FILE__));
+			$this->display->setStatus(__('Défaillance sonde', __FILE__));
 			return;
 		}
 		$this->memory->setTemperatureAlert(0);
-		$consigne = $this->thermostat->getCmd(null, 'order')->execCmd();
-		$this->thermostat->getCmd(null, 'order')->addHistoryValue($consigne);
+		$consigne = $this->display->setpoint();
+		$this->display->historizeSetpoint($consigne);
 		$action = $this->decision->decide($temp, $consigne, $status, $this->memory->lastState());
 
 		if ($action == 'heat') {

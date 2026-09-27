@@ -21,4 +21,6 @@ interface thermostatSensors {
 	public function indoorTemperature();
 
 	public function outdoorTemperature();
+
+	public function indoorReading();
 }
