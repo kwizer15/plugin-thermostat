@@ -27,6 +27,7 @@ require_once dirname(__FILE__) . '/thermostatScheduler.class.php';
 require_once dirname(__FILE__) . '/thermostatHysteresisEngine.class.php';
 require_once dirname(__FILE__) . '/thermostatTemporalEngine.class.php';
 require_once dirname(__FILE__) . '/thermostatCommands.class.php';
+require_once dirname(__FILE__) . '/thermostatConfiguration.class.php';
 
 class thermostat extends eqLogic {
 
@@ -241,80 +242,7 @@ class thermostat extends eqLogic {
 	}
 
 	public function preSave() {
-		if ($this->getConfiguration('order_max') === '') {
-			$this->setConfiguration('order_max', 28);
-		}
-		if ($this->getConfiguration('order_min') === '') {
-			$this->setConfiguration('order_min', 15);
-		}
-		if ($this->getConfiguration('order_min') > $this->getConfiguration('order_max')) {
-			throw new Exception(__('La température de consigne minimale ne peut être supérieure à la consigne maximale', __FILE__));
-		}
-		if ($this->getConfiguration('coeff_indoor_heat') === '') {
-			$this->setConfiguration('coeff_indoor_heat', 10);
-		}
-		if ($this->getConfiguration('coeff_indoor_cool') === '') {
-			$this->setConfiguration('coeff_indoor_cool', 10);
-		}
-		if ($this->getConfiguration('coeff_outdoor_heat') === '') {
-			$this->setConfiguration('coeff_outdoor_heat', 2);
-		}
-		if ($this->getConfiguration('coeff_outdoor_cool') === '') {
-			$this->setConfiguration('coeff_outdoor_cool', 2);
-		}
-		if ($this->getConfiguration('minCycleDuration') === '') {
-			$this->setConfiguration('minCycleDuration', 5);
-		}
-		if ($this->getConfiguration('offset_heat') === '') {
-			$this->setConfiguration('offset_heat', 0);
-		}
-		if ($this->getConfiguration('offset_cool') === '') {
-			$this->setConfiguration('offset_cool', 0);
-		}
-		if ($this->getConfiguration('minCycleDuration') < 0 || $this->getConfiguration('minCycleDuration') > 90) {
-			throw new Exception(__('Le temps de chauffe minimal doit être compris entre 0% et 90%', __FILE__));
-		}
-		if ($this->getConfiguration('cycle') === '') {
-			$this->setConfiguration('cycle', 59);
-		}
-		if ($this->getConfiguration('smart_start') === '') {
-			$this->setConfiguration('smart_start', 1);
-		}
-		if ($this->getConfiguration('cycle') < 15) {
-			throw new Exception(__('Le temps de cycle doit être supérieur à 15 minutes', __FILE__));
-		}
-		if ($this->getConfiguration('autolearn') === '') {
-			$this->setConfiguration('autolearn', 1);
-		}
-		if ($this->getConfiguration('coeff_indoor_cool_autolearn') === '' || $this->getConfiguration('coeff_indoor_cool_autolearn') < 1) {
-			$this->setConfiguration('coeff_indoor_cool_autolearn', 1);
-		}
-		if ($this->getConfiguration('coeff_indoor_heat_autolearn') === '' || $this->getConfiguration('coeff_indoor_heat_autolearn') < 1) {
-			$this->setConfiguration('coeff_indoor_heat_autolearn', 1);
-		}
-		if ($this->getConfiguration('coeff_outdoor_heat_autolearn') === '' || $this->getConfiguration('coeff_outdoor_heat_autolearn') < 1) {
-			$this->setConfiguration('coeff_outdoor_heat_autolearn', 0);
-		}
-		if ($this->getConfiguration('coeff_outdoor_cool_autolearn') === '' || $this->getConfiguration('coeff_outdoor_cool_autolearn') < 1) {
-			$this->setConfiguration('coeff_outdoor_cool_autolearn', 0);
-		}
-		if ($this->getConfiguration('engine') == 'hysteresis') {
-			$this->setConfiguration('hysteresis_threshold', str_replace(',', '.', $this->getConfiguration('hysteresis_threshold', 1)));
-		}
-		if (is_array($this->getConfiguration('existingMode'))) {
-			foreach ($this->getConfiguration('existingMode') as $existingMode) {
-				if (strtolower($existingMode['name']) == __('off', __FILE__)) {
-					throw new Exception(__("Vous ne pouvez faire un mode s'appelant Off car une commande Off existe déjà", __FILE__));
-				}
-				if (strtolower($existingMode['name']) == __('status', __FILE__)) {
-					throw new Exception(__("Vous ne pouvez faire un mode s'appelant Status car une commande Status existe déjà", __FILE__));
-				}
-				if (strtolower($existingMode['name']) == __('thermostat', __FILE__)) {
-					throw new Exception(__("Vous ne pouvez faire un mode s'appelant Thermostat car une commande Thermostat existe déjà", __FILE__));
-				}
-			}
-		}
-		$this->setCategory('heating', 1);
+		(new thermostatConfiguration($this))->apply();
 	}
 
 	public function postSave() {

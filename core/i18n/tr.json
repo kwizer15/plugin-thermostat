@@ -202,15 +202,6 @@
         "minutes": "minutes",
         "Attention la température intérieure est en dessous du seuil autorisé": "Attention la température intérieure est en dessous du seuil autorisé",
         "Attention la température intérieure est au dessus du seuil autorisé": "Attention la température intérieure est au dessus du seuil autorisé",
-        "La température de consigne minimale ne peut être supérieure à la consigne maximale": "La température de consigne minimale ne peut être supérieure à la consigne maximale",
-        "Le temps de chauffe minimal doit être compris entre 0% et 90%": "Le temps de chauffe minimal doit être compris entre 0% et 90%",
-        "Le temps de cycle doit être supérieur à 15 minutes": "Le temps de cycle doit être supérieur à 15 minutes",
-        "off": "Off",
-        "Vous ne pouvez faire un mode s'appelant Off car une commande Off existe déjà": "Vous ne pouvez faire un mode s'appelant Off car une commande Off existe déjà",
-        "status": "Durum",
-        "Vous ne pouvez faire un mode s'appelant Status car une commande Status existe déjà": "Vous ne pouvez faire un mode s'appelant Status car une commande Status existe déjà",
-        "thermostat": "thermostat",
-        "Vous ne pouvez faire un mode s'appelant Thermostat car une commande Thermostat existe déjà": "Vous ne pouvez faire un mode s'appelant Thermostat car une commande Thermostat existe déjà",
         "Aucun": "Hiçbir"
     },
     "plugins\/thermostat\/core\/class\/thermostatActionList.class.php": {
@@ -256,6 +247,17 @@
         "Delta consigne": "Delta consigne",
         "Performance": "Performance",
         "Puissance": "Güç"
+    },
+    "plugins\/thermostat\/core\/class\/thermostatConfiguration.class.php": {
+        "La température de consigne minimale ne peut être supérieure à la consigne maximale": "La température de consigne minimale ne peut être supérieure à la consigne maximale",
+        "Le temps de chauffe minimal doit être compris entre 0% et 90%": "Le temps de chauffe minimal doit être compris entre 0% et 90%",
+        "Le temps de cycle doit être supérieur à 15 minutes": "Le temps de cycle doit être supérieur à 15 minutes",
+        "off": "Off",
+        "Vous ne pouvez faire un mode s'appelant Off car une commande Off existe déjà": "Vous ne pouvez faire un mode s'appelant Off car une commande Off existe déjà",
+        "status": "Durum",
+        "Vous ne pouvez faire un mode s'appelant Status car une commande Status existe déjà": "Vous ne pouvez faire un mode s'appelant Status car une commande Status existe déjà",
+        "thermostat": "thermostat",
+        "Vous ne pouvez faire un mode s'appelant Thermostat car une commande Thermostat existe déjà": "Vous ne pouvez faire un mode s'appelant Thermostat car une commande Thermostat existe déjà"
     },
     "plugins\/thermostat\/core\/class\/thermostatHysteresisEngine.class.php": {
         "Lancement du calcul d'hystérésis": "Lancement du calcul d'hystérésis",

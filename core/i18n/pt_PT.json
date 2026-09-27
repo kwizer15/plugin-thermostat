@@ -202,15 +202,6 @@
         "minutes": "minutos",
         "Attention la température intérieure est en dessous du seuil autorisé": "Observe que a temperatura interior está abaixo do limite autorizado",
         "Attention la température intérieure est au dessus du seuil autorisé": "Observe que a temperatura interior está acima do limite autorizado",
-        "La température de consigne minimale ne peut être supérieure à la consigne maximale": "O ponto de ajuste mínimo de temperatura não pode ser maior do que o ponto de ajuste máximo",
-        "Le temps de chauffe minimal doit être compris entre 0% et 90%": "O tempo mínimo de aquecimento deve estar entre 0% e 90%",
-        "Le temps de cycle doit être supérieur à 15 minutes": "O tempo do ciclo deve ser superior a 15 minutos",
-        "off": "Off",
-        "Vous ne pouvez faire un mode s'appelant Off car une commande Off existe déjà": "Você não pode criar um modo chamado Off porque já existe um comando Off",
-        "status": "Estado",
-        "Vous ne pouvez faire un mode s'appelant Status car une commande Status existe déjà": "Você não pode criar um modo chamado Status porque já existe um comando Status",
-        "thermostat": "Termostato",
-        "Vous ne pouvez faire un mode s'appelant Thermostat car une commande Thermostat existe déjà": "Você não pode criar um modo chamado Termostato porque já existe um comando Termostato",
         "Aucun": "Nenhum"
     },
     "plugins\/thermostat\/core\/class\/thermostatActionList.class.php": {
@@ -256,6 +247,17 @@
         "Delta consigne": "Ponto de ajuste delta",
         "Performance": "Desempenho",
         "Puissance": "Potência"
+    },
+    "plugins\/thermostat\/core\/class\/thermostatConfiguration.class.php": {
+        "La température de consigne minimale ne peut être supérieure à la consigne maximale": "O ponto de ajuste mínimo de temperatura não pode ser maior do que o ponto de ajuste máximo",
+        "Le temps de chauffe minimal doit être compris entre 0% et 90%": "O tempo mínimo de aquecimento deve estar entre 0% e 90%",
+        "Le temps de cycle doit être supérieur à 15 minutes": "O tempo do ciclo deve ser superior a 15 minutos",
+        "off": "Off",
+        "Vous ne pouvez faire un mode s'appelant Off car une commande Off existe déjà": "Você não pode criar um modo chamado Off porque já existe um comando Off",
+        "status": "Estado",
+        "Vous ne pouvez faire un mode s'appelant Status car une commande Status existe déjà": "Você não pode criar um modo chamado Status porque já existe um comando Status",
+        "thermostat": "Termostato",
+        "Vous ne pouvez faire un mode s'appelant Thermostat car une commande Thermostat existe déjà": "Você não pode criar um modo chamado Termostato porque já existe um comando Termostato"
     },
     "plugins\/thermostat\/core\/class\/thermostatHysteresisEngine.class.php": {
         "Lancement du calcul d'hystérésis": "Iniciando o cálculo de histerese",

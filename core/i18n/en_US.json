@@ -202,15 +202,6 @@
         "minutes": "minutes",
         "Attention la température intérieure est en dessous du seuil autorisé": "Please note the interior temperature is below the authorized threshold",
         "Attention la température intérieure est au dessus du seuil autorisé": "Please note the interior temperature is above the authorized threshold",
-        "La température de consigne minimale ne peut être supérieure à la consigne maximale": "The minimum setpoint temperature cannot be higher than the maximum setpoint",
-        "Le temps de chauffe minimal doit être compris entre 0% et 90%": "The minimum heating time must be between 0% and 90%",
-        "Le temps de cycle doit être supérieur à 15 minutes": "Cycle time must be more than 15 minutes",
-        "off": "Off",
-        "Vous ne pouvez faire un mode s'appelant Off car une commande Off existe déjà": "You cannot make a mode called Off because an Off command already exists",
-        "status": "Status",
-        "Vous ne pouvez faire un mode s'appelant Status car une commande Status existe déjà": "You cannot make a mode called Status because a Status command already exists",
-        "thermostat": "Thermostat",
-        "Vous ne pouvez faire un mode s'appelant Thermostat car une commande Thermostat existe déjà": "You cannot create a mode called Thermostat because a Thermostat command already exists",
         "Aucun": "None"
     },
     "plugins\/thermostat\/core\/class\/thermostatActionList.class.php": {
@@ -256,6 +247,17 @@
         "Delta consigne": "Setpoint delta",
         "Performance": "Performance",
         "Puissance": "Power"
+    },
+    "plugins\/thermostat\/core\/class\/thermostatConfiguration.class.php": {
+        "La température de consigne minimale ne peut être supérieure à la consigne maximale": "The minimum setpoint temperature cannot be higher than the maximum setpoint",
+        "Le temps de chauffe minimal doit être compris entre 0% et 90%": "The minimum heating time must be between 0% and 90%",
+        "Le temps de cycle doit être supérieur à 15 minutes": "Cycle time must be more than 15 minutes",
+        "off": "Off",
+        "Vous ne pouvez faire un mode s'appelant Off car une commande Off existe déjà": "You cannot make a mode called Off because an Off command already exists",
+        "status": "Status",
+        "Vous ne pouvez faire un mode s'appelant Status car une commande Status existe déjà": "You cannot make a mode called Status because a Status command already exists",
+        "thermostat": "Thermostat",
+        "Vous ne pouvez faire un mode s'appelant Thermostat car une commande Thermostat existe déjà": "You cannot create a mode called Thermostat because a Thermostat command already exists"
     },
     "plugins\/thermostat\/core\/class\/thermostatHysteresisEngine.class.php": {
         "Lancement du calcul d'hystérésis": "Launching the hysteresis calculation",

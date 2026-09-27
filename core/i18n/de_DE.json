@@ -202,15 +202,6 @@
         "minutes": "Protokoll",
         "Attention la température intérieure est en dessous du seuil autorisé": "Bitte beachten Sie, dass die Innentemperatur unter dem zulässigen Schwellenwert liegt",
         "Attention la température intérieure est au dessus du seuil autorisé": "Bitte beachten Sie, dass die Innentemperatur über dem zulässigen Schwellenwert liegt",
-        "La température de consigne minimale ne peut être supérieure à la consigne maximale": "Die minimale Solltemperatur darf nicht höher als der maximale Sollwert sein",
-        "Le temps de chauffe minimal doit être compris entre 0% et 90%": "Die Mindestheizzeit muss zwischen 0% und 90% liegen",
-        "Le temps de cycle doit être supérieur à 15 minutes": "Die Zykluszeit muss mehr als 15 Minuten betragen",
-        "off": "Aus",
-        "Vous ne pouvez faire un mode s'appelant Off car une commande Off existe déjà": "Sie können keinen Modus namens „Aus“ erstellen, da bereits ein Aus-Befehl vorhanden ist",
-        "status": "STATUS",
-        "Vous ne pouvez faire un mode s'appelant Status car une commande Status existe déjà": "Sie können keinen Modus namens „Status“ erstellen, da bereits ein Statusbefehl vorhanden ist",
-        "thermostat": "Thermostat",
-        "Vous ne pouvez faire un mode s'appelant Thermostat car une commande Thermostat existe déjà": "Sie können keinen Modus namens „Thermostat“ erstellen, da bereits ein Thermostat-Befehl vorhanden ist",
         "Aucun": "Ohne"
     },
     "plugins\/thermostat\/core\/class\/thermostatActionList.class.php": {
@@ -256,6 +247,17 @@
         "Delta consigne": "Delta-Sollwert",
         "Performance": "Leistung",
         "Puissance": "Macht"
+    },
+    "plugins\/thermostat\/core\/class\/thermostatConfiguration.class.php": {
+        "La température de consigne minimale ne peut être supérieure à la consigne maximale": "Die minimale Solltemperatur darf nicht höher als der maximale Sollwert sein",
+        "Le temps de chauffe minimal doit être compris entre 0% et 90%": "Die Mindestheizzeit muss zwischen 0% und 90% liegen",
+        "Le temps de cycle doit être supérieur à 15 minutes": "Die Zykluszeit muss mehr als 15 Minuten betragen",
+        "off": "Aus",
+        "Vous ne pouvez faire un mode s'appelant Off car une commande Off existe déjà": "Sie können keinen Modus namens „Aus“ erstellen, da bereits ein Aus-Befehl vorhanden ist",
+        "status": "STATUS",
+        "Vous ne pouvez faire un mode s'appelant Status car une commande Status existe déjà": "Sie können keinen Modus namens „Status“ erstellen, da bereits ein Statusbefehl vorhanden ist",
+        "thermostat": "Thermostat",
+        "Vous ne pouvez faire un mode s'appelant Thermostat car une commande Thermostat existe déjà": "Sie können keinen Modus namens „Thermostat“ erstellen, da bereits ein Thermostat-Befehl vorhanden ist"
     },
     "plugins\/thermostat\/core\/class\/thermostatHysteresisEngine.class.php": {
         "Lancement du calcul d'hystérésis": "Starten der Hystereseberechnung",
