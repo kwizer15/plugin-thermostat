@@ -1293,7 +1293,6 @@ class thermostat extends eqLogic {
 	}
 
 	public function heat($_repeat = false) {
-		$this->getCmd(null, 'status')->event(__('Chauffage', __FILE__));
 		if (!$_repeat) {
 			if ($this->getCmd(null, 'mode')->execCmd() == __('Off', __FILE__) || $this->getCmd(null, 'status')->execCmd() == __('Suspendu', __FILE__)) {
 				return false;
@@ -1307,6 +1306,7 @@ class thermostat extends eqLogic {
 				return false;
 			}
 		}
+		$this->getCmd(null, 'status')->event(__('Chauffage', __FILE__));
 		log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Action chauffage', __FILE__));
 		$this->executeActions($this->getConfiguration('heating'), true);
 		if (!$_repeat) {
@@ -1318,7 +1318,6 @@ class thermostat extends eqLogic {
 	}
 
 	public function cool($_repeat = false) {
-		$this->getCmd(null, 'status')->event(__('Climatisation', __FILE__));
 		if (!$_repeat) {
 			if ($this->getCmd(null, 'mode')->execCmd() == __('Off', __FILE__) || $this->getCmd(null, 'status')->execCmd() == __('Suspendu', __FILE__)) {
 				return false;
@@ -1332,6 +1331,7 @@ class thermostat extends eqLogic {
 				return false;
 			}
 		}
+		$this->getCmd(null, 'status')->event(__('Climatisation', __FILE__));
 		log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Action froid', __FILE__));
 		$this->executeActions($this->getConfiguration('cooling'), true);
 		if (!$_repeat) {

@@ -209,6 +209,16 @@ class TemporalTest extends ThermostatTestCase {
 		$this->assertSame('Arrêté', $this->valueOf($thermostat, 'status'));
 	}
 
+	public function testCoolingNotAllowedWhenAlreadyStoppedSendsNothing() {
+		$thermostat = $this->equippedThermostat(array('allow_mode' => 'heat'), 25, 30, 22);
+		$this->setValueOf($thermostat, 'status', 'Arrêté');
+
+		$this->runTemporal($thermostat);
+
+		$this->assertSame(array(), $this->executed());
+		$this->assertSame('Arrêté', $this->valueOf($thermostat, 'status'));
+	}
+
 	public function testDetectsActuatorFailureAfterTwoCycles() {
 		$thermostat = $this->equippedThermostat(array('coeff_indoor_heat_autolearn' => 30), 17.5);
 		$thermostat->setCache(array('lastState' => 'heat', 'lastOrder' => 20, 'lastTempIn' => 18));

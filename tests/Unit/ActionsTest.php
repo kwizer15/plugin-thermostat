@@ -37,24 +37,36 @@ class ActionsTest extends ThermostatTestCase {
 		$this->assertSame(array('[Salon] Erreur lors de l\'exécution de #' . $broken->getId() . '#. Détails : Échec de #' . $broken->getId() . '#'), log::messages('error'));
 	}
 
-	public function testHeatRunsEvenWhenSuspended() {
+	public function testHeatRefusedWhenSuspended() {
 		$thermostat = $this->equippedThermostat();
 		$this->setValueOf($thermostat, 'status', 'Suspendu');
-
-		$this->assertTrue($thermostat->heat());
-
-		$this->assertSame(array('heat'), $this->executed());
-		$this->assertSame('Chauffage', $this->valueOf($thermostat, 'status'));
-	}
-
-	public function testHeatRefusedWhenModeOffLeavesHeatingStatus() {
-		$thermostat = $this->equippedThermostat();
-		$this->setValueOf($thermostat, 'mode', 'Off');
 
 		$this->assertFalse($thermostat->heat());
 
 		$this->assertSame(array(), $this->executed());
-		$this->assertSame('Chauffage', $this->valueOf($thermostat, 'status'));
+		$this->assertSame('Suspendu', $this->valueOf($thermostat, 'status'));
+	}
+
+	public function testHeatRefusedWhenModeOffKeepsStatus() {
+		$thermostat = $this->equippedThermostat();
+		$this->setValueOf($thermostat, 'mode', 'Off');
+		$this->setValueOf($thermostat, 'status', 'Arrêté');
+
+		$this->assertFalse($thermostat->heat());
+
+		$this->assertSame(array(), $this->executed());
+		$this->assertSame('Arrêté', $this->valueOf($thermostat, 'status'));
+	}
+
+	public function testHeatNotAllowedWhenAlreadyStoppedSendsNothing() {
+		$thermostat = $this->equippedThermostat(array('allow_mode' => 'cool'));
+		$this->setValueOf($thermostat, 'status', 'Arrêté');
+		cmd::$events = array();
+
+		$this->assertFalse($thermostat->heat());
+
+		$this->assertSame(array(), $this->executed());
+		$this->assertSame(array(), cmd::$events);
 	}
 
 	public function testHeatNotAllowedStops() {
@@ -123,13 +135,25 @@ class ActionsTest extends ThermostatTestCase {
 		$this->assertSame(array('stop'), $this->executed());
 	}
 
-	public function testCoolRefusedWhenModeOff() {
+	public function testCoolRefusedWhenModeOffKeepsStatus() {
 		$thermostat = $this->equippedThermostat();
 		$this->setValueOf($thermostat, 'mode', 'Off');
+		$this->setValueOf($thermostat, 'status', 'Arrêté');
 
 		$this->assertFalse($thermostat->cool());
 
-		$this->assertSame('Climatisation', $this->valueOf($thermostat, 'status'));
+		$this->assertSame('Arrêté', $this->valueOf($thermostat, 'status'));
+	}
+
+	public function testCoolNotAllowedWhenAlreadyStoppedSendsNothing() {
+		$thermostat = $this->equippedThermostat(array('allow_mode' => 'heat'));
+		$this->setValueOf($thermostat, 'status', 'Arrêté');
+		cmd::$events = array();
+
+		$this->assertFalse($thermostat->cool());
+
+		$this->assertSame(array(), $this->executed());
+		$this->assertSame(array(), cmd::$events);
 	}
 
 	public function testStopExecutesActions() {
