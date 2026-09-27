@@ -22,6 +22,7 @@ require_once dirname(__FILE__) . '/thermostatPowerCalculator.class.php';
 require_once dirname(__FILE__) . '/thermostatCoefficientLearner.class.php';
 require_once dirname(__FILE__) . '/thermostatSmartStart.class.php';
 require_once dirname(__FILE__) . '/thermostatActuator.class.php';
+require_once dirname(__FILE__) . '/thermostatWindows.class.php';
 
 class thermostat extends eqLogic {
 
@@ -322,22 +323,7 @@ class thermostat extends eqLogic {
 					log::add(__CLASS__, 'error', $thermostat->getHumanName() . ' : ' . $e->getMessage());
 				}
 			}
-			if (
-				$thermostat->getConfiguration('window_alertIfOpenMoreThan') != ''
-				&& $thermostat->getConfiguration('window_alertIfOpenMoreThan') > 0
-				&& $thermostat->getCache('window::state::open', -1) != -1
-				&& (strtotime('now') - $thermostat->getCache('window::state::open', -1)) > ($thermostat->getConfiguration('window_alertIfOpenMoreThan') * 60)
-				&& $thermostat->getCmd(null, 'status')->execCmd() == __('Suspendu', __FILE__)
-			) {
-				if ($thermostat->getCache('alertSendForWindow', 0) != 1) {
-					log::add(__CLASS__, 'error', $thermostat->getHumanName() . ' ' . __("Attention le thermostat est suspendu à cause d'une fenêtre ouverte depuis", __FILE__) . ' : ' .  ((strtotime('now') - $thermostat->getCache('window::state::open', -1)) / 60) . __('minutes', __FILE__));
-					$thermostat->setCache('alertSendForWindow', 1);
-				}
-			} else {
-				if ($thermostat->getCache('alertSendForWindow', 0) != 0) {
-					$thermostat->setCache('alertSendForWindow', 0);
-				}
-			}
+			(new thermostatWindows($thermostat))->alert();
 			if ($thermostat->getConfiguration('engine', 'temporal') == 'temporal' && date('i') % 10 == 0) {
 				$cron = cron::byClassAndFunction(__CLASS__, 'pull', array('thermostat_id' => intval($thermostat->getId())));
 				if (!is_object($cron)) {
@@ -417,23 +403,7 @@ class thermostat extends eqLogic {
 	public static function window($_option) {
 		$thermostat = thermostat::byId($_option['thermostat_id']);
 		if (is_object($thermostat) && $thermostat->getIsEnable() == 1) {
-			log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __("Détection d'un changement sur une fenêtre", __FILE__));
-			$windows = $thermostat->getConfiguration('window');
-			foreach ($windows as $window) {
-				if ('#' . $_option['event_id'] . '#' == $window['cmd']) {
-					if (isset($window['invert']) && $window['invert'] == 1) {
-						$_option['value'] = ($_option['value'] == 0) ? 1 : 0;
-					}
-					log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Fenêtre trouvée', __FILE__) . ' : ' . cmd::byString($window['cmd'])->getHumanName() . ' - ' . __('valeur', __FILE__) . ' : ' . $_option['value']);
-					if ($_option['value'] == 0) {
-						log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Fenêtre fermée', __FILE__));
-						$thermostat->windowClose($window);
-					} else {
-						log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Fenêtre ouverte', __FILE__));
-						$thermostat->windowOpen($window);
-					}
-				}
-			}
+			(new thermostatWindows($thermostat))->handle($_option);
 		}
 	}
 
@@ -454,84 +424,13 @@ class thermostat extends eqLogic {
 	}
 
 	public function windowClose($_window) {
-		if ($this->getCache('window::state::' . str_replace('#', '', $_window['cmd']), 0) != 1) {
-			log::add(__CLASS__, 'debug', $this->getHumanName() . ' [windowClose] ' . __("Je n'ai jamais vu cette fenêtre ouverte, je ne fais rien", __FILE__));
-			return;
-		}
-		$this->setCache('window::state::' . str_replace('#', '', $_window['cmd']), 0);
-		log::add(__CLASS__, 'debug', $this->getHumanName() . '[windowClose] => ' . json_encode($_window));
-		if ($this->getCmd(null, 'status')->execCmd() != __('Suspendu', __FILE__)) {
-			log::add(__CLASS__, 'debug', $this->getHumanName() . ' [windowClose] ' . __('Thermostat non suspendu je ne fais rien', __FILE__));
-			return;
-		}
-		$this->setCache('window::close::' . str_replace('#', '', $_window['cmd']) . '::datetime', date('Y-m-d H:i:s'));
-		$restartTime = (isset($_window['restartTime']) && $_window['restartTime'] != '') ? $_window['restartTime'] * 60 : 0;
-		if (is_numeric($restartTime) && $restartTime > 0) {
-			log::add(__CLASS__, 'debug', $this->getHumanName() . ' [windowClose] ' . __('Pause de', __FILE__) . ' ' . $restartTime . 's');
-			sleep($restartTime);
-		}
-		$windows = $this->getConfiguration('window');
-		foreach ($windows as $window) {
-			$cmd = cmd::byId(str_replace('#', '', $window['cmd']));
-			if (!is_object($cmd)) {
-				continue;
-			}
-			$value = $cmd->execCmd();
-			if (isset($window['invert']) && $window['invert'] == 1) {
-				$value = ($value == 0) ? 1 : 0;
-			}
-			if ($value == 1) {
-				log::add(__CLASS__, 'debug', $this->getHumanName() . ' [windowClose] ' . __('Fenêtre ouverte, je ne fais rien', __FILE__) . ' : ' . $window['cmd']);
-				return;
-			}
-			$restartTime = (isset($window['restartTime']) && $window['restartTime'] != '') ? $window['restartTime'] * 60 : 0;
-			if ((strtotime($this->getCache('window::close::' . $cmd->getId() . '::datetime')) + $restartTime - 1) > strtotime('now')) {
-				log::add(__CLASS__, 'debug', $this->getHumanName() . ' [windowClose] ' . __('Fenêtre fermée depuis trop peu de temps, je ne fais rien', __FILE__) . ' : ' . $window['cmd'] . ' => ' . $this->getCache('window::close::' . $cmd->getId() . '::datetime') . '+' . $restartTime . 's');
-				return;
-			}
-		}
-		log::add(__CLASS__, 'debug', $this->getHumanName() . ' [windowClose] ' . __('Toutes les fenêtres sont fermées, je relance le chauffage', __FILE__));
-		$this->getCmd(null, 'status')->event(__('Calcul', __FILE__));
-		$this->setCache('window::state::open', -1);
-		$this->runEngine();
+		log::add(__CLASS__, 'warning', $this->getHumanName() . ' thermostat::windowClose appelé de l\'extérieur, voir thermostatWindows');
+		return (new thermostatWindows($this))->close($_window);
 	}
 
 	public function windowOpen($_window) {
-		log::add(__CLASS__, 'debug', $this->getHumanName() . '[windowOpen] => ' . json_encode($_window));
-		$this->setCache('window::state::' . str_replace('#', '', $_window['cmd']), 1);
-		if ($this->getCmd(null, 'mode')->execCmd() == __('Off', __FILE__) || $this->getCmd(null, 'status')->execCmd() == __('Suspendu', __FILE__)) {
-			log::add(__CLASS__, 'debug', $this->getHumanName() . ' [windowOpen] ' . __('Thermostat arreté ou suspendu je ne fais rien', __FILE__));
-			return;
-		}
-		$startime = strtotime('now');
-		$cmd = cmd::byId(str_replace('#', '', $_window['cmd']));
-		if (!is_object($cmd)) {
-			log::add(__CLASS__, 'debug', $this->getHumanName() . ' [windowOpen] ' . __('Commande introuvable je ne fais rien', __FILE__));
-			return;
-		}
-		$stopTime = (isset($_window['stopTime']) && $_window['stopTime'] != '') ? $_window['stopTime'] : 0;
-		if (is_numeric($stopTime) && $stopTime > 0) {
-			log::add(__CLASS__, 'debug', $this->getHumanName() . ' [windowOpen] ' . __('Pause de', __FILE__) . ' ' . $stopTime . ' ' . __('minutes', __FILE__));
-			sleep($stopTime * 60);
-		}
-		$value = $cmd->execCmd();
-		if (isset($_window['invert']) && $_window['invert'] == 1) {
-			$value = ($value == 0) ? 1 : 0;
-		}
-		log::add(__CLASS__, 'debug', $this->getHumanName() . ' [windowOpen] ' . __('Valeur commande', __FILE__) . ' : ' . $value . __(' en date du : ', __FILE__) . $cmd->getValueDate());
-		if ($value != 1) {
-			log::add(__CLASS__, 'debug', $this->getHumanName() . ' [windowOpen] ' . __("L'ouvrant n'est plus ouvert, je ne fais rien", __FILE__));
-			return true;
-		}
-		if (strtotime($cmd->getValueDate()) > ($startime + 5)) {
-			log::add(__CLASS__, 'debug', $this->getHumanName() . ' [windowOpen] ' . __("L'ouvrant à été refermé pendant la pause, je ne fais rien, refermé à", __FILE__) . ' ' . $cmd->getValueDate());
-			return true;
-		}
-		log::add(__CLASS__, 'debug', $this->getHumanName() . ' [windowOpen] ' . __('Arrêt du thermostat', __FILE__));
-		$this->getCmd(null, 'status')->event(__('Suspendu', __FILE__));
-		$this->stopThermostat(false, true);
-		$this->setCache('window::state::open', strtotime('now'));
-		return true;
+		log::add(__CLASS__, 'warning', $this->getHumanName() . ' thermostat::windowOpen appelé de l\'extérieur, voir thermostatWindows');
+		return (new thermostatWindows($this))->open($_window);
 	}
 
 	public function reschedule($_next = null, $_stop = false, $_smartThermostat = false) {
