@@ -1,6 +1,6 @@
 <?php
 
-class InMemorySettings implements thermostatPowerSettings, thermostatLearningSettings, thermostatSmartStartSettings, thermostatHysteresisSettings, thermostatActuatorSettings {
+class InMemorySettings implements thermostatPowerSettings, thermostatLearningSettings, thermostatSmartStartSettings, thermostatHysteresisSettings, thermostatActuatorSettings, thermostatWindowSettings {
 
 	public $values = array(
 		'coeff_indoor_heat' => 10,
@@ -33,6 +33,8 @@ class InMemorySettings implements thermostatPowerSettings, thermostatLearningSet
 		'failure' => array(),
 		'failureActuator' => array(),
 		'existingMode' => array(),
+		'window' => array(),
+		'window_alertIfOpenMoreThan' => '',
 	);
 
 	public $published = array();
@@ -151,5 +153,13 @@ class InMemorySettings implements thermostatPowerSettings, thermostatLearningSet
 
 	public function modes() {
 		return $this->values['existingMode'];
+	}
+
+	public function windows() {
+		return $this->values['window'];
+	}
+
+	public function windowAlertDelay() {
+		return $this->values['window_alertIfOpenMoreThan'];
 	}
 }

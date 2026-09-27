@@ -1,0 +1,27 @@
+<?php
+
+class InMemoryWindowSensors implements thermostatWindowSensors {
+
+	public $values = array();
+	public $valueDates = array();
+
+	public function set($_cmdId, $_value, $_valueDate = '2026-01-15 10:00:00') {
+		$this->values[$_cmdId] = $_value;
+		$this->valueDates[$_cmdId] = $_valueDate;
+	}
+
+	public function name($_cmd) {
+		return '[Maison][' . $_cmd . ']';
+	}
+
+	public function exists($_cmdId) {
+		return isset($this->values[$_cmdId]);
+	}
+
+	public function read($_cmdId) {
+		if (!$this->exists($_cmdId)) {
+			return null;
+		}
+		return new thermostatReading($this->values[$_cmdId], '', $this->valueDates[$_cmdId]);
+	}
+}

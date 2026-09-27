@@ -1,0 +1,196 @@
+<?php
+
+require_once __DIR__ . '/../../Metier/bootstrap.php';
+
+use PHPUnit\Framework\TestCase;
+
+class WindowsTest extends TestCase {
+
+	private $settings;
+	private $memory;
+	private $display;
+	private $sensors;
+	private $actions;
+	private $engine;
+
+	protected function setUp() {
+		setMetierNow('2026-01-15 10:00:00');
+		$this->settings = new InMemorySettings();
+		$this->memory = new InMemoryMemory();
+		$this->display = new InMemoryDisplay();
+		$this->display->status = 'Chauffage';
+		$this->sensors = new InMemoryWindowSensors();
+		$this->actions = new RecordingActions();
+		$this->engine = new CountingRunner();
+	}
+
+	private function windows() {
+		$actuator = new thermostatActuator($this->settings, $this->memory, new CountingPersistence(), $this->display, $this->actions, $this->engine, new RecordingLog());
+		return new thermostatWindows($this->settings, $this->memory, $this->display, $this->sensors, $actuator, $this->engine, new RecordingLog());
+	}
+
+	private function configure(array $_windows) {
+		$this->settings->values['window'] = $_windows;
+	}
+
+	private function notify($_cmdId, $_value) {
+		$this->sensors->set($_cmdId, $_value);
+		$this->windows()->handle(array('event_id' => $_cmdId, 'value' => $_value));
+	}
+
+	public function testOpeningSuspendsThermostat() {
+		$this->configure(array(array('cmd' => '#7#')));
+
+		$this->notify(7, 1);
+
+		$this->assertSame('Suspendu', $this->display->status);
+		$this->assertSame(array('#stopper#'), $this->actions->executed);
+		$this->assertSame(strtotime('2026-01-15 10:00:00'), $this->memory->values['window::state::open']);
+		$this->assertSame(1, $this->memory->windowState(7));
+	}
+
+	public function testOnlyConfiguredWindowIsHandled() {
+		$this->configure(array(array('cmd' => '#7#')));
+
+		$this->notify(8, 1);
+
+		$this->assertSame('Chauffage', $this->display->status);
+		$this->assertSame(0, $this->memory->windowState(8));
+	}
+
+	public function testInvertedWindow() {
+		$this->configure(array(array('cmd' => '#7#', 'invert' => 1)));
+
+		$this->notify(7, 0);
+
+		$this->assertSame('Suspendu', $this->display->status);
+	}
+
+	public function testOpeningIgnoredWhenOffOrAlreadySuspended() {
+		$this->configure(array(array('cmd' => '#7#')));
+		$this->display->mode = 'Off';
+		$this->notify(7, 1);
+		$this->assertSame('Chauffage', $this->display->status);
+		$this->assertSame(1, $this->memory->windowState(7));
+
+		$this->display->mode = 'Aucun';
+		$this->display->status = 'Suspendu';
+		$this->notify(7, 1);
+		$this->assertSame(array(), $this->actions->executed);
+		$this->assertSame(-1, $this->memory->values['window::state::open']);
+	}
+
+	public function testOpeningIgnoredWhenWindowClosedAgainOrUnknown() {
+		$this->configure(array(array('cmd' => '#7#')));
+		$this->sensors->set(7, 0);
+		$this->windows()->open(array('cmd' => '#7#'));
+		$this->assertSame('Chauffage', $this->display->status);
+
+		$this->windows()->open(array('cmd' => '#9#'));
+		$this->assertSame('Chauffage', $this->display->status);
+	}
+
+	public function testOpeningIgnoredWhenClosedDuringPause() {
+		$this->sensors->set(7, 1, '2026-01-15 10:00:06');
+
+		$this->windows()->open(array('cmd' => '#7#'));
+
+		$this->assertSame('Chauffage', $this->display->status);
+	}
+
+	public function testClosingResumesThermostat() {
+		$this->configure(array(array('cmd' => '#7#')));
+		$this->notify(7, 1);
+
+		$this->notify(7, 0);
+
+		$this->assertSame('Calcul', $this->display->status);
+		$this->assertSame(-1, $this->memory->values['window::state::open']);
+		$this->assertSame('2026-01-15 10:00:00', $this->memory->closedAt(7));
+		$this->assertSame(1, $this->engine->runs);
+	}
+
+	public function testClosingNeverSeenOpenIsIgnored() {
+		$this->configure(array(array('cmd' => '#7#')));
+		$this->display->status = 'Suspendu';
+
+		$this->notify(7, 0);
+
+		$this->assertSame(0, $this->engine->runs);
+		$this->assertSame('', $this->memory->closedAt(7));
+	}
+
+	public function testClosingWhenNotSuspendedOnlyForgetsWindow() {
+		$this->configure(array(array('cmd' => '#7#')));
+		$this->memory->setWindowState(7, 1);
+
+		$this->notify(7, 0);
+
+		$this->assertSame(0, $this->memory->windowState(7));
+		$this->assertSame(0, $this->engine->runs);
+	}
+
+	public function testClosingWaitsForOtherWindows() {
+		$this->configure(array(array('cmd' => '#7#'), array('cmd' => '#8#')));
+		$this->sensors->set(8, 1);
+		$this->notify(7, 1);
+
+		$this->notify(7, 0);
+
+		$this->assertSame('Suspendu', $this->display->status);
+		$this->assertSame(0, $this->engine->runs);
+	}
+
+	public function testClosingSkipsUnknownWindowCommands() {
+		$this->configure(array(array('cmd' => '#6#'), array('cmd' => '#7#')));
+		$this->notify(7, 1);
+		unset($this->sensors->values[6]);
+
+		$this->notify(7, 0);
+
+		$this->assertSame(1, $this->engine->runs);
+	}
+
+	public function testClosingWaitsForRestartTimeOfOtherWindows() {
+		$this->configure(array(array('cmd' => '#7#'), array('cmd' => '#8#', 'restartTime' => 5)));
+		$this->sensors->set(8, 0);
+		$this->memory->setClosedAt(8, '2026-01-15 09:56:00');
+		$this->notify(7, 1);
+
+		$this->notify(7, 0);
+		$this->assertSame(0, $this->engine->runs);
+
+		$this->memory->setClosedAt(8, '2026-01-15 09:55:01');
+		$this->memory->setWindowState(7, 1);
+		$this->notify(7, 0);
+		$this->assertSame(1, $this->engine->runs);
+	}
+
+	public function testAlertsOnceWhenOpenTooLong() {
+		$this->settings->values['window_alertIfOpenMoreThan'] = 30;
+		$this->display->status = 'Suspendu';
+		$this->memory->setOpenSince(strtotime('2026-01-15 09:29:59'));
+		$log = new RecordingLog();
+		$windows = new thermostatWindows($this->settings, $this->memory, $this->display, $this->sensors, new thermostatActuator($this->settings, $this->memory, new CountingPersistence(), $this->display, $this->actions, $this->engine, $log), $this->engine, $log);
+
+		$windows->alert();
+		$windows->alert();
+
+		$this->assertCount(1, preg_grep('/^error Attention le thermostat est suspendu/', $log->lines));
+		$this->assertSame(1, $this->memory->alertSent());
+	}
+
+	public function testNoAlertBeforeDelayAndResetWhenResumed() {
+		$this->settings->values['window_alertIfOpenMoreThan'] = 30;
+		$this->display->status = 'Suspendu';
+		$this->memory->setOpenSince(strtotime('2026-01-15 09:30:00'));
+		$this->windows()->alert();
+		$this->assertSame(0, $this->memory->alertSent());
+
+		$this->memory->setAlertSent(1);
+		$this->display->status = 'Chauffage';
+		$this->memory->setOpenSince(strtotime('2026-01-15 09:00:00'));
+		$this->windows()->alert();
+		$this->assertSame(0, $this->memory->alertSent());
+	}
+}

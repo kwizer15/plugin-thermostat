@@ -1,6 +1,6 @@
 <?php
 
-class InMemoryMemory implements thermostatPowerMemory, thermostatCycleMemory, thermostatSmartStartMemory, thermostatStateMemory {
+class InMemoryMemory implements thermostatPowerMemory, thermostatCycleMemory, thermostatSmartStartMemory, thermostatStateMemory, thermostatWindowMemory {
 
 	public $values = array(
 		'lastState' => '',
@@ -10,6 +10,8 @@ class InMemoryMemory implements thermostatPowerMemory, thermostatCycleMemory, th
 		'lastTempIn' => 0,
 		'nbConsecutiveFaillure' => 0,
 		'smartStart' => '',
+		'window::state::open' => -1,
+		'alertSendForWindow' => 0,
 	);
 
 	public function __construct(array $_values = array()) {
@@ -54,5 +56,37 @@ class InMemoryMemory implements thermostatPowerMemory, thermostatCycleMemory, th
 
 	public function setLastState($_state) {
 		$this->values['lastState'] = $_state;
+	}
+
+	public function windowState($_cmdId) {
+		return isset($this->values['window::state::' . $_cmdId]) ? $this->values['window::state::' . $_cmdId] : 0;
+	}
+
+	public function setWindowState($_cmdId, $_state) {
+		$this->values['window::state::' . $_cmdId] = $_state;
+	}
+
+	public function closedAt($_cmdId) {
+		return isset($this->values['window::close::' . $_cmdId . '::datetime']) ? $this->values['window::close::' . $_cmdId . '::datetime'] : '';
+	}
+
+	public function setClosedAt($_cmdId, $_datetime) {
+		$this->values['window::close::' . $_cmdId . '::datetime'] = $_datetime;
+	}
+
+	public function openSince() {
+		return $this->values['window::state::open'];
+	}
+
+	public function setOpenSince($_timestamp) {
+		$this->values['window::state::open'] = $_timestamp;
+	}
+
+	public function alertSent() {
+		return $this->values['alertSendForWindow'];
+	}
+
+	public function setAlertSent($_sent) {
+		$this->values['alertSendForWindow'] = $_sent;
 	}
 }
