@@ -4,6 +4,37 @@
 >
 >Zur Erinnerung: Wenn keine Informationen zum Update vorhanden sind, bedeutet dies, dass es sich nur um die Aktualisierung von Dokumentation, Übersetzung oder Text handelt
 
+- Unterstützung für benutzerdefinierte Gerätebilder (Jeedom 4.5)
+- Ein Fehler bei der Unterstützung von Dezimalanweisungen wurde behoben
+
+# 22.07.2024
+
+- Ein Fehler in Debian 12 wurde behoben
+
+# 13.06.2024
+
+- Bessere Verwaltung deaktivierter Thermostate
+
+# 19.02.2024
+
+- Es wurde ein Fehler behoben, der ungültige Crons erstellte
+- Fehlerbehebung, wenn es 2 Bestellungen gleichzeitig gab (Danke @phpvarious)
+
+# 01.03.2024
+
+- Vorbereitung auf Jeedom 4.4
+
+# 19.12.2023
+
+- Möglichkeit der Eingabe negativer Werte für Offset-Befehle in Bezug auf interne Beiträge
+
+# 27.04.2023
+
+- Verbesserung beim Moduswechsel *(Klimaanlage, Heizung oder beides)*
+- Entfernen veralteten Codes für Imperihome
+
+# 20.04.2023
+
 - Verbesserte Verwaltung von Öffnungen
 
 # 10.03.2022

@@ -4,6 +4,37 @@
 >
 >As a reminder if there is no information on the update, it means that it only concerns the updating of documentation, translation or text
 
+- Support for custom equipment images (Jeedom 4.5)
+- Fixed bug on decimal instructions support
+
+# 07/22/2024
+
+- Fixed a bug in debian 12
+
+# 06/13/2024
+
+- Better management of disabled thermostats
+
+# 02/19/2024
+
+- Fixed a bug that creates invalid crons
+- Bug fix if there were 2 orders at the same time (thanks @phpvarious)
+
+# 03/01/2024
+
+- Preparing for jeedom 4.4
+
+# 12/19/2023
+
+- Possibility of entering negative values for Offsets commands relating to internal contributions
+
+# 04/27/2023
+
+- Improvement when changing modes *(air conditioning, heating or both)*
+- Removing obsolete code for Imperihome
+
+# 04/20/2023
+
 - Improved management of openings
 
 # 03/10/2022

@@ -4,6 +4,37 @@
 >
 >Como recordatorio si no hay información sobre la actualización, significa que solo se refiere a la actualización de documentación, traducción o texto
 
+- Soporte para imágenes de equipos personalizados (Jeedom 4.5)
+- Se corrigió un error en la compatibilidad con instrucciones decimales
+
+# 22/07/2024
+
+- Se corrigió un error en Debian 12
+
+# 13/06/2024
+
+- Mejor gestión de los termostatos inhabilitados
+
+# 19/02/2024
+
+- Se corrigió un error que crea crons no válidos
+- Corrección de error si había 2 pedidos al mismo tiempo (gracias @phpvarious)
+
+# 01/03/2024
+
+- Preparándose para el apuro 4.4
+
+# 19/12/2023
+
+- Posibilidad de ingresar valores negativos para los comandos de Compensaciones relacionados con contribuciones internas
+
+# 27/04/2023
+
+- Mejora al cambiar de modo *(aire acondicionado, calefacción o ambos)*
+- Eliminando código obsoleto para Imperihome
+
+# 20/04/2023
+
 - Mejora en la gestión de aperturas
 
 # 10/03/2022

@@ -16,6 +16,11 @@ $eqLogics = eqLogic::byType($plugin->getId());
 				<br/>
 				<span>{{Ajouter}}</span>
 			</div>
+			<div class="cursor eqLogicAction logoPrimary" data-action="gotoPluginConf">
+				<i class="fas fa-wrench"></i>
+				<br/>
+				<span>{{Configuration}}</span>
+			</div>
 		</div>
 		<legend><i class="fas fa-thermometer-three-quarters"></i> {{Mes thermostats}}</legend>
 		<?php
@@ -33,7 +38,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 			foreach ($eqLogics as $eqLogic) {
 				$opacity = ($eqLogic->getIsEnable()) ? '' : 'disableCard';
 				echo '<div class="eqLogicDisplayCard cursor '.$opacity.'" data-eqLogic_id="' . $eqLogic->getId() . '">';
-				echo '<img src="' . $plugin->getPathImgIcon() . '"/>';
+				echo '<img src="' . $eqLogic->getImage() . '"/>';
 				echo '<br>';
 				echo '<span class="name">' . $eqLogic->getHumanName(true, true) . '</span>';
 				echo '</div>';
