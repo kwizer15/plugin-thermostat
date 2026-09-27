@@ -119,6 +119,15 @@ class HysteresisEngineTest extends TestCase {
 		$this->assertCount(1, preg_grep('/^error Attention il n\'y a pas eu de mise à jour/', $this->log->lines));
 	}
 
+	public function testFractionalUpdateDelayIsHonoured() {
+		$this->settings->values['maxTimeUpdateTemp'] = 1.5;
+		$this->sensors->indoor = 18.5;
+
+		$this->run_();
+
+		$this->assertSame(array('#heater#'), $this->actions->executed);
+	}
+
 	public function testStaleSensorWithoutFailureActionsStillReportsFailure() {
 		$this->settings->values['failure'] = array();
 		$this->sensors->collectDate = '2026-01-15 08:59:59';

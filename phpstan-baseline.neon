@@ -841,12 +841,6 @@ parameters:
 			path: core/src/Domain/Engine/HysteresisEngine.php
 
 		-
-			message: '#^Parameter \#2 \$timestamp of function date expects int, int\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
 			message: '#^Binary operation "\*" between bool\|float\|int\|string\|null and 0\.9 results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
@@ -879,7 +873,7 @@ parameters:
 		-
 			message: '#^Parameter \#2 \$timestamp of function date expects int, int\|false given\.$#'
 			identifier: argument.type
-			count: 5
+			count: 4
 			path: core/src/Domain/Engine/TemporalEngine.php
 
 		-

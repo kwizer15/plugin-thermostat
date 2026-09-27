@@ -58,4 +58,11 @@ class Reading {
 	public function valueDate() {
 		return $this->valueDate;
 	}
+
+	/**
+	 * @param float|null $_maxMinutes
+	 */
+	public function isStale(Clock $_clock, $_maxMinutes): bool {
+		return $_maxMinutes !== null && $this->collectDate != '' && strtotime($this->collectDate) < $_clock->now() - $_maxMinutes * 60;
+	}
 }

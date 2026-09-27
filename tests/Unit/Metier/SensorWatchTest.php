@@ -95,6 +95,15 @@ class SensorWatchTest extends TestCase {
 		$this->assertSame(0, $this->memory->values['temp_threshold']);
 	}
 
+	public function testFractionalUpdateDelayIsHonoured() {
+		$this->settings->values['maxTimeUpdateTemp'] = 1.5;
+
+		$this->check();
+
+		$this->assertSame(0, $this->memory->values['temp_threshold']);
+		$this->assertSame(array(), $this->actions->executed);
+	}
+
 	public function testStaleSensorIsFailure() {
 		$this->settings->values['maxTimeUpdateTemp'] = 60;
 		$this->sensors->collectDate = '2026-01-15 08:59:59';

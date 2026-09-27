@@ -65,14 +65,12 @@ class SensorWatch {
 		$reading = $this->sensors->indoorReading();
 		$temp_in = $reading->value();
 		$failure = false;
-		if ($this->settings->maxTimeUpdateTemp() !== null) {
-			if ($reading->collectDate() != '' && strtotime($reading->collectDate()) < strtotime('-' . $this->settings->maxTimeUpdateTemp() . ' minutes' . date('Y-m-d H:i:s', $this->clock->now()))) {
-				if ($this->memory->temperatureAlert() == 0) {
-					$this->actuator->failure();
-					$this->log->error($this->translator->translate("{{Attention il n'y a pas eu de mise à jour de la température depuis plus de}}") . ' : ' . $this->settings->maxTimeUpdateTemp() . ' ' . $this->translator->translate('{{minutes}}') . ' (' . $reading->collectDate() . ')');
-				}
-				$failure = true;
+		if ($reading->isStale($this->clock, $this->settings->maxTimeUpdateTemp())) {
+			if ($this->memory->temperatureAlert() == 0) {
+				$this->actuator->failure();
+				$this->log->error($this->translator->translate("{{Attention il n'y a pas eu de mise à jour de la température depuis plus de}}") . ' : ' . $this->settings->maxTimeUpdateTemp() . ' ' . $this->translator->translate('{{minutes}}') . ' (' . $reading->collectDate() . ')');
 			}
+			$failure = true;
 		}
 		if ($this->settings->indoorMinimum() !== null && $this->settings->indoorMinimum() > $temp_in && $temp_in !== '') {
 			if ($this->memory->temperatureAlert() == 0) {

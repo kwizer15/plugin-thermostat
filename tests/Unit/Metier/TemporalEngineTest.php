@@ -117,6 +117,15 @@ class TemporalEngineTest extends TestCase {
 		$this->assertSame('Défaillance sonde', $this->display->status);
 	}
 
+	public function testFractionalUpdateDelayIsHonoured() {
+		$this->settings->values['maxTimeUpdateTemp'] = 1.5;
+		$this->sensors->collectDate = '2026-01-15 09:59:00';
+
+		$this->run_();
+
+		$this->assertSame(array('#heater#'), $this->actions->executed);
+	}
+
 	public function testNonNumericTemperatureIsFailure() {
 		$this->sensors->indoor = 'abc';
 
