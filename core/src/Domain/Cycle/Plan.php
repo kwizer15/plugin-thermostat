@@ -24,24 +24,41 @@ class Plan {
 	const STOP_CANCEL = 'cancel';
 	const STOP_UNCHANGED = 'unchanged';
 
+	/** @var float */
 	private $duration;
+	/** @var bool */
 	private $tooShort;
+	/** @var self::STOP_* */
 	private $stop;
 
+	/**
+	 * @param float $_duration
+	 * @param bool $_tooShort
+	 * @param self::STOP_* $_stop
+	 */
 	public function __construct($_duration, $_tooShort, $_stop) {
 		$this->duration = $_duration;
 		$this->tooShort = $_tooShort;
 		$this->stop = $_stop;
 	}
 
+	/**
+	 * @return float
+	 */
 	public function duration() {
 		return $this->duration;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function isTooShort() {
 		return $this->tooShort;
 	}
 
+	/**
+	 * @return self::STOP_*
+	 */
 	public function stop() {
 		return $this->stop;
 	}

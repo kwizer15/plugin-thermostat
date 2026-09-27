@@ -27,14 +27,23 @@ use Jeedom\Plugin\Thermostat\Domain\Translator;
 
 class Windows {
 
+	/** @var Settings */
 	private $settings;
+	/** @var Memory */
 	private $memory;
+	/** @var Display */
 	private $display;
+	/** @var Sensors */
 	private $sensors;
+	/** @var Actuator */
 	private $actuator;
+	/** @var EngineRunner */
 	private $engine;
+	/** @var Log */
 	private $log;
+	/** @var StatusLabels */
 	private $labels;
+	/** @var Translator */
 	private $translator;
 
 	public function __construct(Settings $_settings, Memory $_memory, Display $_display, Sensors $_sensors, Actuator $_actuator, EngineRunner $_engine, Log $_log, StatusLabels $_labels, Translator $_translator) {

@@ -23,9 +23,13 @@ use Jeedom\Plugin\Thermostat\Domain\Translator;
 
 class CoefficientLearner {
 
+	/** @var Settings */
 	private $settings;
+	/** @var CycleMemory */
 	private $memory;
+	/** @var Log */
 	private $log;
+	/** @var Translator */
 	private $translator;
 
 	public function __construct(Settings $_settings, CycleMemory $_memory, Log $_log, Translator $_translator) {

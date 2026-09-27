@@ -22,9 +22,10 @@ use Jeedom\Plugin\Thermostat\Domain\Display as DomainDisplay;
 
 class Display implements DomainDisplay {
 
+	/** @var \thermostat */
 	private $eqLogic;
 
-	public function __construct($_eqLogic) {
+	public function __construct(\thermostat $_eqLogic) {
 		$this->eqLogic = $_eqLogic;
 	}
 

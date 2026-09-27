@@ -51,109 +51,110 @@ use Jeedom\Plugin\Thermostat\Jeedom\WindowSensors;
 
 class Assembly {
 
+	/** @var \thermostat */
 	private $thermostat;
 
-	public function __construct($_thermostat) {
+	public function __construct(\thermostat $_thermostat) {
 		$this->thermostat = $_thermostat;
 	}
 
-	public function log() {
+	public function log(): Log {
 		return new Log($this->thermostat->getHumanName());
 	}
 
-	public function translator($_class) {
+	public function translator($_class): Translator {
 		return new Translator(dirname(__FILE__) . '/' . str_replace('\\', '/', substr($_class, strlen(__NAMESPACE__) + 1)) . '.php');
 	}
 
-	public function statusLabels() {
+	public function statusLabels(): StatusLabels {
 		return new StatusLabels($this->translator(StatusLabels::class));
 	}
 
-	public function settings() {
+	public function settings(): Settings {
 		return new Settings($this->thermostat);
 	}
 
-	public function memory() {
+	public function memory(): Memory {
 		return new Memory($this->thermostat);
 	}
 
-	public function sensors() {
+	public function sensors(): Sensors {
 		return new Sensors($this->thermostat);
 	}
 
-	public function evaluator() {
+	public function evaluator(): Evaluator {
 		return new Evaluator();
 	}
 
-	public function calendar() {
+	public function calendar(): Calendar {
 		return new Calendar($this->thermostat, $this->log(), $this->translator(Calendar::class));
 	}
 
-	public function persistence() {
+	public function persistence(): Persistence {
 		return new Persistence($this->thermostat);
 	}
 
-	public function display() {
+	public function display(): Display {
 		return new Display($this->thermostat);
 	}
 
-	public function engineRunner() {
+	public function engineRunner(): EngineRunner {
 		return new EngineRunner($this->thermostat);
 	}
 
-	public function actionList() {
+	public function actionList(): ActionList {
 		return new ActionList($this->thermostat, $this->log(), $this->translator(ActionList::class));
 	}
 
-	public function powerCalculator() {
+	public function powerCalculator(): Calculator {
 		return new Calculator($this->settings(), $this->memory(), $this->log(), $this->translator(Calculator::class));
 	}
 
-	public function coefficientLearner() {
+	public function coefficientLearner(): CoefficientLearner {
 		return new CoefficientLearner($this->settings(), $this->memory(), $this->log(), $this->translator(CoefficientLearner::class));
 	}
 
-	public function scheduler() {
+	public function scheduler(): Scheduler {
 		return new Scheduler($this->thermostat, $this->log());
 	}
 
-	public function smartStart() {
+	public function smartStart(): SmartStart {
 		return new SmartStart($this->settings(), $this->memory(), $this->calendar(), $this->sensors(), $this->display(), new Controls($this->thermostat), $this->evaluator(), $this->powerCalculator(), $this->scheduler(), $this->log(), $this->translator(SmartStart::class));
 	}
 
-	public function actuator() {
+	public function actuator(): Actuator {
 		return new Actuator($this->settings(), $this->memory(), $this->persistence(), $this->display(), $this->actionList(), $this->engineRunner(), $this->log(), $this->statusLabels(), $this->translator(Actuator::class));
 	}
 
-	public function windows() {
+	public function windows(): Windows {
 		return new Windows($this->settings(), $this->memory(), $this->display(), new WindowSensors(), $this->actuator(), $this->engineRunner(), $this->log(), $this->statusLabels(), $this->translator(Windows::class));
 	}
 
-	public function temporalEngine() {
+	public function temporalEngine(): TemporalEngine {
 		return new TemporalEngine($this->settings(), $this->memory(), $this->persistence(), $this->evaluator(), $this->display(), $this->sensors(), $this->actuator(), $this->scheduler(), $this->powerCalculator(), $this->smartStart(), $this->coefficientLearner(), new Planner(), $this->log(), $this->statusLabels(), $this->translator(TemporalEngine::class));
 	}
 
-	public function hysteresisEngine() {
+	public function hysteresisEngine(): HysteresisEngine {
 		return new HysteresisEngine($this->settings(), $this->memory(), $this->display(), $this->sensors(), $this->actuator(), new HysteresisDecision($this->settings(), $this->log(), $this->statusLabels(), $this->translator(HysteresisDecision::class)), $this->log(), $this->statusLabels(), $this->translator(HysteresisEngine::class));
 	}
 
-	public function sensorWatch() {
+	public function sensorWatch(): SensorWatch {
 		return new SensorWatch($this->settings(), $this->memory(), $this->display(), $this->sensors(), $this->actuator(), $this->log(), $this->translator(SensorWatch::class));
 	}
 
-	public function commandHandler() {
+	public function commandHandler(): Handler {
 		return new Handler($this->settings(), $this->memory(), $this->persistence(), $this->display(), $this->actuator(), $this->engineRunner(), $this->statusLabels());
 	}
 
-	public function commands() {
+	public function commands(): Commands {
 		return new Commands($this->thermostat, $this->scheduler(), $this->translator(Commands::class));
 	}
 
-	public function configuration() {
+	public function configuration(): Configuration {
 		return new Configuration($this->settings(), $this->translator(Configuration::class));
 	}
 
-	public function statistics() {
+	public function statistics(): Statistics {
 		return new Statistics($this->settings(), $this->evaluator(), new History($this->thermostat));
 	}
 }

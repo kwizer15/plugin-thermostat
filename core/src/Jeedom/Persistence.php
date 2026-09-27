@@ -22,9 +22,10 @@ use Jeedom\Plugin\Thermostat\Domain\Persistence as DomainPersistence;
 
 class Persistence implements DomainPersistence {
 
+	/** @var \thermostat */
 	private $eqLogic;
 
-	public function __construct($_eqLogic) {
+	public function __construct(\thermostat $_eqLogic) {
 		$this->eqLogic = $_eqLogic;
 	}
 

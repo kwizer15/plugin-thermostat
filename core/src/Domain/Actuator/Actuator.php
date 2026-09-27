@@ -27,14 +27,23 @@ use Jeedom\Plugin\Thermostat\Domain\Translator;
 
 class Actuator {
 
+	/** @var Settings */
 	private $settings;
+	/** @var StateMemory */
 	private $memory;
+	/** @var Persistence */
 	private $persistence;
+	/** @var Display */
 	private $display;
+	/** @var Actions */
 	private $actions;
+	/** @var EngineRunner */
 	private $engine;
+	/** @var Log */
 	private $log;
+	/** @var StatusLabels */
 	private $labels;
+	/** @var Translator */
 	private $translator;
 
 	public function __construct(Settings $_settings, StateMemory $_memory, Persistence $_persistence, Display $_display, Actions $_actions, EngineRunner $_engine, Log $_log, StatusLabels $_labels, Translator $_translator) {

@@ -23,10 +23,12 @@ use Jeedom\Plugin\Thermostat\Domain\Scheduling;
 
 class Scheduler implements Scheduling {
 
+	/** @var \thermostat */
 	private $thermostat;
+	/** @var Log */
 	private $log;
 
-	public function __construct($_thermostat, Log $_log) {
+	public function __construct(\thermostat $_thermostat, Log $_log) {
 		$this->thermostat = $_thermostat;
 		$this->log = $_log;
 	}

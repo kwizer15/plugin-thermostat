@@ -23,9 +23,13 @@ use Jeedom\Plugin\Thermostat\Domain\Translator;
 
 class Calculator {
 
+	/** @var Settings */
 	private $settings;
+	/** @var Memory */
 	private $memory;
+	/** @var Log */
 	private $log;
+	/** @var Translator */
 	private $translator;
 
 	public function __construct(Settings $_settings, Memory $_memory, Log $_log, Translator $_translator) {

@@ -715,704 +715,14 @@ parameters:
 			path: core/class/thermostat.class.php
 
 		-
-			message: '#^Cannot call method getHumanName\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:__construct\(\) has parameter \$_thermostat with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:actionList\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:actuator\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:calendar\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:coefficientLearner\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:commandHandler\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:commands\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:configuration\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:display\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:engineRunner\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:evaluator\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:hysteresisEngine\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:log\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:memory\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:persistence\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:powerCalculator\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:scheduler\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:sensorWatch\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:sensors\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:settings\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:smartStart\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:statistics\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:statusLabels\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:temporalEngine\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:translator\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Assembly.php
-
-		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:translator\(\) has parameter \$_class with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
 			path: core/src/Assembly.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Assembly\:\:windows\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#1 \$_settings of class Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Settings, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#1 \$_settings of class Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Handler constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Settings, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#1 \$_settings of class Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisDecision constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisSettings, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#1 \$_settings of class Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisEngine constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Settings, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#1 \$_settings of class Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Settings, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#1 \$_settings of class Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\CoefficientLearner constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\Settings, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#1 \$_settings of class Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Calculator constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Settings, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#1 \$_settings of class Jeedom\\Plugin\\Thermostat\\Domain\\SensorWatch\\SensorWatch constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\SensorWatch\\Settings, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#1 \$_settings of class Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\SmartStart constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Settings, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#1 \$_settings of class Jeedom\\Plugin\\Thermostat\\Domain\\Statistics\\Statistics constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Statistics\\Settings, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#1 \$_settings of class Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Windows constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Settings, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#1 \$_store of class Jeedom\\Plugin\\Thermostat\\Domain\\Configuration\\Configuration constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Configuration\\Store, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#1 \$_translator of class Jeedom\\Plugin\\Thermostat\\Domain\\StatusLabels constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Translator, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
 			message: '#^Parameter \#1 \$string of function substr expects string, mixed given\.$#'
 			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#10 \$_log of class Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\SmartStart constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Log, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#10 \$_smartStart of class Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\SmartStart, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#11 \$_coefficientLearner of class Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\CoefficientLearner, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#11 \$_translator of class Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\SmartStart constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Translator, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#13 \$_log of class Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Log, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#14 \$_labels of class Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\StatusLabels, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#15 \$_translator of class Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Translator, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#2 \$_evaluator of class Jeedom\\Plugin\\Thermostat\\Domain\\Statistics\\Statistics constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Evaluator, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#2 \$_log of class Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisDecision constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Log, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#2 \$_log of class Jeedom\\Plugin\\Thermostat\\Jeedom\\ActionList constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Log, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#2 \$_log of class Jeedom\\Plugin\\Thermostat\\Jeedom\\Calendar constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Log, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#2 \$_log of class Jeedom\\Plugin\\Thermostat\\Jeedom\\Scheduler constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Log, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#2 \$_memory of class Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\StateMemory, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#2 \$_memory of class Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Handler constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Memory, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#2 \$_memory of class Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisEngine constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Memory, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#2 \$_memory of class Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Memory, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#2 \$_memory of class Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\CoefficientLearner constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\CycleMemory, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#2 \$_memory of class Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Calculator constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Memory, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#2 \$_memory of class Jeedom\\Plugin\\Thermostat\\Domain\\SensorWatch\\SensorWatch constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\SensorWatch\\Memory, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#2 \$_memory of class Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\SmartStart constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Memory, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#2 \$_memory of class Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Windows constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Memory, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#2 \$_scheduler of class Jeedom\\Plugin\\Thermostat\\Jeedom\\Commands constructor expects Jeedom\\Plugin\\Thermostat\\Jeedom\\Scheduler, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#2 \$_translator of class Jeedom\\Plugin\\Thermostat\\Domain\\Configuration\\Configuration constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Translator, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#3 \$_calendar of class Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\SmartStart constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Calendar, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#3 \$_display of class Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisEngine constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Display, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#3 \$_display of class Jeedom\\Plugin\\Thermostat\\Domain\\SensorWatch\\SensorWatch constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Display, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#3 \$_display of class Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Windows constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Display, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#3 \$_labels of class Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisDecision constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\StatusLabels, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#3 \$_log of class Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\CoefficientLearner constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Log, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#3 \$_log of class Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Calculator constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Log, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#3 \$_persistence of class Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Persistence, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#3 \$_persistence of class Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Handler constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Persistence, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#3 \$_persistence of class Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Persistence, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#3 \$_translator of class Jeedom\\Plugin\\Thermostat\\Jeedom\\ActionList constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Translator, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#3 \$_translator of class Jeedom\\Plugin\\Thermostat\\Jeedom\\Calendar constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Translator, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#3 \$_translator of class Jeedom\\Plugin\\Thermostat\\Jeedom\\Commands constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Translator, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#4 \$_display of class Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Display, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#4 \$_display of class Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Handler constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Display, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#4 \$_evaluator of class Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Evaluator, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#4 \$_sensors of class Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisEngine constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Sensors, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#4 \$_sensors of class Jeedom\\Plugin\\Thermostat\\Domain\\SensorWatch\\SensorWatch constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Sensors, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#4 \$_sensors of class Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\SmartStart constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Sensors, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#4 \$_translator of class Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisDecision constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Translator, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#4 \$_translator of class Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\CoefficientLearner constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Translator, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#4 \$_translator of class Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Calculator constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Translator, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#5 \$_actions of class Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actions, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#5 \$_actuator of class Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Handler constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#5 \$_actuator of class Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisEngine constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#5 \$_actuator of class Jeedom\\Plugin\\Thermostat\\Domain\\SensorWatch\\SensorWatch constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#5 \$_actuator of class Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Windows constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#5 \$_display of class Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Display, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#5 \$_display of class Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\SmartStart constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Display, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#6 \$_engine of class Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\EngineRunner, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#6 \$_engine of class Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Handler constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\EngineRunner, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#6 \$_engine of class Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Windows constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\EngineRunner, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#6 \$_log of class Jeedom\\Plugin\\Thermostat\\Domain\\SensorWatch\\SensorWatch constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Log, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#6 \$_sensors of class Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Sensors, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#7 \$_actuator of class Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#7 \$_evaluator of class Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\SmartStart constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Evaluator, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#7 \$_labels of class Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Handler constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\StatusLabels, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#7 \$_log of class Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Log, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#7 \$_log of class Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisEngine constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Log, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#7 \$_log of class Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Windows constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Log, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#7 \$_translator of class Jeedom\\Plugin\\Thermostat\\Domain\\SensorWatch\\SensorWatch constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Translator, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#8 \$_labels of class Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\StatusLabels, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#8 \$_labels of class Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisEngine constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\StatusLabels, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#8 \$_labels of class Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Windows constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\StatusLabels, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#8 \$_powerCalculator of class Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\SmartStart constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Calculator, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#8 \$_scheduler of class Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Scheduling, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#9 \$_powerCalculator of class Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Calculator, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#9 \$_scheduler of class Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\SmartStart constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Scheduling, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#9 \$_translator of class Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Translator, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#9 \$_translator of class Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisEngine constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Translator, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Parameter \#9 \$_translator of class Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Windows constructor expects Jeedom\\Plugin\\Thermostat\\Domain\\Translator, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Assembly.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Assembly\:\:\$thermostat has no type specified\.$#'
-			identifier: missingType.property
 			count: 1
 			path: core/src/Assembly.php
 
@@ -1474,192 +784,6 @@ parameters:
 			message: '#^Cannot access offset ''name'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method allowMode\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 4
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method applyMode\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method cooling\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method coolingActions\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method debug\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 5
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method execute\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 6
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method failureActions\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method failureActuatorActions\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method heating\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method heatingActions\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method heatingFailure\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method mode\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 5
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method modes\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method off\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 5
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method orderChangeActions\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method persist\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method power\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method reload\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method run\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method sensorFailure\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method setActive\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method setLastState\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method setMode\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method setPower\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method setStatus\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 5
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method setpoint\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method status\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 7
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method stopped\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method stoppingActions\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method suspended\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 5
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot call method translate\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 5
 			path: core/src/Domain/Actuator/Actuator.php
 
 		-
@@ -1747,60 +871,6 @@ parameters:
 			path: core/src/Domain/Actuator/Actuator.php
 
 		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator\:\:\$actions has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator\:\:\$display has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator\:\:\$engine has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator\:\:\$labels has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator\:\:\$log has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator\:\:\$memory has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator\:\:\$persistence has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator\:\:\$settings has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator\:\:\$translator has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Settings\:\:allowMode\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -1879,138 +949,6 @@ parameters:
 			path: core/src/Domain/Command/Handler.php
 
 		-
-			message: '#^Cannot call method executeMode\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Cannot call method hasLockState\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Cannot call method lock\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Cannot call method locked\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Cannot call method none\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Cannot call method off\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Cannot call method orderChange\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Cannot call method refreshWidget\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Cannot call method run\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Cannot call method saveWithCommands\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Cannot call method setAllowMode\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Cannot call method setDeltaOrder\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Cannot call method setMode\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Cannot call method setOffset\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Cannot call method setSetpoint\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Cannot call method setStatus\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Cannot call method setpoint\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Cannot call method status\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Cannot call method stop\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Cannot call method stopped\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Cannot call method suspended\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Cannot call method unlock\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Command/Handler.php
-
-		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Handler\:\:allow\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -2049,48 +987,6 @@ parameters:
 		-
 			message: '#^Parameter \#3 \$subject of function str_replace expects array\<string\>\|string, mixed given\.$#'
 			identifier: argument.type
-			count: 1
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Handler\:\:\$actuator has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Handler\:\:\$display has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Handler\:\:\$engine has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Handler\:\:\$labels has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Handler\:\:\$memory has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Handler\:\:\$persistence has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Command/Handler.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Handler\:\:\$settings has no type specified\.$#'
-			identifier: missingType.property
 			count: 1
 			path: core/src/Domain/Command/Handler.php
 
@@ -2143,30 +1039,6 @@ parameters:
 			path: core/src/Domain/Configuration/Configuration.php
 
 		-
-			message: '#^Cannot call method change\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 17
-			path: core/src/Domain/Configuration/Configuration.php
-
-		-
-			message: '#^Cannot call method markAsHeating\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Configuration/Configuration.php
-
-		-
-			message: '#^Cannot call method translate\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 9
-			path: core/src/Domain/Configuration/Configuration.php
-
-		-
-			message: '#^Cannot call method value\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 29
-			path: core/src/Domain/Configuration/Configuration.php
-
-		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Configuration\\Configuration\:\:apply\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -2187,18 +1059,6 @@ parameters:
 		-
 			message: '#^Parameter \#3 \$subject of function str_replace expects array\<string\>\|string, mixed given\.$#'
 			identifier: argument.type
-			count: 1
-			path: core/src/Domain/Configuration/Configuration.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Configuration\\Configuration\:\:\$store has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Configuration/Configuration.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Configuration\\Configuration\:\:\$translator has no type specified\.$#'
-			identifier: missingType.property
 			count: 1
 			path: core/src/Domain/Configuration/Configuration.php
 
@@ -2243,60 +1103,6 @@ parameters:
 			identifier: missingType.parameter
 			count: 1
 			path: core/src/Domain/Configuration/Store.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Cycle\\Plan\:\:__construct\(\) has parameter \$_duration with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Cycle/Plan.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Cycle\\Plan\:\:__construct\(\) has parameter \$_stop with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Cycle/Plan.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Cycle\\Plan\:\:__construct\(\) has parameter \$_tooShort with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Cycle/Plan.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Cycle\\Plan\:\:duration\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Cycle/Plan.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Cycle\\Plan\:\:isTooShort\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Cycle/Plan.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Cycle\\Plan\:\:stop\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Cycle/Plan.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Cycle\\Plan\:\:\$duration has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Cycle/Plan.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Cycle\\Plan\:\:\$stop has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Cycle/Plan.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Cycle\\Plan\:\:\$tooShort has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Cycle/Plan.php
 
 		-
 			message: '#^Binary operation "\*" between mixed and mixed results in an error\.$#'
@@ -2509,48 +1315,6 @@ parameters:
 			path: core/src/Domain/Engine/HysteresisDecision.php
 
 		-
-			message: '#^Cannot call method allowMode\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/HysteresisDecision.php
-
-		-
-			message: '#^Cannot call method cooling\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/HysteresisDecision.php
-
-		-
-			message: '#^Cannot call method debug\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/HysteresisDecision.php
-
-		-
-			message: '#^Cannot call method heating\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/HysteresisDecision.php
-
-		-
-			message: '#^Cannot call method hysteresisThreshold\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/HysteresisDecision.php
-
-		-
-			message: '#^Cannot call method positiveHysteresis\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/HysteresisDecision.php
-
-		-
-			message: '#^Cannot call method translate\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Domain/Engine/HysteresisDecision.php
-
-		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisDecision\:\:decide\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -2581,30 +1345,6 @@ parameters:
 			path: core/src/Domain/Engine/HysteresisDecision.php
 
 		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisDecision\:\:\$labels has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Engine/HysteresisDecision.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisDecision\:\:\$log has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Engine/HysteresisDecision.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisDecision\:\:\$settings has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Engine/HysteresisDecision.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisDecision\:\:\$translator has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Engine/HysteresisDecision.php
-
-		-
 			message: '#^Binary operation "\." between ''\-'' and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
@@ -2629,150 +1369,6 @@ parameters:
 			path: core/src/Domain/Engine/HysteresisEngine.php
 
 		-
-			message: '#^Cannot call method cool\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Cannot call method cooling\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Cannot call method debug\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 6
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Cannot call method decide\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Cannot call method error\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Cannot call method failure\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Cannot call method heat\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Cannot call method heating\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Cannot call method historizeSetpoint\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Cannot call method indoorReading\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Cannot call method lastState\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Cannot call method maxTimeUpdateTemp\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Cannot call method mode\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Cannot call method off\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Cannot call method sensorFailure\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Cannot call method setStatus\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Cannot call method setTemperatureAlert\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Cannot call method setpoint\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Cannot call method status\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Cannot call method stop\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Cannot call method stopped\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Cannot call method suspended\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Cannot call method temperatureAlert\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Cannot call method translate\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 7
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
 			message: '#^Cannot call method value\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 1
@@ -2787,60 +1383,6 @@ parameters:
 		-
 			message: '#^Parameter \#2 \$timestamp of function date expects int, int\|false given\.$#'
 			identifier: argument.type
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisEngine\:\:\$actuator has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisEngine\:\:\$decision has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisEngine\:\:\$display has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisEngine\:\:\$labels has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisEngine\:\:\$log has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisEngine\:\:\$memory has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisEngine\:\:\$sensors has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisEngine\:\:\$settings has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisEngine\:\:\$translator has no type specified\.$#'
-			identifier: missingType.property
 			count: 1
 			path: core/src/Domain/Engine/HysteresisEngine.php
 
@@ -3145,51 +1687,9 @@ parameters:
 			path: core/src/Domain/Engine/TemporalEngine.php
 
 		-
-			message: '#^Cannot call method coldFailureOffset\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
 			message: '#^Cannot call method collectDate\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 3
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method compute\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method consecutiveFailures\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method cool\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method cycle\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method debug\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 14
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method deltaOrder\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
 			path: core/src/Domain/Engine/TemporalEngine.php
 
 		-
@@ -3199,211 +1699,7 @@ parameters:
 			path: core/src/Domain/Engine/TemporalEngine.php
 
 		-
-			message: '#^Cannot call method error\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method evaluate\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method failure\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method failureActuator\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method heat\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method heatFailureOffset\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method indoorReading\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method indoorTemperature\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
 			message: '#^Cannot call method isTooShort\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method lastOrder\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method lastState\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 5
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method lastTempIn\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method learn\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method learnedCount\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method maxTimeUpdateTemp\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method minCycleDuration\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method mode\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method outdoorTemperature\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method persist\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method plan\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method reschedule\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method sensorFailure\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method setConsecutiveFailures\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method setCycleEndDate\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method setLastOrder\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method setLastPower\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method setLastState\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method setLastTempIn\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method setLastTempOut\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method setPower\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method setStatus\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method setTemperatureAlert\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method setpoint\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method smartStartEnabled\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method status\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: core/src/Domain/Engine/TemporalEngine.php
@@ -3411,37 +1707,7 @@ parameters:
 		-
 			message: '#^Cannot call method stop\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 6
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method stopped\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method stoveBoiler\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method suspended\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method temperatureAlert\(\) on mixed\.$#'
-			identifier: method.nonObject
 			count: 2
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method translate\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 22
 			path: core/src/Domain/Engine/TemporalEngine.php
 
 		-
@@ -3472,96 +1738,6 @@ parameters:
 			message: '#^Parameter \#2 \$timestamp of function date expects int, int\|false given\.$#'
 			identifier: argument.type
 			count: 5
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine\:\:\$actuator has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine\:\:\$coefficientLearner has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine\:\:\$cyclePlanner has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine\:\:\$display has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine\:\:\$evaluator has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine\:\:\$labels has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine\:\:\$log has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine\:\:\$memory has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine\:\:\$persistence has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine\:\:\$powerCalculator has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine\:\:\$scheduler has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine\:\:\$sensors has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine\:\:\$settings has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine\:\:\$smartStart has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine\:\:\$translator has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
 			path: core/src/Domain/Engine/TemporalEngine.php
 
 		-
@@ -3643,78 +1819,6 @@ parameters:
 			path: core/src/Domain/Learning/CoefficientLearner.php
 
 		-
-			message: '#^Cannot call method autolearn\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Learning/CoefficientLearner.php
-
-		-
-			message: '#^Cannot call method coefficient\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 7
-			path: core/src/Domain/Learning/CoefficientLearner.php
-
-		-
-			message: '#^Cannot call method consecutiveFailures\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Learning/CoefficientLearner.php
-
-		-
-			message: '#^Cannot call method cycleEndDate\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Learning/CoefficientLearner.php
-
-		-
-			message: '#^Cannot call method debug\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 12
-			path: core/src/Domain/Learning/CoefficientLearner.php
-
-		-
-			message: '#^Cannot call method lastOrder\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Learning/CoefficientLearner.php
-
-		-
-			message: '#^Cannot call method lastPower\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Learning/CoefficientLearner.php
-
-		-
-			message: '#^Cannot call method lastState\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Learning/CoefficientLearner.php
-
-		-
-			message: '#^Cannot call method lastTempIn\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Learning/CoefficientLearner.php
-
-		-
-			message: '#^Cannot call method learnedCount\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Learning/CoefficientLearner.php
-
-		-
-			message: '#^Cannot call method storeCoefficient\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Learning/CoefficientLearner.php
-
-		-
-			message: '#^Cannot call method translate\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Learning/CoefficientLearner.php
-
-		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\CoefficientLearner\:\:learn\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -3753,30 +1857,6 @@ parameters:
 		-
 			message: '#^Parameter \#1 \$time of function strtotime expects string, mixed given\.$#'
 			identifier: argument.type
-			count: 1
-			path: core/src/Domain/Learning/CoefficientLearner.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\CoefficientLearner\:\:\$log has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Learning/CoefficientLearner.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\CoefficientLearner\:\:\$memory has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Learning/CoefficientLearner.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\CoefficientLearner\:\:\$settings has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Learning/CoefficientLearner.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\CoefficientLearner\:\:\$translator has no type specified\.$#'
-			identifier: missingType.property
 			count: 1
 			path: core/src/Domain/Learning/CoefficientLearner.php
 
@@ -3991,84 +2071,6 @@ parameters:
 			path: core/src/Domain/Power/Calculator.php
 
 		-
-			message: '#^Cannot call method coefficientIndoor\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Power/Calculator.php
-
-		-
-			message: '#^Cannot call method coefficientOutdoor\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Power/Calculator.php
-
-		-
-			message: '#^Cannot call method debug\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 9
-			path: core/src/Domain/Power/Calculator.php
-
-		-
-			message: '#^Cannot call method directionDeltaCool\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Power/Calculator.php
-
-		-
-			message: '#^Cannot call method directionDeltaHeat\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Power/Calculator.php
-
-		-
-			message: '#^Cannot call method heatHotThreshold\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Power/Calculator.php
-
-		-
-			message: '#^Cannot call method lastPower\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Power/Calculator.php
-
-		-
-			message: '#^Cannot call method lastState\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Power/Calculator.php
-
-		-
-			message: '#^Cannot call method nextFullCycleOffset\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Power/Calculator.php
-
-		-
-			message: '#^Cannot call method offset\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Power/Calculator.php
-
-		-
-			message: '#^Cannot call method setTemperatureAlert\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Domain/Power/Calculator.php
-
-		-
-			message: '#^Cannot call method temperatureAlert\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Power/Calculator.php
-
-		-
-			message: '#^Cannot call method translate\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 11
-			path: core/src/Domain/Power/Calculator.php
-
-		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Calculator\:\:compute\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -4095,30 +2097,6 @@ parameters:
 		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Calculator\:\:compute\(\) has parameter \$_tempOut with no type specified\.$#'
 			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Power/Calculator.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Calculator\:\:\$log has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Power/Calculator.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Calculator\:\:\$memory has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Power/Calculator.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Calculator\:\:\$settings has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Power/Calculator.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Calculator\:\:\$translator has no type specified\.$#'
-			identifier: missingType.property
 			count: 1
 			path: core/src/Domain/Power/Calculator.php
 
@@ -4213,60 +2191,6 @@ parameters:
 			path: core/src/Domain/Power/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Reading\:\:__construct\(\) has parameter \$_collectDate with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Reading.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Reading\:\:__construct\(\) has parameter \$_value with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Reading.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Reading\:\:__construct\(\) has parameter \$_valueDate with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Reading.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Reading\:\:collectDate\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Reading.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Reading\:\:value\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Reading.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Reading\:\:valueDate\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Reading.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Reading\:\:\$collectDate has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Reading.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Reading\:\:\$value has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Reading.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Reading\:\:\$valueDate has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Reading.php
-
-		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Scheduling\:\:reschedule\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -4333,66 +2257,6 @@ parameters:
 			path: core/src/Domain/SensorWatch/SensorWatch.php
 
 		-
-			message: '#^Cannot call method error\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Domain/SensorWatch/SensorWatch.php
-
-		-
-			message: '#^Cannot call method failure\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Domain/SensorWatch/SensorWatch.php
-
-		-
-			message: '#^Cannot call method indoorMaximum\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Domain/SensorWatch/SensorWatch.php
-
-		-
-			message: '#^Cannot call method indoorMinimum\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Domain/SensorWatch/SensorWatch.php
-
-		-
-			message: '#^Cannot call method indoorReading\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/SensorWatch/SensorWatch.php
-
-		-
-			message: '#^Cannot call method maxTimeUpdateTemp\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Domain/SensorWatch/SensorWatch.php
-
-		-
-			message: '#^Cannot call method mode\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/SensorWatch/SensorWatch.php
-
-		-
-			message: '#^Cannot call method setTemperatureAlert\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/SensorWatch/SensorWatch.php
-
-		-
-			message: '#^Cannot call method temperatureAlert\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Domain/SensorWatch/SensorWatch.php
-
-		-
-			message: '#^Cannot call method translate\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 4
-			path: core/src/Domain/SensorWatch/SensorWatch.php
-
-		-
 			message: '#^Cannot call method value\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 1
@@ -4413,48 +2277,6 @@ parameters:
 		-
 			message: '#^Parameter \#1 \$time of function strtotime expects string, mixed given\.$#'
 			identifier: argument.type
-			count: 1
-			path: core/src/Domain/SensorWatch/SensorWatch.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\SensorWatch\\SensorWatch\:\:\$actuator has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/SensorWatch/SensorWatch.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\SensorWatch\\SensorWatch\:\:\$display has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/SensorWatch/SensorWatch.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\SensorWatch\\SensorWatch\:\:\$log has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/SensorWatch/SensorWatch.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\SensorWatch\\SensorWatch\:\:\$memory has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/SensorWatch/SensorWatch.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\SensorWatch\\SensorWatch\:\:\$sensors has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/SensorWatch/SensorWatch.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\SensorWatch\\SensorWatch\:\:\$settings has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/SensorWatch/SensorWatch.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\SensorWatch\\SensorWatch\:\:\$translator has no type specified\.$#'
-			identifier: missingType.property
 			count: 1
 			path: core/src/Domain/SensorWatch/SensorWatch.php
 
@@ -4723,138 +2545,6 @@ parameters:
 			path: core/src/Domain/SmartStart/SmartStart.php
 
 		-
-			message: '#^Cannot call method anticipationCount\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Cannot call method anticipationFactor\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Cannot call method available\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Cannot call method compute\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Cannot call method cycle\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Cannot call method debug\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 12
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Cannot call method engine\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Cannot call method evaluate\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Cannot call method indoorTemperature\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Cannot call method isInactive\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Cannot call method locked\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Cannot call method modeExists\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Cannot call method nextEvent\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Cannot call method outdoorTemperature\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Cannot call method requestSetpoint\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Cannot call method reschedule\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Cannot call method runMode\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Cannot call method setSmartStart\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Cannot call method smartStart\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Cannot call method smartStartEnabled\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Cannot call method storeAnticipation\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Cannot call method translate\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 14
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\SmartStart\:\:learn\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -4905,72 +2595,6 @@ parameters:
 		-
 			message: '#^Parameter \#2 \$timestamp of function date expects int, int\|false given\.$#'
 			identifier: argument.type
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\SmartStart\:\:\$calendar has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\SmartStart\:\:\$controls has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\SmartStart\:\:\$display has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\SmartStart\:\:\$evaluator has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\SmartStart\:\:\$log has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\SmartStart\:\:\$memory has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\SmartStart\:\:\$powerCalculator has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\SmartStart\:\:\$scheduler has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\SmartStart\:\:\$sensors has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\SmartStart\:\:\$settings has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\SmartStart\:\:\$translator has no type specified\.$#'
-			identifier: missingType.property
 			count: 1
 			path: core/src/Domain/SmartStart/SmartStart.php
 
@@ -5095,42 +2719,6 @@ parameters:
 			path: core/src/Domain/Statistics/Statistics.php
 
 		-
-			message: '#^Cannot call method activeHistory\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Statistics/Statistics.php
-
-		-
-			message: '#^Cannot call method consumption\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Statistics/Statistics.php
-
-		-
-			message: '#^Cannot call method evaluate\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Statistics/Statistics.php
-
-		-
-			message: '#^Cannot call method hasPerformance\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Statistics/Statistics.php
-
-		-
-			message: '#^Cannot call method outdoorStatistics\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Statistics/Statistics.php
-
-		-
-			message: '#^Cannot call method publishPerformance\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Statistics/Statistics.php
-
-		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Statistics\\Statistics\:\:dju\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -5185,30 +2773,6 @@ parameters:
 			path: core/src/Domain/Statistics/Statistics.php
 
 		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Statistics\\Statistics\:\:\$evaluator has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Statistics/Statistics.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Statistics\\Statistics\:\:\$history has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Statistics/Statistics.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Statistics\\Statistics\:\:\$settings has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Statistics/Statistics.php
-
-		-
-			message: '#^Cannot call method translate\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 9
-			path: core/src/Domain/StatusLabels.php
-
-		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\StatusLabels\:\:computing\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -5259,12 +2823,6 @@ parameters:
 		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\StatusLabels\:\:suspended\(\) has no return type specified\.$#'
 			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/StatusLabels.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\StatusLabels\:\:\$translator has no type specified\.$#'
-			identifier: missingType.property
 			count: 1
 			path: core/src/Domain/StatusLabels.php
 
@@ -5515,132 +3073,6 @@ parameters:
 			path: core/src/Domain/Window/Windows.php
 
 		-
-			message: '#^Cannot call method alertSent\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Cannot call method closedAt\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Cannot call method computing\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Cannot call method debug\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 19
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Cannot call method error\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Cannot call method exists\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Cannot call method mode\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Cannot call method name\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Cannot call method off\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Cannot call method openSince\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Cannot call method read\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Cannot call method run\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Cannot call method setAlertSent\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Cannot call method setClosedAt\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Cannot call method setOpenSince\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Cannot call method setStatus\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Cannot call method setWindowState\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Cannot call method status\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Cannot call method stop\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Cannot call method suspended\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 4
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Cannot call method translate\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 22
-			path: core/src/Domain/Window/Windows.php
-
-		-
 			message: '#^Cannot call method value\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 2
@@ -5650,24 +3082,6 @@ parameters:
 			message: '#^Cannot call method valueDate\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 3
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Cannot call method windowAlertDelay\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Cannot call method windowState\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Cannot call method windows\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
 			path: core/src/Domain/Window/Windows.php
 
 		-
@@ -5731,60 +3145,6 @@ parameters:
 			path: core/src/Domain/Window/Windows.php
 
 		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Windows\:\:\$actuator has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Windows\:\:\$display has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Windows\:\:\$engine has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Windows\:\:\$labels has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Windows\:\:\$log has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Windows\:\:\$memory has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Windows\:\:\$sensors has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Windows\:\:\$settings has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Windows\:\:\$translator has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Domain/Window/Windows.php
-
-		-
 			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
 			count: 4
@@ -5827,50 +3187,20 @@ parameters:
 			path: core/src/Jeedom/ActionList.php
 
 		-
-			message: '#^Cannot call method error\(\) on mixed\.$#'
+			message: '#^Cannot call method event\(\) on cmd\|false\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: core/src/Jeedom/ActionList.php
 
 		-
-			message: '#^Cannot call method event\(\) on mixed\.$#'
+			message: '#^Cannot call method execCmd\(\) on cmd\|false\.$#'
 			identifier: method.nonObject
 			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Cannot call method execCmd\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Cannot call method getCmd\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Cannot call method getId\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
 			path: core/src/Jeedom/ActionList.php
 
 		-
 			message: '#^Cannot call method getMessage\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Cannot call method translate\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\ActionList\:\:__construct\(\) has parameter \$_thermostat with no type specified\.$#'
-			identifier: missingType.parameter
 			count: 1
 			path: core/src/Jeedom/ActionList.php
 
@@ -5971,33 +3301,9 @@ parameters:
 			path: core/src/Jeedom/ActionList.php
 
 		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Jeedom\\ActionList\:\:\$log has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Jeedom\\ActionList\:\:\$thermostat has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Jeedom\\ActionList\:\:\$translator has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
 			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
-			count: 7
-			path: core/src/Jeedom/Calendar.php
-
-		-
-			message: '#^Binary operation "\." between ''\#'' and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 5
+			count: 6
 			path: core/src/Jeedom/Calendar.php
 
 		-
@@ -6007,21 +3313,15 @@ parameters:
 			path: core/src/Jeedom/Calendar.php
 
 		-
-			message: '#^Call to an undefined method object\:\:getId\(\)\.$#'
-			identifier: method.notFound
-			count: 4
-			path: core/src/Jeedom/Calendar.php
-
-		-
-			message: '#^Call to an undefined method object\:\:getName\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: core/src/Jeedom/Calendar.php
-
-		-
 			message: '#^Call to function is_array\(\) with array\<calendar_event\> will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
 			count: 2
+			path: core/src/Jeedom/Calendar.php
+
+		-
+			message: '#^Call to function is_object\(\) with cmd will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
 			path: core/src/Jeedom/Calendar.php
 
 		-
@@ -6061,45 +3361,27 @@ parameters:
 			path: core/src/Jeedom/Calendar.php
 
 		-
-			message: '#^Cannot call method debug\(\) on mixed\.$#'
+			message: '#^Cannot call method getCmd\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 1
+			count: 2
 			path: core/src/Jeedom/Calendar.php
 
 		-
-			message: '#^Cannot call method getCmd\(\) on mixed\.$#'
+			message: '#^Cannot call method getId\(\) on cmd\|false\.$#'
 			identifier: method.nonObject
 			count: 4
 			path: core/src/Jeedom/Calendar.php
 
 		-
-			message: '#^Cannot call method getConfiguration\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/Calendar.php
-
-		-
 			message: '#^Cannot call method getId\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 6
+			count: 2
 			path: core/src/Jeedom/Calendar.php
 
 		-
 			message: '#^Cannot call method getIsEnable\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 2
-			path: core/src/Jeedom/Calendar.php
-
-		-
-			message: '#^Cannot call method translate\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/Calendar.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Calendar\:\:__construct\(\) has parameter \$_eqLogic with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
 			path: core/src/Jeedom/Calendar.php
 
 		-
@@ -6133,32 +3415,8 @@ parameters:
 			path: core/src/Jeedom/Calendar.php
 
 		-
-			message: '#^Parameter \#1 \$_cmd_id of static method calendar_event\:\:searchByCmd\(\) expects int\|string, mixed given\.$#'
-			identifier: argument.type
-			count: 2
-			path: core/src/Jeedom/Calendar.php
-
-		-
 			message: '#^Parameter \#1 \$_id of static method eqLogic\:\:byId\(\) expects int\|string, mixed given\.$#'
 			identifier: argument.type
-			count: 1
-			path: core/src/Jeedom/Calendar.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Jeedom\\Calendar\:\:\$eqLogic has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Jeedom/Calendar.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Jeedom\\Calendar\:\:\$log has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Jeedom/Calendar.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Jeedom\\Calendar\:\:\$translator has no type specified\.$#'
-			identifier: missingType.property
 			count: 1
 			path: core/src/Jeedom/Calendar.php
 
@@ -6169,93 +3427,9 @@ parameters:
 			path: core/src/Jeedom/Calendar.php
 
 		-
-			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
 			message: '#^Binary operation "\." between ''\#'' and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 2
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Call to an undefined method object\:\:event\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Call to an undefined method object\:\:execCmd\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Call to an undefined method object\:\:execute\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Call to an undefined method object\:\:remove\(\)\.$#'
-			identifier: method.notFound
-			count: 3
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Call to an undefined method object\:\:save\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Call to an undefined method object\:\:setEqLogic_id\(\)\.$#'
-			identifier: method.notFound
-			count: 2
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Call to an undefined method object\:\:setGeneric_type\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Call to an undefined method object\:\:setLogicalId\(\)\.$#'
-			identifier: method.notFound
-			count: 2
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Call to an undefined method object\:\:setName\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Call to an undefined method object\:\:setSubType\(\)\.$#'
-			identifier: method.notFound
-			count: 2
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Call to an undefined method object\:\:setType\(\)\.$#'
-			identifier: method.notFound
-			count: 2
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Call to an undefined method object\:\:setUnite\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Call to an undefined method object\:\:setValue\(\)\.$#'
-			identifier: method.notFound
-			count: 1
 			path: core/src/Jeedom/Commands.php
 
 		-
@@ -6289,19 +3463,13 @@ parameters:
 			path: core/src/Jeedom/Commands.php
 
 		-
-			message: '#^Cannot call method getCmd\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 7
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Cannot call method getConfiguration\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 13
-			path: core/src/Jeedom/Commands.php
-
-		-
 			message: '#^Cannot call method getGeneric_type\(\) on cmd\|false\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: core/src/Jeedom/Commands.php
+
+		-
+			message: '#^Cannot call method getId\(\) on cmd\|false\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: core/src/Jeedom/Commands.php
@@ -6309,25 +3477,13 @@ parameters:
 		-
 			message: '#^Cannot call method getId\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 9
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Cannot call method getLogicalId\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
+			count: 5
 			path: core/src/Jeedom/Commands.php
 
 		-
 			message: '#^Cannot call method getName\(\) on cmd\|false\|null\.$#'
 			identifier: method.nonObject
 			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Cannot call method getName\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 4
 			path: core/src/Jeedom/Commands.php
 
 		-
@@ -6343,21 +3499,9 @@ parameters:
 			path: core/src/Jeedom/Commands.php
 
 		-
-			message: '#^Cannot call method listen\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Cannot call method remove\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
 			message: '#^Cannot call method save\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 17
+			count: 16
 			path: core/src/Jeedom/Commands.php
 
 		-
@@ -6375,7 +3519,7 @@ parameters:
 		-
 			message: '#^Cannot call method setGeneric_type\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 10
+			count: 9
 			path: core/src/Jeedom/Commands.php
 
 		-
@@ -6387,7 +3531,7 @@ parameters:
 		-
 			message: '#^Cannot call method setIsVisible\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 17
+			count: 16
 			path: core/src/Jeedom/Commands.php
 
 		-
@@ -6417,19 +3561,7 @@ parameters:
 		-
 			message: '#^Cannot call method setValue\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 5
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Cannot call method translate\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 22
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Commands\:\:__construct\(\) has parameter \$_thermostat with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
+			count: 4
 			path: core/src/Jeedom/Commands.php
 
 		-
@@ -6499,6 +3631,12 @@ parameters:
 			path: core/src/Jeedom/Commands.php
 
 		-
+			message: '#^Parameter \#2 \$_logicalId of method eqLogic\:\:getCmd\(\) expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/src/Jeedom/Commands.php
+
+		-
 			message: '#^Parameter \#2 \$subject of function preg_match_all expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 2
@@ -6511,50 +3649,20 @@ parameters:
 			path: core/src/Jeedom/Commands.php
 
 		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Jeedom\\Commands\:\:\$scheduler has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Jeedom\\Commands\:\:\$thermostat has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Jeedom\\Commands\:\:\$translator has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
 			message: '#^Trying to invoke mixed but it''s not a callable\.$#'
 			identifier: callable.nonCallable
 			count: 1
 			path: core/src/Jeedom/Commands.php
 
 		-
+			message: '#^Cannot call method execCmd\(\) on cmd\|false\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: core/src/Jeedom/Controls.php
+
+		-
 			message: '#^Cannot call method execCmd\(\) on cmd\|false\|null\.$#'
 			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/Controls.php
-
-		-
-			message: '#^Cannot call method execCmd\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/Controls.php
-
-		-
-			message: '#^Cannot call method getCmd\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/Controls.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Controls\:\:__construct\(\) has parameter \$_eqLogic with no type specified\.$#'
-			identifier: missingType.parameter
 			count: 1
 			path: core/src/Jeedom/Controls.php
 
@@ -6601,57 +3709,21 @@ parameters:
 			path: core/src/Jeedom/Controls.php
 
 		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Jeedom\\Controls\:\:\$eqLogic has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Jeedom/Controls.php
-
-		-
-			message: '#^Call to an undefined method object\:\:event\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: core/src/Jeedom/Display.php
-
-		-
-			message: '#^Call to an undefined method object\:\:execCmd\(\)\.$#'
-			identifier: method.notFound
-			count: 2
-			path: core/src/Jeedom/Display.php
-
-		-
-			message: '#^Cannot call method addHistoryValue\(\) on mixed\.$#'
+			message: '#^Cannot call method addHistoryValue\(\) on cmd\|false\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: core/src/Jeedom/Display.php
 
 		-
-			message: '#^Cannot call method event\(\) on mixed\.$#'
+			message: '#^Cannot call method event\(\) on cmd\|false\.$#'
 			identifier: method.nonObject
 			count: 6
 			path: core/src/Jeedom/Display.php
 
 		-
-			message: '#^Cannot call method execCmd\(\) on mixed\.$#'
+			message: '#^Cannot call method execCmd\(\) on cmd\|false\.$#'
 			identifier: method.nonObject
 			count: 3
-			path: core/src/Jeedom/Display.php
-
-		-
-			message: '#^Cannot call method getCmd\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 14
-			path: core/src/Jeedom/Display.php
-
-		-
-			message: '#^Cannot call method refreshWidget\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:__construct\(\) has parameter \$_eqLogic with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
 			path: core/src/Jeedom/Display.php
 
 		-
@@ -6781,32 +3853,8 @@ parameters:
 			path: core/src/Jeedom/Display.php
 
 		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:\$eqLogic has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Jeedom/Display.php
-
-		-
-			message: '#^Cannot call method runEngine\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/EngineRunner.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\EngineRunner\:\:__construct\(\) has parameter \$_eqLogic with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/EngineRunner.php
-
-		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\EngineRunner\:\:run\(\) has no return type specified\.$#'
 			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/EngineRunner.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Jeedom\\EngineRunner\:\:\$eqLogic has no type specified\.$#'
-			identifier: missingType.property
 			count: 1
 			path: core/src/Jeedom/EngineRunner.php
 
@@ -6823,50 +3871,8 @@ parameters:
 			path: core/src/Jeedom/Evaluator.php
 
 		-
-			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
-			count: 1
-			path: core/src/Jeedom/History.php
-
-		-
-			message: '#^Call to an undefined method object\:\:getHistory\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: core/src/Jeedom/History.php
-
-		-
-			message: '#^Call to an undefined method object\:\:getStatistique\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: core/src/Jeedom/History.php
-
-		-
-			message: '#^Cannot call method event\(\) on mixed\.$#'
+			message: '#^Cannot call method event\(\) on cmd\|false\.$#'
 			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/History.php
-
-		-
-			message: '#^Cannot call method getCmd\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 4
-			path: core/src/Jeedom/History.php
-
-		-
-			message: '#^Cannot call method getDatetime\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/History.php
-
-		-
-			message: '#^Cannot call method getValue\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/History.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\History\:\:__construct\(\) has parameter \$_eqLogic with no type specified\.$#'
-			identifier: missingType.parameter
 			count: 1
 			path: core/src/Jeedom/History.php
 
@@ -6925,27 +3931,33 @@ parameters:
 			path: core/src/Jeedom/History.php
 
 		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Jeedom\\History\:\:\$eqLogic has no type specified\.$#'
-			identifier: missingType.property
+			message: '#^Parameter \#1 \$_dateStart of method cmd\:\:getHistory\(\) expects string\|null, mixed given\.$#'
+			identifier: argument.type
 			count: 1
 			path: core/src/Jeedom/History.php
 
 		-
-			message: '#^Binary operation "\." between mixed and '' '' results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 2
-			path: core/src/Jeedom/Log.php
+			message: '#^Parameter \#1 \$_startTime of method cmd\:\:getStatistique\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/src/Jeedom/History.php
+
+		-
+			message: '#^Parameter \#2 \$_dateEnd of method cmd\:\:getHistory\(\) expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/src/Jeedom/History.php
+
+		-
+			message: '#^Parameter \#2 \$_endTime of method cmd\:\:getStatistique\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/src/Jeedom/History.php
 
 		-
 			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 2
-			path: core/src/Jeedom/Log.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Log\:\:__construct\(\) has parameter \$_name with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
 			path: core/src/Jeedom/Log.php
 
 		-
@@ -6973,12 +3985,6 @@ parameters:
 			path: core/src/Jeedom/Log.php
 
 		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Jeedom\\Log\:\:\$name has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Jeedom/Log.php
-
-		-
 			message: '#^Binary operation "\." between ''window\:\:close\:\:'' and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 2
@@ -6988,24 +3994,6 @@ parameters:
 			message: '#^Binary operation "\." between ''window\:\:state\:\:'' and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 2
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Cannot call method getCache\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 12
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Cannot call method setCache\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 13
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:__construct\(\) has parameter \$_eqLogic with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
 			path: core/src/Jeedom/Memory.php
 
 		-
@@ -7261,30 +4249,6 @@ parameters:
 			path: core/src/Jeedom/Memory.php
 
 		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:\$eqLogic has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Cannot call method refresh\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/Persistence.php
-
-		-
-			message: '#^Cannot call method save\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Jeedom/Persistence.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Persistence\:\:__construct\(\) has parameter \$_eqLogic with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Persistence.php
-
-		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Persistence\:\:persist\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -7299,12 +4263,6 @@ parameters:
 		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Persistence\:\:saveWithCommands\(\) has no return type specified\.$#'
 			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Persistence.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Jeedom\\Persistence\:\:\$eqLogic has no type specified\.$#'
-			identifier: missingType.property
 			count: 1
 			path: core/src/Jeedom/Persistence.php
 
@@ -7339,44 +4297,8 @@ parameters:
 			path: core/src/Jeedom/Scheduler.php
 
 		-
-			message: '#^Cannot call method debug\(\) on mixed\.$#'
+			message: '#^Cannot call method event\(\) on cmd\|false\.$#'
 			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Cannot call method error\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Cannot call method event\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Cannot call method getCmd\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Cannot call method getConfiguration\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 6
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Cannot call method getId\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 6
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Scheduler\:\:__construct\(\) has parameter \$_thermostat with no type specified\.$#'
-			identifier: missingType.parameter
 			count: 1
 			path: core/src/Jeedom/Scheduler.php
 
@@ -7477,12 +4399,6 @@ parameters:
 			path: core/src/Jeedom/Scheduler.php
 
 		-
-			message: '#^Parameter \#1 \$var of function intval expects array\|bool\|float\|GMP\|int\|resource\|SimpleXMLElement\|string\|null, mixed given\.$#'
-			identifier: argument.type
-			count: 5
-			path: core/src/Jeedom/Scheduler.php
-
-		-
 			message: '#^Parameter \#2 \$_function of static method listener\:\:byClassAndFunction\(\) expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 2
@@ -7495,44 +4411,20 @@ parameters:
 			path: core/src/Jeedom/Scheduler.php
 
 		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Jeedom\\Scheduler\:\:\$log has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Jeedom\\Scheduler\:\:\$thermostat has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Cannot call method execCmd\(\) on mixed\.$#'
+			message: '#^Cannot call method execCmd\(\) on cmd\|false\.$#'
 			identifier: method.nonObject
 			count: 3
 			path: core/src/Jeedom/Sensors.php
 
 		-
-			message: '#^Cannot call method getCmd\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Jeedom/Sensors.php
-
-		-
-			message: '#^Cannot call method getCollectDate\(\) on mixed\.$#'
+			message: '#^Cannot call method getCollectDate\(\) on cmd\|false\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: core/src/Jeedom/Sensors.php
 
 		-
-			message: '#^Cannot call method getValueDate\(\) on mixed\.$#'
+			message: '#^Cannot call method getValueDate\(\) on cmd\|false\.$#'
 			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/Sensors.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Sensors\:\:__construct\(\) has parameter \$_eqLogic with no type specified\.$#'
-			identifier: missingType.parameter
 			count: 1
 			path: core/src/Jeedom/Sensors.php
 
@@ -7555,45 +4447,9 @@ parameters:
 			path: core/src/Jeedom/Sensors.php
 
 		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Jeedom\\Sensors\:\:\$eqLogic has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Jeedom/Sensors.php
-
-		-
 			message: '#^Binary operation "\." between mixed and ''_autolearn'' results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 2
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Cannot call method checkAndUpdateCmd\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Cannot call method getConfiguration\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 40
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Cannot call method setCategory\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Cannot call method setConfiguration\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 8
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:__construct\(\) has parameter \$_eqLogic with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
@@ -7969,18 +4825,6 @@ parameters:
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:\$eqLogic has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Translator\:\:__construct\(\) has parameter \$_file with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Translator.php
-
-		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Translator\:\:translate\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -8001,12 +4845,6 @@ parameters:
 		-
 			message: '#^Parameter \#3 \$subject of function preg_replace_callback expects array\<float\|int\|string\>\|string, mixed given\.$#'
 			identifier: argument.type
-			count: 1
-			path: core/src/Jeedom/Translator.php
-
-		-
-			message: '#^Property Jeedom\\Plugin\\Thermostat\\Jeedom\\Translator\:\:\$file has no type specified\.$#'
-			identifier: missingType.property
 			count: 1
 			path: core/src/Jeedom/Translator.php
 

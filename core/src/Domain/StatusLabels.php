@@ -20,6 +20,7 @@ namespace Jeedom\Plugin\Thermostat\Domain;
 
 class StatusLabels {
 
+	/** @var Translator */
 	private $translator;
 
 	public function __construct(Translator $_translator) {

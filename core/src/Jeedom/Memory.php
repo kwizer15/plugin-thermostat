@@ -29,9 +29,10 @@ use Jeedom\Plugin\Thermostat\Domain\Window\Memory as WindowMemory;
 
 class Memory implements PowerMemory, CycleMemory, SmartStartMemory, StateMemory, WindowMemory, EngineMemory, SensorWatchMemory, CommandMemory {
 
+	/** @var \thermostat */
 	private $eqLogic;
 
-	public function __construct($_eqLogic) {
+	public function __construct(\thermostat $_eqLogic) {
 		$this->eqLogic = $_eqLogic;
 	}
 

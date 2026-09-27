@@ -23,9 +23,10 @@ use Jeedom\Plugin\Thermostat\Domain\Sensors as DomainSensors;
 
 class Sensors implements DomainSensors {
 
+	/** @var \thermostat */
 	private $eqLogic;
 
-	public function __construct($_eqLogic) {
+	public function __construct(\thermostat $_eqLogic) {
 		$this->eqLogic = $_eqLogic;
 	}
 

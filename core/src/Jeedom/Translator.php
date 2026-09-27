@@ -22,8 +22,12 @@ use Jeedom\Plugin\Thermostat\Domain\Translator as DomainTranslator;
 
 class Translator implements DomainTranslator {
 
+	/** @var string */
 	private $file;
 
+	/**
+	 * @param string $_file
+	 */
 	public function __construct($_file) {
 		$this->file = $_file;
 	}

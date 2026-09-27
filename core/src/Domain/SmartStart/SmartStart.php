@@ -28,16 +28,27 @@ use Jeedom\Plugin\Thermostat\Domain\Translator;
 
 class SmartStart {
 
+	/** @var Settings */
 	private $settings;
+	/** @var Memory */
 	private $memory;
+	/** @var Calendar */
 	private $calendar;
+	/** @var Sensors */
 	private $sensors;
+	/** @var Display */
 	private $display;
+	/** @var Controls */
 	private $controls;
+	/** @var Evaluator */
 	private $evaluator;
+	/** @var Calculator */
 	private $powerCalculator;
+	/** @var Scheduling */
 	private $scheduler;
+	/** @var Log */
 	private $log;
+	/** @var Translator */
 	private $translator;
 
 	public function __construct(Settings $_settings, Memory $_memory, Calendar $_calendar, Sensors $_sensors, Display $_display, Controls $_controls, Evaluator $_evaluator, Calculator $_powerCalculator, Scheduling $_scheduler, Log $_log, Translator $_translator) {

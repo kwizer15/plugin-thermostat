@@ -32,9 +32,10 @@ use Jeedom\Plugin\Thermostat\Domain\Window\Settings as WindowSettings;
 
 class Settings implements PowerSettings, LearningSettings, SmartStartSettings, HysteresisSettings, ActuatorSettings, WindowSettings, EngineSettings, Store, StatisticsSettings, SensorWatchSettings, CommandSettings {
 
+	/** @var \thermostat */
 	private $eqLogic;
 
-	public function __construct($_eqLogic) {
+	public function __construct(\thermostat $_eqLogic) {
 		$this->eqLogic = $_eqLogic;
 	}
 

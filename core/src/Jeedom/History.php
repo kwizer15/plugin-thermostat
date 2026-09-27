@@ -22,9 +22,10 @@ use Jeedom\Plugin\Thermostat\Domain\Statistics\History as StatisticsHistory;
 
 class History implements StatisticsHistory {
 
+	/** @var \thermostat */
 	private $eqLogic;
 
-	public function __construct($_eqLogic) {
+	public function __construct(\thermostat $_eqLogic) {
 		$this->eqLogic = $_eqLogic;
 	}
 

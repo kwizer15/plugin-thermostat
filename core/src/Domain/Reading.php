@@ -20,24 +20,41 @@ namespace Jeedom\Plugin\Thermostat\Domain;
 
 class Reading {
 
+	/** @var mixed */
 	private $value;
+	/** @var string */
 	private $collectDate;
+	/** @var string */
 	private $valueDate;
 
+	/**
+	 * @param mixed $_value
+	 * @param string $_collectDate
+	 * @param string $_valueDate
+	 */
 	public function __construct($_value, $_collectDate, $_valueDate) {
 		$this->value = $_value;
 		$this->collectDate = $_collectDate;
 		$this->valueDate = $_valueDate;
 	}
 
+	/**
+	 * @return mixed
+	 */
 	public function value() {
 		return $this->value;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function collectDate() {
 		return $this->collectDate;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function valueDate() {
 		return $this->valueDate;
 	}

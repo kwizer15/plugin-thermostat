@@ -22,7 +22,9 @@ use Jeedom\Plugin\Thermostat\Domain\Translator;
 
 class Configuration {
 
+	/** @var Store */
 	private $store;
+	/** @var Translator */
 	private $translator;
 
 	public function __construct(Store $_store, Translator $_translator) {

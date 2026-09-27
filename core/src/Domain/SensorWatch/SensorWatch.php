@@ -26,12 +26,19 @@ use Jeedom\Plugin\Thermostat\Domain\Translator;
 
 class SensorWatch {
 
+	/** @var Settings */
 	private $settings;
+	/** @var Memory */
 	private $memory;
+	/** @var Display */
 	private $display;
+	/** @var Sensors */
 	private $sensors;
+	/** @var Actuator */
 	private $actuator;
+	/** @var Log */
 	private $log;
+	/** @var Translator */
 	private $translator;
 
 	public function __construct(Settings $_settings, Memory $_memory, Display $_display, Sensors $_sensors, Actuator $_actuator, Log $_log, Translator $_translator) {

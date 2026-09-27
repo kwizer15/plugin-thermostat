@@ -22,9 +22,10 @@ use Jeedom\Plugin\Thermostat\Domain\EngineRunner as DomainEngineRunner;
 
 class EngineRunner implements DomainEngineRunner {
 
+	/** @var \thermostat */
 	private $eqLogic;
 
-	public function __construct($_eqLogic) {
+	public function __construct(\thermostat $_eqLogic) {
 		$this->eqLogic = $_eqLogic;
 	}
 

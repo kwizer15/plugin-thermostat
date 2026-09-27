@@ -24,9 +24,13 @@ use Jeedom\Plugin\Thermostat\Domain\Translator;
 
 class HysteresisDecision {
 
+	/** @var HysteresisSettings */
 	private $settings;
+	/** @var Log */
 	private $log;
+	/** @var StatusLabels */
 	private $labels;
+	/** @var Translator */
 	private $translator;
 
 	public function __construct(HysteresisSettings $_settings, Log $_log, StatusLabels $_labels, Translator $_translator) {

@@ -24,11 +24,14 @@ use Jeedom\Plugin\Thermostat\Domain\Translator;
 
 class Calendar implements SmartStartCalendar {
 
+	/** @var \thermostat */
 	private $eqLogic;
+	/** @var Log */
 	private $log;
+	/** @var Translator */
 	private $translator;
 
-	public function __construct($_eqLogic, Log $_log, Translator $_translator) {
+	public function __construct(\thermostat $_eqLogic, Log $_log, Translator $_translator) {
 		$this->eqLogic = $_eqLogic;
 		$this->log = $_log;
 		$this->translator = $_translator;

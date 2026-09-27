@@ -35,20 +35,35 @@ use Jeedom\Plugin\Thermostat\Domain\Translator;
 
 class TemporalEngine {
 
+	/** @var Settings */
 	private $settings;
+	/** @var Memory */
 	private $memory;
+	/** @var Persistence */
 	private $persistence;
+	/** @var Evaluator */
 	private $evaluator;
+	/** @var Display */
 	private $display;
+	/** @var Sensors */
 	private $sensors;
+	/** @var Actuator */
 	private $actuator;
+	/** @var Scheduling */
 	private $scheduler;
+	/** @var Calculator */
 	private $powerCalculator;
+	/** @var SmartStart */
 	private $smartStart;
+	/** @var CoefficientLearner */
 	private $coefficientLearner;
+	/** @var Planner */
 	private $cyclePlanner;
+	/** @var Log */
 	private $log;
+	/** @var StatusLabels */
 	private $labels;
+	/** @var Translator */
 	private $translator;
 
 	public function __construct(Settings $_settings, Memory $_memory, Persistence $_persistence, Evaluator $_evaluator, Display $_display, Sensors $_sensors, Actuator $_actuator, Scheduling $_scheduler, Calculator $_powerCalculator, SmartStart $_smartStart, CoefficientLearner $_coefficientLearner, Planner $_cyclePlanner, Log $_log, StatusLabels $_labels, Translator $_translator) {

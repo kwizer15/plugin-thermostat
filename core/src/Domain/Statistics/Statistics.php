@@ -22,8 +22,11 @@ use Jeedom\Plugin\Thermostat\Domain\Evaluator;
 
 class Statistics {
 
+	/** @var Settings */
 	private $settings;
+	/** @var Evaluator */
 	private $evaluator;
+	/** @var History */
 	private $history;
 
 	public function __construct(Settings $_settings, Evaluator $_evaluator, History $_history) {

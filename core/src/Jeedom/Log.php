@@ -22,8 +22,12 @@ use Jeedom\Plugin\Thermostat\Domain\Log as DomainLog;
 
 class Log implements DomainLog {
 
+	/** @var string */
 	private $name;
 
+	/**
+	 * @param string $_name
+	 */
 	public function __construct($_name) {
 		$this->name = $_name;
 	}

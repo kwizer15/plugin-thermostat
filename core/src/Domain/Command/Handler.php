@@ -26,12 +26,19 @@ use Jeedom\Plugin\Thermostat\Domain\StatusLabels;
 
 class Handler {
 
+	/** @var Settings */
 	private $settings;
+	/** @var Memory */
 	private $memory;
+	/** @var Persistence */
 	private $persistence;
+	/** @var Display */
 	private $display;
+	/** @var Actuator */
 	private $actuator;
+	/** @var EngineRunner */
 	private $engine;
+	/** @var StatusLabels */
 	private $labels;
 
 	public function __construct(Settings $_settings, Memory $_memory, Persistence $_persistence, Display $_display, Actuator $_actuator, EngineRunner $_engine, StatusLabels $_labels) {

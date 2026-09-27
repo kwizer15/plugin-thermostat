@@ -24,11 +24,14 @@ use Jeedom\Plugin\Thermostat\Domain\Translator;
 
 class ActionList implements Actions {
 
+	/** @var \thermostat */
 	private $thermostat;
+	/** @var Log */
 	private $log;
+	/** @var Translator */
 	private $translator;
 
-	public function __construct($_thermostat, Log $_log, Translator $_translator) {
+	public function __construct(\thermostat $_thermostat, Log $_log, Translator $_translator) {
 		$this->thermostat = $_thermostat;
 		$this->log = $_log;
 		$this->translator = $_translator;

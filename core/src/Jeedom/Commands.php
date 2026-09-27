@@ -22,11 +22,14 @@ use Jeedom\Plugin\Thermostat\Domain\Translator;
 
 class Commands {
 
+	/** @var \thermostat */
 	private $thermostat;
+	/** @var Scheduler */
 	private $scheduler;
+	/** @var Translator */
 	private $translator;
 
-	public function __construct($_thermostat, Scheduler $_scheduler, Translator $_translator) {
+	public function __construct(\thermostat $_thermostat, Scheduler $_scheduler, Translator $_translator) {
 		$this->thermostat = $_thermostat;
 		$this->scheduler = $_scheduler;
 		$this->translator = $_translator;
