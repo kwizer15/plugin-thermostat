@@ -185,7 +185,7 @@ class TemporalTest extends ThermostatTestCase {
 
 		$this->runTemporal($thermostat);
 
-		$this->assertSame('00 01 01 01 *', $this->stopSchedule($thermostat));
+		$this->assertNull($this->stopSchedule($thermostat));
 	}
 
 	public function testDirectionChangeStopsBeforeCooling() {

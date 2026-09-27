@@ -613,7 +613,7 @@ class thermostat extends eqLogic {
 	}
 
 	public function reschedule($_next = null, $_stop = false, $_smartThermostat = false) {
-		log::add(__CLASS__, 'debug', $this->getHumanName() . ' Reschedule, next : '.$_next.', stop : '.$_stop.', smartThermostat : '.$_smartThermostat);
+		log::add(__CLASS__, 'debug', $this->getHumanName() . ' Reschedule, next : '.$_next.', stop : '.$_stop.', smartThermostat : '.json_encode($_smartThermostat));
 		$options = array('thermostat_id' => intval($this->getId()));
 		if ($_stop) {
 			$options['stop'] = intval(1);
@@ -628,12 +628,12 @@ class thermostat extends eqLogic {
 			$options['smartThermostat'] = intval(1);
 			$options['next'] = $_smartThermostat;
 		}
-		if($_next == null){
-			return;
-		}
 		$cron = cron::byClassAndFunction(__CLASS__, 'pull', $options);
 		if (is_object($cron)) {
 			$cron->remove(false);
+		}
+		if($_next == null){
+			return;
 		}
 		$cron = new cron();
 		$cron->setClass('thermostat');
