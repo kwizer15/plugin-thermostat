@@ -8,7 +8,7 @@ class ConfigurationTest extends TestCase {
 
 	private function apply(array $_values) {
 		$store = new InMemoryConfigurationStore($_values);
-		(new thermostatConfiguration($store))->apply();
+		(new thermostatConfiguration($store, new IdentityTranslator()))->apply();
 		return $store;
 	}
 

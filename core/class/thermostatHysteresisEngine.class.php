@@ -25,8 +25,10 @@ class thermostatHysteresisEngine {
 	private $actuator;
 	private $decision;
 	private $log;
+	private $labels;
+	private $translator;
 
-	public function __construct(thermostatEngineSettings $_settings, thermostatEngineMemory $_memory, thermostatDisplay $_display, thermostatSensors $_sensors, thermostatActuator $_actuator, thermostatHysteresisDecision $_decision, thermostatLog $_log) {
+	public function __construct(thermostatEngineSettings $_settings, thermostatEngineMemory $_memory, thermostatDisplay $_display, thermostatSensors $_sensors, thermostatActuator $_actuator, thermostatHysteresisDecision $_decision, thermostatLog $_log, thermostatStatusLabels $_labels, thermostatTranslator $_translator) {
 		$this->settings = $_settings;
 		$this->memory = $_memory;
 		$this->display = $_display;
@@ -34,18 +36,20 @@ class thermostatHysteresisEngine {
 		$this->actuator = $_actuator;
 		$this->decision = $_decision;
 		$this->log = $_log;
+		$this->labels = $_labels;
+		$this->translator = $_translator;
 	}
 
 	public function run() {
-		$this->log->debug(__("Lancement du calcul d'hystérésis", __FILE__));
+		$this->log->debug($this->translator->translate("{{Lancement du calcul d'hystérésis}}"));
 		$status = $this->display->status();
-		if ($status == __('Suspendu', __FILE__)) {
-			$this->log->debug(__('Thermostat suspendu je ne fais rien', __FILE__));
+		if ($status == $this->labels->suspended()) {
+			$this->log->debug($this->translator->translate('{{Thermostat suspendu je ne fais rien}}'));
 			return;
 		}
-		if ($this->display->mode() == __('Off', __FILE__)) {
-			$this->log->debug(__('Thermostat arrêté je ne fais rien', __FILE__));
-			if ($status != __('Arrêté', __FILE__)) {
+		if ($this->display->mode() == $this->labels->off()) {
+			$this->log->debug($this->translator->translate('{{Thermostat arrêté je ne fais rien}}'));
+			if ($status != $this->labels->stopped()) {
 				$this->actuator->stop();
 			}
 			return;
@@ -55,10 +59,10 @@ class thermostatHysteresisEngine {
 		if ($reading->collectDate() != '' && $reading->collectDate() < date('Y-m-d H:i:s', strtotime('-' . $this->settings->maxTimeUpdateTemp() . ' minutes' . date('Y-m-d H:i:s')))) {
 			if ($this->memory->temperatureAlert() == 0) {
 				$this->actuator->failure();
-				$this->log->error(__("Attention il n'y a pas eu de mise à jour de la température depuis plus de", __FILE__) . ' : ' . $this->settings->maxTimeUpdateTemp() . 'min (' . $reading->collectDate() . ')');
+				$this->log->error($this->translator->translate("{{Attention il n'y a pas eu de mise à jour de la température depuis plus de}}") . ' : ' . $this->settings->maxTimeUpdateTemp() . 'min (' . $reading->collectDate() . ')');
 			}
 			$this->memory->setTemperatureAlert(1);
-			$this->display->setStatus(__('Défaillance sonde', __FILE__));
+			$this->display->setStatus($this->labels->sensorFailure());
 			return;
 		}
 		$this->memory->setTemperatureAlert(0);
@@ -67,18 +71,18 @@ class thermostatHysteresisEngine {
 		$action = $this->decision->decide($temp, $consigne, $status, $this->memory->lastState());
 
 		if ($action == 'heat') {
-			if ($status != __('Chauffage', __FILE__)) {
-				$this->log->debug(__('Je dois chauffer', __FILE__));
+			if ($status != $this->labels->heating()) {
+				$this->log->debug($this->translator->translate('{{Je dois chauffer}}'));
 				$this->actuator->heat();
 			}
 		} else if ($action == 'cool') {
-			if ($status != __('Climatisation', __FILE__)) {
-				$this->log->debug(__('Je dois refroidir', __FILE__));
+			if ($status != $this->labels->cooling()) {
+				$this->log->debug($this->translator->translate('{{Je dois refroidir}}'));
 				$this->actuator->cool();
 			}
 		} else if ($action == 'stop') {
-			if ($status != __('Arrêté', __FILE__)) {
-				$this->log->debug(__("Je m'arrête", __FILE__));
+			if ($status != $this->labels->stopped()) {
+				$this->log->debug($this->translator->translate("{{Je m'arrête}}"));
 				$this->actuator->stop();
 			}
 		}

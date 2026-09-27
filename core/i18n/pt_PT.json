@@ -207,12 +207,6 @@
     "plugins\/thermostat\/core\/class\/thermostatCoefficientLearner.class.php": {
         "Démarre auto-apprentissage": "Inicia a autoaprendizagem"
     },
-    "plugins\/thermostat\/core\/class\/thermostatCommandHandler.class.php": {
-        "Off": "Off",
-        "Arrêté": "Parado",
-        "Aucun": "Nenhum",
-        "Suspendu": "Suspenso"
-    },
     "plugins\/thermostat\/core\/class\/thermostatCommands.class.php": {
         "Consigne": "Pedido",
         "Thermostat": "Termostato",
@@ -254,15 +248,9 @@
     },
     "plugins\/thermostat\/core\/class\/thermostatHysteresisEngine.class.php": {
         "Lancement du calcul d'hystérésis": "Iniciando o cálculo de histerese",
-        "Suspendu": "Suspenso",
         "Thermostat suspendu je ne fais rien": "Termostato suspenso eu não faço nada",
-        "Off": "Off",
         "Thermostat arrêté je ne fais rien": "Termostato desligado eu não faço nada",
-        "Arrêté": "Parado",
         "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Observe que não houve atualização de temperatura por mais de",
-        "Défaillance sonde": "Falha na sonda",
-        "Chauffage": "Aquecimento",
-        "Climatisation": "Ar condicionado",
         "Je dois chauffer": "Eu tenho que aquecer",
         "Je dois refroidir": "Eu tenho que arrefecer",
         "Je m'arrête": "Eu paro"
@@ -318,15 +306,12 @@
         "Début calcul temporel": "Cálculo da hora de início",
         "Reprogrammation automatique : ": "Reprogramação automática:",
         "minutes": "minutos",
-        "Suspendu": "Suspenso",
         "Thermostat suspendu": "Termostato suspenso",
         "Programmation Smartstart": "Programação Smartstart",
         "Arrêt Smartstart": "Paragem Smartstart",
         "Thermostat sur off": "Termostato desligado",
-        "Arrêté": "Parado",
         "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Observe que não houve atualização de temperatura por mais de",
         "Je ne fais rien car il n'y a pas eu de mise a jour de la température depuis plus de": "Não faço nada porque não há atualização de temperatura há mais de",
-        "Défaillance sonde": "Falha na sonda",
         "La température intérieure n'est pas un numérique": "A temperatura interna não é um número",
         "Je ne fais rien car la température intérieure n'est pas un numérique": "Não faço nada porque a temperatura interior não é digital",
         "Attention une défaillance du chauffage est détectée": "Observe que uma falha de aquecimento foi detectada",

@@ -24,14 +24,16 @@ class thermostatCommandHandler {
 	private $display;
 	private $actuator;
 	private $engine;
+	private $labels;
 
-	public function __construct(thermostatCommandSettings $_settings, thermostatCommandMemory $_memory, thermostatPersistence $_persistence, thermostatDisplay $_display, thermostatActuator $_actuator, thermostatEngineRunner $_engine) {
+	public function __construct(thermostatCommandSettings $_settings, thermostatCommandMemory $_memory, thermostatPersistence $_persistence, thermostatDisplay $_display, thermostatActuator $_actuator, thermostatEngineRunner $_engine, thermostatStatusLabels $_labels) {
 		$this->settings = $_settings;
 		$this->memory = $_memory;
 		$this->persistence = $_persistence;
 		$this->display = $_display;
 		$this->actuator = $_actuator;
 		$this->engine = $_engine;
+		$this->labels = $_labels;
 	}
 
 	public function handle($_logicalId, $_name, $_options) {
@@ -62,8 +64,8 @@ class thermostatCommandHandler {
 			$this->actuator->executeMode($_name);
 		} else if ($_logicalId == 'off') {
 			$this->actuator->stop(false);
-			$this->display->setMode(__('Off', __FILE__));
-			$this->display->setStatus(__('Arrêté', __FILE__));
+			$this->display->setMode($this->labels->off());
+			$this->display->setStatus($this->labels->stopped());
 		} else if ($_logicalId == 'thermostat') {
 			if (!isset($_options['slider']) || !is_numeric(str_replace(',', '.', $_options['slider']))) {
 				return;
@@ -71,9 +73,9 @@ class thermostatCommandHandler {
 			$changed = ($this->display->setpoint() != $_options['slider']);
 			$this->display->setSetpoint($_options['slider']);
 			if (!isset($_options['modeChange'])) {
-				$this->display->setMode(__('Aucun', __FILE__));
+				$this->display->setMode($this->labels->none());
 			}
-			if ($this->display->status() == __('Suspendu', __FILE__)) {
+			if ($this->display->status() == $this->labels->suspended()) {
 				return;
 			}
 			$this->actuator->orderChange();

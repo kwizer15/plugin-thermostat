@@ -207,12 +207,6 @@
     "plugins\/thermostat\/core\/class\/thermostatCoefficientLearner.class.php": {
         "Démarre auto-apprentissage": "Startet Selbstlernen"
     },
-    "plugins\/thermostat\/core\/class\/thermostatCommandHandler.class.php": {
-        "Off": "Aus",
-        "Arrêté": "Verhaftet",
-        "Aucun": "Ohne",
-        "Suspendu": "Ausgesetzt"
-    },
     "plugins\/thermostat\/core\/class\/thermostatCommands.class.php": {
         "Consigne": "Anleitung",
         "Thermostat": "Thermostat",
@@ -254,15 +248,9 @@
     },
     "plugins\/thermostat\/core\/class\/thermostatHysteresisEngine.class.php": {
         "Lancement du calcul d'hystérésis": "Starten der Hystereseberechnung",
-        "Suspendu": "Ausgesetzt",
         "Thermostat suspendu je ne fais rien": "Thermostat ausgesetzt ich tue nichts",
-        "Off": "Aus",
         "Thermostat arrêté je ne fais rien": "Thermostat aus ich tue nichts",
-        "Arrêté": "Verhaftet",
         "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Bitte beachten Sie, dass es seit mehr als keine Temperaturaktualisierung gibt",
-        "Défaillance sonde": "Sondenfehler",
-        "Chauffage": "Heizung",
-        "Climatisation": "Klimaanlage",
         "Je dois chauffer": "Ich muss aufheizen",
         "Je dois refroidir": "Ich muss mich abkühlen",
         "Je m'arrête": "Ich halte an"
@@ -318,15 +306,12 @@
         "Début calcul temporel": "Berechnung der Startzeit",
         "Reprogrammation automatique : ": "Automatische Neuprogrammierung:",
         "minutes": "Protokoll",
-        "Suspendu": "Ausgesetzt",
         "Thermostat suspendu": "Hängethermostat",
         "Programmation Smartstart": "Smartstart-Programmierung",
         "Arrêt Smartstart": "Smartstart-Stopp",
         "Thermostat sur off": "Thermostat an aus",
-        "Arrêté": "Verhaftet",
         "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Bitte beachten Sie, dass es seit mehr als keine Temperaturaktualisierung gibt",
         "Je ne fais rien car il n'y a pas eu de mise a jour de la température depuis plus de": "Ich unternehme nichts, weil es schon seit Längerem kein Temperatur-Update mehr gibt",
-        "Défaillance sonde": "Sondenfehler",
         "La température intérieure n'est pas un numérique": "Die Innentemperatur ist kein numerischer Wert",
         "Je ne fais rien car la température intérieure n'est pas un numérique": "Ich mache nichts, weil die Innentemperatur nicht digital ist",
         "Attention une défaillance du chauffage est détectée": "Bitte beachten Sie, dass ein Heizungsfehler erkannt wird",

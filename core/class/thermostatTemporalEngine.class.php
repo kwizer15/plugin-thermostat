@@ -31,8 +31,10 @@ class thermostatTemporalEngine {
 	private $coefficientLearner;
 	private $cyclePlanner;
 	private $log;
+	private $labels;
+	private $translator;
 
-	public function __construct(thermostatEngineSettings $_settings, thermostatEngineMemory $_memory, thermostatPersistence $_persistence, thermostatEvaluator $_evaluator, thermostatDisplay $_display, thermostatSensors $_sensors, thermostatActuator $_actuator, thermostatScheduling $_scheduler, thermostatPowerCalculator $_powerCalculator, thermostatSmartStart $_smartStart, thermostatCoefficientLearner $_coefficientLearner, thermostatCyclePlanner $_cyclePlanner, thermostatLog $_log) {
+	public function __construct(thermostatEngineSettings $_settings, thermostatEngineMemory $_memory, thermostatPersistence $_persistence, thermostatEvaluator $_evaluator, thermostatDisplay $_display, thermostatSensors $_sensors, thermostatActuator $_actuator, thermostatScheduling $_scheduler, thermostatPowerCalculator $_powerCalculator, thermostatSmartStart $_smartStart, thermostatCoefficientLearner $_coefficientLearner, thermostatCyclePlanner $_cyclePlanner, thermostatLog $_log, thermostatStatusLabels $_labels, thermostatTranslator $_translator) {
 		$this->settings = $_settings;
 		$this->memory = $_memory;
 		$this->persistence = $_persistence;
@@ -46,26 +48,28 @@ class thermostatTemporalEngine {
 		$this->coefficientLearner = $_coefficientLearner;
 		$this->cyclePlanner = $_cyclePlanner;
 		$this->log = $_log;
+		$this->labels = $_labels;
+		$this->translator = $_translator;
 	}
 
 	public function run() {
-		$this->log->debug(__('Début calcul temporel', __FILE__));
+		$this->log->debug($this->translator->translate('{{Début calcul temporel}}'));
 		$this->scheduler->reschedule(date('Y-m-d H:i:00', strtotime('+' . $this->settings->cycle() . ' min ' . date('Y-m-d H:i:00'))));
-		$this->log->debug(__('Reprogrammation automatique : ', __FILE__) . date('Y-m-d H:i:s', strtotime('+' . $this->settings->cycle() . ' ' . __('minutes', __FILE__) . ' ' . date('Y-m-d H:i:00'))));
+		$this->log->debug($this->translator->translate('{{Reprogrammation automatique : }}') . date('Y-m-d H:i:s', strtotime('+' . $this->settings->cycle() . ' ' . $this->translator->translate('{{minutes}}') . ' ' . date('Y-m-d H:i:00'))));
 		$status = $this->display->status();
-		if ($status == __('Suspendu', __FILE__)) {
-			$this->log->debug(__('Thermostat suspendu', __FILE__));
+		if ($status == $this->labels->suspended()) {
+			$this->log->debug($this->translator->translate('{{Thermostat suspendu}}'));
 			return;
 		}
 		if ($this->settings->smartStartEnabled()) {
-			$this->log->debug(__('Programmation Smartstart', __FILE__));
+			$this->log->debug($this->translator->translate('{{Programmation Smartstart}}'));
 			$this->smartStart->plan();
-			$this->log->debug(__('Arrêt Smartstart', __FILE__));
+			$this->log->debug($this->translator->translate('{{Arrêt Smartstart}}'));
 		}
 		$mode = $this->display->mode();
 		if ($mode == 'Off') {
-			$this->log->debug(__('Thermostat sur off', __FILE__));
-			if ($status != __('Arrêté', __FILE__)) {
+			$this->log->debug($this->translator->translate('{{Thermostat sur off}}'));
+			if ($status != $this->labels->stopped()) {
 				$this->actuator->stop();
 			}
 			return;
@@ -75,21 +79,21 @@ class thermostatTemporalEngine {
 		if ($reading->collectDate() != '' && $reading->collectDate() < date('Y-m-d H:i:s', strtotime('-' . $this->settings->maxTimeUpdateTemp() . ' minutes' . date('Y-m-d H:i:s')))) {
 			if ($this->memory->temperatureAlert() == 0) {
 				$this->actuator->failure();
-				$this->log->error(__("Attention il n'y a pas eu de mise à jour de la température depuis plus de", __FILE__) . ' ' . $this->settings->maxTimeUpdateTemp() . ' ' . __('minutes', __FILE__) . ' (' . $reading->collectDate() . ')');
+				$this->log->error($this->translator->translate("{{Attention il n'y a pas eu de mise à jour de la température depuis plus de}}") . ' ' . $this->settings->maxTimeUpdateTemp() . ' ' . $this->translator->translate('{{minutes}}') . ' (' . $reading->collectDate() . ')');
 			}
-			$this->log->debug(__("Je ne fais rien car il n'y a pas eu de mise a jour de la température depuis plus de", __FILE__) . ' ' . $this->settings->maxTimeUpdateTemp() . ' ' . __('minutes', __FILE__));
+			$this->log->debug($this->translator->translate("{{Je ne fais rien car il n'y a pas eu de mise a jour de la température depuis plus de}}") . ' ' . $this->settings->maxTimeUpdateTemp() . ' ' . $this->translator->translate('{{minutes}}'));
 			$this->memory->setTemperatureAlert(1);
-			$this->display->setStatus(__('Défaillance sonde', __FILE__));
+			$this->display->setStatus($this->labels->sensorFailure());
 			return;
 		}
 		$temp_out = $this->sensors->outdoorTemperature();
 		if (!is_numeric($temp_in)) {
 			if ($this->memory->temperatureAlert() == 0) {
-				$this->log->error(__("La température intérieure n'est pas un numérique", __FILE__) . ' : ' . $temp_in);
+				$this->log->error($this->translator->translate("{{La température intérieure n'est pas un numérique}}") . ' : ' . $temp_in);
 			}
-			$this->log->debug(__("Je ne fais rien car la température intérieure n'est pas un numérique", __FILE__));
+			$this->log->debug($this->translator->translate("{{Je ne fais rien car la température intérieure n'est pas un numérique}}"));
 			$this->memory->setTemperatureAlert(1);
-			$this->display->setStatus(__('Défaillance sonde', __FILE__));
+			$this->display->setStatus($this->labels->sensorFailure());
 			return;
 		}
 		$this->memory->setTemperatureAlert(0);
@@ -99,7 +103,7 @@ class thermostatTemporalEngine {
 		) {
 			$this->memory->setConsecutiveFailures($this->memory->consecutiveFailures() + 1);
 			if ($this->memory->consecutiveFailures() == 2) {
-				$this->log->error(__('Attention une défaillance du chauffage est détectée', __FILE__));
+				$this->log->error($this->translator->translate('{{Attention une défaillance du chauffage est détectée}}'));
 				$this->actuator->failureActuator();
 			}
 		} else {
@@ -108,13 +112,13 @@ class thermostatTemporalEngine {
 		$this->coefficientLearner->learn($temp_in, $temp_out);
 		$delta = $this->memory->deltaOrder();
 		if ($delta > 0) {
-			$this->log->debug(__('Delta consigne > 0', __FILE__) . ' (' . $delta . '), ' . __('je lance le calcul avec consigne - delta/2', __FILE__));
+			$this->log->debug($this->translator->translate('{{Delta consigne > 0}}') . ' (' . $delta . '), ' . $this->translator->translate('{{je lance le calcul avec consigne - delta/2}}'));
 			$delta = $delta / 2;
 		}
 		$consigne = $this->display->setpoint();
 		$temporal_data = $this->powerCalculator->compute(floatval($consigne) - $delta, $this->sensors->indoorTemperature(), $this->sensors->outdoorTemperature());
 		if ($temporal_data['power'] > 0 && $delta > 0) {
-			$this->log->debug(__('Power > 0 et delta consigne > 0', __FILE__) . ' (' . $delta . '), ' . __('je relance le calcul avec consigne + delta/2', __FILE__));
+			$this->log->debug($this->translator->translate('{{Power > 0 et delta consigne > 0}}') . ' (' . $delta . '), ' . $this->translator->translate('{{je relance le calcul avec consigne + delta/2}}'));
 			$temporal_data = $this->powerCalculator->compute($consigne + $delta, $this->sensors->indoorTemperature(), $this->sensors->outdoorTemperature());
 		}
 		$this->memory->setLastPower($temporal_data['power']);
@@ -125,9 +129,9 @@ class thermostatTemporalEngine {
 		$this->memory->setLastTempIn($temp_in);
 		$this->memory->setLastTempOut($temp_out);
 		$this->settings->setCycleEndDate(date('Y-m-d H:i:s', strtotime('+' . ceil($cycle * 0.9) . ' min ' . date('Y-m-d H:i:s'))));
-		$this->log->debug(__('Durée du cycle', __FILE__) . '  : ' . $duration);
+		$this->log->debug($this->translator->translate('{{Durée du cycle}}') . '  : ' . $duration);
 		if ($plan->isTooShort()) {
-			$this->log->debug(__('Durée du cycle trop courte, aucun lancement', __FILE__));
+			$this->log->debug($this->translator->translate('{{Durée du cycle trop courte, aucun lancement}}'));
 			$this->memory->setLastState('stop');
 			$this->actuator->stop();
 			$this->persistence->persist();
@@ -141,12 +145,12 @@ class thermostatTemporalEngine {
 		}
 
 		if ($this->memory->lastState() == 'heat' && $temporal_data['direction'] < 0) {
-			$this->log->debug(__('Je dois refroidir mais avant je chauffais, je stop tout avant', __FILE__));
+			$this->log->debug($this->translator->translate('{{Je dois refroidir mais avant je chauffais, je stop tout avant}}'));
 			$this->memory->setLastState('stop');
 			$this->actuator->stop();
 			sleep(5);
 		}else if ($this->memory->lastState() == 'cool' && $temporal_data['direction'] > 0) {
-			$this->log->debug(__('Je dois chauffer mais avant je refroidissait, je stop tout avant', __FILE__));
+			$this->log->debug($this->translator->translate('{{Je dois chauffer mais avant je refroidissait, je stop tout avant}}'));
 			$this->memory->setLastState('stop');
 			$this->actuator->stop();
 			sleep(5);

@@ -207,12 +207,6 @@
     "plugins\/thermostat\/core\/class\/thermostatCoefficientLearner.class.php": {
         "Démarre auto-apprentissage": "Démarre auto-apprentissage"
     },
-    "plugins\/thermostat\/core\/class\/thermostatCommandHandler.class.php": {
-        "Off": "Off",
-        "Arrêté": "Durduruldu",
-        "Aucun": "Hiçbir",
-        "Suspendu": "Suspendu"
-    },
     "plugins\/thermostat\/core\/class\/thermostatCommands.class.php": {
         "Consigne": "Talimat",
         "Thermostat": "Thermostat",
@@ -254,15 +248,9 @@
     },
     "plugins\/thermostat\/core\/class\/thermostatHysteresisEngine.class.php": {
         "Lancement du calcul d'hystérésis": "Lancement du calcul d'hystérésis",
-        "Suspendu": "Suspendu",
         "Thermostat suspendu je ne fais rien": "Thermostat suspendu je ne fais rien",
-        "Off": "Off",
         "Thermostat arrêté je ne fais rien": "Thermostat arrêté je ne fais rien",
-        "Arrêté": "Durduruldu",
         "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Attention il n'y a pas eu de mise à jour de la température depuis plus de",
-        "Défaillance sonde": "Défaillance sonde",
-        "Chauffage": "Kalorifer",
-        "Climatisation": "Klima",
         "Je dois chauffer": "Je dois chauffer",
         "Je dois refroidir": "Je dois refroidir",
         "Je m'arrête": "Je m'arrête"
@@ -318,15 +306,12 @@
         "Début calcul temporel": "Début calcul temporel",
         "Reprogrammation automatique : ": "Reprogrammation automatique :",
         "minutes": "minutes",
-        "Suspendu": "Suspendu",
         "Thermostat suspendu": "Thermostat suspendu",
         "Programmation Smartstart": "Programmation Smartstart",
         "Arrêt Smartstart": "Arrêt Smartstart",
         "Thermostat sur off": "Thermostat sur off",
-        "Arrêté": "Durduruldu",
         "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Attention il n'y a pas eu de mise à jour de la température depuis plus de",
         "Je ne fais rien car il n'y a pas eu de mise a jour de la température depuis plus de": "Je ne fais rien car il n'y a pas eu de mise a jour de la température depuis plus de",
-        "Défaillance sonde": "Défaillance sonde",
         "La température intérieure n'est pas un numérique": "La température intérieure n'est pas un numérique",
         "Je ne fais rien car la température intérieure n'est pas un numérique": "Je ne fais rien car la température intérieure n'est pas un numérique",
         "Attention une défaillance du chauffage est détectée": "Attention une défaillance du chauffage est détectée",

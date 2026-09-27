@@ -27,7 +27,7 @@ class HysteresisEngineTest extends TestCase {
 
 	private function run_() {
 		$actuator = new thermostatActuator($this->settings, $this->memory, new CountingPersistence(), $this->display, $this->actions, new CountingRunner(), $this->log, new thermostatStatusLabels(new IdentityTranslator()), new IdentityTranslator());
-		(new thermostatHysteresisEngine($this->settings, $this->memory, $this->display, $this->sensors, $actuator, new thermostatHysteresisDecision($this->settings, $this->log, new thermostatStatusLabels(new IdentityTranslator()), new IdentityTranslator()), $this->log))->run();
+		(new thermostatHysteresisEngine($this->settings, $this->memory, $this->display, $this->sensors, $actuator, new thermostatHysteresisDecision($this->settings, $this->log, new thermostatStatusLabels(new IdentityTranslator()), new IdentityTranslator()), $this->log, new thermostatStatusLabels(new IdentityTranslator()), new IdentityTranslator()))->run();
 	}
 
 	public function testHeatsBelowBandAndHistorizesSetpoint() {

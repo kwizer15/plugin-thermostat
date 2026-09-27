@@ -207,12 +207,6 @@
     "plugins\/thermostat\/core\/class\/thermostatCoefficientLearner.class.php": {
         "Démarre auto-apprentissage": "Starts self-learning"
     },
-    "plugins\/thermostat\/core\/class\/thermostatCommandHandler.class.php": {
-        "Off": "Off",
-        "Arrêté": "Stopped",
-        "Aucun": "None",
-        "Suspendu": "Suspended"
-    },
     "plugins\/thermostat\/core\/class\/thermostatCommands.class.php": {
         "Consigne": "Setpoint",
         "Thermostat": "Thermostat",
@@ -254,15 +248,9 @@
     },
     "plugins\/thermostat\/core\/class\/thermostatHysteresisEngine.class.php": {
         "Lancement du calcul d'hystérésis": "Launching the hysteresis calculation",
-        "Suspendu": "Suspended",
         "Thermostat suspendu je ne fais rien": "Thermostat suspended I do nothing",
-        "Off": "Off",
         "Thermostat arrêté je ne fais rien": "Thermostat off I do nothing",
-        "Arrêté": "Stopped",
         "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Please note there has been no temperature update for more than",
-        "Défaillance sonde": "Probe failure",
-        "Chauffage": "Heating",
-        "Climatisation": "Air conditioning",
         "Je dois chauffer": "I have to heat up",
         "Je dois refroidir": "I have to cool down",
         "Je m'arrête": "I stop"
@@ -318,15 +306,12 @@
         "Début calcul temporel": "Start time calculation",
         "Reprogrammation automatique : ": "Automatic reprogramming:",
         "minutes": "minutes",
-        "Suspendu": "Suspended",
         "Thermostat suspendu": "Thermostat suspended",
         "Programmation Smartstart": "Smartstart programming",
         "Arrêt Smartstart": "Smartstart stop",
         "Thermostat sur off": "Thermostat is off",
-        "Arrêté": "Stopped",
         "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Please note there has been no temperature update for more than",
         "Je ne fais rien car il n'y a pas eu de mise a jour de la température depuis plus de": "I don't do anything because there hasn't been a temperature update for over",
-        "Défaillance sonde": "Probe failure",
         "La température intérieure n'est pas un numérique": "Indoor temperature is not a numeric",
         "Je ne fais rien car la température intérieure n'est pas un numérique": "I don't do anything because the interior temperature is not a digital",
         "Attention une défaillance du chauffage est détectée": "Please note that a heating failure is detected",

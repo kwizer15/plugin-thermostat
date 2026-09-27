@@ -24,14 +24,16 @@ class thermostatSensorWatch {
 	private $sensors;
 	private $actuator;
 	private $log;
+	private $translator;
 
-	public function __construct(thermostatSensorWatchSettings $_settings, thermostatSensorWatchMemory $_memory, thermostatDisplay $_display, thermostatSensors $_sensors, thermostatActuator $_actuator, thermostatLog $_log) {
+	public function __construct(thermostatSensorWatchSettings $_settings, thermostatSensorWatchMemory $_memory, thermostatDisplay $_display, thermostatSensors $_sensors, thermostatActuator $_actuator, thermostatLog $_log, thermostatTranslator $_translator) {
 		$this->settings = $_settings;
 		$this->memory = $_memory;
 		$this->display = $_display;
 		$this->sensors = $_sensors;
 		$this->actuator = $_actuator;
 		$this->log = $_log;
+		$this->translator = $_translator;
 	}
 
 	public function check() {
@@ -45,7 +47,7 @@ class thermostatSensorWatch {
 			if ($reading->collectDate() != '' && strtotime($reading->collectDate()) < strtotime('-' . $this->settings->maxTimeUpdateTemp() . ' minutes' . date('Y-m-d H:i:s'))) {
 				if ($this->memory->temperatureAlert() == 0) {
 					$this->actuator->failure();
-					$this->log->error(__("Attention il n'y a pas eu de mise à jour de la température depuis plus de", __FILE__) . ' : ' . $this->settings->maxTimeUpdateTemp() . ' ' . __('minutes', __FILE__) . ' (' . $reading->collectDate() . ')');
+					$this->log->error($this->translator->translate("{{Attention il n'y a pas eu de mise à jour de la température depuis plus de}}") . ' : ' . $this->settings->maxTimeUpdateTemp() . ' ' . $this->translator->translate('{{minutes}}') . ' (' . $reading->collectDate() . ')');
 				}
 				$failure = true;
 			}
@@ -53,14 +55,14 @@ class thermostatSensorWatch {
 		if ($this->settings->indoorMinimum() != '' && is_numeric($this->settings->indoorMinimum()) && $this->settings->indoorMinimum() > $temp_in && $temp_in !== '') {
 			if ($this->memory->temperatureAlert() == 0) {
 				$this->actuator->failure();
-				$this->log->error(__('Attention la température intérieure est en dessous du seuil autorisé', __FILE__) . ' : ' . $temp_in);
+				$this->log->error($this->translator->translate('{{Attention la température intérieure est en dessous du seuil autorisé}}') . ' : ' . $temp_in);
 			}
 			$failure = true;
 		}
 		if ($this->settings->indoorMaximum() != '' && is_numeric($this->settings->indoorMaximum()) && $this->settings->indoorMaximum() < $temp_in && $temp_in !== '') {
 			if ($this->memory->temperatureAlert() == 0) {
 				$this->actuator->failure();
-				$this->log->error(__('Attention la température intérieure est au dessus du seuil autorisé', __FILE__) . ' : ' . $temp_in);
+				$this->log->error($this->translator->translate('{{Attention la température intérieure est au dessus du seuil autorisé}}') . ' : ' . $temp_in);
 			}
 			$failure = true;
 		}

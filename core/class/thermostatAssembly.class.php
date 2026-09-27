@@ -97,19 +97,19 @@ class thermostatAssembly {
 	}
 
 	public function temporalEngine() {
-		return new thermostatTemporalEngine($this->settings(), $this->memory(), $this->persistence(), $this->evaluator(), $this->display(), $this->sensors(), $this->actuator(), $this->scheduler(), $this->powerCalculator(), $this->smartStart(), $this->coefficientLearner(), new thermostatCyclePlanner(), $this->log());
+		return new thermostatTemporalEngine($this->settings(), $this->memory(), $this->persistence(), $this->evaluator(), $this->display(), $this->sensors(), $this->actuator(), $this->scheduler(), $this->powerCalculator(), $this->smartStart(), $this->coefficientLearner(), new thermostatCyclePlanner(), $this->log(), $this->statusLabels(), $this->translator('thermostatTemporalEngine'));
 	}
 
 	public function hysteresisEngine() {
-		return new thermostatHysteresisEngine($this->settings(), $this->memory(), $this->display(), $this->sensors(), $this->actuator(), new thermostatHysteresisDecision($this->settings(), $this->log(), $this->statusLabels(), $this->translator('thermostatHysteresisDecision')), $this->log());
+		return new thermostatHysteresisEngine($this->settings(), $this->memory(), $this->display(), $this->sensors(), $this->actuator(), new thermostatHysteresisDecision($this->settings(), $this->log(), $this->statusLabels(), $this->translator('thermostatHysteresisDecision')), $this->log(), $this->statusLabels(), $this->translator('thermostatHysteresisEngine'));
 	}
 
 	public function sensorWatch() {
-		return new thermostatSensorWatch($this->settings(), $this->memory(), $this->display(), $this->sensors(), $this->actuator(), $this->log());
+		return new thermostatSensorWatch($this->settings(), $this->memory(), $this->display(), $this->sensors(), $this->actuator(), $this->log(), $this->translator('thermostatSensorWatch'));
 	}
 
 	public function commandHandler() {
-		return new thermostatCommandHandler($this->settings(), $this->memory(), $this->persistence(), $this->display(), $this->actuator(), $this->engineRunner());
+		return new thermostatCommandHandler($this->settings(), $this->memory(), $this->persistence(), $this->display(), $this->actuator(), $this->engineRunner(), $this->statusLabels());
 	}
 
 	public function commands() {
@@ -117,7 +117,7 @@ class thermostatAssembly {
 	}
 
 	public function configuration() {
-		return new thermostatConfiguration($this->settings());
+		return new thermostatConfiguration($this->settings(), $this->translator('thermostatConfiguration'));
 	}
 
 	public function statistics() {

@@ -36,7 +36,7 @@ class TemporalEngineTest extends TestCase {
 		$actuator = new thermostatActuator($this->settings, $this->memory, $this->persistence, $this->display, $this->actions, new CountingRunner(), $this->log, new thermostatStatusLabels(new IdentityTranslator()), new IdentityTranslator());
 		$smartStart = new thermostatSmartStart($this->settings, $this->memory, $this->calendar, $this->sensors, $this->display, new RecordingControls(), $evaluator, $power, $this->scheduling, $this->log, new IdentityTranslator());
 		$learner = new thermostatCoefficientLearner($this->settings, $this->memory, $this->log, new IdentityTranslator());
-		(new thermostatTemporalEngine($this->settings, $this->memory, $this->persistence, $evaluator, $this->display, $this->sensors, $actuator, $this->scheduling, $power, $smartStart, $learner, new thermostatCyclePlanner(), $this->log))->run();
+		(new thermostatTemporalEngine($this->settings, $this->memory, $this->persistence, $evaluator, $this->display, $this->sensors, $actuator, $this->scheduling, $power, $smartStart, $learner, new thermostatCyclePlanner(), $this->log, new thermostatStatusLabels(new IdentityTranslator()), new IdentityTranslator()))->run();
 	}
 
 	public function testHeatsForPowerShareOfCycleAndSchedulesStop() {

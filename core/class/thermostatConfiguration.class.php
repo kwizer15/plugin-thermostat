@@ -19,9 +19,11 @@
 class thermostatConfiguration {
 
 	private $store;
+	private $translator;
 
-	public function __construct(thermostatConfigurationStore $_store) {
+	public function __construct(thermostatConfigurationStore $_store, thermostatTranslator $_translator) {
 		$this->store = $_store;
+		$this->translator = $_translator;
 	}
 
 	public function apply() {
@@ -32,7 +34,7 @@ class thermostatConfiguration {
 			$this->store->change('order_min', 15);
 		}
 		if ($this->store->value('order_min') > $this->store->value('order_max')) {
-			throw new Exception(__('La température de consigne minimale ne peut être supérieure à la consigne maximale', __FILE__));
+			throw new Exception($this->translator->translate('{{La température de consigne minimale ne peut être supérieure à la consigne maximale}}'));
 		}
 		if ($this->store->value('coeff_indoor_heat') === '') {
 			$this->store->change('coeff_indoor_heat', 10);
@@ -56,7 +58,7 @@ class thermostatConfiguration {
 			$this->store->change('offset_cool', 0);
 		}
 		if ($this->store->value('minCycleDuration') < 0 || $this->store->value('minCycleDuration') > 90) {
-			throw new Exception(__('Le temps de chauffe minimal doit être compris entre 0% et 90%', __FILE__));
+			throw new Exception($this->translator->translate('{{Le temps de chauffe minimal doit être compris entre 0% et 90%}}'));
 		}
 		if ($this->store->value('cycle') === '') {
 			$this->store->change('cycle', 59);
@@ -65,7 +67,7 @@ class thermostatConfiguration {
 			$this->store->change('smart_start', 1);
 		}
 		if ($this->store->value('cycle') < 15) {
-			throw new Exception(__('Le temps de cycle doit être supérieur à 15 minutes', __FILE__));
+			throw new Exception($this->translator->translate('{{Le temps de cycle doit être supérieur à 15 minutes}}'));
 		}
 		if ($this->store->value('autolearn') === '') {
 			$this->store->change('autolearn', 1);
@@ -87,14 +89,14 @@ class thermostatConfiguration {
 		}
 		if (is_array($this->store->value('existingMode'))) {
 			foreach ($this->store->value('existingMode') as $existingMode) {
-				if (strtolower($existingMode['name']) == __('off', __FILE__)) {
-					throw new Exception(__("Vous ne pouvez faire un mode s'appelant Off car une commande Off existe déjà", __FILE__));
+				if (strtolower($existingMode['name']) == $this->translator->translate('{{off}}')) {
+					throw new Exception($this->translator->translate("{{Vous ne pouvez faire un mode s'appelant Off car une commande Off existe déjà}}"));
 				}
-				if (strtolower($existingMode['name']) == __('status', __FILE__)) {
-					throw new Exception(__("Vous ne pouvez faire un mode s'appelant Status car une commande Status existe déjà", __FILE__));
+				if (strtolower($existingMode['name']) == $this->translator->translate('{{status}}')) {
+					throw new Exception($this->translator->translate("{{Vous ne pouvez faire un mode s'appelant Status car une commande Status existe déjà}}"));
 				}
-				if (strtolower($existingMode['name']) == __('thermostat', __FILE__)) {
-					throw new Exception(__("Vous ne pouvez faire un mode s'appelant Thermostat car une commande Thermostat existe déjà", __FILE__));
+				if (strtolower($existingMode['name']) == $this->translator->translate('{{thermostat}}')) {
+					throw new Exception($this->translator->translate("{{Vous ne pouvez faire un mode s'appelant Thermostat car une commande Thermostat existe déjà}}"));
 				}
 			}
 		}
