@@ -16,7 +16,7 @@
 * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 */
 
-class thermostatJeedomMemory implements thermostatPowerMemory, thermostatCycleMemory, thermostatSmartStartMemory, thermostatStateMemory {
+class thermostatJeedomMemory implements thermostatPowerMemory, thermostatCycleMemory, thermostatSmartStartMemory, thermostatStateMemory, thermostatWindowMemory {
 
 	private $eqLogic;
 
@@ -61,5 +61,36 @@ class thermostatJeedomMemory implements thermostatPowerMemory, thermostatCycleMe
 	}
 	public function setLastState($_state) {
 		$this->eqLogic->setCache('lastState', $_state);
+	}
+	public function windowState($_cmdId) {
+		return $this->eqLogic->getCache('window::state::' . $_cmdId, 0);
+	}
+
+	public function setWindowState($_cmdId, $_state) {
+		$this->eqLogic->setCache('window::state::' . $_cmdId, $_state);
+	}
+
+	public function closedAt($_cmdId) {
+		return $this->eqLogic->getCache('window::close::' . $_cmdId . '::datetime');
+	}
+
+	public function setClosedAt($_cmdId, $_datetime) {
+		$this->eqLogic->setCache('window::close::' . $_cmdId . '::datetime', $_datetime);
+	}
+
+	public function openSince() {
+		return $this->eqLogic->getCache('window::state::open', -1);
+	}
+
+	public function setOpenSince($_timestamp) {
+		$this->eqLogic->setCache('window::state::open', $_timestamp);
+	}
+
+	public function alertSent() {
+		return $this->eqLogic->getCache('alertSendForWindow', 0);
+	}
+
+	public function setAlertSent($_sent) {
+		$this->eqLogic->setCache('alertSendForWindow', $_sent);
 	}
 }

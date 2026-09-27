@@ -77,7 +77,7 @@ class thermostatAssembly {
 	}
 
 	public function windows() {
-		return new thermostatWindows($this->thermostat, $this->actuator(), $this->log());
+		return new thermostatWindows($this->thermostat, $this->settings(), $this->memory(), $this->actuator(), $this->log());
 	}
 
 	public function temporalEngine() {

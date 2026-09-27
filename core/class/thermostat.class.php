@@ -33,6 +33,8 @@ require_once dirname(__FILE__) . '/thermostatHysteresisSettings.class.php';
 require_once dirname(__FILE__) . '/thermostatActuatorSettings.class.php';
 require_once dirname(__FILE__) . '/thermostatStateMemory.class.php';
 require_once dirname(__FILE__) . '/thermostatPersistence.class.php';
+require_once dirname(__FILE__) . '/thermostatWindowSettings.class.php';
+require_once dirname(__FILE__) . '/thermostatWindowMemory.class.php';
 require_once dirname(__FILE__) . '/thermostatJeedomSettings.class.php';
 require_once dirname(__FILE__) . '/thermostatJeedomMemory.class.php';
 require_once dirname(__FILE__) . '/thermostatJeedomCalendar.class.php';
