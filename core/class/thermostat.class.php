@@ -292,7 +292,7 @@ class thermostat extends eqLogic {
 			log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Durée du cycle trop courte, aucun lancement', __FILE__));
 			$thermostat->setCache('lastState', 'stop');
 			$thermostat->stopThermostat();
-			$thermostat->save();
+			$thermostat->save(true);
 			return;
 		}
 
@@ -318,7 +318,7 @@ class thermostat extends eqLogic {
 			$thermostat->stopThermostat();
 			sleep(5);
 		}
-		$thermostat->save();
+		$thermostat->save(true);
 		if ($duration > 0) {
 			if ($temporal_data['direction'] > 0) {
 				if ($thermostat->heat()) {
@@ -1365,7 +1365,7 @@ class thermostat extends eqLogic {
 		if ($_repeat) {
 			return;
 		}
-		$this->save();
+		$this->save(true);
 	}
 
 	public function orderChange() {

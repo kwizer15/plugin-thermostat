@@ -169,7 +169,7 @@ class ActionsTest extends ThermostatTestCase {
 		$this->assertSame('Arrêté', $this->valueOf($thermostat, 'status'));
 		$this->assertSame(0, $this->valueOf($thermostat, 'actif'));
 		$this->assertSame(0.0, $this->valueOf($thermostat, 'power'));
-		$this->assertCount(1, eqLogic::$saves);
+		$this->assertSame(array(array('id' => $thermostat->getId(), 'direct' => true)), eqLogic::$saves);
 	}
 
 	public function testStopAlreadyStoppedDoesNothing() {

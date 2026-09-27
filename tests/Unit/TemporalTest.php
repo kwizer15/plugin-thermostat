@@ -58,8 +58,7 @@ class TemporalTest extends ThermostatTestCase {
 
 		$this->runTemporal($thermostat);
 
-		$this->assertCount(1, eqLogic::$saves);
-		$this->assertFalse(eqLogic::$saves[0]['direct']);
+		$this->assertSame(array(array('id' => $thermostat->getId(), 'direct' => true)), eqLogic::$saves);
 	}
 
 	public function testSuspendedThermostatOnlyReschedules() {
@@ -138,6 +137,8 @@ class TemporalTest extends ThermostatTestCase {
 		$this->assertSame('stop', $thermostat->getCache('lastState'));
 		$this->assertSame('Arrêté', $this->valueOf($thermostat, 'status'));
 		$this->assertNull($this->stopSchedule($thermostat));
+		$thermostat->refresh();
+		$this->assertSame('2026-01-15 10:54:00', $thermostat->getConfiguration('endDate'));
 	}
 
 	public function testStoveBoilerKeepsHeatingOnLowPower() {
