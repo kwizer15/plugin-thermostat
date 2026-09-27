@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../../Metier/bootstrap.php';
 
 use PHPUnit\Framework\TestCase;
+use Jeedom\Plugin\Thermostat\Domain\Statistics\Statistics;
 
 class StatisticsTest extends TestCase {
 
@@ -16,7 +17,7 @@ class StatisticsTest extends TestCase {
 	}
 
 	private function statistics() {
-		return new thermostatStatistics($this->settings, new NumericEvaluator(), $this->history);
+		return new Statistics($this->settings, new NumericEvaluator(), $this->history);
 	}
 
 	public function testDjuFromOutdoorMinAndMax() {

@@ -3,6 +3,13 @@
 require_once __DIR__ . '/../../Metier/bootstrap.php';
 
 use PHPUnit\Framework\TestCase;
+use Jeedom\Plugin\Thermostat\Domain\Actuator\Actuator;
+use Jeedom\Plugin\Thermostat\Domain\Cycle\Planner;
+use Jeedom\Plugin\Thermostat\Domain\Engine\TemporalEngine;
+use Jeedom\Plugin\Thermostat\Domain\Learning\CoefficientLearner;
+use Jeedom\Plugin\Thermostat\Domain\Power\Calculator;
+use Jeedom\Plugin\Thermostat\Domain\SmartStart\SmartStart;
+use Jeedom\Plugin\Thermostat\Domain\StatusLabels;
 
 class TemporalEngineTest extends TestCase {
 
@@ -32,11 +39,11 @@ class TemporalEngineTest extends TestCase {
 
 	private function run_() {
 		$evaluator = new NumericEvaluator();
-		$power = new thermostatPowerCalculator($this->settings, $this->memory, $this->log, new IdentityTranslator());
-		$actuator = new thermostatActuator($this->settings, $this->memory, $this->persistence, $this->display, $this->actions, new CountingRunner(), $this->log, new thermostatStatusLabels(new IdentityTranslator()), new IdentityTranslator());
-		$smartStart = new thermostatSmartStart($this->settings, $this->memory, $this->calendar, $this->sensors, $this->display, new RecordingControls(), $evaluator, $power, $this->scheduling, $this->log, new IdentityTranslator());
-		$learner = new thermostatCoefficientLearner($this->settings, $this->memory, $this->log, new IdentityTranslator());
-		(new thermostatTemporalEngine($this->settings, $this->memory, $this->persistence, $evaluator, $this->display, $this->sensors, $actuator, $this->scheduling, $power, $smartStart, $learner, new thermostatCyclePlanner(), $this->log, new thermostatStatusLabels(new IdentityTranslator()), new IdentityTranslator()))->run();
+		$power = new Calculator($this->settings, $this->memory, $this->log, new IdentityTranslator());
+		$actuator = new Actuator($this->settings, $this->memory, $this->persistence, $this->display, $this->actions, new CountingRunner(), $this->log, new StatusLabels(new IdentityTranslator()), new IdentityTranslator());
+		$smartStart = new SmartStart($this->settings, $this->memory, $this->calendar, $this->sensors, $this->display, new RecordingControls(), $evaluator, $power, $this->scheduling, $this->log, new IdentityTranslator());
+		$learner = new CoefficientLearner($this->settings, $this->memory, $this->log, new IdentityTranslator());
+		(new TemporalEngine($this->settings, $this->memory, $this->persistence, $evaluator, $this->display, $this->sensors, $actuator, $this->scheduling, $power, $smartStart, $learner, new Planner(), $this->log, new StatusLabels(new IdentityTranslator()), new IdentityTranslator()))->run();
 	}
 
 	public function testHeatsForPowerShareOfCycleAndSchedulesStop() {

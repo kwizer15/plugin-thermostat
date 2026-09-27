@@ -3,6 +3,10 @@
 require_once __DIR__ . '/../../Metier/bootstrap.php';
 
 use PHPUnit\Framework\TestCase;
+use Jeedom\Plugin\Thermostat\Domain\Actuator\Actuator;
+use Jeedom\Plugin\Thermostat\Domain\Engine\HysteresisDecision;
+use Jeedom\Plugin\Thermostat\Domain\Engine\HysteresisEngine;
+use Jeedom\Plugin\Thermostat\Domain\StatusLabels;
 
 class HysteresisEngineTest extends TestCase {
 
@@ -26,8 +30,8 @@ class HysteresisEngineTest extends TestCase {
 	}
 
 	private function run_() {
-		$actuator = new thermostatActuator($this->settings, $this->memory, new CountingPersistence(), $this->display, $this->actions, new CountingRunner(), $this->log, new thermostatStatusLabels(new IdentityTranslator()), new IdentityTranslator());
-		(new thermostatHysteresisEngine($this->settings, $this->memory, $this->display, $this->sensors, $actuator, new thermostatHysteresisDecision($this->settings, $this->log, new thermostatStatusLabels(new IdentityTranslator()), new IdentityTranslator()), $this->log, new thermostatStatusLabels(new IdentityTranslator()), new IdentityTranslator()))->run();
+		$actuator = new Actuator($this->settings, $this->memory, new CountingPersistence(), $this->display, $this->actions, new CountingRunner(), $this->log, new StatusLabels(new IdentityTranslator()), new IdentityTranslator());
+		(new HysteresisEngine($this->settings, $this->memory, $this->display, $this->sensors, $actuator, new HysteresisDecision($this->settings, $this->log, new StatusLabels(new IdentityTranslator()), new IdentityTranslator()), $this->log, new StatusLabels(new IdentityTranslator()), new IdentityTranslator()))->run();
 	}
 
 	public function testHeatsBelowBandAndHistorizesSetpoint() {

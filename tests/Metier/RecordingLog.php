@@ -1,6 +1,8 @@
 <?php
 
-class RecordingLog implements thermostatLog {
+use Jeedom\Plugin\Thermostat\Domain\Log;
+
+class RecordingLog implements Log {
 
 	public $lines = array();
 

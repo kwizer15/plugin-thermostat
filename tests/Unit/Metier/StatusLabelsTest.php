@@ -3,11 +3,13 @@
 require_once __DIR__ . '/../../Metier/bootstrap.php';
 
 use PHPUnit\Framework\TestCase;
+use Jeedom\Plugin\Thermostat\Domain\StatusLabels;
+use Jeedom\Plugin\Thermostat\Domain\Translator;
 
 class StatusLabelsTest extends TestCase {
 
 	public function testLabelsAreTheStoredStatusValues() {
-		$labels = new thermostatStatusLabels(new IdentityTranslator());
+		$labels = new StatusLabels(new IdentityTranslator());
 
 		$this->assertSame('Chauffage', $labels->heating());
 		$this->assertSame('Climatisation', $labels->cooling());
@@ -21,7 +23,7 @@ class StatusLabelsTest extends TestCase {
 	}
 
 	public function testEachLabelIsTranslated() {
-		$labels = new thermostatStatusLabels(new class implements thermostatTranslator {
+		$labels = new StatusLabels(new class implements Translator {
 			public function translate($_text) {
 				return '<' . $_text . '>';
 			}

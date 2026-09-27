@@ -1,6 +1,9 @@
 <?php
 
-class FixedSensors implements thermostatSensors {
+use Jeedom\Plugin\Thermostat\Domain\Reading;
+use Jeedom\Plugin\Thermostat\Domain\Sensors;
+
+class FixedSensors implements Sensors {
 
 	public $indoor;
 	public $outdoor;
@@ -20,6 +23,6 @@ class FixedSensors implements thermostatSensors {
 	}
 
 	public function indoorReading() {
-		return new thermostatReading($this->indoor, $this->collectDate, $this->collectDate);
+		return new Reading($this->indoor, $this->collectDate, $this->collectDate);
 	}
 }

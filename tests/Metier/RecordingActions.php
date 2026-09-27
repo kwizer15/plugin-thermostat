@@ -1,6 +1,8 @@
 <?php
 
-class RecordingActions implements thermostatActions {
+use Jeedom\Plugin\Thermostat\Domain\Actuator\Actions;
+
+class RecordingActions implements Actions {
 
 	public $executed = array();
 	public $modeSetsSetpoint = false;

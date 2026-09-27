@@ -193,21 +193,137 @@
         "Suspendu": "Suspendu",
         "Thermostat::pull => mode smart": "Thermostat::pull => mode smart"
     },
-    "plugins\/thermostat\/core\/class\/thermostatActionList.class.php": {
-        "Erreur lors de l'exécution de": "Erreur lors de l'exécution de",
-        "Détails": "Détails"
-    },
-    "plugins\/thermostat\/core\/class\/thermostatActuator.class.php": {
+    "plugins\/thermostat\/core\/src\/Domain\/Actuator\/Actuator.php": {
         "Action chauffage": "Action chauffage",
         "Action froid": "Action froid",
         "Action stop": "Action stop",
         "Action défaillance sonde": "Action défaillance sonde",
         "Action défaillance chauffage": "Action défaillance chauffage"
     },
-    "plugins\/thermostat\/core\/class\/thermostatCoefficientLearner.class.php": {
+    "plugins\/thermostat\/core\/src\/Domain\/Configuration\/Configuration.php": {
+        "La température de consigne minimale ne peut être supérieure à la consigne maximale": "La température de consigne minimale ne peut être supérieure à la consigne maximale",
+        "Le temps de chauffe minimal doit être compris entre 0% et 90%": "Le temps de chauffe minimal doit être compris entre 0% et 90%",
+        "Le temps de cycle doit être supérieur à 15 minutes": "Le temps de cycle doit être supérieur à 15 minutes",
+        "off": "off",
+        "Vous ne pouvez faire un mode s'appelant Off car une commande Off existe déjà": "Vous ne pouvez faire un mode s'appelant Off car une commande Off existe déjà",
+        "status": "status",
+        "Vous ne pouvez faire un mode s'appelant Status car une commande Status existe déjà": "Vous ne pouvez faire un mode s'appelant Status car une commande Status existe déjà",
+        "thermostat": "thermostat",
+        "Vous ne pouvez faire un mode s'appelant Thermostat car une commande Thermostat existe déjà": "Vous ne pouvez faire un mode s'appelant Thermostat car une commande Thermostat existe déjà"
+    },
+    "plugins\/thermostat\/core\/src\/Domain\/Engine\/HysteresisDecision.php": {
+        "Calcul": "Calcul",
+        "consigne": "consigne",
+        "état précédent": "état précédent"
+    },
+    "plugins\/thermostat\/core\/src\/Domain\/Engine\/HysteresisEngine.php": {
+        "Lancement du calcul d'hystérésis": "Lancement du calcul d'hystérésis",
+        "Thermostat suspendu je ne fais rien": "Thermostat suspendu je ne fais rien",
+        "Thermostat arrêté je ne fais rien": "Thermostat arrêté je ne fais rien",
+        "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Attention il n'y a pas eu de mise à jour de la température depuis plus de",
+        "Je dois chauffer": "Je dois chauffer",
+        "Je dois refroidir": "Je dois refroidir",
+        "Je m'arrête": "Je m'arrête"
+    },
+    "plugins\/thermostat\/core\/src\/Domain\/Engine\/TemporalEngine.php": {
+        "Début calcul temporel": "Début calcul temporel",
+        "Reprogrammation automatique : ": "Reprogrammation automatique : ",
+        "minutes": "minutes",
+        "Thermostat suspendu": "Thermostat suspendu",
+        "Programmation Smartstart": "Programmation Smartstart",
+        "Arrêt Smartstart": "Arrêt Smartstart",
+        "Thermostat sur off": "Thermostat sur off",
+        "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Attention il n'y a pas eu de mise à jour de la température depuis plus de",
+        "Je ne fais rien car il n'y a pas eu de mise a jour de la température depuis plus de": "Je ne fais rien car il n'y a pas eu de mise a jour de la température depuis plus de",
+        "La température intérieure n'est pas un numérique": "La température intérieure n'est pas un numérique",
+        "Je ne fais rien car la température intérieure n'est pas un numérique": "Je ne fais rien car la température intérieure n'est pas un numérique",
+        "Attention une défaillance du chauffage est détectée": "Attention une défaillance du chauffage est détectée",
+        "Delta consigne > 0": "Delta consigne > 0",
+        "je lance le calcul avec consigne - delta\/2": "je lance le calcul avec consigne - delta\/2",
+        "Power > 0 et delta consigne > 0": "Power > 0 et delta consigne > 0",
+        "je relance le calcul avec consigne + delta\/2": "je relance le calcul avec consigne + delta\/2",
+        "Durée du cycle": "Durée du cycle",
+        "Durée du cycle trop courte, aucun lancement": "Durée du cycle trop courte, aucun lancement",
+        "Je dois refroidir mais avant je chauffais, je stop tout avant": "Je dois refroidir mais avant je chauffais, je stop tout avant",
+        "Je dois chauffer mais avant je refroidissait, je stop tout avant": "Je dois chauffer mais avant je refroidissait, je stop tout avant"
+    },
+    "plugins\/thermostat\/core\/src\/Domain\/Learning\/CoefficientLearner.php": {
         "Démarre auto-apprentissage": "Démarre auto-apprentissage"
     },
-    "plugins\/thermostat\/core\/class\/thermostatCommands.class.php": {
+    "plugins\/thermostat\/core\/src\/Domain\/Power\/Calculator.php": {
+        "Attention température extérieure erronée": "Attention température extérieure erronée",
+        "Température intérieure": "Température intérieure",
+        "Température extérieure": "Température extérieure",
+        "Consigne": "Consigne",
+        "Direction": "Direction",
+        "La température est supérieure à la consigne de plus de 1.5°C, je ne fais rien": "La température est supérieure à la consigne de plus de 1.5°C, je ne fais rien",
+        "La température est inférieure à la consigne de plus de 1.5°C, je ne fais rien": "La température est inférieure à la consigne de plus de 1.5°C, je ne fais rien",
+        "Cycle précédent à 100%, applique offset": "Cycle précédent à 100%, applique offset",
+        "Cycle précédent à": "Cycle précédent à",
+        "applique offset": "applique offset",
+        "Puissance de chauffe du cycle": "Puissance de chauffe du cycle"
+    },
+    "plugins\/thermostat\/core\/src\/Domain\/SensorWatch\/SensorWatch.php": {
+        "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Attention il n'y a pas eu de mise à jour de la température depuis plus de",
+        "minutes": "minutes",
+        "Attention la température intérieure est en dessous du seuil autorisé": "Attention la température intérieure est en dessous du seuil autorisé",
+        "Attention la température intérieure est au dessus du seuil autorisé": "Attention la température intérieure est au dessus du seuil autorisé"
+    },
+    "plugins\/thermostat\/core\/src\/Domain\/SmartStart\/SmartStart.php": {
+        "Plugin agenda détecté": "Plugin agenda détecté",
+        "Smartstart : aucun événement trouvé": "Smartstart : aucun événement trouvé",
+        "Smartstart non pris en compte car power < 0 ": "Smartstart non pris en compte car power < 0 ",
+        "Smartstart non pris en compte car la durée": "Smartstart non pris en compte car la durée",
+        "Durée Smartstart": "Durée Smartstart",
+        "à": "à",
+        "programmation": "programmation",
+        "Prochain Smartstart": "Prochain Smartstart",
+        "Next info": "Next info",
+        "Thermostat verrouillé je ne fais rien": "Thermostat verrouillé je ne fais rien",
+        "Type thermostat envoi de la consigne": "Type thermostat envoi de la consigne",
+        "Type mode envoi de la commande": "Type mode envoi de la commande"
+    },
+    "plugins\/thermostat\/core\/src\/Domain\/StatusLabels.php": {
+        "Chauffage": "Chauffage",
+        "Climatisation": "Climatisation",
+        "Arrêté": "Arrêté",
+        "Suspendu": "Suspendu",
+        "Calcul": "Calcul",
+        "Défaillance sonde": "Défaillance sonde",
+        "Défaillance chauffage": "Défaillance chauffage",
+        "Off": "Off",
+        "Aucun": "Aucun"
+    },
+    "plugins\/thermostat\/core\/src\/Domain\/Window\/Windows.php": {
+        "Détection d'un changement sur une fenêtre": "Détection d'un changement sur une fenêtre",
+        "Fenêtre trouvée": "Fenêtre trouvée",
+        "valeur": "valeur",
+        "Fenêtre fermée": "Fenêtre fermée",
+        "Fenêtre ouverte": "Fenêtre ouverte",
+        "Thermostat arreté ou suspendu je ne fais rien": "Thermostat arreté ou suspendu je ne fais rien",
+        "Commande introuvable je ne fais rien": "Commande introuvable je ne fais rien",
+        "Pause de": "Pause de",
+        "minutes": "minutes",
+        "Valeur commande": "Valeur commande",
+        " en date du : ": " en date du : ",
+        "L'ouvrant n'est plus ouvert, je ne fais rien": "L'ouvrant n'est plus ouvert, je ne fais rien",
+        "L'ouvrant à été refermé pendant la pause, je ne fais rien, refermé à": "L'ouvrant à été refermé pendant la pause, je ne fais rien, refermé à",
+        "Arrêt du thermostat": "Arrêt du thermostat",
+        "Je n'ai jamais vu cette fenêtre ouverte, je ne fais rien": "Je n'ai jamais vu cette fenêtre ouverte, je ne fais rien",
+        "Thermostat non suspendu je ne fais rien": "Thermostat non suspendu je ne fais rien",
+        "Fenêtre ouverte, je ne fais rien": "Fenêtre ouverte, je ne fais rien",
+        "Fenêtre fermée depuis trop peu de temps, je ne fais rien": "Fenêtre fermée depuis trop peu de temps, je ne fais rien",
+        "Toutes les fenêtres sont fermées, je relance le chauffage": "Toutes les fenêtres sont fermées, je relance le chauffage",
+        "Attention le thermostat est suspendu à cause d'une fenêtre ouverte depuis": "Attention le thermostat est suspendu à cause d'une fenêtre ouverte depuis"
+    },
+    "plugins\/thermostat\/core\/src\/Jeedom\/ActionList.php": {
+        "Erreur lors de l'exécution de": "Erreur lors de l'exécution de",
+        "Détails": "Détails"
+    },
+    "plugins\/thermostat\/core\/src\/Jeedom\/Calendar.php": {
+        "Plugin agenda non détecté": "Plugin agenda non détecté"
+    },
+    "plugins\/thermostat\/core\/src\/Jeedom\/Commands.php": {
         "Consigne": "Consigne",
         "Thermostat": "Thermostat",
         "Statut": "Statut",
@@ -230,123 +346,7 @@
         "Performance": "Performance",
         "Puissance": "Puissance"
     },
-    "plugins\/thermostat\/core\/class\/thermostatConfiguration.class.php": {
-        "La température de consigne minimale ne peut être supérieure à la consigne maximale": "La température de consigne minimale ne peut être supérieure à la consigne maximale",
-        "Le temps de chauffe minimal doit être compris entre 0% et 90%": "Le temps de chauffe minimal doit être compris entre 0% et 90%",
-        "Le temps de cycle doit être supérieur à 15 minutes": "Le temps de cycle doit être supérieur à 15 minutes",
-        "off": "off",
-        "Vous ne pouvez faire un mode s'appelant Off car une commande Off existe déjà": "Vous ne pouvez faire un mode s'appelant Off car une commande Off existe déjà",
-        "status": "status",
-        "Vous ne pouvez faire un mode s'appelant Status car une commande Status existe déjà": "Vous ne pouvez faire un mode s'appelant Status car une commande Status existe déjà",
-        "thermostat": "thermostat",
-        "Vous ne pouvez faire un mode s'appelant Thermostat car une commande Thermostat existe déjà": "Vous ne pouvez faire un mode s'appelant Thermostat car une commande Thermostat existe déjà"
-    },
-    "plugins\/thermostat\/core\/class\/thermostatHysteresisDecision.class.php": {
-        "Calcul": "Calcul",
-        "consigne": "consigne",
-        "état précédent": "état précédent"
-    },
-    "plugins\/thermostat\/core\/class\/thermostatHysteresisEngine.class.php": {
-        "Lancement du calcul d'hystérésis": "Lancement du calcul d'hystérésis",
-        "Thermostat suspendu je ne fais rien": "Thermostat suspendu je ne fais rien",
-        "Thermostat arrêté je ne fais rien": "Thermostat arrêté je ne fais rien",
-        "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Attention il n'y a pas eu de mise à jour de la température depuis plus de",
-        "Je dois chauffer": "Je dois chauffer",
-        "Je dois refroidir": "Je dois refroidir",
-        "Je m'arrête": "Je m'arrête"
-    },
-    "plugins\/thermostat\/core\/class\/thermostatJeedomCalendar.class.php": {
-        "Plugin agenda non détecté": "Plugin agenda non détecté"
-    },
-    "plugins\/thermostat\/core\/class\/thermostatPowerCalculator.class.php": {
-        "Attention température extérieure erronée": "Attention température extérieure erronée",
-        "Température intérieure": "Température intérieure",
-        "Température extérieure": "Température extérieure",
-        "Consigne": "Consigne",
-        "Direction": "Direction",
-        "La température est supérieure à la consigne de plus de 1.5°C, je ne fais rien": "La température est supérieure à la consigne de plus de 1.5°C, je ne fais rien",
-        "La température est inférieure à la consigne de plus de 1.5°C, je ne fais rien": "La température est inférieure à la consigne de plus de 1.5°C, je ne fais rien",
-        "Cycle précédent à 100%, applique offset": "Cycle précédent à 100%, applique offset",
-        "Cycle précédent à": "Cycle précédent à",
-        "applique offset": "applique offset",
-        "Puissance de chauffe du cycle": "Puissance de chauffe du cycle"
-    },
-    "plugins\/thermostat\/core\/class\/thermostatSensorWatch.class.php": {
-        "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Attention il n'y a pas eu de mise à jour de la température depuis plus de",
-        "minutes": "minutes",
-        "Attention la température intérieure est en dessous du seuil autorisé": "Attention la température intérieure est en dessous du seuil autorisé",
-        "Attention la température intérieure est au dessus du seuil autorisé": "Attention la température intérieure est au dessus du seuil autorisé"
-    },
-    "plugins\/thermostat\/core\/class\/thermostatSmartStart.class.php": {
-        "Plugin agenda détecté": "Plugin agenda détecté",
-        "Smartstart : aucun événement trouvé": "Smartstart : aucun événement trouvé",
-        "Smartstart non pris en compte car power < 0 ": "Smartstart non pris en compte car power < 0 ",
-        "Smartstart non pris en compte car la durée": "Smartstart non pris en compte car la durée",
-        "Durée Smartstart": "Durée Smartstart",
-        "à": "à",
-        "programmation": "programmation",
-        "Prochain Smartstart": "Prochain Smartstart",
-        "Next info": "Next info",
-        "Thermostat verrouillé je ne fais rien": "Thermostat verrouillé je ne fais rien",
-        "Type thermostat envoi de la consigne": "Type thermostat envoi de la consigne",
-        "Type mode envoi de la commande": "Type mode envoi de la commande"
-    },
-    "plugins\/thermostat\/core\/class\/thermostatStatusLabels.class.php": {
-        "Chauffage": "Chauffage",
-        "Climatisation": "Climatisation",
-        "Arrêté": "Arrêté",
-        "Suspendu": "Suspendu",
-        "Calcul": "Calcul",
-        "Défaillance sonde": "Défaillance sonde",
-        "Défaillance chauffage": "Défaillance chauffage",
-        "Off": "Off",
-        "Aucun": "Aucun"
-    },
-    "plugins\/thermostat\/core\/class\/thermostatTemporalEngine.class.php": {
-        "Début calcul temporel": "Début calcul temporel",
-        "Reprogrammation automatique : ": "Reprogrammation automatique : ",
-        "minutes": "minutes",
-        "Thermostat suspendu": "Thermostat suspendu",
-        "Programmation Smartstart": "Programmation Smartstart",
-        "Arrêt Smartstart": "Arrêt Smartstart",
-        "Thermostat sur off": "Thermostat sur off",
-        "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Attention il n'y a pas eu de mise à jour de la température depuis plus de",
-        "Je ne fais rien car il n'y a pas eu de mise a jour de la température depuis plus de": "Je ne fais rien car il n'y a pas eu de mise a jour de la température depuis plus de",
-        "La température intérieure n'est pas un numérique": "La température intérieure n'est pas un numérique",
-        "Je ne fais rien car la température intérieure n'est pas un numérique": "Je ne fais rien car la température intérieure n'est pas un numérique",
-        "Attention une défaillance du chauffage est détectée": "Attention une défaillance du chauffage est détectée",
-        "Delta consigne > 0": "Delta consigne > 0",
-        "je lance le calcul avec consigne - delta\/2": "je lance le calcul avec consigne - delta\/2",
-        "Power > 0 et delta consigne > 0": "Power > 0 et delta consigne > 0",
-        "je relance le calcul avec consigne + delta\/2": "je relance le calcul avec consigne + delta\/2",
-        "Durée du cycle": "Durée du cycle",
-        "Durée du cycle trop courte, aucun lancement": "Durée du cycle trop courte, aucun lancement",
-        "Je dois refroidir mais avant je chauffais, je stop tout avant": "Je dois refroidir mais avant je chauffais, je stop tout avant",
-        "Je dois chauffer mais avant je refroidissait, je stop tout avant": "Je dois chauffer mais avant je refroidissait, je stop tout avant"
-    },
-    "plugins\/thermostat\/core\/class\/thermostatWindows.class.php": {
-        "Détection d'un changement sur une fenêtre": "Détection d'un changement sur une fenêtre",
-        "Fenêtre trouvée": "Fenêtre trouvée",
-        "valeur": "valeur",
-        "Fenêtre fermée": "Fenêtre fermée",
-        "Fenêtre ouverte": "Fenêtre ouverte",
-        "Thermostat arreté ou suspendu je ne fais rien": "Thermostat arreté ou suspendu je ne fais rien",
-        "Commande introuvable je ne fais rien": "Commande introuvable je ne fais rien",
-        "Pause de": "Pause de",
-        "minutes": "minutes",
-        "Valeur commande": "Valeur commande",
-        " en date du : ": " en date du : ",
-        "L'ouvrant n'est plus ouvert, je ne fais rien": "L'ouvrant n'est plus ouvert, je ne fais rien",
-        "L'ouvrant à été refermé pendant la pause, je ne fais rien, refermé à": "L'ouvrant à été refermé pendant la pause, je ne fais rien, refermé à",
-        "Arrêt du thermostat": "Arrêt du thermostat",
-        "Je n'ai jamais vu cette fenêtre ouverte, je ne fais rien": "Je n'ai jamais vu cette fenêtre ouverte, je ne fais rien",
-        "Thermostat non suspendu je ne fais rien": "Thermostat non suspendu je ne fais rien",
-        "Fenêtre ouverte, je ne fais rien": "Fenêtre ouverte, je ne fais rien",
-        "Fenêtre fermée depuis trop peu de temps, je ne fais rien": "Fenêtre fermée depuis trop peu de temps, je ne fais rien",
-        "Toutes les fenêtres sont fermées, je relance le chauffage": "Toutes les fenêtres sont fermées, je relance le chauffage",
-        "Attention le thermostat est suspendu à cause d'une fenêtre ouverte depuis": "Attention le thermostat est suspendu à cause d'une fenêtre ouverte depuis"
-    },
-    "info.json": {
+    "plugins\/thermostat\/": {
         "Ce plugin très puissant et très complet vous permettra de gérer finement la température de votre logement que ce soit pour réchauffer ou refroidir celui-ci. Le plugin apprend de lui même avec le temps le meilleur moyen d'économiser de l'énergie tout en maintenant un confort optimal dans votre logement.": "Ce plugin très puissant et très complet vous permettra de gérer finement la température de votre logement que ce soit pour réchauffer ou refroidir celui-ci. Le plugin apprend de lui même avec le temps le meilleur moyen d'économiser de l'énergie tout en maintenant un confort optimal dans votre logement."
     }
 }

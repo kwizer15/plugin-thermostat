@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../../Metier/bootstrap.php';
 
 use PHPUnit\Framework\TestCase;
+use Jeedom\Plugin\Thermostat\Domain\Power\Calculator;
 
 class PowerCalculatorTest extends TestCase {
 
@@ -17,7 +18,7 @@ class PowerCalculatorTest extends TestCase {
 	}
 
 	private function compute($_consigne, $_tempIn, $_tempOut, $_allowOverfull = false) {
-		return (new thermostatPowerCalculator($this->settings, $this->memory, $this->log, new IdentityTranslator()))->compute($_consigne, $_tempIn, $_tempOut, $_allowOverfull);
+		return (new Calculator($this->settings, $this->memory, $this->log, new IdentityTranslator()))->compute($_consigne, $_tempIn, $_tempOut, $_allowOverfull);
 	}
 
 	public function testHeatingPowerCombinesIndoorAndOutdoorGaps() {

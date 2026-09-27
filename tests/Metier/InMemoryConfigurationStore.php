@@ -1,6 +1,8 @@
 <?php
 
-class InMemoryConfigurationStore implements thermostatConfigurationStore {
+use Jeedom\Plugin\Thermostat\Domain\Configuration\Store;
+
+class InMemoryConfigurationStore implements Store {
 
 	public $values;
 	public $heating = false;

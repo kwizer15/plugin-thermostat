@@ -1,6 +1,8 @@
 <?php
 
-class RecordingScheduling implements thermostatScheduling {
+use Jeedom\Plugin\Thermostat\Domain\Scheduling;
+
+class RecordingScheduling implements Scheduling {
 
 	public $calls = array();
 

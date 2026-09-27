@@ -1,6 +1,8 @@
 <?php
 
-class InMemoryHistory implements thermostatHistory {
+use Jeedom\Plugin\Thermostat\Domain\Statistics\History;
+
+class InMemoryHistory implements History {
 
 	public $statistics = array();
 	public $active = array();

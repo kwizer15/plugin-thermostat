@@ -3,6 +3,9 @@
 require_once __DIR__ . '/../../Metier/bootstrap.php';
 
 use PHPUnit\Framework\TestCase;
+use Jeedom\Plugin\Thermostat\Domain\Actuator\Actuator;
+use Jeedom\Plugin\Thermostat\Domain\SensorWatch\SensorWatch;
+use Jeedom\Plugin\Thermostat\Domain\StatusLabels;
 
 class SensorWatchTest extends TestCase {
 
@@ -25,8 +28,8 @@ class SensorWatchTest extends TestCase {
 	}
 
 	private function check() {
-		$actuator = new thermostatActuator($this->settings, $this->memory, new CountingPersistence(), $this->display, $this->actions, new CountingRunner(), $this->log, new thermostatStatusLabels(new IdentityTranslator()), new IdentityTranslator());
-		(new thermostatSensorWatch($this->settings, $this->memory, $this->display, $this->sensors, $actuator, $this->log, new IdentityTranslator()))->check();
+		$actuator = new Actuator($this->settings, $this->memory, new CountingPersistence(), $this->display, $this->actions, new CountingRunner(), $this->log, new StatusLabels(new IdentityTranslator()), new IdentityTranslator());
+		(new SensorWatch($this->settings, $this->memory, $this->display, $this->sensors, $actuator, $this->log, new IdentityTranslator()))->check();
 	}
 
 	public function testTemperatureInRangeClearsAlert() {

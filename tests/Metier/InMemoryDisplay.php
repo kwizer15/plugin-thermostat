@@ -1,6 +1,8 @@
 <?php
 
-class InMemoryDisplay implements thermostatDisplay {
+use Jeedom\Plugin\Thermostat\Domain\Display;
+
+class InMemoryDisplay implements Display {
 
 	public $status = 'Arrêté';
 	public $mode = 'Aucun';

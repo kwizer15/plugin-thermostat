@@ -3,6 +3,8 @@
 require_once __DIR__ . '/../../Metier/bootstrap.php';
 
 use PHPUnit\Framework\TestCase;
+use Jeedom\Plugin\Thermostat\Domain\Power\Calculator;
+use Jeedom\Plugin\Thermostat\Domain\SmartStart\SmartStart;
 
 class SmartStartTest extends TestCase {
 
@@ -28,7 +30,7 @@ class SmartStartTest extends TestCase {
 	}
 
 	private function smartStart() {
-		return new thermostatSmartStart($this->settings, $this->memory, $this->calendar, $this->sensors, $this->display, $this->controls, new NumericEvaluator(), new thermostatPowerCalculator($this->settings, $this->memory, $this->log, new IdentityTranslator()), $this->scheduling, $this->log, new IdentityTranslator());
+		return new SmartStart($this->settings, $this->memory, $this->calendar, $this->sensors, $this->display, $this->controls, new NumericEvaluator(), new Calculator($this->settings, $this->memory, $this->log, new IdentityTranslator()), $this->scheduling, $this->log, new IdentityTranslator());
 	}
 
 	private function event($_date, $_consigne = '21') {

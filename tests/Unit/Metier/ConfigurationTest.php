@@ -3,12 +3,13 @@
 require_once __DIR__ . '/../../Metier/bootstrap.php';
 
 use PHPUnit\Framework\TestCase;
+use Jeedom\Plugin\Thermostat\Domain\Configuration\Configuration;
 
 class ConfigurationTest extends TestCase {
 
 	private function apply(array $_values) {
 		$store = new InMemoryConfigurationStore($_values);
-		(new thermostatConfiguration($store, new IdentityTranslator()))->apply();
+		(new Configuration($store, new IdentityTranslator()))->apply();
 		return $store;
 	}
 

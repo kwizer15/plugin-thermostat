@@ -1,6 +1,15 @@
 <?php
 
-class InMemoryMemory implements thermostatPowerMemory, thermostatCycleMemory, thermostatSmartStartMemory, thermostatStateMemory, thermostatWindowMemory, thermostatEngineMemory, thermostatSensorWatchMemory, thermostatCommandMemory {
+use Jeedom\Plugin\Thermostat\Domain\Actuator\StateMemory;
+use Jeedom\Plugin\Thermostat\Domain\Command\Memory as CommandMemory;
+use Jeedom\Plugin\Thermostat\Domain\Engine\Memory as EngineMemory;
+use Jeedom\Plugin\Thermostat\Domain\Learning\CycleMemory;
+use Jeedom\Plugin\Thermostat\Domain\Power\Memory as PowerMemory;
+use Jeedom\Plugin\Thermostat\Domain\SensorWatch\Memory as SensorWatchMemory;
+use Jeedom\Plugin\Thermostat\Domain\SmartStart\Memory as SmartStartMemory;
+use Jeedom\Plugin\Thermostat\Domain\Window\Memory as WindowMemory;
+
+class InMemoryMemory implements PowerMemory, CycleMemory, SmartStartMemory, StateMemory, WindowMemory, EngineMemory, SensorWatchMemory, CommandMemory {
 
 	public $values = array(
 		'lastState' => '',

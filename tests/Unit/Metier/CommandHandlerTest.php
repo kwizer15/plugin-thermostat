@@ -3,6 +3,9 @@
 require_once __DIR__ . '/../../Metier/bootstrap.php';
 
 use PHPUnit\Framework\TestCase;
+use Jeedom\Plugin\Thermostat\Domain\Actuator\Actuator;
+use Jeedom\Plugin\Thermostat\Domain\Command\Handler;
+use Jeedom\Plugin\Thermostat\Domain\StatusLabels;
 
 class CommandHandlerTest extends TestCase {
 
@@ -23,8 +26,8 @@ class CommandHandlerTest extends TestCase {
 	}
 
 	private function handle($_logicalId, array $_options = array(), $_name = '') {
-		$actuator = new thermostatActuator($this->settings, $this->memory, $this->persistence, $this->display, $this->actions, $this->engine, new RecordingLog(), new thermostatStatusLabels(new IdentityTranslator()), new IdentityTranslator());
-		return (new thermostatCommandHandler($this->settings, $this->memory, $this->persistence, $this->display, $actuator, $this->engine, new thermostatStatusLabels(new IdentityTranslator())))->handle($_logicalId, $_name, $_options);
+		$actuator = new Actuator($this->settings, $this->memory, $this->persistence, $this->display, $this->actions, $this->engine, new RecordingLog(), new StatusLabels(new IdentityTranslator()), new IdentityTranslator());
+		return (new Handler($this->settings, $this->memory, $this->persistence, $this->display, $actuator, $this->engine, new StatusLabels(new IdentityTranslator())))->handle($_logicalId, $_name, $_options);
 	}
 
 	public function testDeltaOrderIsStoredEvenWhenLocked() {

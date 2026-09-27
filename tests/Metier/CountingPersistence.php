@@ -1,6 +1,8 @@
 <?php
 
-class CountingPersistence implements thermostatPersistence {
+use Jeedom\Plugin\Thermostat\Domain\Persistence;
+
+class CountingPersistence implements Persistence {
 
 	public $reloads = 0;
 	public $persists = 0;

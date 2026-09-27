@@ -3,11 +3,13 @@
 require_once __DIR__ . '/../../Metier/bootstrap.php';
 
 use PHPUnit\Framework\TestCase;
+use Jeedom\Plugin\Thermostat\Domain\Cycle\Plan;
+use Jeedom\Plugin\Thermostat\Domain\Cycle\Planner;
 
 class CyclePlannerTest extends TestCase {
 
 	private function plan($_power, $_wasHeating = false, $_stoveBoiler = 0, $_cycle = 60, $_minCycle = 10) {
-		return (new thermostatCyclePlanner())->plan($_power, $_cycle, $_wasHeating, $_minCycle, $_stoveBoiler);
+		return (new Planner())->plan($_power, $_cycle, $_wasHeating, $_minCycle, $_stoveBoiler);
 	}
 
 	public function testDurationIsPowerShareOfCycle() {
@@ -19,21 +21,21 @@ class CyclePlannerTest extends TestCase {
 		$plan = $this->plan(50);
 
 		$this->assertFalse($plan->isTooShort());
-		$this->assertSame(thermostatCyclePlan::STOP_AFTER, $plan->stop());
+		$this->assertSame(Plan::STOP_AFTER, $plan->stop());
 	}
 
 	public function testFullCycleCancelsStop() {
-		$this->assertSame(thermostatCyclePlan::STOP_CANCEL, $this->plan(100)->stop());
-		$this->assertSame(thermostatCyclePlan::STOP_CANCEL, $this->plan(120)->stop());
-		$this->assertSame(thermostatCyclePlan::STOP_AFTER, $this->plan(99)->stop());
+		$this->assertSame(Plan::STOP_CANCEL, $this->plan(100)->stop());
+		$this->assertSame(Plan::STOP_CANCEL, $this->plan(120)->stop());
+		$this->assertSame(Plan::STOP_AFTER, $this->plan(99)->stop());
 	}
 
 	public function testStoveBoilerNeverSchedulesStop() {
-		$this->assertSame(thermostatCyclePlan::STOP_CANCEL, $this->plan(50, false, 1)->stop());
+		$this->assertSame(Plan::STOP_CANCEL, $this->plan(50, false, 1)->stop());
 	}
 
 	public function testZeroDurationLeavesStopUnchanged() {
-		$this->assertSame(thermostatCyclePlan::STOP_UNCHANGED, $this->plan(0.5)->stop());
+		$this->assertSame(Plan::STOP_UNCHANGED, $this->plan(0.5)->stop());
 	}
 
 	public function testBelowMinimumIsTooShort() {

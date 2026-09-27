@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../../Metier/bootstrap.php';
 
 use PHPUnit\Framework\TestCase;
+use Jeedom\Plugin\Thermostat\Domain\Learning\CoefficientLearner;
 
 class CoefficientLearnerTest extends TestCase {
 
@@ -17,7 +18,7 @@ class CoefficientLearnerTest extends TestCase {
 	}
 
 	private function learn($_tempIn, $_tempOut) {
-		(new thermostatCoefficientLearner($this->settings, $this->memory, $this->log, new IdentityTranslator()))->learn($_tempIn, $_tempOut);
+		(new CoefficientLearner($this->settings, $this->memory, $this->log, new IdentityTranslator()))->learn($_tempIn, $_tempOut);
 	}
 
 	public function testLearnsIndoorHeatFromTemperatureRise() {

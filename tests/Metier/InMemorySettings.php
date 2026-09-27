@@ -1,6 +1,17 @@
 <?php
 
-class InMemorySettings implements thermostatPowerSettings, thermostatLearningSettings, thermostatSmartStartSettings, thermostatHysteresisSettings, thermostatActuatorSettings, thermostatWindowSettings, thermostatEngineSettings, thermostatStatisticsSettings, thermostatSensorWatchSettings, thermostatCommandSettings {
+use Jeedom\Plugin\Thermostat\Domain\Actuator\Settings as ActuatorSettings;
+use Jeedom\Plugin\Thermostat\Domain\Command\Settings as CommandSettings;
+use Jeedom\Plugin\Thermostat\Domain\Engine\HysteresisSettings;
+use Jeedom\Plugin\Thermostat\Domain\Engine\Settings as EngineSettings;
+use Jeedom\Plugin\Thermostat\Domain\Learning\Settings as LearningSettings;
+use Jeedom\Plugin\Thermostat\Domain\Power\Settings as PowerSettings;
+use Jeedom\Plugin\Thermostat\Domain\SensorWatch\Settings as SensorWatchSettings;
+use Jeedom\Plugin\Thermostat\Domain\SmartStart\Settings as SmartStartSettings;
+use Jeedom\Plugin\Thermostat\Domain\Statistics\Settings as StatisticsSettings;
+use Jeedom\Plugin\Thermostat\Domain\Window\Settings as WindowSettings;
+
+class InMemorySettings implements PowerSettings, LearningSettings, SmartStartSettings, HysteresisSettings, ActuatorSettings, WindowSettings, EngineSettings, StatisticsSettings, SensorWatchSettings, CommandSettings {
 
 	public $values = array(
 		'coeff_indoor_heat' => 10,

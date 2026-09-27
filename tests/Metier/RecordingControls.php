@@ -1,6 +1,8 @@
 <?php
 
-class RecordingControls implements thermostatControls {
+use Jeedom\Plugin\Thermostat\Domain\SmartStart\Controls;
+
+class RecordingControls implements Controls {
 
 	public $modes = array();
 	public $calls = array();

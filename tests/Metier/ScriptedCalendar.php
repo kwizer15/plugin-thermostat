@@ -1,6 +1,8 @@
 <?php
 
-class ScriptedCalendar implements thermostatCalendar {
+use Jeedom\Plugin\Thermostat\Domain\SmartStart\Calendar;
+
+class ScriptedCalendar implements Calendar {
 
 	public $available = true;
 	public $next = null;

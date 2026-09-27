@@ -17,76 +17,23 @@
 */
 
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
-require_once dirname(__FILE__) . '/thermostatLog.class.php';
-require_once dirname(__FILE__) . '/thermostatJeedomLog.class.php';
-require_once dirname(__FILE__) . '/thermostatTranslator.class.php';
-require_once dirname(__FILE__) . '/thermostatJeedomTranslator.class.php';
-require_once dirname(__FILE__) . '/thermostatStatusLabels.class.php';
-require_once dirname(__FILE__) . '/thermostatPowerSettings.class.php';
-require_once dirname(__FILE__) . '/thermostatPowerMemory.class.php';
-require_once dirname(__FILE__) . '/thermostatCycleMemory.class.php';
-require_once dirname(__FILE__) . '/thermostatLearningSettings.class.php';
-require_once dirname(__FILE__) . '/thermostatSmartStartSettings.class.php';
-require_once dirname(__FILE__) . '/thermostatSmartStartMemory.class.php';
-require_once dirname(__FILE__) . '/thermostatCalendar.class.php';
-require_once dirname(__FILE__) . '/thermostatEvaluator.class.php';
-require_once dirname(__FILE__) . '/thermostatSensors.class.php';
-require_once dirname(__FILE__) . '/thermostatScheduling.class.php';
-require_once dirname(__FILE__) . '/thermostatHysteresisSettings.class.php';
-require_once dirname(__FILE__) . '/thermostatActuatorSettings.class.php';
-require_once dirname(__FILE__) . '/thermostatStateMemory.class.php';
-require_once dirname(__FILE__) . '/thermostatPersistence.class.php';
-require_once dirname(__FILE__) . '/thermostatWindowSettings.class.php';
-require_once dirname(__FILE__) . '/thermostatWindowMemory.class.php';
-require_once dirname(__FILE__) . '/thermostatEngineSettings.class.php';
-require_once dirname(__FILE__) . '/thermostatEngineMemory.class.php';
-require_once dirname(__FILE__) . '/thermostatConfigurationStore.class.php';
-require_once dirname(__FILE__) . '/thermostatStatisticsSettings.class.php';
-require_once dirname(__FILE__) . '/thermostatDisplay.class.php';
-require_once dirname(__FILE__) . '/thermostatActions.class.php';
-require_once dirname(__FILE__) . '/thermostatEngineRunner.class.php';
-require_once dirname(__FILE__) . '/thermostatReading.class.php';
-require_once dirname(__FILE__) . '/thermostatWindowSensors.class.php';
-require_once dirname(__FILE__) . '/thermostatHistory.class.php';
-require_once dirname(__FILE__) . '/thermostatControls.class.php';
-require_once dirname(__FILE__) . '/thermostatSensorWatchSettings.class.php';
-require_once dirname(__FILE__) . '/thermostatSensorWatchMemory.class.php';
-require_once dirname(__FILE__) . '/thermostatCommandSettings.class.php';
-require_once dirname(__FILE__) . '/thermostatCommandMemory.class.php';
-require_once dirname(__FILE__) . '/thermostatJeedomSettings.class.php';
-require_once dirname(__FILE__) . '/thermostatJeedomMemory.class.php';
-require_once dirname(__FILE__) . '/thermostatJeedomCalendar.class.php';
-require_once dirname(__FILE__) . '/thermostatJeedomEvaluator.class.php';
-require_once dirname(__FILE__) . '/thermostatJeedomSensors.class.php';
-require_once dirname(__FILE__) . '/thermostatJeedomPersistence.class.php';
-require_once dirname(__FILE__) . '/thermostatJeedomDisplay.class.php';
-require_once dirname(__FILE__) . '/thermostatJeedomEngineRunner.class.php';
-require_once dirname(__FILE__) . '/thermostatJeedomWindowSensors.class.php';
-require_once dirname(__FILE__) . '/thermostatJeedomHistory.class.php';
-require_once dirname(__FILE__) . '/thermostatJeedomControls.class.php';
-require_once dirname(__FILE__) . '/thermostatActionList.class.php';
-require_once dirname(__FILE__) . '/thermostatPowerCalculator.class.php';
-require_once dirname(__FILE__) . '/thermostatHysteresisDecision.class.php';
-require_once dirname(__FILE__) . '/thermostatCyclePlan.class.php';
-require_once dirname(__FILE__) . '/thermostatCyclePlanner.class.php';
-require_once dirname(__FILE__) . '/thermostatCoefficientLearner.class.php';
-require_once dirname(__FILE__) . '/thermostatSmartStart.class.php';
-require_once dirname(__FILE__) . '/thermostatActuator.class.php';
-require_once dirname(__FILE__) . '/thermostatWindows.class.php';
-require_once dirname(__FILE__) . '/thermostatSensorWatch.class.php';
-require_once dirname(__FILE__) . '/thermostatCommandHandler.class.php';
-require_once dirname(__FILE__) . '/thermostatScheduler.class.php';
-require_once dirname(__FILE__) . '/thermostatHysteresisEngine.class.php';
-require_once dirname(__FILE__) . '/thermostatTemporalEngine.class.php';
-require_once dirname(__FILE__) . '/thermostatCommands.class.php';
-require_once dirname(__FILE__) . '/thermostatConfiguration.class.php';
-require_once dirname(__FILE__) . '/thermostatStatistics.class.php';
-require_once dirname(__FILE__) . '/thermostatAssembly.class.php';
+use Jeedom\Plugin\Thermostat\Assembly;
+
+spl_autoload_register(function ($_class) {
+	$prefix = 'Jeedom\\Plugin\\Thermostat\\';
+	if (strpos($_class, $prefix) !== 0) {
+		return;
+	}
+	$file = dirname(__FILE__) . '/../src/' . str_replace('\\', '/', substr($_class, strlen($prefix))) . '.php';
+	if (file_exists($file)) {
+		require_once $file;
+	}
+});
 
 class thermostat extends eqLogic {
 
 	public function assembly() {
-		return new thermostatAssembly($this);
+		return new Assembly($this);
 	}
 
 	public static function pull($_options = null) {

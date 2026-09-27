@@ -3,6 +3,8 @@
 require_once __DIR__ . '/../../Metier/bootstrap.php';
 
 use PHPUnit\Framework\TestCase;
+use Jeedom\Plugin\Thermostat\Domain\Engine\HysteresisDecision;
+use Jeedom\Plugin\Thermostat\Domain\StatusLabels;
 
 class HysteresisDecisionTest extends TestCase {
 
@@ -15,7 +17,7 @@ class HysteresisDecisionTest extends TestCase {
 	}
 
 	private function decide($_temp, $_status = 'Arrêté', $_lastState = '', $_consigne = 20) {
-		return (new thermostatHysteresisDecision($this->settings, $this->log, new thermostatStatusLabels(new IdentityTranslator()), new IdentityTranslator()))->decide($_temp, $_consigne, $_status, $_lastState);
+		return (new HysteresisDecision($this->settings, $this->log, new StatusLabels(new IdentityTranslator()), new IdentityTranslator()))->decide($_temp, $_consigne, $_status, $_lastState);
 	}
 
 	/**

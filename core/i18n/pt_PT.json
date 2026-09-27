@@ -193,21 +193,137 @@
         "Suspendu": "Suspenso",
         "Thermostat::pull => mode smart": "Termostato :: pull => modo inteligente"
     },
-    "plugins\/thermostat\/core\/class\/thermostatActionList.class.php": {
-        "Erreur lors de l'exécution de": "Erro ao executar",
-        "Détails": "Detalhes"
-    },
-    "plugins\/thermostat\/core\/class\/thermostatActuator.class.php": {
+    "plugins\/thermostat\/core\/src\/Domain\/Actuator\/Actuator.php": {
         "Action chauffage": "Ação de aquecimento",
         "Action froid": "Ação frio",
         "Action stop": "Parar ação",
         "Action défaillance sonde": "Ação falha da sonda",
         "Action défaillance chauffage": "Ação falha de aquecimento"
     },
-    "plugins\/thermostat\/core\/class\/thermostatCoefficientLearner.class.php": {
+    "plugins\/thermostat\/core\/src\/Domain\/Configuration\/Configuration.php": {
+        "La température de consigne minimale ne peut être supérieure à la consigne maximale": "O ponto de ajuste mínimo de temperatura não pode ser maior do que o ponto de ajuste máximo",
+        "Le temps de chauffe minimal doit être compris entre 0% et 90%": "O tempo mínimo de aquecimento deve estar entre 0% e 90%",
+        "Le temps de cycle doit être supérieur à 15 minutes": "O tempo do ciclo deve ser superior a 15 minutos",
+        "off": "Off",
+        "Vous ne pouvez faire un mode s'appelant Off car une commande Off existe déjà": "Você não pode criar um modo chamado Off porque já existe um comando Off",
+        "status": "Estado",
+        "Vous ne pouvez faire un mode s'appelant Status car une commande Status existe déjà": "Você não pode criar um modo chamado Status porque já existe um comando Status",
+        "thermostat": "Termostato",
+        "Vous ne pouvez faire un mode s'appelant Thermostat car une commande Thermostat existe déjà": "Você não pode criar um modo chamado Termostato porque já existe um comando Termostato"
+    },
+    "plugins\/thermostat\/core\/src\/Domain\/Engine\/HysteresisDecision.php": {
+        "Calcul": "Cálculo",
+        "consigne": "Pedido",
+        "état précédent": "estado anterior"
+    },
+    "plugins\/thermostat\/core\/src\/Domain\/Engine\/HysteresisEngine.php": {
+        "Lancement du calcul d'hystérésis": "Iniciando o cálculo de histerese",
+        "Thermostat suspendu je ne fais rien": "Termostato suspenso eu não faço nada",
+        "Thermostat arrêté je ne fais rien": "Termostato desligado eu não faço nada",
+        "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Observe que não houve atualização de temperatura por mais de",
+        "Je dois chauffer": "Eu tenho que aquecer",
+        "Je dois refroidir": "Eu tenho que arrefecer",
+        "Je m'arrête": "Eu paro"
+    },
+    "plugins\/thermostat\/core\/src\/Domain\/Engine\/TemporalEngine.php": {
+        "Début calcul temporel": "Cálculo da hora de início",
+        "Reprogrammation automatique : ": "Reprogramação automática:",
+        "minutes": "minutos",
+        "Thermostat suspendu": "Termostato suspenso",
+        "Programmation Smartstart": "Programação Smartstart",
+        "Arrêt Smartstart": "Paragem Smartstart",
+        "Thermostat sur off": "Termostato desligado",
+        "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Observe que não houve atualização de temperatura por mais de",
+        "Je ne fais rien car il n'y a pas eu de mise a jour de la température depuis plus de": "Não faço nada porque não há atualização de temperatura há mais de",
+        "La température intérieure n'est pas un numérique": "A temperatura interna não é um número",
+        "Je ne fais rien car la température intérieure n'est pas un numérique": "Não faço nada porque a temperatura interior não é digital",
+        "Attention une défaillance du chauffage est détectée": "Observe que uma falha de aquecimento foi detectada",
+        "Delta consigne > 0": "Delta do ponto de ajuste > 0",
+        "je lance le calcul avec consigne - delta\/2": "Eu executo o cálculo com o ponto de ajuste - delta \/ 2",
+        "Power > 0 et delta consigne > 0": "Potência > 0 e delta do ponto de ajuste > 0",
+        "je relance le calcul avec consigne + delta\/2": "Eu reinicio o cálculo com setpoint + delta\/2",
+        "Durée du cycle": "Duração do ciclo",
+        "Durée du cycle trop courte, aucun lancement": "Duração do ciclo muito curta, nenhum lançamento",
+        "Je dois refroidir mais avant je chauffais, je stop tout avant": "Tenho que esfriar, mas antes de esquentar, paro tudo antes",
+        "Je dois chauffer mais avant je refroidissait, je stop tout avant": "Tenho que esquentar, mas antes de esfriar, paro tudo antes"
+    },
+    "plugins\/thermostat\/core\/src\/Domain\/Learning\/CoefficientLearner.php": {
         "Démarre auto-apprentissage": "Inicia a autoaprendizagem"
     },
-    "plugins\/thermostat\/core\/class\/thermostatCommands.class.php": {
+    "plugins\/thermostat\/core\/src\/Domain\/Power\/Calculator.php": {
+        "Attention température extérieure erronée": "Aviso de temperatura externa incorreta",
+        "Température intérieure": "Temperatura interior",
+        "Température extérieure": "Temperatura exterior",
+        "Consigne": "Pedido",
+        "Direction": "Direção",
+        "La température est supérieure à la consigne de plus de 1.5°C, je ne fais rien": "A temperatura está acima do pretendido em mais de 1,5 ° C, eu não faço nada",
+        "La température est inférieure à la consigne de plus de 1.5°C, je ne fais rien": "A temperatura está abaixo do pretendido em mais de 1,5 ° C, eu não faço nada",
+        "Cycle précédent à 100%, applique offset": "Ciclo anterior em 100%, offset aplicado",
+        "Cycle précédent à": "Ciclo anterior para",
+        "applique offset": "aplique offset",
+        "Puissance de chauffe du cycle": "Ciclo de energia de aquecimento"
+    },
+    "plugins\/thermostat\/core\/src\/Domain\/SensorWatch\/SensorWatch.php": {
+        "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Observe que não houve atualização de temperatura por mais de",
+        "minutes": "minutos",
+        "Attention la température intérieure est en dessous du seuil autorisé": "Observe que a temperatura interior está abaixo do limite autorizado",
+        "Attention la température intérieure est au dessus du seuil autorisé": "Observe que a temperatura interior está acima do limite autorizado"
+    },
+    "plugins\/thermostat\/core\/src\/Domain\/SmartStart\/SmartStart.php": {
+        "Plugin agenda détecté": "Plugin da agenda detectado",
+        "Smartstart : aucun événement trouvé": "Smartstart: nenhum evento encontrado",
+        "Smartstart non pris en compte car power < 0 ": "Smartstart não levado em consideração porque potência <0",
+        "Smartstart non pris en compte car la durée": "Smartstart não levado em consideração porque a duração",
+        "Durée Smartstart": "Duração do Smartstart",
+        "à": "Para",
+        "programmation": "programação",
+        "Prochain Smartstart": "Próximo Smartstart",
+        "Next info": "Próxima informação",
+        "Thermostat verrouillé je ne fais rien": "Termostato bloqueado não faço nada",
+        "Type thermostat envoi de la consigne": "Envio do tipo de termostato do ponto de ajuste",
+        "Type mode envoi de la commande": "Tipo de modo de envio de pedido"
+    },
+    "plugins\/thermostat\/core\/src\/Domain\/StatusLabels.php": {
+        "Chauffage": "Aquecimento",
+        "Climatisation": "Ar condicionado",
+        "Arrêté": "Parado",
+        "Suspendu": "Suspenso",
+        "Calcul": "Cálculo",
+        "Défaillance sonde": "Falha na sonda",
+        "Défaillance chauffage": "Falha no aquecimento",
+        "Off": "Off",
+        "Aucun": "Nenhum"
+    },
+    "plugins\/thermostat\/core\/src\/Domain\/Window\/Windows.php": {
+        "Détection d'un changement sur une fenêtre": "Detectando uma alteração em uma janela",
+        "Fenêtre trouvée": "Janela encontrada",
+        "valeur": "valor",
+        "Fenêtre fermée": "Janela fechada",
+        "Fenêtre ouverte": "Janela aberta",
+        "Thermostat arreté ou suspendu je ne fais rien": "Termostato parado ou suspenso eu não faço nada",
+        "Commande introuvable je ne fais rien": "Comando não encontrado, não faço nada",
+        "Pause de": "Intervalo de",
+        "minutes": "minutos",
+        "Valeur commande": "Valor do pedido",
+        " en date du : ": "datado:",
+        "L'ouvrant n'est plus ouvert, je ne fais rien": "A porta não está mais aberta, não faço nada",
+        "L'ouvrant à été refermé pendant la pause, je ne fais rien, refermé à": "A abertura foi fechada no intervalo, não faço nada, fechei novamente",
+        "Arrêt du thermostat": "Desligar o termostato",
+        "Je n'ai jamais vu cette fenêtre ouverte, je ne fais rien": "Nunca vi essa janela aberta, não faço nada",
+        "Thermostat non suspendu je ne fais rien": "Termostato não suspenso eu não faço nada",
+        "Fenêtre ouverte, je ne fais rien": "Janela aberta, eu não faço nada",
+        "Fenêtre fermée depuis trop peu de temps, je ne fais rien": "Janela fechada por pouco tempo, não faço nada",
+        "Toutes les fenêtres sont fermées, je relance le chauffage": "Todas as janelas estão fechadas, ligo o aquecimento",
+        "Attention le thermostat est suspendu à cause d'une fenêtre ouverte depuis": "Observe que o termostato está suspenso devido a uma janela que esteve aberta por"
+    },
+    "plugins\/thermostat\/core\/src\/Jeedom\/ActionList.php": {
+        "Erreur lors de l'exécution de": "Erro ao executar",
+        "Détails": "Detalhes"
+    },
+    "plugins\/thermostat\/core\/src\/Jeedom\/Calendar.php": {
+        "Plugin agenda non détecté": "Plugin da agenda não detectado"
+    },
+    "plugins\/thermostat\/core\/src\/Jeedom\/Commands.php": {
         "Consigne": "Pedido",
         "Thermostat": "Termostato",
         "Statut": "Estado",
@@ -230,123 +346,7 @@
         "Performance": "Desempenho",
         "Puissance": "Potência"
     },
-    "plugins\/thermostat\/core\/class\/thermostatConfiguration.class.php": {
-        "La température de consigne minimale ne peut être supérieure à la consigne maximale": "O ponto de ajuste mínimo de temperatura não pode ser maior do que o ponto de ajuste máximo",
-        "Le temps de chauffe minimal doit être compris entre 0% et 90%": "O tempo mínimo de aquecimento deve estar entre 0% e 90%",
-        "Le temps de cycle doit être supérieur à 15 minutes": "O tempo do ciclo deve ser superior a 15 minutos",
-        "off": "Off",
-        "Vous ne pouvez faire un mode s'appelant Off car une commande Off existe déjà": "Você não pode criar um modo chamado Off porque já existe um comando Off",
-        "status": "Estado",
-        "Vous ne pouvez faire un mode s'appelant Status car une commande Status existe déjà": "Você não pode criar um modo chamado Status porque já existe um comando Status",
-        "thermostat": "Termostato",
-        "Vous ne pouvez faire un mode s'appelant Thermostat car une commande Thermostat existe déjà": "Você não pode criar um modo chamado Termostato porque já existe um comando Termostato"
-    },
-    "plugins\/thermostat\/core\/class\/thermostatHysteresisDecision.class.php": {
-        "Calcul": "Cálculo",
-        "consigne": "Pedido",
-        "état précédent": "estado anterior"
-    },
-    "plugins\/thermostat\/core\/class\/thermostatHysteresisEngine.class.php": {
-        "Lancement du calcul d'hystérésis": "Iniciando o cálculo de histerese",
-        "Thermostat suspendu je ne fais rien": "Termostato suspenso eu não faço nada",
-        "Thermostat arrêté je ne fais rien": "Termostato desligado eu não faço nada",
-        "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Observe que não houve atualização de temperatura por mais de",
-        "Je dois chauffer": "Eu tenho que aquecer",
-        "Je dois refroidir": "Eu tenho que arrefecer",
-        "Je m'arrête": "Eu paro"
-    },
-    "plugins\/thermostat\/core\/class\/thermostatJeedomCalendar.class.php": {
-        "Plugin agenda non détecté": "Plugin da agenda não detectado"
-    },
-    "plugins\/thermostat\/core\/class\/thermostatPowerCalculator.class.php": {
-        "Attention température extérieure erronée": "Aviso de temperatura externa incorreta",
-        "Température intérieure": "Temperatura interior",
-        "Température extérieure": "Temperatura exterior",
-        "Consigne": "Pedido",
-        "Direction": "Direção",
-        "La température est supérieure à la consigne de plus de 1.5°C, je ne fais rien": "A temperatura está acima do pretendido em mais de 1,5 ° C, eu não faço nada",
-        "La température est inférieure à la consigne de plus de 1.5°C, je ne fais rien": "A temperatura está abaixo do pretendido em mais de 1,5 ° C, eu não faço nada",
-        "Cycle précédent à 100%, applique offset": "Ciclo anterior em 100%, offset aplicado",
-        "Cycle précédent à": "Ciclo anterior para",
-        "applique offset": "aplique offset",
-        "Puissance de chauffe du cycle": "Ciclo de energia de aquecimento"
-    },
-    "plugins\/thermostat\/core\/class\/thermostatSensorWatch.class.php": {
-        "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Observe que não houve atualização de temperatura por mais de",
-        "minutes": "minutos",
-        "Attention la température intérieure est en dessous du seuil autorisé": "Observe que a temperatura interior está abaixo do limite autorizado",
-        "Attention la température intérieure est au dessus du seuil autorisé": "Observe que a temperatura interior está acima do limite autorizado"
-    },
-    "plugins\/thermostat\/core\/class\/thermostatSmartStart.class.php": {
-        "Plugin agenda détecté": "Plugin da agenda detectado",
-        "Smartstart : aucun événement trouvé": "Smartstart: nenhum evento encontrado",
-        "Smartstart non pris en compte car power < 0 ": "Smartstart não levado em consideração porque potência <0",
-        "Smartstart non pris en compte car la durée": "Smartstart não levado em consideração porque a duração",
-        "Durée Smartstart": "Duração do Smartstart",
-        "à": "Para",
-        "programmation": "programação",
-        "Prochain Smartstart": "Próximo Smartstart",
-        "Next info": "Próxima informação",
-        "Thermostat verrouillé je ne fais rien": "Termostato bloqueado não faço nada",
-        "Type thermostat envoi de la consigne": "Envio do tipo de termostato do ponto de ajuste",
-        "Type mode envoi de la commande": "Tipo de modo de envio de pedido"
-    },
-    "plugins\/thermostat\/core\/class\/thermostatStatusLabels.class.php": {
-        "Chauffage": "Aquecimento",
-        "Climatisation": "Ar condicionado",
-        "Arrêté": "Parado",
-        "Suspendu": "Suspenso",
-        "Calcul": "Cálculo",
-        "Défaillance sonde": "Falha na sonda",
-        "Défaillance chauffage": "Falha no aquecimento",
-        "Off": "Off",
-        "Aucun": "Nenhum"
-    },
-    "plugins\/thermostat\/core\/class\/thermostatTemporalEngine.class.php": {
-        "Début calcul temporel": "Cálculo da hora de início",
-        "Reprogrammation automatique : ": "Reprogramação automática:",
-        "minutes": "minutos",
-        "Thermostat suspendu": "Termostato suspenso",
-        "Programmation Smartstart": "Programação Smartstart",
-        "Arrêt Smartstart": "Paragem Smartstart",
-        "Thermostat sur off": "Termostato desligado",
-        "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Observe que não houve atualização de temperatura por mais de",
-        "Je ne fais rien car il n'y a pas eu de mise a jour de la température depuis plus de": "Não faço nada porque não há atualização de temperatura há mais de",
-        "La température intérieure n'est pas un numérique": "A temperatura interna não é um número",
-        "Je ne fais rien car la température intérieure n'est pas un numérique": "Não faço nada porque a temperatura interior não é digital",
-        "Attention une défaillance du chauffage est détectée": "Observe que uma falha de aquecimento foi detectada",
-        "Delta consigne > 0": "Delta do ponto de ajuste > 0",
-        "je lance le calcul avec consigne - delta\/2": "Eu executo o cálculo com o ponto de ajuste - delta \/ 2",
-        "Power > 0 et delta consigne > 0": "Potência > 0 e delta do ponto de ajuste > 0",
-        "je relance le calcul avec consigne + delta\/2": "Eu reinicio o cálculo com setpoint + delta\/2",
-        "Durée du cycle": "Duração do ciclo",
-        "Durée du cycle trop courte, aucun lancement": "Duração do ciclo muito curta, nenhum lançamento",
-        "Je dois refroidir mais avant je chauffais, je stop tout avant": "Tenho que esfriar, mas antes de esquentar, paro tudo antes",
-        "Je dois chauffer mais avant je refroidissait, je stop tout avant": "Tenho que esquentar, mas antes de esfriar, paro tudo antes"
-    },
-    "plugins\/thermostat\/core\/class\/thermostatWindows.class.php": {
-        "Détection d'un changement sur une fenêtre": "Detectando uma alteração em uma janela",
-        "Fenêtre trouvée": "Janela encontrada",
-        "valeur": "valor",
-        "Fenêtre fermée": "Janela fechada",
-        "Fenêtre ouverte": "Janela aberta",
-        "Thermostat arreté ou suspendu je ne fais rien": "Termostato parado ou suspenso eu não faço nada",
-        "Commande introuvable je ne fais rien": "Comando não encontrado, não faço nada",
-        "Pause de": "Intervalo de",
-        "minutes": "minutos",
-        "Valeur commande": "Valor do pedido",
-        " en date du : ": "datado:",
-        "L'ouvrant n'est plus ouvert, je ne fais rien": "A porta não está mais aberta, não faço nada",
-        "L'ouvrant à été refermé pendant la pause, je ne fais rien, refermé à": "A abertura foi fechada no intervalo, não faço nada, fechei novamente",
-        "Arrêt du thermostat": "Desligar o termostato",
-        "Je n'ai jamais vu cette fenêtre ouverte, je ne fais rien": "Nunca vi essa janela aberta, não faço nada",
-        "Thermostat non suspendu je ne fais rien": "Termostato não suspenso eu não faço nada",
-        "Fenêtre ouverte, je ne fais rien": "Janela aberta, eu não faço nada",
-        "Fenêtre fermée depuis trop peu de temps, je ne fais rien": "Janela fechada por pouco tempo, não faço nada",
-        "Toutes les fenêtres sont fermées, je relance le chauffage": "Todas as janelas estão fechadas, ligo o aquecimento",
-        "Attention le thermostat est suspendu à cause d'une fenêtre ouverte depuis": "Observe que o termostato está suspenso devido a uma janela que esteve aberta por"
-    },
-    "info.json": {
+    "plugins\/thermostat\/": {
         "Ce plugin très puissant et très complet vous permettra de gérer finement la température de votre logement que ce soit pour réchauffer ou refroidir celui-ci. Le plugin apprend de lui même avec le temps le meilleur moyen d'économiser de l'énergie tout en maintenant un confort optimal dans votre logement.": "Este plugin muito poderoso e muito completo permitirá que você gerencie com precisão a temperatura da sua casa, seja para aquecer ou esfriar. Com o tempo, o plug-in aprende a melhor maneira de economizar energia, mantendo o conforto ideal em sua casa"
     }
 }

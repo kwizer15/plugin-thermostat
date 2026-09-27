@@ -1,6 +1,9 @@
 <?php
 
-class InMemoryWindowSensors implements thermostatWindowSensors {
+use Jeedom\Plugin\Thermostat\Domain\Reading;
+use Jeedom\Plugin\Thermostat\Domain\Window\Sensors;
+
+class InMemoryWindowSensors implements Sensors {
 
 	public $values = array();
 	public $valueDates = array();
@@ -22,6 +25,6 @@ class InMemoryWindowSensors implements thermostatWindowSensors {
 		if (!$this->exists($_cmdId)) {
 			return null;
 		}
-		return new thermostatReading($this->values[$_cmdId], '', $this->valueDates[$_cmdId]);
+		return new Reading($this->values[$_cmdId], '', $this->valueDates[$_cmdId]);
 	}
 }

@@ -3,6 +3,8 @@
 require_once __DIR__ . '/../../Metier/bootstrap.php';
 
 use PHPUnit\Framework\TestCase;
+use Jeedom\Plugin\Thermostat\Domain\Actuator\Actuator;
+use Jeedom\Plugin\Thermostat\Domain\StatusLabels;
 
 class ActuatorTest extends TestCase {
 
@@ -23,7 +25,7 @@ class ActuatorTest extends TestCase {
 	}
 
 	private function actuator() {
-		return new thermostatActuator($this->settings, $this->memory, $this->persistence, $this->display, $this->actions, $this->engine, new RecordingLog(), new thermostatStatusLabels(new IdentityTranslator()), new IdentityTranslator());
+		return new Actuator($this->settings, $this->memory, $this->persistence, $this->display, $this->actions, $this->engine, new RecordingLog(), new StatusLabels(new IdentityTranslator()), new IdentityTranslator());
 	}
 
 	public function testHeatExecutesActionsAndRecordsState() {
