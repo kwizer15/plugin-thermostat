@@ -30,8 +30,5 @@ interface HysteresisSettings {
 	 */
 	public function positiveHysteresis();
 
-	/**
-	 * @return int|float|string
-	 */
-	public function hysteresisThreshold();
+	public function hysteresisThreshold(): float;
 }

@@ -24,7 +24,7 @@ class Planner {
 	 * @param int|float $_power
 	 * @param scalar|null $_cycle
 	 * @param bool $_wasHeating
-	 * @param int|float|string $_minCycleDuration
+	 * @param float $_minCycleDuration
 	 * @param int|string $_stoveBoiler
 	 */
 	public function plan($_power, $_cycle, $_wasHeating, $_minCycleDuration, $_stoveBoiler): Plan {

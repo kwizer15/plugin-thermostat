@@ -22,39 +22,27 @@ interface Settings {
 
 	/**
 	 * @param int|float $_direction
-	 * @return int|float|string
 	 */
-	public function coefficientIndoor($_direction);
+	public function coefficientIndoor($_direction): float;
 
 	/**
 	 * @param int|float $_direction
-	 * @return int|float|string
 	 */
-	public function coefficientOutdoor($_direction);
+	public function coefficientOutdoor($_direction): float;
 
 	/**
 	 * @param int|float $_direction
-	 * @return int|float|string
 	 */
-	public function offset($_direction);
+	public function offset($_direction): float;
 
-	/**
-	 * @return int|float|string
-	 */
-	public function directionDeltaHeat();
+	public function directionDeltaHeat(): float;
 
-	/**
-	 * @return int|float|string
-	 */
-	public function directionDeltaCool();
+	public function directionDeltaCool(): float;
 
 	/**
 	 * @return int|float|string
 	 */
 	public function nextFullCycleOffset();
 
-	/**
-	 * @return int|float|string
-	 */
-	public function heatHotThreshold();
+	public function heatHotThreshold(): float;
 }

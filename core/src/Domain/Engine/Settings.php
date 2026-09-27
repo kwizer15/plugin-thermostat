@@ -40,20 +40,11 @@ interface Settings {
 	 */
 	public function stoveBoiler();
 
-	/**
-	 * @return int|float|string
-	 */
-	public function minCycleDuration();
+	public function minCycleDuration(): float;
 
-	/**
-	 * @return int|float|string
-	 */
-	public function heatFailureOffset();
+	public function heatFailureOffset(): float;
 
-	/**
-	 * @return int|float|string
-	 */
-	public function coldFailureOffset();
+	public function coldFailureOffset(): float;
 
 	/**
 	 * @param string $_key

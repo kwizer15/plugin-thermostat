@@ -32,9 +32,8 @@ interface Settings {
 
 	/**
 	 * @param string $_key
-	 * @return int|float|string
 	 */
-	public function coefficient($_key);
+	public function coefficient($_key): float;
 
 	/**
 	 * @param string $_key

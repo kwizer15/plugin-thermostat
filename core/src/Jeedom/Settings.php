@@ -43,32 +43,32 @@ class Settings implements PowerSettings, LearningSettings, SmartStartSettings, H
 		$this->eqLogic = $_eqLogic;
 	}
 
-	public function coefficientIndoor($_direction) {
-		return ($_direction > 0) ? $this->eqLogic->getConfiguration(Key::COEFF_INDOOR_HEAT) : $this->eqLogic->getConfiguration(Key::COEFF_INDOOR_COOL);
+	public function coefficientIndoor($_direction): float {
+		return $this->coefficient(($_direction > 0) ? Key::COEFF_INDOOR_HEAT : Key::COEFF_INDOOR_COOL);
 	}
 
-	public function coefficientOutdoor($_direction) {
-		return ($_direction > 0) ? $this->eqLogic->getConfiguration(Key::COEFF_OUTDOOR_HEAT) : $this->eqLogic->getConfiguration(Key::COEFF_OUTDOOR_COOL);
+	public function coefficientOutdoor($_direction): float {
+		return $this->coefficient(($_direction > 0) ? Key::COEFF_OUTDOOR_HEAT : Key::COEFF_OUTDOOR_COOL);
 	}
 
-	public function offset($_direction) {
-		return ($_direction > 0) ? $this->eqLogic->getConfiguration(Key::OFFSET_HEAT) : $this->eqLogic->getConfiguration(Key::OFFSET_COOL);
+	public function offset($_direction): float {
+		return Value::number($this->eqLogic->getConfiguration(($_direction > 0) ? Key::OFFSET_HEAT : Key::OFFSET_COOL), 0.0);
 	}
 
-	public function directionDeltaHeat() {
-		return $this->eqLogic->getConfiguration(Key::DIRECTION_DELTA_HEAT, 0);
+	public function directionDeltaHeat(): float {
+		return Value::number($this->eqLogic->getConfiguration(Key::DIRECTION_DELTA_HEAT), 0.0);
 	}
 
-	public function directionDeltaCool() {
-		return $this->eqLogic->getConfiguration(Key::DIRECTION_DELTA_COOL, 0);
+	public function directionDeltaCool(): float {
+		return Value::number($this->eqLogic->getConfiguration(Key::DIRECTION_DELTA_COOL), 0.0);
 	}
 
 	public function nextFullCycleOffset() {
 		return $this->eqLogic->getConfiguration(Key::NEXT_FULL_CYCLE_OFFSET);
 	}
 
-	public function heatHotThreshold() {
-		return $this->eqLogic->getConfiguration(Key::HEAT_HOT_THRESHOLD, 100);
+	public function heatHotThreshold(): float {
+		return Value::number($this->eqLogic->getConfiguration(Key::HEAT_HOT_THRESHOLD), 100.0);
 	}
 
 	public function autolearn() {
@@ -79,8 +79,9 @@ class Settings implements PowerSettings, LearningSettings, SmartStartSettings, H
 		return $this->eqLogic->getConfiguration(Key::CYCLE_END_DATE);
 	}
 
-	public function coefficient($_key) {
-		return $this->eqLogic->getConfiguration($_key);
+	public function coefficient($_key): float {
+		$default = in_array($_key, array(Key::COEFF_OUTDOOR_HEAT, Key::COEFF_OUTDOOR_COOL)) ? 2.0 : 10.0;
+		return Value::number($this->eqLogic->getConfiguration($_key), $default);
 	}
 
 	public function learnedCount($_key) {
@@ -101,8 +102,8 @@ class Settings implements PowerSettings, LearningSettings, SmartStartSettings, H
 		return $this->eqLogic->getConfiguration(Key::CYCLE);
 	}
 
-	public function anticipationFactor() {
-		return $this->eqLogic->getConfiguration(Key::SMART_START_FACTOR, 1);
+	public function anticipationFactor(): float {
+		return Value::number($this->eqLogic->getConfiguration(Key::SMART_START_FACTOR), 1.0);
 	}
 
 	public function anticipationCount() {
@@ -123,8 +124,8 @@ class Settings implements PowerSettings, LearningSettings, SmartStartSettings, H
 		return $this->eqLogic->getConfiguration(Key::POSITIVE_HYSTERESIS, 0);
 	}
 
-	public function hysteresisThreshold() {
-		return $this->eqLogic->getConfiguration(Key::HYSTERESIS_THRESHOLD, 1);
+	public function hysteresisThreshold(): float {
+		return Value::number($this->eqLogic->getConfiguration(Key::HYSTERESIS_THRESHOLD), 1.0);
 	}
 	public function heatingActions() {
 		return $this->listValue(Key::HEATING_ACTIONS);
@@ -172,16 +173,16 @@ class Settings implements PowerSettings, LearningSettings, SmartStartSettings, H
 		return $this->eqLogic->getConfiguration(Key::STOVE_BOILER);
 	}
 
-	public function minCycleDuration() {
-		return $this->eqLogic->getConfiguration(Key::MIN_CYCLE_DURATION, 5);
+	public function minCycleDuration(): float {
+		return Value::number($this->eqLogic->getConfiguration(Key::MIN_CYCLE_DURATION), 5.0);
 	}
 
-	public function heatFailureOffset() {
-		return $this->eqLogic->getConfiguration(Key::HEAT_FAILURE_OFFSET, 1);
+	public function heatFailureOffset(): float {
+		return Value::number($this->eqLogic->getConfiguration(Key::HEAT_FAILURE_OFFSET), 1.0);
 	}
 
-	public function coldFailureOffset() {
-		return $this->eqLogic->getConfiguration(Key::COLD_FAILURE_OFFSET, 1);
+	public function coldFailureOffset(): float {
+		return Value::number($this->eqLogic->getConfiguration(Key::COLD_FAILURE_OFFSET), 1.0);
 	}
 
 	public function setCycleEndDate($_datetime) {

@@ -22,36 +22,31 @@ class BoundaryTest extends ThermostatTestCase {
 
 	public function settings() {
 		$keys = array(
-			'coefficientIndoor' => array(array(1), Key::COEFF_INDOOR_HEAT, ''),
-			'coefficientOutdoor' => array(array(1), Key::COEFF_OUTDOOR_HEAT, ''),
-			'offset' => array(array(1), Key::OFFSET_HEAT, ''),
-			'directionDeltaHeat' => array(array(), Key::DIRECTION_DELTA_HEAT, 0),
-			'directionDeltaCool' => array(array(), Key::DIRECTION_DELTA_COOL, 0),
+			'coefficientIndoor' => array(array(1), Key::COEFF_INDOOR_HEAT, 10.0, 'number'),
+			'coefficientOutdoor' => array(array(1), Key::COEFF_OUTDOOR_HEAT, 2.0, 'number'),
+			'offset' => array(array(1), Key::OFFSET_HEAT, 0.0, 'number'),
+			'directionDeltaHeat' => array(array(), Key::DIRECTION_DELTA_HEAT, 0.0, 'number'),
+			'directionDeltaCool' => array(array(), Key::DIRECTION_DELTA_COOL, 0.0, 'number'),
 			'nextFullCycleOffset' => array(array(), Key::NEXT_FULL_CYCLE_OFFSET, ''),
-			'heatHotThreshold' => array(array(), Key::HEAT_HOT_THRESHOLD, 100),
+			'heatHotThreshold' => array(array(), Key::HEAT_HOT_THRESHOLD, 100.0, 'number'),
 			'autolearn' => array(array(), Key::AUTOLEARN, ''),
-			'coefficient' => array(array(Key::COEFF_INDOOR_HEAT), Key::COEFF_INDOOR_HEAT, ''),
+			'coefficient' => array(array(Key::COEFF_INDOOR_HEAT), Key::COEFF_INDOOR_HEAT, 10.0, 'number'),
+			'coefficient outdoor' => array(array(Key::COEFF_OUTDOOR_COOL), Key::COEFF_OUTDOOR_COOL, 2.0, 'number'),
 			'learnedCount' => array(array(Key::COEFF_INDOOR_HEAT), Key::COEFF_INDOOR_HEAT_AUTOLEARN, ''),
-			'anticipationFactor' => array(array(), Key::SMART_START_FACTOR, 1),
+			'anticipationFactor' => array(array(), Key::SMART_START_FACTOR, 1.0, 'number'),
 			'anticipationCount' => array(array(), Key::SMART_START_AUTOLEARN, 0),
 			'positiveHysteresis' => array(array(), Key::POSITIVE_HYSTERESIS, 0),
-			'hysteresisThreshold' => array(array(), Key::HYSTERESIS_THRESHOLD, 1),
+			'hysteresisThreshold' => array(array(), Key::HYSTERESIS_THRESHOLD, 1.0, 'number'),
 			'windowAlertDelay' => array(array(), Key::WINDOW_ALERT_DELAY, ''),
 			'maxTimeUpdateTemp' => array(array(), Key::MAX_TIME_UPDATE_TEMP, ''),
 			'stoveBoiler' => array(array(), Key::STOVE_BOILER, ''),
-			'minCycleDuration' => array(array(), Key::MIN_CYCLE_DURATION, 5),
-			'heatFailureOffset' => array(array(), Key::HEAT_FAILURE_OFFSET, 1),
-			'coldFailureOffset' => array(array(), Key::COLD_FAILURE_OFFSET, 1),
+			'minCycleDuration' => array(array(), Key::MIN_CYCLE_DURATION, 5.0, 'number'),
+			'heatFailureOffset' => array(array(), Key::HEAT_FAILURE_OFFSET, 1.0, 'number'),
+			'coldFailureOffset' => array(array(), Key::COLD_FAILURE_OFFSET, 1.0, 'number'),
 			'indoorMinimum' => array(array(), Key::TEMPERATURE_INDOOR_MIN, ''),
 			'indoorMaximum' => array(array(), Key::TEMPERATURE_INDOOR_MAX, ''),
 		);
-		$cases = array();
-		foreach ($keys as $method => $spec) {
-			foreach (self::RAW as $name => $raw) {
-				$cases[$method . ' ' . $name] = array($method, $spec[0], $spec[1], $raw, ($raw === '' || $raw === null) ? $spec[2] : $raw);
-			}
-		}
-		return $cases;
+		return $this->cases($keys);
 	}
 
 	/**
@@ -76,12 +71,25 @@ class BoundaryTest extends ThermostatTestCase {
 			'alertSent' => array(array(), CacheKey::WINDOW_ALERT_SENT, 0),
 			'deltaOrder' => array(array(), CacheKey::DELTA_ORDER, 0),
 		);
+		return $this->cases($keys);
+	}
+
+	private function cases(array $_keys) {
 		$cases = array();
-		foreach ($keys as $method => $spec) {
+		foreach ($_keys as $label => $spec) {
 			foreach (self::RAW as $name => $raw) {
-				$cases[$method . ' ' . $name] = array($method, $spec[0], $spec[1], $raw, ($raw === '' || $raw === null) ? $spec[2] : $raw);
+				$cases[$label . ' ' . $name] = array(strtok($label, ' '), $spec[0], $spec[1], $raw, $this->expected(isset($spec[3]) ? $spec[3] : 'raw', $raw, $spec[2]));
 			}
 		}
 		return $cases;
+	}
+
+	private function expected($_kind, $_raw, $_default) {
+		$number = is_string($_raw) ? str_replace(',', '.', $_raw) : $_raw;
+		switch ($_kind) {
+			case 'number':
+				return is_numeric($number) ? floatval($number) : $_default;
+		}
+		return ($_raw === '' || $_raw === null) ? $_default : $_raw;
 	}
 }

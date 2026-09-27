@@ -65,23 +65,23 @@ class InMemorySettings implements PowerSettings, LearningSettings, SmartStartSet
 		$this->values = array_merge($this->values, $_values);
 	}
 
-	public function coefficientIndoor($_direction) {
+	public function coefficientIndoor($_direction): float {
 		return $this->values[($_direction > 0) ? 'coeff_indoor_heat' : 'coeff_indoor_cool'];
 	}
 
-	public function coefficientOutdoor($_direction) {
+	public function coefficientOutdoor($_direction): float {
 		return $this->values[($_direction > 0) ? 'coeff_outdoor_heat' : 'coeff_outdoor_cool'];
 	}
 
-	public function offset($_direction) {
+	public function offset($_direction): float {
 		return $this->values[($_direction > 0) ? 'offset_heat' : 'offset_cool'];
 	}
 
-	public function directionDeltaHeat() {
+	public function directionDeltaHeat(): float {
 		return $this->values['direction::delta::heat'];
 	}
 
-	public function directionDeltaCool() {
+	public function directionDeltaCool(): float {
 		return $this->values['direction::delta::cool'];
 	}
 
@@ -89,7 +89,7 @@ class InMemorySettings implements PowerSettings, LearningSettings, SmartStartSet
 		return $this->values['offset_nextFullCyle'];
 	}
 
-	public function heatHotThreshold() {
+	public function heatHotThreshold(): float {
 		return $this->values['threshold_heathot'];
 	}
 
@@ -101,7 +101,7 @@ class InMemorySettings implements PowerSettings, LearningSettings, SmartStartSet
 		return $this->values['endDate'];
 	}
 
-	public function coefficient($_key) {
+	public function coefficient($_key): float {
 		return $this->values[$_key];
 	}
 
@@ -123,7 +123,7 @@ class InMemorySettings implements PowerSettings, LearningSettings, SmartStartSet
 		return $this->values['cycle'];
 	}
 
-	public function anticipationFactor() {
+	public function anticipationFactor(): float {
 		return $this->values['smart_start_factor'];
 	}
 
@@ -145,7 +145,7 @@ class InMemorySettings implements PowerSettings, LearningSettings, SmartStartSet
 		return $this->values['positiveHysteresis'];
 	}
 
-	public function hysteresisThreshold() {
+	public function hysteresisThreshold(): float {
 		return $this->values['hysteresis_threshold'];
 	}
 
@@ -197,15 +197,15 @@ class InMemorySettings implements PowerSettings, LearningSettings, SmartStartSet
 		return $this->values['stove_boiler'];
 	}
 
-	public function minCycleDuration() {
+	public function minCycleDuration(): float {
 		return $this->values['minCycleDuration'];
 	}
 
-	public function heatFailureOffset() {
+	public function heatFailureOffset(): float {
 		return $this->values['offsetHeatFaillure'];
 	}
 
-	public function coldFailureOffset() {
+	public function coldFailureOffset(): float {
 		return $this->values['offsetColdFaillure'];
 	}
 

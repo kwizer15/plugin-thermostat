@@ -30,10 +30,7 @@ interface Settings {
 	 */
 	public function cycle();
 
-	/**
-	 * @return int|float|string
-	 */
-	public function anticipationFactor();
+	public function anticipationFactor(): float;
 
 	/**
 	 * @return int|float|string

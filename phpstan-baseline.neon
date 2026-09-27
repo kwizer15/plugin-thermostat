@@ -817,33 +817,15 @@ parameters:
 			path: core/src/Domain/Cycle/Planner.php
 
 		-
-			message: '#^Binary operation "\*" between 2 and float\|int\|string results in an error\.$#'
+			message: '#^Binary operation "\+" between bool\|float\|int\|string\|null and float results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 2
 			path: core/src/Domain/Engine/HysteresisDecision.php
 
 		-
-			message: '#^Binary operation "\+" between bool\|float\|int\|string\|null and float\|int\|string results in an error\.$#'
+			message: '#^Binary operation "\-" between bool\|float\|int\|string\|null and float results in an error\.$#'
 			identifier: binaryOp.invalid
-			count: 1
-			path: core/src/Domain/Engine/HysteresisDecision.php
-
-		-
-			message: '#^Binary operation "\+" between bool\|float\|int\|string\|null and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: core/src/Domain/Engine/HysteresisDecision.php
-
-		-
-			message: '#^Binary operation "\-" between bool\|float\|int\|string\|null and float\|int\|string results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 2
-			path: core/src/Domain/Engine/HysteresisDecision.php
-
-		-
-			message: '#^Binary operation "\-" between bool\|float\|int\|string\|null and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
+			count: 3
 			path: core/src/Domain/Engine/HysteresisDecision.php
 
 		-
@@ -883,7 +865,7 @@ parameters:
 			path: core/src/Domain/Engine/TemporalEngine.php
 
 		-
-			message: '#^Binary operation "\+" between float\|int\|string and float\|int\|string results in an error\.$#'
+			message: '#^Binary operation "\+" between float\|int\|string and float results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: core/src/Domain/Engine/TemporalEngine.php
@@ -895,7 +877,7 @@ parameters:
 			path: core/src/Domain/Engine/TemporalEngine.php
 
 		-
-			message: '#^Binary operation "\-" between float\|int\|string and float\|int\|string results in an error\.$#'
+			message: '#^Binary operation "\-" between float\|int\|string and float results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: core/src/Domain/Engine/TemporalEngine.php
@@ -937,13 +919,7 @@ parameters:
 			path: core/src/Domain/Engine/TemporalEngine.php
 
 		-
-			message: '#^Binary operation "\*" between float\|int\|string and \(float\|int\) results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 4
-			path: core/src/Domain/Learning/CoefficientLearner.php
-
-		-
-			message: '#^Binary operation "\*" between float\|int\|string and float\|int\|string results in an error\.$#'
+			message: '#^Binary operation "\*" between float and float\|int\|string results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: core/src/Domain/Learning/CoefficientLearner.php
@@ -958,12 +934,6 @@ parameters:
 			message: '#^Binary operation "\+" between mixed and float\|int results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
-			path: core/src/Domain/Learning/CoefficientLearner.php
-
-		-
-			message: '#^Binary operation "\+" between mixed and float\|int\|string results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 2
 			path: core/src/Domain/Learning/CoefficientLearner.php
 
 		-
@@ -1009,33 +979,15 @@ parameters:
 			path: core/src/Domain/Learning/CoefficientLearner.php
 
 		-
-			message: '#^Parameter \#2 \$_measured of method Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\CoefficientLearner\:\:learnCoefficient\(\) expects float\|int, mixed given\.$#'
-			identifier: argument.type
-			count: 4
-			path: core/src/Domain/Learning/CoefficientLearner.php
-
-		-
 			message: '#^Parameter \#3 \$_count of method Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\Settings\:\:storeCoefficient\(\) expects float\|int, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: core/src/Domain/Learning/CoefficientLearner.php
 
 		-
-			message: '#^Binary operation "\*" between \(float\|int\) and float\|int\|string results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 2
-			path: core/src/Domain/Power/Calculator.php
-
-		-
 			message: '#^Binary operation "\*" between \-1\|1 and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 2
-			path: core/src/Domain/Power/Calculator.php
-
-		-
-			message: '#^Binary operation "\+" between \(array\|float\|int\) and float\|int\|string results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
 			path: core/src/Domain/Power/Calculator.php
 
 		-
@@ -1046,12 +998,6 @@ parameters:
 
 		-
 			message: '#^Binary operation "\+" between bool\|float\|int\|string\|null and 1\.5 results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: core/src/Domain/Power/Calculator.php
-
-		-
-			message: '#^Binary operation "\+" between mixed and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: core/src/Domain/Power/Calculator.php
@@ -1087,13 +1033,13 @@ parameters:
 			path: core/src/Domain/Power/Calculator.php
 
 		-
-			message: '#^Binary operation "\-\=" between mixed and float\|int\<1, max\>\|non\-empty\-string results in an error\.$#'
+			message: '#^Binary operation "\-\=" between float and float\|int\<1, max\>\|non\-empty\-string results in an error\.$#'
 			identifier: assignOp.invalid
 			count: 1
 			path: core/src/Domain/Power/Calculator.php
 
 		-
-			message: '#^Binary operation "\-\=" between mixed and mixed results in an error\.$#'
+			message: '#^Binary operation "\-\=" between float and mixed results in an error\.$#'
 			identifier: assignOp.invalid
 			count: 1
 			path: core/src/Domain/Power/Calculator.php
@@ -1107,7 +1053,7 @@ parameters:
 		-
 			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
-			count: 4
+			count: 2
 			path: core/src/Domain/Power/Calculator.php
 
 		-
@@ -1123,7 +1069,7 @@ parameters:
 			path: core/src/Domain/SensorWatch/SensorWatch.php
 
 		-
-			message: '#^Binary operation "\*" between \(float\|int\) and float\|int\|string results in an error\.$#'
+			message: '#^Binary operation "\*" between float and float\|int\|string results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: core/src/Domain/SmartStart/SmartStart.php
@@ -1135,25 +1081,13 @@ parameters:
 			path: core/src/Domain/SmartStart/SmartStart.php
 
 		-
-			message: '#^Binary operation "\*" between float\|int\|string and 1\|2\|float results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Binary operation "\*" between float\|int\|string and float\|int\|string results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
 			message: '#^Binary operation "\+" between float\|int\|string and 1 results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 2
 			path: core/src/Domain/SmartStart/SmartStart.php
 
 		-
-			message: '#^Binary operation "\+" between mixed and mixed results in an error\.$#'
+			message: '#^Binary operation "\+" between mixed and float results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: core/src/Domain/SmartStart/SmartStart.php
@@ -1171,7 +1105,7 @@ parameters:
 			path: core/src/Domain/SmartStart/SmartStart.php
 
 		-
-			message: '#^Binary operation "/" between \(array\|float\|int\) and mixed results in an error\.$#'
+			message: '#^Binary operation "/" between float and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: core/src/Domain/SmartStart/SmartStart.php
@@ -1268,12 +1202,6 @@ parameters:
 
 		-
 			message: '#^Parameter \#1 \$_value of method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Controls\:\:requestSetpoint\(\) expects bool\|float\|int\|string\|null, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Parameter \#1 \$number of function round expects float, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: core/src/Domain/SmartStart/SmartStart.php
@@ -1741,37 +1669,7 @@ parameters:
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:anticipationFactor\(\) should return float\|int\|string but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:autolearn\(\) should return int\|string but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:coefficient\(\) should return float\|int\|string but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:coefficientIndoor\(\) should return float\|int\|string but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:coefficientOutdoor\(\) should return float\|int\|string but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:coldFailureOffset\(\) should return float\|int\|string but returns mixed\.$#'
 			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
@@ -1801,18 +1699,6 @@ parameters:
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:directionDeltaCool\(\) should return float\|int\|string but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:directionDeltaHeat\(\) should return float\|int\|string but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:engine\(\) should return string but returns mixed\.$#'
 			identifier: return.type
 			count: 1
@@ -1831,25 +1717,7 @@ parameters:
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:heatFailureOffset\(\) should return float\|int\|string but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:heatHotThreshold\(\) should return float\|int\|string but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:heatingActions\(\) should return list\<array\{cmd\: string, options\?\: array\<string, bool\|float\|int\|string\|null\>\}\> but returns array\<mixed\>\.$#'
-			identifier: return.type
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:hysteresisThreshold\(\) should return float\|int\|string but returns mixed\.$#'
 			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
@@ -1879,12 +1747,6 @@ parameters:
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:minCycleDuration\(\) should return float\|int\|string but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:modes\(\) should return list\<array\{name\: string, actions\: list\<array\{cmd\: string, options\?\: array\<string, bool\|float\|int\|string\|null\>\}\>\}\> but returns array\<mixed\>\.$#'
 			identifier: return.type
 			count: 1
@@ -1892,12 +1754,6 @@ parameters:
 
 		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:nextFullCycleOffset\(\) should return float\|int\|string but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:offset\(\) should return float\|int\|string but returns mixed\.$#'
 			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
