@@ -147,6 +147,7 @@ class WindowsTest extends TestCase {
 		if ($_value !== null) {
 			$this->sensors->set(7, $_value, '2026-01-15 09:59:00');
 		}
+		$this->sensors->set(8, 1, '2026-01-15 09:58:00');
 		$this->memory->setOpenedAt(7, '2026-01-15 09:58:00');
 
 		$this->windows()->timer(7, 'open');
