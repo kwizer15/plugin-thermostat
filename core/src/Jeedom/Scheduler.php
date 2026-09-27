@@ -28,11 +28,14 @@ class Scheduler implements Scheduling {
 
 	/** @var \thermostat */
 	private $thermostat;
+	/** @var CommandLookup */
+	private $commands;
 	/** @var Log */
 	private $log;
 
-	public function __construct(\thermostat $_thermostat, Log $_log) {
+	public function __construct(\thermostat $_thermostat, CommandLookup $_commands, Log $_log) {
 		$this->thermostat = $_thermostat;
+		$this->commands = $_commands;
 		$this->log = $_log;
 	}
 
@@ -156,7 +159,7 @@ class Scheduler implements Scheduling {
 			try {
 				$c = new \Cron\CronExpression(checkAndFixCron($this->thermostat->getConfiguration(Key::HYSTERESIS_CRON)), new \Cron\FieldFactory);
 				if ($c->isDue()) {
-					$this->thermostat->getCmd(null, LogicalId::TEMPERATURE)->event(\jeedom::evaluateExpression($this->thermostat->getConfiguration(Key::TEMPERATURE_INDOOR)));
+					$this->commands->get(LogicalId::TEMPERATURE)->event(\jeedom::evaluateExpression($this->thermostat->getConfiguration(Key::TEMPERATURE_INDOOR)));
 					\thermostat::hysteresis(array(Callback::OPTION_THERMOSTAT_ID => $this->thermostat->getId()));
 				}
 			} catch (\Exception $e) {

@@ -34,6 +34,7 @@ use Jeedom\Plugin\Thermostat\Domain\StatusLabels;
 use Jeedom\Plugin\Thermostat\Domain\Window\Windows;
 use Jeedom\Plugin\Thermostat\Jeedom\ActionList;
 use Jeedom\Plugin\Thermostat\Jeedom\Calendar;
+use Jeedom\Plugin\Thermostat\Jeedom\CommandLookup;
 use Jeedom\Plugin\Thermostat\Jeedom\Commands;
 use Jeedom\Plugin\Thermostat\Jeedom\Controls;
 use Jeedom\Plugin\Thermostat\Jeedom\Display;
@@ -73,6 +74,10 @@ class Assembly {
 		return new StatusLabels($this->translator(StatusLabels::class));
 	}
 
+	public function commandLookup(): CommandLookup {
+		return new CommandLookup($this->thermostat, $this->translator(CommandLookup::class));
+	}
+
 	public function settings(): Settings {
 		return new Settings($this->thermostat);
 	}
@@ -82,7 +87,7 @@ class Assembly {
 	}
 
 	public function sensors(): Sensors {
-		return new Sensors($this->thermostat);
+		return new Sensors($this->commandLookup());
 	}
 
 	public function evaluator(): Evaluator {
@@ -98,7 +103,7 @@ class Assembly {
 	}
 
 	public function display(): Display {
-		return new Display($this->thermostat);
+		return new Display($this->thermostat, $this->commandLookup());
 	}
 
 	public function engineRunner(): EngineRunner {
@@ -106,7 +111,7 @@ class Assembly {
 	}
 
 	public function actionList(): ActionList {
-		return new ActionList($this->thermostat, $this->log(), $this->translator(ActionList::class));
+		return new ActionList($this->thermostat, $this->commandLookup(), $this->log(), $this->translator(ActionList::class));
 	}
 
 	public function powerCalculator(): Calculator {
@@ -118,11 +123,11 @@ class Assembly {
 	}
 
 	public function scheduler(): Scheduler {
-		return new Scheduler($this->thermostat, $this->log());
+		return new Scheduler($this->thermostat, $this->commandLookup(), $this->log());
 	}
 
 	public function smartStart(): SmartStart {
-		return new SmartStart($this->settings(), $this->memory(), $this->calendar(), $this->sensors(), $this->display(), new Controls($this->thermostat), $this->evaluator(), $this->powerCalculator(), $this->scheduler(), $this->log(), $this->translator(SmartStart::class));
+		return new SmartStart($this->settings(), $this->memory(), $this->calendar(), $this->sensors(), $this->display(), new Controls($this->commandLookup()), $this->evaluator(), $this->powerCalculator(), $this->scheduler(), $this->log(), $this->translator(SmartStart::class));
 	}
 
 	public function actuator(): Actuator {

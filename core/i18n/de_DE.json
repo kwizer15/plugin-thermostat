@@ -323,6 +323,9 @@
     "plugins\/thermostat\/core\/src\/Jeedom\/Calendar.php": {
         "Plugin agenda non détecté": "Agenda-Plugin nicht erkannt"
     },
+    "plugins\/thermostat\/core\/src\/Jeedom\/CommandLookup.php": {
+        "Commande introuvable": "Befehl nicht gefunden"
+    },
     "plugins\/thermostat\/core\/src\/Jeedom\/Commands.php": {
         "Consigne": "Anleitung",
         "Thermostat": "Thermostat",

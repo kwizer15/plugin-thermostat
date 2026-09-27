@@ -18,27 +18,28 @@
 
 namespace Jeedom\Plugin\Thermostat\Jeedom;
 
-use Jeedom\Plugin\Thermostat\Domain\Command\LogicalId;
-use Jeedom\Plugin\Thermostat\Domain\SmartStart\Controls as SmartStartControls;
+use Jeedom\Plugin\Thermostat\Domain\Translator;
 
-class Controls implements SmartStartControls {
+class CommandLookup {
 
-	/** @var CommandLookup */
-	private $commands;
+	/** @var \thermostat */
+	private $eqLogic;
+	/** @var Translator */
+	private $translator;
 
-	public function __construct(CommandLookup $_commands) {
-		$this->commands = $_commands;
+	public function __construct(\thermostat $_eqLogic, Translator $_translator) {
+		$this->eqLogic = $_eqLogic;
+		$this->translator = $_translator;
 	}
 
-	public function requestSetpoint($_value) {
-		$this->commands->get(LogicalId::THERMOSTAT)->execCmd(array('slider' => $_value));
-	}
-
-	public function modeExists($_cmdId) {
-		return is_object(\cmd::byId($_cmdId));
-	}
-
-	public function runMode($_cmdId) {
-		\cmd::byId($_cmdId)->execCmd();
+	/**
+	 * @param string $_logicalId
+	 */
+	public function get($_logicalId): \cmd {
+		$cmd = $this->eqLogic->getCmd(null, $_logicalId);
+		if (!is_object($cmd)) {
+			throw new MissingCommand($this->translator->translate('{{Commande introuvable}}') . ' : ' . $_logicalId);
+		}
+		return $cmd;
 	}
 }

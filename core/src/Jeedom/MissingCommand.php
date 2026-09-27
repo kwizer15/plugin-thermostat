@@ -18,27 +18,5 @@
 
 namespace Jeedom\Plugin\Thermostat\Jeedom;
 
-use Jeedom\Plugin\Thermostat\Domain\Command\LogicalId;
-use Jeedom\Plugin\Thermostat\Domain\SmartStart\Controls as SmartStartControls;
-
-class Controls implements SmartStartControls {
-
-	/** @var CommandLookup */
-	private $commands;
-
-	public function __construct(CommandLookup $_commands) {
-		$this->commands = $_commands;
-	}
-
-	public function requestSetpoint($_value) {
-		$this->commands->get(LogicalId::THERMOSTAT)->execCmd(array('slider' => $_value));
-	}
-
-	public function modeExists($_cmdId) {
-		return is_object(\cmd::byId($_cmdId));
-	}
-
-	public function runMode($_cmdId) {
-		\cmd::byId($_cmdId)->execCmd();
-	}
+class MissingCommand extends \Exception {
 }

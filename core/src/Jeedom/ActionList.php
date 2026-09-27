@@ -27,13 +27,16 @@ class ActionList implements Actions {
 
 	/** @var \thermostat */
 	private $thermostat;
+	/** @var CommandLookup */
+	private $commands;
 	/** @var Log */
 	private $log;
 	/** @var Translator */
 	private $translator;
 
-	public function __construct(\thermostat $_thermostat, Log $_log, Translator $_translator) {
+	public function __construct(\thermostat $_thermostat, CommandLookup $_commands, Log $_log, Translator $_translator) {
 		$this->thermostat = $_thermostat;
+		$this->commands = $_commands;
 		$this->log = $_log;
 		$this->translator = $_translator;
 	}
@@ -55,7 +58,7 @@ class ActionList implements Actions {
 	}
 
 	public function execute($_actions, $_skipOwnCmds, $_extraOptions = array()) {
-		$consigne = $this->thermostat->getCmd(null, LogicalId::ORDER)->execCmd();
+		$consigne = $this->commands->get(LogicalId::ORDER)->execCmd();
 		foreach ($_actions as $action) {
 			try {
 				if ($_skipOwnCmds) {
@@ -83,7 +86,7 @@ class ActionList implements Actions {
 				$cmd = (is_numeric(str_replace('#', '', $action['cmd']))) ? \cmd::byString($action['cmd']) : '';
 				if (is_object($cmd) && $cmd->getEqLogic_id() == $this->thermostat->getId() && $cmd->getLogicalId() == LogicalId::THERMOSTAT) {
 					$thermostatCmd = true;
-					$this->thermostat->getCmd(null, LogicalId::ORDER)->event(\scenarioExpression::createAndExec('condition', $options['slider']));
+					$this->commands->get(LogicalId::ORDER)->event(\scenarioExpression::createAndExec('condition', $options['slider']));
 				} else {
 					\scenarioExpression::createAndExec('action', $action['cmd'], $options);
 				}

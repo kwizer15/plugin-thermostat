@@ -24,22 +24,22 @@ use Jeedom\Plugin\Thermostat\Domain\Sensors as DomainSensors;
 
 class Sensors implements DomainSensors {
 
-	/** @var \thermostat */
-	private $eqLogic;
+	/** @var CommandLookup */
+	private $commands;
 
-	public function __construct(\thermostat $_eqLogic) {
-		$this->eqLogic = $_eqLogic;
+	public function __construct(CommandLookup $_commands) {
+		$this->commands = $_commands;
 	}
 
 	public function indoorTemperature() {
-		return $this->eqLogic->getCmd(null, LogicalId::TEMPERATURE)->execCmd();
+		return $this->commands->get(LogicalId::TEMPERATURE)->execCmd();
 	}
 
 	public function outdoorTemperature() {
-		return $this->eqLogic->getCmd(null, LogicalId::TEMPERATURE_OUTDOOR)->execCmd();
+		return $this->commands->get(LogicalId::TEMPERATURE_OUTDOOR)->execCmd();
 	}
 	public function indoorReading(): Reading {
-		$cmd = $this->eqLogic->getCmd(null, LogicalId::TEMPERATURE);
+		$cmd = $this->commands->get(LogicalId::TEMPERATURE);
 		$value = $cmd->execCmd();
 		return new Reading($value, $cmd->getCollectDate(), $cmd->getValueDate());
 	}

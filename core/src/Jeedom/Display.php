@@ -25,41 +25,44 @@ class Display implements DomainDisplay {
 
 	/** @var \thermostat */
 	private $eqLogic;
+	/** @var CommandLookup */
+	private $commands;
 
-	public function __construct(\thermostat $_eqLogic) {
+	public function __construct(\thermostat $_eqLogic, CommandLookup $_commands) {
 		$this->eqLogic = $_eqLogic;
+		$this->commands = $_commands;
 	}
 
 	public function status() {
-		return $this->eqLogic->getCmd(null, LogicalId::STATUS)->execCmd();
+		return $this->commands->get(LogicalId::STATUS)->execCmd();
 	}
 
 	public function setStatus($_status) {
-		$this->eqLogic->getCmd(null, LogicalId::STATUS)->event($_status);
+		$this->commands->get(LogicalId::STATUS)->event($_status);
 	}
 
 	public function mode() {
-		return $this->eqLogic->getCmd(null, LogicalId::MODE)->execCmd();
+		return $this->commands->get(LogicalId::MODE)->execCmd();
 	}
 
 	public function setMode($_mode) {
-		$this->eqLogic->getCmd(null, LogicalId::MODE)->event($_mode);
+		$this->commands->get(LogicalId::MODE)->event($_mode);
 	}
 
 	public function setpoint() {
-		return $this->eqLogic->getCmd(null, LogicalId::ORDER)->execCmd();
+		return $this->commands->get(LogicalId::ORDER)->execCmd();
 	}
 
 	public function setSetpoint($_value) {
-		$this->eqLogic->getCmd(null, LogicalId::ORDER)->event($_value);
+		$this->commands->get(LogicalId::ORDER)->event($_value);
 	}
 
 	public function historizeSetpoint($_value) {
-		$this->eqLogic->getCmd(null, LogicalId::ORDER)->addHistoryValue($_value);
+		$this->commands->get(LogicalId::ORDER)->addHistoryValue($_value);
 	}
 
 	public function setActive($_active) {
-		$this->eqLogic->getCmd(null, LogicalId::ACTIVE)->event($_active);
+		$this->commands->get(LogicalId::ACTIVE)->event($_active);
 	}
 
 	public function power() {
@@ -82,11 +85,11 @@ class Display implements DomainDisplay {
 	}
 
 	public function lock() {
-		$this->eqLogic->getCmd(null, LogicalId::LOCK_STATE)->event(1);
+		$this->commands->get(LogicalId::LOCK_STATE)->event(1);
 	}
 
 	public function unlock() {
-		$this->eqLogic->getCmd(null, LogicalId::LOCK_STATE)->event(0);
+		$this->commands->get(LogicalId::LOCK_STATE)->event(0);
 	}
 
 	public function refreshWidget() {

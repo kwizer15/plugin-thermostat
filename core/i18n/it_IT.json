@@ -323,6 +323,9 @@
     "plugins\/thermostat\/core\/src\/Jeedom\/Calendar.php": {
         "Plugin agenda non détecté": "Plugin agenda non détecté"
     },
+    "plugins\/thermostat\/core\/src\/Jeedom\/CommandLookup.php": {
+        "Commande introuvable": "Comando non trovato"
+    },
     "plugins\/thermostat\/core\/src\/Jeedom\/Commands.php": {
         "Consigne": "Ordine",
         "Thermostat": "Thermostat",

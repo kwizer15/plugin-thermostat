@@ -121,15 +121,27 @@ parameters:
 			path: core/class/thermostat.class.php
 
 		-
+			message: '#^Cannot call method display\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: core/class/thermostat.class.php
+
+		-
 			message: '#^Cannot call method dju\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: core/class/thermostat.class.php
 
 		-
+			message: '#^Cannot call method error\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 5
+			path: core/class/thermostat.class.php
+
+		-
 			message: '#^Cannot call method execCmd\(\) on cmd\|false\.$#'
 			identifier: method.nonObject
-			count: 4
+			count: 3
 			path: core/class/thermostat.class.php
 
 		-
@@ -196,6 +208,12 @@ parameters:
 			message: '#^Cannot call method listen\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 2
+			path: core/class/thermostat.class.php
+
+		-
+			message: '#^Cannot call method log\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 5
 			path: core/class/thermostat.class.php
 
 		-
@@ -286,6 +304,12 @@ parameters:
 			message: '#^Cannot call method statistics\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 3
+			path: core/class/thermostat.class.php
+
+		-
+			message: '#^Cannot call method status\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
 			path: core/class/thermostat.class.php
 
 		-
@@ -1363,18 +1387,6 @@ parameters:
 			path: core/src/Domain/Window/Windows.php
 
 		-
-			message: '#^Cannot call method event\(\) on cmd\|false\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Cannot call method execCmd\(\) on cmd\|false\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
 			message: '#^Parameter \#2 \$_consigne of static method Jeedom\\Plugin\\Thermostat\\Jeedom\\ActionList\:\:options\(\) expects bool\|float\|int\|string\|null, mixed given\.$#'
 			identifier: argument.type
 			count: 1
@@ -1561,34 +1573,10 @@ parameters:
 			path: core/src/Jeedom/Commands.php
 
 		-
-			message: '#^Cannot call method execCmd\(\) on cmd\|false\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/Controls.php
-
-		-
 			message: '#^Cannot call method execCmd\(\) on cmd\|false\|null\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: core/src/Jeedom/Controls.php
-
-		-
-			message: '#^Cannot call method addHistoryValue\(\) on cmd\|false\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/Display.php
-
-		-
-			message: '#^Cannot call method event\(\) on cmd\|false\.$#'
-			identifier: method.nonObject
-			count: 6
-			path: core/src/Jeedom/Display.php
-
-		-
-			message: '#^Cannot call method execCmd\(\) on cmd\|false\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Jeedom/Display.php
 
 		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:mode\(\) should return bool\|float\|int\|string\|null but returns mixed\.$#'
@@ -1711,12 +1699,6 @@ parameters:
 			path: core/src/Jeedom/Scheduler.php
 
 		-
-			message: '#^Cannot call method event\(\) on cmd\|false\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
 			message: '#^Parameter \#1 \$_date of static method cron\:\:convertDateToCron\(\) expects string, int\|false given\.$#'
 			identifier: argument.type
 			count: 1
@@ -1733,24 +1715,6 @@ parameters:
 			identifier: argument.type
 			count: 2
 			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Cannot call method execCmd\(\) on cmd\|false\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Jeedom/Sensors.php
-
-		-
-			message: '#^Cannot call method getCollectDate\(\) on cmd\|false\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/Sensors.php
-
-		-
-			message: '#^Cannot call method getValueDate\(\) on cmd\|false\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/Sensors.php
 
 		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Sensors\:\:indoorTemperature\(\) should return bool\|float\|int\|string\|null but returns mixed\.$#'

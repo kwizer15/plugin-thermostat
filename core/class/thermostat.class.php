@@ -22,6 +22,7 @@ use Jeedom\Plugin\Thermostat\Domain\Command\LogicalId;
 use Jeedom\Plugin\Thermostat\Domain\Configuration\Key;
 use Jeedom\Plugin\Thermostat\Domain\Engine\EngineType;
 use Jeedom\Plugin\Thermostat\Jeedom\Callback;
+use Jeedom\Plugin\Thermostat\Jeedom\MissingCommand;
 
 spl_autoload_register(function ($_class) {
 	$prefix = 'Jeedom\\Plugin\\Thermostat\\';
@@ -56,22 +57,26 @@ class thermostat extends eqLogic {
 			}
 			return;
 		}
-		if (isset($_options[Callback::OPTION_STOP]) && $_options[Callback::OPTION_STOP] == 1) {
-			$status = $thermostat->getCmd(null, LogicalId::STATUS)->execCmd();
-			if ($status == __('Suspendu', __FILE__)) {
+		try {
+			if (isset($_options[Callback::OPTION_STOP]) && $_options[Callback::OPTION_STOP] == 1) {
+				$status = $thermostat->assembly()->display()->status();
+				if ($status == __('Suspendu', __FILE__)) {
+					return;
+				}
+				$thermostat->stopThermostat();
 				return;
+			} elseif (isset($_options[Callback::OPTION_SMART_THERMOSTAT]) && $_options[Callback::OPTION_SMART_THERMOSTAT] == 1) {
+				log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Thermostat::pull => mode smart', __FILE__) . ' : ' . print_r($_options, true));
+				$cron = cron::byClassAndFunction(__CLASS__, Callback::PULL, $_options);
+				if (is_object($cron)) {
+					$cron->remove(false);
+				}
+				$thermostat->assembly()->smartStart()->trigger($_options);
+			} else {
+				self::temporal($_options);
 			}
-			$thermostat->stopThermostat();
-			return;
-		} elseif (isset($_options[Callback::OPTION_SMART_THERMOSTAT]) && $_options[Callback::OPTION_SMART_THERMOSTAT] == 1) {
-			log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Thermostat::pull => mode smart', __FILE__) . ' : ' . print_r($_options, true));
-			$cron = cron::byClassAndFunction(__CLASS__, Callback::PULL, $_options);
-			if (is_object($cron)) {
-				$cron->remove(false);
-			}
-			$thermostat->assembly()->smartStart()->trigger($_options);
-		} else {
-			self::temporal($_options);
+		} catch (MissingCommand $e) {
+			$thermostat->assembly()->log()->error($e->getMessage());
 		}
 	}
 
@@ -88,7 +93,11 @@ class thermostat extends eqLogic {
 		if (!is_object($thermostat) || $thermostat->getIsEnable() == 0) {
 			return;
 		}
-		$thermostat->assembly()->hysteresisEngine()->run();
+		try {
+			$thermostat->assembly()->hysteresisEngine()->run();
+		} catch (MissingCommand $e) {
+			$thermostat->assembly()->log()->error($e->getMessage());
+		}
 	}
 
 	public static function temporal($_options) {
@@ -96,25 +105,33 @@ class thermostat extends eqLogic {
 		if (!is_object($thermostat) || $thermostat->getIsEnable() == 0) {
 			return;
 		}
-		$thermostat->assembly()->temporalEngine()->run();
+		try {
+			$thermostat->assembly()->temporalEngine()->run();
+		} catch (MissingCommand $e) {
+			$thermostat->assembly()->log()->error($e->getMessage());
+		}
 	}
 
 	public static function cron() {
 		foreach (thermostat::byType('thermostat', true) as $thermostat) {
-			if ($thermostat->getConfiguration(Key::REPEAT_CRON) != '') {
-				try {
-					$c = new Cron\CronExpression(checkAndFixCron($thermostat->getConfiguration(Key::REPEAT_CRON)), new Cron\FieldFactory);
-					if ($c->isDue()) {
-						$thermostat->assembly()->actuator()->repeat();
+			try {
+				if ($thermostat->getConfiguration(Key::REPEAT_CRON) != '') {
+					try {
+						$c = new Cron\CronExpression(checkAndFixCron($thermostat->getConfiguration(Key::REPEAT_CRON)), new Cron\FieldFactory);
+						if ($c->isDue()) {
+							$thermostat->assembly()->actuator()->repeat();
+						}
+					} catch (Exception $e) {
+						log::add(__CLASS__, 'error', $thermostat->getHumanName() . ' : ' . $e->getMessage());
 					}
-				} catch (Exception $e) {
-					log::add(__CLASS__, 'error', $thermostat->getHumanName() . ' : ' . $e->getMessage());
 				}
+				$thermostat->assembly()->windows()->alert();
+				$thermostat->assembly()->scheduler()->watchdog();
+				$thermostat->assembly()->scheduler()->runHysteresisCron();
+				$thermostat->assembly()->sensorWatch()->check();
+			} catch (MissingCommand $e) {
+				$thermostat->assembly()->log()->error($e->getMessage());
 			}
-			$thermostat->assembly()->windows()->alert();
-			$thermostat->assembly()->scheduler()->watchdog();
-			$thermostat->assembly()->scheduler()->runHysteresisCron();
-			$thermostat->assembly()->sensorWatch()->check();
 		}
 	}
 
@@ -131,7 +148,11 @@ class thermostat extends eqLogic {
 	public static function window($_option) {
 		$thermostat = thermostat::byId($_option[Callback::OPTION_THERMOSTAT_ID]);
 		if (is_object($thermostat) && $thermostat->getIsEnable() == 1) {
-			$thermostat->assembly()->windows()->handle($_option);
+			try {
+				$thermostat->assembly()->windows()->handle($_option);
+			} catch (MissingCommand $e) {
+				$thermostat->assembly()->log()->error($e->getMessage());
+			}
 		}
 	}
 
