@@ -25,23 +25,11 @@ interface CycleMemory {
 	 */
 	public function lastState();
 
-	/**
-	 * @return int|float|string
-	 */
-	public function lastPower();
+	public function lastPower(): float;
 
-	/**
-	 * @return int|float|string
-	 */
-	public function lastOrder();
+	public function lastOrder(): float;
 
-	/**
-	 * @return int|float|string
-	 */
-	public function lastTempIn();
+	public function lastTempIn(): float;
 
-	/**
-	 * @return int|float|string
-	 */
-	public function consecutiveFailures();
+	public function consecutiveFailures(): int;
 }

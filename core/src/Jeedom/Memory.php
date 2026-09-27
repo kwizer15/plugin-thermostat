@@ -40,24 +40,24 @@ class Memory implements PowerMemory, CycleMemory, SmartStartMemory, StateMemory,
 		return $this->eqLogic->getCache(CacheKey::LAST_STATE);
 	}
 
-	public function lastPower() {
-		return $this->eqLogic->getCache(CacheKey::LAST_POWER, 0);
+	public function lastPower(): float {
+		return Value::number($this->eqLogic->getCache(CacheKey::LAST_POWER), 0.0);
 	}
 
-	public function lastOrder() {
-		return $this->eqLogic->getCache(CacheKey::LAST_ORDER, 0);
+	public function lastOrder(): float {
+		return Value::number($this->eqLogic->getCache(CacheKey::LAST_ORDER), 0.0);
 	}
 
-	public function lastTempIn() {
-		return $this->eqLogic->getCache(CacheKey::LAST_TEMP_IN, 0);
+	public function lastTempIn(): float {
+		return Value::number($this->eqLogic->getCache(CacheKey::LAST_TEMP_IN), 0.0);
 	}
 
-	public function consecutiveFailures() {
-		return $this->eqLogic->getCache(CacheKey::CONSECUTIVE_FAILURES, 0);
+	public function consecutiveFailures(): int {
+		return Value::integer($this->eqLogic->getCache(CacheKey::CONSECUTIVE_FAILURES), 0);
 	}
 
-	public function temperatureAlert() {
-		return $this->eqLogic->getCache(CacheKey::TEMPERATURE_ALERT, 0);
+	public function temperatureAlert(): int {
+		return Value::integer($this->eqLogic->getCache(CacheKey::TEMPERATURE_ALERT), 0);
 	}
 
 	public function setTemperatureAlert($_alert) {
@@ -74,8 +74,8 @@ class Memory implements PowerMemory, CycleMemory, SmartStartMemory, StateMemory,
 	public function setLastState($_state) {
 		$this->eqLogic->setCache(CacheKey::LAST_STATE, $_state);
 	}
-	public function windowState($_cmdId) {
-		return $this->eqLogic->getCache(CacheKey::WINDOW_STATE_PREFIX . $_cmdId, 0);
+	public function windowState($_cmdId): int {
+		return Value::integer($this->eqLogic->getCache(CacheKey::WINDOW_STATE_PREFIX . $_cmdId), 0);
 	}
 
 	public function setWindowState($_cmdId, $_state) {
@@ -98,16 +98,16 @@ class Memory implements PowerMemory, CycleMemory, SmartStartMemory, StateMemory,
 		$this->eqLogic->setCache(CacheKey::WINDOW_OPEN_PREFIX . $_cmdId . CacheKey::WINDOW_DATETIME_SUFFIX, $_datetime);
 	}
 
-	public function openSince() {
-		return $this->eqLogic->getCache(CacheKey::WINDOW_OPEN_SINCE, -1);
+	public function openSince(): int {
+		return Value::integer($this->eqLogic->getCache(CacheKey::WINDOW_OPEN_SINCE), -1);
 	}
 
 	public function setOpenSince($_timestamp) {
 		$this->eqLogic->setCache(CacheKey::WINDOW_OPEN_SINCE, $_timestamp);
 	}
 
-	public function alertSent() {
-		return $this->eqLogic->getCache(CacheKey::WINDOW_ALERT_SENT, 0);
+	public function alertSent(): int {
+		return Value::integer($this->eqLogic->getCache(CacheKey::WINDOW_ALERT_SENT), 0);
 	}
 
 	public function setAlertSent($_sent) {
@@ -133,8 +133,8 @@ class Memory implements PowerMemory, CycleMemory, SmartStartMemory, StateMemory,
 		$this->eqLogic->setCache(CacheKey::CONSECUTIVE_FAILURES, $_count);
 	}
 
-	public function deltaOrder() {
-		return $this->eqLogic->getCache(CacheKey::DELTA_ORDER, 0);
+	public function deltaOrder(): float {
+		return Value::number($this->eqLogic->getCache(CacheKey::DELTA_ORDER), 0.0);
 	}
 	public function setDeltaOrder($_delta) {
 		$this->eqLogic->setCache(CacheKey::DELTA_ORDER, $_delta);

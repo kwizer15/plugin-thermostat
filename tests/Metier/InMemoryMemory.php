@@ -35,23 +35,23 @@ class InMemoryMemory implements PowerMemory, CycleMemory, SmartStartMemory, Stat
 		return $this->values['lastState'];
 	}
 
-	public function lastPower() {
+	public function lastPower(): float {
 		return $this->values['last_power'];
 	}
 
-	public function lastOrder() {
+	public function lastOrder(): float {
 		return $this->values['lastOrder'];
 	}
 
-	public function lastTempIn() {
+	public function lastTempIn(): float {
 		return $this->values['lastTempIn'];
 	}
 
-	public function consecutiveFailures() {
+	public function consecutiveFailures(): int {
 		return $this->values['nbConsecutiveFaillure'];
 	}
 
-	public function temperatureAlert() {
+	public function temperatureAlert(): int {
 		return $this->values['temp_threshold'];
 	}
 
@@ -71,7 +71,7 @@ class InMemoryMemory implements PowerMemory, CycleMemory, SmartStartMemory, Stat
 		$this->values['lastState'] = $_state;
 	}
 
-	public function windowState($_cmdId) {
+	public function windowState($_cmdId): int {
 		return isset($this->values['window::state::' . $_cmdId]) ? $this->values['window::state::' . $_cmdId] : 0;
 	}
 
@@ -95,7 +95,7 @@ class InMemoryMemory implements PowerMemory, CycleMemory, SmartStartMemory, Stat
 		$this->values['window::open::' . $_cmdId . '::datetime'] = $_datetime;
 	}
 
-	public function openSince() {
+	public function openSince(): int {
 		return $this->values['window::state::open'];
 	}
 
@@ -103,7 +103,7 @@ class InMemoryMemory implements PowerMemory, CycleMemory, SmartStartMemory, Stat
 		$this->values['window::state::open'] = $_timestamp;
 	}
 
-	public function alertSent() {
+	public function alertSent(): int {
 		return $this->values['alertSendForWindow'];
 	}
 
@@ -131,7 +131,7 @@ class InMemoryMemory implements PowerMemory, CycleMemory, SmartStartMemory, Stat
 		$this->values['nbConsecutiveFaillure'] = $_count;
 	}
 
-	public function deltaOrder() {
+	public function deltaOrder(): float {
 		return $this->values['deltaOrder'];
 	}
 

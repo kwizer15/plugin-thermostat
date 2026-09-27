@@ -61,15 +61,15 @@ class BoundaryTest extends ThermostatTestCase {
 
 	public function memory() {
 		$keys = array(
-			'lastPower' => array(array(), CacheKey::LAST_POWER, 0),
-			'lastOrder' => array(array(), CacheKey::LAST_ORDER, 0),
-			'lastTempIn' => array(array(), CacheKey::LAST_TEMP_IN, 0),
-			'consecutiveFailures' => array(array(), CacheKey::CONSECUTIVE_FAILURES, 0),
-			'temperatureAlert' => array(array(), CacheKey::TEMPERATURE_ALERT, 0),
-			'windowState' => array(array(7), CacheKey::WINDOW_STATE_PREFIX . '7', 0),
-			'openSince' => array(array(), CacheKey::WINDOW_OPEN_SINCE, -1),
-			'alertSent' => array(array(), CacheKey::WINDOW_ALERT_SENT, 0),
-			'deltaOrder' => array(array(), CacheKey::DELTA_ORDER, 0),
+			'lastPower' => array(array(), CacheKey::LAST_POWER, 0.0, 'number'),
+			'lastOrder' => array(array(), CacheKey::LAST_ORDER, 0.0, 'number'),
+			'lastTempIn' => array(array(), CacheKey::LAST_TEMP_IN, 0.0, 'number'),
+			'consecutiveFailures' => array(array(), CacheKey::CONSECUTIVE_FAILURES, 0, 'integer'),
+			'temperatureAlert' => array(array(), CacheKey::TEMPERATURE_ALERT, 0, 'integer'),
+			'windowState' => array(array(7), CacheKey::WINDOW_STATE_PREFIX . '7', 0, 'integer'),
+			'openSince' => array(array(), CacheKey::WINDOW_OPEN_SINCE, -1, 'integer'),
+			'alertSent' => array(array(), CacheKey::WINDOW_ALERT_SENT, 0, 'integer'),
+			'deltaOrder' => array(array(), CacheKey::DELTA_ORDER, 0.0, 'number'),
 		);
 		return $this->cases($keys);
 	}

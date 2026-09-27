@@ -33,10 +33,7 @@ interface Memory {
 	 */
 	public function setLastState($_state);
 
-	/**
-	 * @return int|float|string
-	 */
-	public function temperatureAlert();
+	public function temperatureAlert(): int;
 
 	/**
 	 * @param int $_alert
@@ -44,10 +41,7 @@ interface Memory {
 	 */
 	public function setTemperatureAlert($_alert);
 
-	/**
-	 * @return int|float|string
-	 */
-	public function lastOrder();
+	public function lastOrder(): float;
 
 	/**
 	 * @param scalar|null $_order
@@ -55,10 +49,7 @@ interface Memory {
 	 */
 	public function setLastOrder($_order);
 
-	/**
-	 * @return int|float|string
-	 */
-	public function lastTempIn();
+	public function lastTempIn(): float;
 
 	/**
 	 * @param scalar|null $_temperature
@@ -78,10 +69,7 @@ interface Memory {
 	 */
 	public function setLastPower($_power);
 
-	/**
-	 * @return int|float|string
-	 */
-	public function consecutiveFailures();
+	public function consecutiveFailures(): int;
 
 	/**
 	 * @param int|float $_count
@@ -89,8 +77,5 @@ interface Memory {
 	 */
 	public function setConsecutiveFailures($_count);
 
-	/**
-	 * @return int|float|string
-	 */
-	public function deltaOrder();
+	public function deltaOrder(): float;
 }

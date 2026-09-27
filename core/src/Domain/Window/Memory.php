@@ -22,9 +22,8 @@ interface Memory {
 
 	/**
 	 * @param int|string $_cmdId
-	 * @return int|float|string
 	 */
-	public function windowState($_cmdId);
+	public function windowState($_cmdId): int;
 
 	/**
 	 * @param int|string $_cmdId
@@ -59,10 +58,7 @@ interface Memory {
 	 */
 	public function setOpenedAt($_cmdId, $_datetime);
 
-	/**
-	 * @return int|float|string
-	 */
-	public function openSince();
+	public function openSince(): int;
 
 	/**
 	 * @param int $_timestamp
@@ -70,10 +66,7 @@ interface Memory {
 	 */
 	public function setOpenSince($_timestamp);
 
-	/**
-	 * @return int|float|string
-	 */
-	public function alertSent();
+	public function alertSent(): int;
 
 	/**
 	 * @param int $_sent

@@ -25,15 +25,9 @@ interface Memory {
 	 */
 	public function lastState();
 
-	/**
-	 * @return int|float|string
-	 */
-	public function lastPower();
+	public function lastPower(): float;
 
-	/**
-	 * @return int|float|string
-	 */
-	public function temperatureAlert();
+	public function temperatureAlert(): int;
 
 	/**
 	 * @param int $_alert
