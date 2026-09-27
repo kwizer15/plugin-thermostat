@@ -194,10 +194,6 @@
         "Thermostat::pull => mode smart": "Termostato :: tirón => modo inteligente",
         "Off": "Apagado",
         "Arrêté": "Detenido",
-        "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Tenga en cuenta que no ha habido ninguna actualización de temperatura durante más de",
-        "minutes": "minutos",
-        "Attention la température intérieure est en dessous du seuil autorisé": "Tenga en cuenta que la temperatura interior está por debajo del umbral autorizado",
-        "Attention la température intérieure est au dessus du seuil autorisé": "Tenga en cuenta que la temperatura interior está por encima del umbral autorizado",
         "Aucun": "Ninguna"
     },
     "plugins\/thermostat\/core\/class\/thermostatActionList.class.php": {
@@ -292,6 +288,12 @@
         "Cycle précédent à": "Ciclo anterior a",
         "applique offset": "aplique compensado",
         "Puissance de chauffe du cycle": "Ciclo de potencia de calentamiento"
+    },
+    "plugins\/thermostat\/core\/class\/thermostatSensorWatch.class.php": {
+        "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Tenga en cuenta que no ha habido ninguna actualización de temperatura durante más de",
+        "minutes": "minutos",
+        "Attention la température intérieure est en dessous du seuil autorisé": "Tenga en cuenta que la temperatura interior está por debajo del umbral autorizado",
+        "Attention la température intérieure est au dessus du seuil autorisé": "Tenga en cuenta que la temperatura interior está por encima del umbral autorizado"
     },
     "plugins\/thermostat\/core\/class\/thermostatSmartStart.class.php": {
         "Plugin agenda détecté": "Complemento de agenda detectado",

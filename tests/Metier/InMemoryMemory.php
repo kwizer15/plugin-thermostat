@@ -1,6 +1,6 @@
 <?php
 
-class InMemoryMemory implements thermostatPowerMemory, thermostatCycleMemory, thermostatSmartStartMemory, thermostatStateMemory, thermostatWindowMemory, thermostatEngineMemory {
+class InMemoryMemory implements thermostatPowerMemory, thermostatCycleMemory, thermostatSmartStartMemory, thermostatStateMemory, thermostatWindowMemory, thermostatEngineMemory, thermostatSensorWatchMemory {
 
 	public $values = array(
 		'lastState' => '',

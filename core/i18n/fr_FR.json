@@ -194,10 +194,6 @@
         "Thermostat::pull => mode smart": "Thermostat::pull => mode smart",
         "Off": "Off",
         "Arrêté": "Arrêté",
-        "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Attention il n'y a pas eu de mise à jour de la température depuis plus de",
-        "minutes": "minutes",
-        "Attention la température intérieure est en dessous du seuil autorisé": "Attention la température intérieure est en dessous du seuil autorisé",
-        "Attention la température intérieure est au dessus du seuil autorisé": "Attention la température intérieure est au dessus du seuil autorisé",
         "Aucun": "Aucun"
     },
     "plugins\/thermostat\/core\/class\/thermostatActionList.class.php": {
@@ -292,6 +288,12 @@
         "Cycle précédent à": "Cycle précédent à",
         "applique offset": "applique offset",
         "Puissance de chauffe du cycle": "Puissance de chauffe du cycle"
+    },
+    "plugins\/thermostat\/core\/class\/thermostatSensorWatch.class.php": {
+        "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Attention il n'y a pas eu de mise à jour de la température depuis plus de",
+        "minutes": "minutes",
+        "Attention la température intérieure est en dessous du seuil autorisé": "Attention la température intérieure est en dessous du seuil autorisé",
+        "Attention la température intérieure est au dessus du seuil autorisé": "Attention la température intérieure est au dessus du seuil autorisé"
     },
     "plugins\/thermostat\/core\/class\/thermostatSmartStart.class.php": {
         "Plugin agenda détecté": "Plugin agenda détecté",

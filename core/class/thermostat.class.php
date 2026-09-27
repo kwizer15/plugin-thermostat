@@ -46,6 +46,8 @@ require_once dirname(__FILE__) . '/thermostatReading.class.php';
 require_once dirname(__FILE__) . '/thermostatWindowSensors.class.php';
 require_once dirname(__FILE__) . '/thermostatHistory.class.php';
 require_once dirname(__FILE__) . '/thermostatControls.class.php';
+require_once dirname(__FILE__) . '/thermostatSensorWatchSettings.class.php';
+require_once dirname(__FILE__) . '/thermostatSensorWatchMemory.class.php';
 require_once dirname(__FILE__) . '/thermostatJeedomSettings.class.php';
 require_once dirname(__FILE__) . '/thermostatJeedomMemory.class.php';
 require_once dirname(__FILE__) . '/thermostatJeedomCalendar.class.php';
@@ -66,6 +68,7 @@ require_once dirname(__FILE__) . '/thermostatCoefficientLearner.class.php';
 require_once dirname(__FILE__) . '/thermostatSmartStart.class.php';
 require_once dirname(__FILE__) . '/thermostatActuator.class.php';
 require_once dirname(__FILE__) . '/thermostatWindows.class.php';
+require_once dirname(__FILE__) . '/thermostatSensorWatch.class.php';
 require_once dirname(__FILE__) . '/thermostatScheduler.class.php';
 require_once dirname(__FILE__) . '/thermostatHysteresisEngine.class.php';
 require_once dirname(__FILE__) . '/thermostatTemporalEngine.class.php';
@@ -155,40 +158,7 @@ class thermostat extends eqLogic {
 			$thermostat->assembly()->scheduler()->watchdog();
 			$thermostat->assembly()->scheduler()->runHysteresisCron();
 
-			if (strtolower($thermostat->getCmd(null, 'mode')->execCmd()) == 'off') {
-				continue;
-			}
-			$temperature = $thermostat->getCmd(null, 'temperature');
-			$temp_in = $temperature->execCmd();
-			$failure = false;
-			if ($thermostat->getConfiguration('maxTimeUpdateTemp') != '') {
-				if ($temperature->getCollectDate() != '' && strtotime($temperature->getCollectDate()) < strtotime('-' . $thermostat->getConfiguration('maxTimeUpdateTemp') . ' minutes' . date('Y-m-d H:i:s'))) {
-					if ($thermostat->getCache('temp_threshold', 0) == 0) {
-						$thermostat->failure();
-						log::add(__CLASS__, 'error', $thermostat->getHumanName() . ' ' . __("Attention il n'y a pas eu de mise à jour de la température depuis plus de", __FILE__) . ' : ' . $thermostat->getConfiguration('maxTimeUpdateTemp') . ' ' . __('minutes', __FILE__) . ' (' . $temperature->getCollectDate() . ')');
-					}
-					$failure = true;
-				}
-			}
-			if ($thermostat->getConfiguration('temperature_indoor_min') != '' && is_numeric($thermostat->getConfiguration('temperature_indoor_min')) && $thermostat->getConfiguration('temperature_indoor_min') > $temp_in && $temp_in !== '') {
-				if ($thermostat->getCache('temp_threshold', 0) == 0) {
-					$thermostat->failure();
-					log::add(__CLASS__, 'error', $thermostat->getHumanName() . ' ' . __('Attention la température intérieure est en dessous du seuil autorisé', __FILE__) . ' : ' . $temp_in);
-				}
-				$failure = true;
-			}
-			if ($thermostat->getConfiguration('temperature_indoor_max') != '' && is_numeric($thermostat->getConfiguration('temperature_indoor_max')) && $thermostat->getConfiguration('temperature_indoor_max') < $temp_in && $temp_in !== '') {
-				if ($thermostat->getCache('temp_threshold', 0) == 0) {
-					$thermostat->failure();
-					log::add(__CLASS__, 'error', $thermostat->getHumanName() . ' ' . __('Attention la température intérieure est au dessus du seuil autorisé', __FILE__) . ' : ' . $temp_in);
-				}
-				$failure = true;
-			}
-			if (!$failure) {
-				$thermostat->setCache('temp_threshold', 0);
-			} else {
-				$thermostat->setCache('temp_threshold', 1);
-			}
+			$thermostat->assembly()->sensorWatch()->check();
 		}
 	}
 

@@ -96,6 +96,10 @@ class thermostatAssembly {
 		return new thermostatHysteresisEngine($this->settings(), $this->memory(), $this->display(), $this->sensors(), $this->actuator(), new thermostatHysteresisDecision($this->settings(), $this->log()), $this->log());
 	}
 
+	public function sensorWatch() {
+		return new thermostatSensorWatch($this->settings(), $this->memory(), $this->display(), $this->sensors(), $this->actuator(), $this->log());
+	}
+
 	public function commands() {
 		return new thermostatCommands($this->thermostat, $this->scheduler());
 	}

@@ -194,10 +194,6 @@
         "Thermostat::pull => mode smart": "Thermostat :: ziehen => Smart Mode",
         "Off": "Aus",
         "Arrêté": "Verhaftet",
-        "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Bitte beachten Sie, dass es seit mehr als keine Temperaturaktualisierung gibt",
-        "minutes": "Protokoll",
-        "Attention la température intérieure est en dessous du seuil autorisé": "Bitte beachten Sie, dass die Innentemperatur unter dem zulässigen Schwellenwert liegt",
-        "Attention la température intérieure est au dessus du seuil autorisé": "Bitte beachten Sie, dass die Innentemperatur über dem zulässigen Schwellenwert liegt",
         "Aucun": "Ohne"
     },
     "plugins\/thermostat\/core\/class\/thermostatActionList.class.php": {
@@ -292,6 +288,12 @@
         "Cycle précédent à": "Vorheriger Zyklus zu",
         "applique offset": "versetzte Applikation",
         "Puissance de chauffe du cycle": "Zyklus Heizleistung"
+    },
+    "plugins\/thermostat\/core\/class\/thermostatSensorWatch.class.php": {
+        "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Bitte beachten Sie, dass es seit mehr als keine Temperaturaktualisierung gibt",
+        "minutes": "Protokoll",
+        "Attention la température intérieure est en dessous du seuil autorisé": "Bitte beachten Sie, dass die Innentemperatur unter dem zulässigen Schwellenwert liegt",
+        "Attention la température intérieure est au dessus du seuil autorisé": "Bitte beachten Sie, dass die Innentemperatur über dem zulässigen Schwellenwert liegt"
     },
     "plugins\/thermostat\/core\/class\/thermostatSmartStart.class.php": {
         "Plugin agenda détecté": "Agenda-Plugin erkannt",
