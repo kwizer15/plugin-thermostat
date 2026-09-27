@@ -20,11 +20,13 @@ class thermostatHysteresisEngine {
 
 	private $thermostat;
 	private $actuator;
+	private $decision;
 	private $log;
 
-	public function __construct($_thermostat, thermostatActuator $_actuator, thermostatLog $_log) {
+	public function __construct($_thermostat, thermostatActuator $_actuator, thermostatHysteresisDecision $_decision, thermostatLog $_log) {
 		$this->thermostat = $_thermostat;
 		$this->actuator = $_actuator;
+		$this->decision = $_decision;
 		$this->log = $_log;
 	}
 
@@ -56,31 +58,7 @@ class thermostatHysteresisEngine {
 		$this->thermostat->setCache('temp_threshold', 0);
 		$consigne = $this->thermostat->getCmd(null, 'order')->execCmd();
 		$this->thermostat->getCmd(null, 'order')->addHistoryValue($consigne);
-		$hysteresis_low = ($this->thermostat->getConfiguration('allow_mode', 'all') == 'heat' && $this->thermostat->getConfiguration('positiveHysteresis', 0) == 1) ? $consigne : $consigne - $this->thermostat->getConfiguration('hysteresis_threshold', 1);
-		$hysteresis_hight = ($this->thermostat->getConfiguration('allow_mode', 'all') == 'cool' && $this->thermostat->getConfiguration('positiveHysteresis', 0) == 1) ? $consigne : $consigne + $this->thermostat->getConfiguration('hysteresis_threshold', 1);
-		$this->log->debug(__('Calcul', __FILE__) . ' => ' . __('consigne', __FILE__) . ' : ' . $consigne . ' hysteresis_low : ' . $hysteresis_low . ' hysteresis_hight : ' . $hysteresis_hight . ' temp : ' . $temp . ' ' . __('état précédent', __FILE__) . ' : ' . $this->thermostat->getCache('lastState'));
-		$action = 'none';
-		if ($temp < $hysteresis_low) {
-			$action = 'heat';
-		}
-		if ($temp > $hysteresis_hight) {
-			$action = 'cool';
-		}
-		if ($action == 'heat' && $this->thermostat->getCache('lastState') == 'cool' && ($consigne - 2 * $this->thermostat->getConfiguration('hysteresis_threshold', 1)) < $temp) {
-			$action = 'none';
-		}
-		if ($action == 'cool' && $this->thermostat->getCache('lastState') == 'heat' && ($consigne + 2 * $this->thermostat->getConfiguration('hysteresis_threshold', 1)) > $temp) {
-			$action = 'none';
-		}
-		if ($status == __('Chauffage', __FILE__) && $temp > $hysteresis_hight) {
-			$action = 'stop';
-		}
-		if ($status == __('Climatisation', __FILE__) && $temp < ($consigne - $this->thermostat->getConfiguration('hysteresis_threshold', 1))) {
-			$action = 'stop';
-		}
-		if (($action == 'cool' || $action == 'heat') && $this->thermostat->getConfiguration('allow_mode', 'all') != 'all' && $this->thermostat->getConfiguration('allow_mode', 'all') != $action) {
-			$action = 'none';
-		}
+		$action = $this->decision->decide($temp, $consigne, $status, $this->thermostat->getCache('lastState'));
 
 		if ($action == 'heat') {
 			if ($status != __('Chauffage', __FILE__)) {

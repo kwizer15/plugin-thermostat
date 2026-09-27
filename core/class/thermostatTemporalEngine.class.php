@@ -24,15 +24,17 @@ class thermostatTemporalEngine {
 	private $powerCalculator;
 	private $smartStart;
 	private $coefficientLearner;
+	private $cyclePlanner;
 	private $log;
 
-	public function __construct($_thermostat, thermostatActuator $_actuator, thermostatScheduler $_scheduler, thermostatPowerCalculator $_powerCalculator, thermostatSmartStart $_smartStart, thermostatCoefficientLearner $_coefficientLearner, thermostatLog $_log) {
+	public function __construct($_thermostat, thermostatActuator $_actuator, thermostatScheduler $_scheduler, thermostatPowerCalculator $_powerCalculator, thermostatSmartStart $_smartStart, thermostatCoefficientLearner $_coefficientLearner, thermostatCyclePlanner $_cyclePlanner, thermostatLog $_log) {
 		$this->thermostat = $_thermostat;
 		$this->actuator = $_actuator;
 		$this->scheduler = $_scheduler;
 		$this->powerCalculator = $_powerCalculator;
 		$this->smartStart = $_smartStart;
 		$this->coefficientLearner = $_coefficientLearner;
+		$this->cyclePlanner = $_cyclePlanner;
 		$this->log = $_log;
 	}
 
@@ -107,15 +109,14 @@ class thermostatTemporalEngine {
 		}
 		$this->thermostat->setCache('last_power', $temporal_data['power']);
 		$cycle = jeedom::evaluateExpression($this->thermostat->getConfiguration('cycle'));
-		$duration = round(($temporal_data['power'] * $cycle) / 100);
+		$plan = $this->cyclePlanner->plan($temporal_data['power'], $cycle, $this->thermostat->getCache('lastState') == 'heat', $this->thermostat->getConfiguration('minCycleDuration', 5), $this->thermostat->getConfiguration('stove_boiler'));
+		$duration = $plan->duration();
 		$this->thermostat->setCache('lastOrder', $consigne);
 		$this->thermostat->setCache('lastTempIn', $temp_in);
 		$this->thermostat->setCache('lastTempOut', $temp_out);
 		$this->thermostat->setConfiguration('endDate', date('Y-m-d H:i:s', strtotime('+' . ceil($cycle * 0.9) . ' min ' . date('Y-m-d H:i:s'))));
 		$this->log->debug(__('Durée du cycle', __FILE__) . '  : ' . $duration);
-		$wasHeating = ($this->thermostat->getCache('lastState') == 'heat');
-		$belowMinCycle = ($temporal_data['power'] < $this->thermostat->getConfiguration('minCycleDuration', 5));
-		if (($belowMinCycle && ($this->thermostat->getConfiguration('stove_boiler') == 0 || !$wasHeating)) || ($wasHeating && $temporal_data['power'] < 1)) {
+		if ($plan->isTooShort()) {
 			$this->log->debug(__('Durée du cycle trop courte, aucun lancement', __FILE__));
 			$this->thermostat->setCache('lastState', 'stop');
 			$this->actuator->stop();
@@ -123,14 +124,9 @@ class thermostatTemporalEngine {
 			return;
 		}
 
-		if ($duration > 0 && $duration < $cycle) {
-			if ($this->thermostat->getConfiguration('stove_boiler') == 0) {
-				$this->scheduler->reschedule(date('Y-m-d H:i:s', strtotime('+' . $duration . ' min ' . date('Y-m-d H:i:s'))), true);
-			} else {
-				$this->scheduler->reschedule(null, true);
-			}
-		}
-		if ($duration >= $cycle) {
+		if ($plan->stop() == thermostatCyclePlan::STOP_AFTER) {
+			$this->scheduler->reschedule(date('Y-m-d H:i:s', strtotime('+' . $duration . ' min ' . date('Y-m-d H:i:s'))), true);
+		} else if ($plan->stop() == thermostatCyclePlan::STOP_CANCEL) {
 			$this->scheduler->reschedule(null, true);
 		}
 

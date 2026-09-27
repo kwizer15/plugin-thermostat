@@ -1,6 +1,6 @@
 <?php
 
-class InMemorySettings implements thermostatPowerSettings, thermostatLearningSettings, thermostatSmartStartSettings {
+class InMemorySettings implements thermostatPowerSettings, thermostatLearningSettings, thermostatSmartStartSettings, thermostatHysteresisSettings {
 
 	public $values = array(
 		'coeff_indoor_heat' => 10,
@@ -23,6 +23,9 @@ class InMemorySettings implements thermostatPowerSettings, thermostatLearningSet
 		'cycle' => 60,
 		'smart_start_factor' => 1,
 		'smart_start_autolearn' => 0,
+		'allow_mode' => 'all',
+		'positiveHysteresis' => 0,
+		'hysteresis_threshold' => 1,
 	);
 
 	public $published = array();
@@ -101,5 +104,17 @@ class InMemorySettings implements thermostatPowerSettings, thermostatLearningSet
 		$this->values['smart_start_factor'] = $_factor;
 		$this->values['smart_start_autolearn'] = $_count;
 		$this->published['smart_start_factor'] = $_factor;
+	}
+
+	public function allowMode() {
+		return $this->values['allow_mode'];
+	}
+
+	public function positiveHysteresis() {
+		return $this->values['positiveHysteresis'];
+	}
+
+	public function hysteresisThreshold() {
+		return $this->values['hysteresis_threshold'];
 	}
 }

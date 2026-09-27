@@ -259,6 +259,13 @@
         "thermostat": "Thermostat",
         "Vous ne pouvez faire un mode s'appelant Thermostat car une commande Thermostat existe déjà": "Sie können keinen Modus namens „Thermostat“ erstellen, da bereits ein Thermostat-Befehl vorhanden ist"
     },
+    "plugins\/thermostat\/core\/class\/thermostatHysteresisDecision.class.php": {
+        "Calcul": "Berechnung",
+        "consigne": "Anleitung",
+        "état précédent": "vorheriger Status",
+        "Chauffage": "Heizung",
+        "Climatisation": "Klimaanlage"
+    },
     "plugins\/thermostat\/core\/class\/thermostatHysteresisEngine.class.php": {
         "Lancement du calcul d'hystérésis": "Starten der Hystereseberechnung",
         "Suspendu": "Ausgesetzt",
@@ -268,9 +275,6 @@
         "Arrêté": "Verhaftet",
         "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Bitte beachten Sie, dass es seit mehr als keine Temperaturaktualisierung gibt",
         "Défaillance sonde": "Sondenfehler",
-        "Calcul": "Berechnung",
-        "consigne": "Anleitung",
-        "état précédent": "vorheriger Status",
         "Chauffage": "Heizung",
         "Climatisation": "Klimaanlage",
         "Je dois chauffer": "Ich muss aufheizen",

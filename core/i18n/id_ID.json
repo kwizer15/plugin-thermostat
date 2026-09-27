@@ -259,6 +259,13 @@
         "thermostat": "thermostat",
         "Vous ne pouvez faire un mode s'appelant Thermostat car une commande Thermostat existe déjà": "Vous ne pouvez faire un mode s'appelant Thermostat car une commande Thermostat existe déjà"
     },
+    "plugins\/thermostat\/core\/class\/thermostatHysteresisDecision.class.php": {
+        "Calcul": "Perhitungan",
+        "consigne": "pesanan",
+        "état précédent": "état précédent",
+        "Chauffage": "Pemanasan",
+        "Climatisation": "Climatisation"
+    },
     "plugins\/thermostat\/core\/class\/thermostatHysteresisEngine.class.php": {
         "Lancement du calcul d'hystérésis": "Lancement du calcul d'hystérésis",
         "Suspendu": "Suspendu",
@@ -268,9 +275,6 @@
         "Arrêté": "Berhenti",
         "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Attention il n'y a pas eu de mise à jour de la température depuis plus de",
         "Défaillance sonde": "Défaillance sonde",
-        "Calcul": "Perhitungan",
-        "consigne": "pesanan",
-        "état précédent": "état précédent",
         "Chauffage": "Pemanasan",
         "Climatisation": "Climatisation",
         "Je dois chauffer": "Je dois chauffer",
