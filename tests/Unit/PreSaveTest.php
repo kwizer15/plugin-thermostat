@@ -14,7 +14,7 @@ class PreSaveTest extends ThermostatTestCase {
 		$this->assertSame(5, $thermostat->getConfiguration('minCycleDuration'));
 		$this->assertSame(0, $thermostat->getConfiguration('offset_heat'));
 		$this->assertSame(0, $thermostat->getConfiguration('offset_cool'));
-		$this->assertSame(60, $thermostat->getConfiguration('cycle'));
+		$this->assertSame(59, $thermostat->getConfiguration('cycle'));
 		$this->assertSame(1, $thermostat->getConfiguration('smart_start'));
 		$this->assertSame(1, $thermostat->getConfiguration('autolearn'));
 		$this->assertSame(1, $thermostat->getConfiguration('coeff_indoor_cool_autolearn'));

@@ -37,7 +37,7 @@ class TemporalTest extends ThermostatTestCase {
 		$this->assertSame(19.0, $thermostat->getCache('lastTempIn'));
 		$this->assertSame(5.0, $thermostat->getCache('lastTempOut'));
 		$this->assertSame('2026-01-15 10:54:00', $thermostat->getConfiguration('endDate'));
-		$this->assertSame('00 11 15 01 *', $this->pullSchedule($thermostat));
+		$this->assertSame('59 10 15 01 *', $this->pullSchedule($thermostat));
 		$this->assertSame('24 10 15 01 *', $this->stopSchedule($thermostat));
 	}
 
@@ -69,7 +69,7 @@ class TemporalTest extends ThermostatTestCase {
 		$this->runTemporal($thermostat);
 
 		$this->assertSame(array(), $this->executed());
-		$this->assertSame('00 11 15 01 *', $this->pullSchedule($thermostat));
+		$this->assertSame('59 10 15 01 *', $this->pullSchedule($thermostat));
 		$this->assertNull($this->stopSchedule($thermostat));
 	}
 
@@ -147,7 +147,7 @@ class TemporalTest extends ThermostatTestCase {
 		$this->runTemporal($thermostat);
 
 		$this->assertSame(array('heat'), $this->executed());
-		$this->assertSame('00 01 01 01 *', $this->stopSchedule($thermostat));
+		$this->assertNull($this->stopSchedule($thermostat));
 	}
 
 	public function testStoveBoilerDoesNotStartOnLowPower() {
@@ -167,14 +167,14 @@ class TemporalTest extends ThermostatTestCase {
 		$this->assertSame(array('stop'), $this->executed());
 	}
 
-	public function testFullCycleSchedulesStopOnEpoch() {
+	public function testFullCycleSchedulesNoStop() {
 		$thermostat = $this->equippedThermostat(array(), 10, -10);
 
 		$this->runTemporal($thermostat);
 
 		$this->assertSame(array('heat'), $this->executed());
 		$this->assertSame(100.0, $this->valueOf($thermostat, 'power'));
-		$this->assertSame('00 01 01 01 *', $this->stopSchedule($thermostat));
+		$this->assertNull($this->stopSchedule($thermostat));
 	}
 
 	public function testFullCycleCancelsPendingStop() {

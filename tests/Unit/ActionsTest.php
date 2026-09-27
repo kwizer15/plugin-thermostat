@@ -157,16 +157,32 @@ class ActionsTest extends ThermostatTestCase {
 		$this->assertSame(array(), $this->executed());
 	}
 
-	public function testStopRepeatOnlyResendsActions() {
+	public function testStopRepeatResendsActionsAndResetsOutputs() {
 		$thermostat = $this->equippedThermostat();
-		$this->setValueOf($thermostat, 'status', 'Arrêté');
+		$this->setValueOf($thermostat, 'status', 'Chauffage');
 		$this->setValueOf($thermostat, 'actif', 1);
+		$this->setValueOf($thermostat, 'power', 40);
 		eqLogic::$saves = array();
 
 		$thermostat->stopThermostat(true);
 
 		$this->assertSame(array('stop'), $this->executed());
-		$this->assertSame(1, $this->valueOf($thermostat, 'actif'));
+		$this->assertSame(0, $this->valueOf($thermostat, 'actif'));
+		$this->assertSame(0.0, $this->valueOf($thermostat, 'power'));
+		$this->assertSame('Arrêté', $this->valueOf($thermostat, 'status'));
+		$this->assertSame(array(), eqLogic::$saves);
+	}
+
+	public function testStopAlreadyStoppedWithPowerResendsActions() {
+		$thermostat = $this->equippedThermostat();
+		$this->setValueOf($thermostat, 'status', 'Arrêté');
+		$this->setValueOf($thermostat, 'power', 40);
+		eqLogic::$saves = array();
+
+		$thermostat->stopThermostat();
+
+		$this->assertSame(array('stop'), $this->executed());
+		$this->assertSame(0.0, $this->valueOf($thermostat, 'power'));
 		$this->assertSame(array(), eqLogic::$saves);
 	}
 

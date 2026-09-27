@@ -77,6 +77,8 @@ class PostSaveTest extends ThermostatTestCase {
 		$this->assertSame('string', $this->cmdOf($thermostat, 'status')->getSubType());
 		$this->assertSame('%', $this->cmdOf($thermostat, 'power')->getUnite());
 		$this->assertSame(5, $this->cmdOf($thermostat, 'deltaOrder')->getConfiguration('maxValue'));
+		$this->assertSame(-100, $this->cmdOf($thermostat, 'offset_heat')->getConfiguration('minValue'));
+		$this->assertSame(-100, $this->cmdOf($thermostat, 'offset_cool')->getConfiguration('minValue'));
 	}
 
 	public function testUpdatesSetpointBoundsOnEverySave() {

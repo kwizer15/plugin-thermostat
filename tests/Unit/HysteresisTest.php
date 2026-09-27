@@ -167,11 +167,19 @@ class HysteresisTest extends ThermostatTestCase {
 		), cmd::$history);
 	}
 
-	public function testHeatingNotAllowedStops() {
+	public function testHeatingNotAllowedDoesNothing() {
 		$thermostat = $this->hysteresisThermostat(array('allow_mode' => 'cool'), 18);
 
 		$this->runHysteresis($thermostat);
 
-		$this->assertSame(array('stop'), $this->executed());
+		$this->assertSame(array(), $this->executed());
+	}
+
+	public function testCoolingNotAllowedDoesNothing() {
+		$thermostat = $this->hysteresisThermostat(array('allow_mode' => 'heat'), 22);
+
+		$this->runHysteresis($thermostat);
+
+		$this->assertSame(array(), $this->executed());
 	}
 }

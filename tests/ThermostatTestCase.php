@@ -42,9 +42,7 @@ abstract class ThermostatTestCase extends TestCase {
 
 	protected function setUp() {
 		$this->phpErrors = array();
-		$this->allowedPhpErrors = array(
-			'is_nan() expects parameter 1 to be float, string given',
-		);
+		$this->allowedPhpErrors = array();
 		set_error_handler(function ($_level, $_message, $_file, $_line) {
 			$this->phpErrors[] = $_message . ' (' . basename($_file) . ':' . $_line . ')';
 			return true;

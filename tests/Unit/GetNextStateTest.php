@@ -145,30 +145,31 @@ class GetNextStateTest extends ThermostatTestCase {
 		$this->assertSame('', $thermostat->getNextState());
 	}
 
-	public function testSetpointEventIsIgnoredWithWarnings() {
-		$this->allowPhpError('Undefined variable: options');
-		$this->allowPhpError('strtotime() expects parameter 1 to be string, array given');
+	public function testSchedulesSmartStartBeforeSetpointEvent() {
 		$thermostat = $this->thermostatWithModes(array('Confort' => '21'));
-		calendar_event::create($this->calendar(), array(array('cmd' => '#' . $this->cmdOf($thermostat, 'thermostat')->getId() . '#', 'options' => array('slider' => 22))), array(), array('null' => array('date' => '2026-01-15 18:00:00')));
+		$calendar = $this->calendar();
+		$this->eventOnStart($calendar, $this->cmdOf($thermostat, 'thermostat'), '2026-01-15 18:00:00', array('slider' => 22));
 
-		$this->assertNull($thermostat->getNextState());
-		$this->assertSame(array(), $this->smartCrons());
-		$this->assertNotEmpty($this->phpErrors());
+		$thermostat->getNextState();
+
+		$crons = $this->smartCrons();
+		$this->assertCount(1, $crons);
+		$this->assertSame('22 17 15 01 *', $crons[0]->getSchedule());
+		$next = $crons[0]->getOption()['next'];
+		$this->assertSame('thermostat', $next['type']);
+		$this->assertSame(22, $next['consigne']);
+		$this->assertSame('2026-01-15 18:00:00', $next['date']);
+		$this->assertSame($calendar->getId(), $next['calendar_id']);
 	}
 
-	public function testSetpointEventWithoutModesCrashesTemporalEngine() {
-		$this->allowPhpError('Undefined variable: mode');
+	public function testSetpointEventWithoutModes() {
 		$thermostat = $this->equippedThermostat();
 		$this->eventOnStart($this->calendar(), $this->cmdOf($thermostat, 'thermostat'), '2026-01-15 18:00:00', array('slider' => 22));
 
-		try {
-			thermostat::temporal(array('thermostat_id' => $thermostat->getId()));
-			$this->fail('Error attendue');
-		} catch (Error $e) {
-			$this->assertSame('Call to a member function getId() on null', $e->getMessage());
-		}
-		$this->assertSame(array(), $this->executed());
-		$this->assertSame('00 11 15 01 *', $this->cronWithOptions(array('thermostat_id' => $thermostat->getId()))->getSchedule());
+		thermostat::temporal(array('thermostat_id' => $thermostat->getId()));
+
+		$this->assertSame(array('heat'), $this->executed());
+		$this->assertCount(1, $this->smartCrons());
 	}
 
 	public function testTemporalRunsSmartStartWhenEnabled() {
