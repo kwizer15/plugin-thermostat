@@ -87,12 +87,8 @@ class SmartStart {
 			return '';
 		}
 		$cycle = $this->evaluator->evaluate($this->settings->cycle());
-		if ($next['date'] != '' && strtotime($next['date']) > strtotime(date('Y-m-d H:i:s', $this->clock->now()))) {
+		if (strtotime($next['date']) > strtotime(date('Y-m-d H:i:s', $this->clock->now()))) {
 			$temporal_data = $this->powerCalculator->compute($this->evaluator->evaluate($next['consigne']), $this->sensors->indoorTemperature(), $this->sensors->outdoorTemperature(), true);
-			if ($temporal_data['power'] < 0) {
-				$this->log->debug($this->translator->translate('{{Smartstart non pris en compte car power < 0 }}') . ' ' . $temporal_data['power']);
-				return;
-			}
 			$duration = round(($temporal_data['power'] * $cycle) / 100 * $this->settings->anticipationFactor());
 			if ($duration < 5) {
 				$this->log->debug($this->translator->translate('{{Smartstart non pris en compte car la durée}}') . ' ' . $duration);

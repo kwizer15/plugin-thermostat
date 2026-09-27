@@ -177,7 +177,7 @@ class Windows {
 		}
 		$this->memory->setClosedAt(str_replace('#', '', $_window['cmd']), date('Y-m-d H:i:s', $this->clock->now()));
 		$restartTime = (isset($_window['restartTime']) && $_window['restartTime'] != '') ? $_window['restartTime'] * 60 : 0;
-		if (is_numeric($restartTime) && $restartTime > 0) {
+		if ($restartTime > 0) {
 			$this->log->debug('[windowClose] ' . $this->translator->translate('{{Pause de}}') . ' ' . $restartTime . 's');
 			$this->timer->schedule(str_replace('#', '', $_window['cmd']), TimerPhase::CLOSE, $this->clock->now() + (int) $restartTime);
 			return;

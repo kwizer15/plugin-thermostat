@@ -152,7 +152,7 @@ class Actuator {
 		if ($this->display->isOff() || $this->display->status() == $this->labels->suspended()) {
 			return;
 		}
-		if (!is_array($this->settings->orderChangeActions()) || count($this->settings->orderChangeActions()) == 0) {
+		if (count($this->settings->orderChangeActions()) == 0) {
 			return;
 		}
 		$this->actions->execute($this->settings->orderChangeActions(), true, array('modeChange' => true));
@@ -165,7 +165,7 @@ class Actuator {
 		if ($this->display->isOff() || $this->display->status() == $this->labels->suspended()) {
 			return;
 		}
-		if (!is_array($this->settings->failureActions()) || count($this->settings->failureActions()) == 0) {
+		if (count($this->settings->failureActions()) == 0) {
 			return;
 		}
 		$this->log->debug($this->translator->translate('{{Action défaillance sonde}}'));
@@ -180,7 +180,7 @@ class Actuator {
 		if ($this->display->isOff() || $this->display->status() == $this->labels->suspended()) {
 			return;
 		}
-		if (!is_array($this->settings->failureActuatorActions()) || count($this->settings->failureActuatorActions()) == 0) {
+		if (count($this->settings->failureActuatorActions()) == 0) {
 			return;
 		}
 		$this->log->debug($this->translator->translate('{{Action défaillance chauffage}}'));

@@ -229,7 +229,7 @@ class thermostat extends eqLogic {
 				$scheduler->forget(Callback::HYSTERESIS);
 				$commands->definePower();
 			}
-			if ($this->getConfiguration(Key::ENGINE, EngineType::TEMPORAL) != EngineType::TEMPORAL || $this->getIsEnable() != 1) {
+			if ($this->getConfiguration(Key::ENGINE, EngineType::TEMPORAL) != EngineType::TEMPORAL) {
 				$cron = cron::byClassAndFunction(__CLASS__, Callback::PULL, array(Callback::OPTION_THERMOSTAT_ID => intval($this->getId())));
 				if (is_object($cron)) {
 					$this->stopThermostat();

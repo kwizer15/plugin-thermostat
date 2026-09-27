@@ -655,12 +655,6 @@ parameters:
 			path: core/class/thermostat.class.php
 
 		-
-			message: '#^Call to function is_array\(\) with list\<array\{cmd\: string, options\?\: array\<string, bool\|float\|int\|string\|null\>\}\> will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 3
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
 			message: '#^Parameter \#1 \$_delta of method Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Memory\:\:setDeltaOrder\(\) expects float\|int, mixed given\.$#'
 			identifier: argument.type
 			count: 1
@@ -799,12 +793,6 @@ parameters:
 			path: core/src/Domain/Learning/CoefficientLearner.php
 
 		-
-			message: '#^Call to function is_numeric\(\) with float will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: core/src/Domain/Learning/CoefficientLearner.php
-
-		-
 			message: '#^Binary operation "\*" between \-1\|1 and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 2
@@ -859,7 +847,7 @@ parameters:
 			path: core/src/Domain/SensorWatch/SensorWatch.php
 
 		-
-			message: '#^Binary operation "\*" between float\|int\<0, max\> and bool\|float\|int\|string\|null results in an error\.$#'
+			message: '#^Binary operation "\*" between float\|int and bool\|float\|int\|string\|null results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: core/src/Domain/SmartStart/SmartStart.php
@@ -910,18 +898,6 @@ parameters:
 			message: '#^Cannot access offset ''type'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 2
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Loose comparison using \!\= between non\-empty\-string and '''' will always evaluate to true\.$#'
-			identifier: notEqual.alwaysTrue
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\SmartStart\:\:plan\(\) should return string\|null but empty return statement found\.$#'
-			identifier: return.empty
-			count: 1
 			path: core/src/Domain/SmartStart/SmartStart.php
 
 		-
@@ -1041,7 +1017,13 @@ parameters:
 		-
 			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
-			count: 2
+			count: 3
+			path: core/src/Domain/Window/Windows.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
 			path: core/src/Domain/Window/Windows.php
 
 		-

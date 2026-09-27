@@ -109,9 +109,7 @@ class TemporalEngine {
 		}
 		if ($this->display->isOff()) {
 			$this->log->debug($this->translator->translate('{{Thermostat sur off}}'));
-			if ($status != $this->labels->stopped()) {
-				$this->actuator->stop();
-			}
+			$this->actuator->stop();
 			return;
 		}
 		$reading = $this->sensors->indoorReading();

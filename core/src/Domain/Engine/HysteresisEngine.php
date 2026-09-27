@@ -75,9 +75,7 @@ class HysteresisEngine {
 		}
 		if ($this->display->isOff()) {
 			$this->log->debug($this->translator->translate('{{Thermostat arrêté je ne fais rien}}'));
-			if ($status != $this->labels->stopped()) {
-				$this->actuator->stop();
-			}
+			$this->actuator->stop();
 			return;
 		}
 		$reading = $this->sensors->indoorReading();

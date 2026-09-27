@@ -97,7 +97,7 @@ class CoefficientLearner {
 	private function learnCoefficient($_key, $_measured) {
 		$count = $this->settings->learnedCount($_key);
 		$coeff = ($this->settings->coefficient($_key) * $count + $_measured) / ($count + 1);
-		if ($coeff < 0 || !is_numeric($coeff)) {
+		if ($coeff < 0) {
 			$coeff = 0;
 		}
 		$this->settings->storeCoefficient($_key, round($coeff, 2), min($count + 1, 50));
