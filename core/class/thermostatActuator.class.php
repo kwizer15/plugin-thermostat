@@ -19,11 +19,17 @@
 class thermostatActuator {
 
 	private $thermostat;
+	private $settings;
+	private $memory;
+	private $persistence;
 	private $actionList;
 	private $log;
 
-	public function __construct($_thermostat, thermostatActionList $_actionList, thermostatLog $_log) {
+	public function __construct($_thermostat, thermostatActuatorSettings $_settings, thermostatStateMemory $_memory, thermostatPersistence $_persistence, thermostatActionList $_actionList, thermostatLog $_log) {
 		$this->thermostat = $_thermostat;
+		$this->settings = $_settings;
+		$this->memory = $_memory;
+		$this->persistence = $_persistence;
 		$this->actionList = $_actionList;
 		$this->log = $_log;
 	}
@@ -33,21 +39,21 @@ class thermostatActuator {
 			if ($this->thermostat->getCmd(null, 'mode')->execCmd() == __('Off', __FILE__) || $this->thermostat->getCmd(null, 'status')->execCmd() == __('Suspendu', __FILE__)) {
 				return false;
 			}
-			if ($this->thermostat->getConfiguration('allow_mode', 'all') != 'all' && $this->thermostat->getConfiguration('allow_mode', 'all') != 'heat') {
+			if ($this->settings->allowMode() != 'all' && $this->settings->allowMode() != 'heat') {
 				$this->stop();
 				return false;
 			}
-			if (count($this->thermostat->getConfiguration('heating')) == 0) {
+			if (count($this->settings->heatingActions()) == 0) {
 				$this->stop();
 				return false;
 			}
 		}
 		$this->thermostat->getCmd(null, 'status')->event(__('Chauffage', __FILE__));
 		$this->log->debug(__('Action chauffage', __FILE__));
-		$this->actionList->execute($this->thermostat->getConfiguration('heating'), true);
+		$this->actionList->execute($this->settings->heatingActions(), true);
 		if (!$_repeat) {
-			$this->thermostat->refresh();
-			$this->thermostat->setCache('lastState', 'heat');
+			$this->persistence->reload();
+			$this->memory->setLastState('heat');
 			$this->thermostat->getCmd(null, 'actif')->event(1);
 		}
 		return true;
@@ -58,21 +64,21 @@ class thermostatActuator {
 			if ($this->thermostat->getCmd(null, 'mode')->execCmd() == __('Off', __FILE__) || $this->thermostat->getCmd(null, 'status')->execCmd() == __('Suspendu', __FILE__)) {
 				return false;
 			}
-			if ($this->thermostat->getConfiguration('allow_mode', 'all') != 'all' && $this->thermostat->getConfiguration('allow_mode', 'all') != 'cool') {
+			if ($this->settings->allowMode() != 'all' && $this->settings->allowMode() != 'cool') {
 				$this->stop();
 				return false;
 			}
-			if (count($this->thermostat->getConfiguration('cooling')) == 0) {
+			if (count($this->settings->coolingActions()) == 0) {
 				$this->stop();
 				return false;
 			}
 		}
 		$this->thermostat->getCmd(null, 'status')->event(__('Climatisation', __FILE__));
 		$this->log->debug(__('Action froid', __FILE__));
-		$this->actionList->execute($this->thermostat->getConfiguration('cooling'), true);
+		$this->actionList->execute($this->settings->coolingActions(), true);
 		if (!$_repeat) {
-			$this->thermostat->refresh();
-			$this->thermostat->setCache('lastState', 'cool');
+			$this->persistence->reload();
+			$this->memory->setLastState('cool');
 			$this->thermostat->getCmd(null, 'actif')->event(1);
 		}
 		return true;
@@ -88,7 +94,7 @@ class thermostatActuator {
 			}
 		}
 		$this->log->debug(__('Action stop', __FILE__));
-		$this->actionList->execute($this->thermostat->getConfiguration('stoping'), true);
+		$this->actionList->execute($this->settings->stoppingActions(), true);
 		$power = $this->thermostat->getCmd(null, 'power');
 		if (is_object($power)) {
 			$power->event(0);
@@ -101,28 +107,28 @@ class thermostatActuator {
 		if ($_repeat) {
 			return;
 		}
-		$this->thermostat->save(true);
+		$this->persistence->persist();
 	}
 
 	public function orderChange() {
 		if ($this->thermostat->getCmd(null, 'mode')->execCmd() == __('Off', __FILE__) || $this->thermostat->getCmd(null, 'status')->execCmd() == __('Suspendu', __FILE__)) {
 			return;
 		}
-		if (!is_array($this->thermostat->getConfiguration('orderChange')) || count($this->thermostat->getConfiguration('orderChange')) == 0) {
+		if (!is_array($this->settings->orderChangeActions()) || count($this->settings->orderChangeActions()) == 0) {
 			return;
 		}
-		$this->actionList->execute($this->thermostat->getConfiguration('orderChange'), true, array('modeChange' => true));
+		$this->actionList->execute($this->settings->orderChangeActions(), true, array('modeChange' => true));
 	}
 
 	public function failure() {
 		if ($this->thermostat->getCmd(null, 'mode')->execCmd() == __('Off', __FILE__) || $this->thermostat->getCmd(null, 'status')->execCmd() == __('Suspendu', __FILE__)) {
 			return;
 		}
-		if (!is_array($this->thermostat->getConfiguration('failure')) || count($this->thermostat->getConfiguration('failure')) == 0) {
+		if (!is_array($this->settings->failureActions()) || count($this->settings->failureActions()) == 0) {
 			return;
 		}
 		$this->log->debug(__('Action défaillance sonde', __FILE__));
-		$this->actionList->execute($this->thermostat->getConfiguration('failure'), false);
+		$this->actionList->execute($this->settings->failureActions(), false);
 		$this->thermostat->getCmd(null, 'status')->event(__('Défaillance sonde', __FILE__));
 	}
 
@@ -130,18 +136,18 @@ class thermostatActuator {
 		if ($this->thermostat->getCmd(null, 'mode')->execCmd() == __('Off', __FILE__) || $this->thermostat->getCmd(null, 'status')->execCmd() == __('Suspendu', __FILE__)) {
 			return;
 		}
-		if (!is_array($this->thermostat->getConfiguration('failureActuator')) || count($this->thermostat->getConfiguration('failureActuator')) == 0) {
+		if (!is_array($this->settings->failureActuatorActions()) || count($this->settings->failureActuatorActions()) == 0) {
 			return;
 		}
 		$this->log->debug(__('Action défaillance chauffage', __FILE__));
-		$this->actionList->execute($this->thermostat->getConfiguration('failureActuator'), false);
+		$this->actionList->execute($this->settings->failureActuatorActions(), false);
 		$this->thermostat->getCmd(null, 'status')->event(__('Défaillance chauffage', __FILE__));
 	}
 
 	public function executeMode($_name) {
 		$thermostatCmd = false;
 		$consigne = $this->thermostat->getCmd(null, 'order')->execCmd();
-		foreach ($this->thermostat->getConfiguration('existingMode') as $existingMode) {
+		foreach ($this->settings->modes() as $existingMode) {
 			if ($_name == $existingMode['name']) {
 				foreach ($existingMode['actions'] as $action) {
 					try {

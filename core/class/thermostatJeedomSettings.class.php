@@ -16,7 +16,7 @@
 * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 */
 
-class thermostatJeedomSettings implements thermostatPowerSettings, thermostatLearningSettings, thermostatSmartStartSettings, thermostatHysteresisSettings {
+class thermostatJeedomSettings implements thermostatPowerSettings, thermostatLearningSettings, thermostatSmartStartSettings, thermostatHysteresisSettings, thermostatActuatorSettings {
 
 	private $eqLogic;
 
@@ -106,5 +106,32 @@ class thermostatJeedomSettings implements thermostatPowerSettings, thermostatLea
 
 	public function hysteresisThreshold() {
 		return $this->eqLogic->getConfiguration('hysteresis_threshold', 1);
+	}
+	public function heatingActions() {
+		return $this->eqLogic->getConfiguration('heating');
+	}
+
+	public function coolingActions() {
+		return $this->eqLogic->getConfiguration('cooling');
+	}
+
+	public function stoppingActions() {
+		return $this->eqLogic->getConfiguration('stoping');
+	}
+
+	public function orderChangeActions() {
+		return $this->eqLogic->getConfiguration('orderChange');
+	}
+
+	public function failureActions() {
+		return $this->eqLogic->getConfiguration('failure');
+	}
+
+	public function failureActuatorActions() {
+		return $this->eqLogic->getConfiguration('failureActuator');
+	}
+
+	public function modes() {
+		return $this->eqLogic->getConfiguration('existingMode');
 	}
 }
