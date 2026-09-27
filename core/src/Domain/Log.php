@@ -20,7 +20,15 @@ namespace Jeedom\Plugin\Thermostat\Domain;
 
 interface Log {
 
+	/**
+	 * @param string $_message
+	 * @return void
+	 */
 	public function debug($_message);
 
+	/**
+	 * @param string $_message
+	 * @return void
+	 */
 	public function error($_message);
 }

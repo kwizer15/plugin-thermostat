@@ -20,11 +20,28 @@ namespace Jeedom\Plugin\Thermostat\Domain\Statistics;
 
 interface History {
 
+	/**
+	 * @param string $_start
+	 * @param string $_end
+	 * @return array<string, mixed>|null
+	 */
 	public function outdoorStatistics($_start, $_end);
 
+	/**
+	 * @param string $_start
+	 * @param string $_end
+	 * @return list<array{datetime: string, value: mixed}>|null
+	 */
 	public function activeHistory($_start, $_end);
 
+	/**
+	 * @return bool
+	 */
 	public function hasPerformance();
 
+	/**
+	 * @param int|float $_performance
+	 * @return void
+	 */
 	public function publishPerformance($_performance);
 }

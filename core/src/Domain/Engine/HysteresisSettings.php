@@ -20,9 +20,18 @@ namespace Jeedom\Plugin\Thermostat\Domain\Engine;
 
 interface HysteresisSettings {
 
+	/**
+	 * @return string
+	 */
 	public function allowMode();
 
+	/**
+	 * @return int|string
+	 */
 	public function positiveHysteresis();
 
+	/**
+	 * @return int|float|string
+	 */
 	public function hysteresisThreshold();
 }

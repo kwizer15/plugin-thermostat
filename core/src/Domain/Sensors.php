@@ -20,9 +20,15 @@ namespace Jeedom\Plugin\Thermostat\Domain;
 
 interface Sensors {
 
+	/**
+	 * @return scalar|null
+	 */
 	public function indoorTemperature();
 
+	/**
+	 * @return scalar|null
+	 */
 	public function outdoorTemperature();
 
-	public function indoorReading();
+	public function indoorReading(): Reading;
 }

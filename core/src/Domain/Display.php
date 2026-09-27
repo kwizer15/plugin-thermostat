@@ -20,33 +20,84 @@ namespace Jeedom\Plugin\Thermostat\Domain;
 
 interface Display {
 
+	/**
+	 * @return scalar|null
+	 */
 	public function status();
 
+	/**
+	 * @param string $_status
+	 * @return void
+	 */
 	public function setStatus($_status);
 
+	/**
+	 * @return scalar|null
+	 */
 	public function mode();
 
+	/**
+	 * @param string $_mode
+	 * @return void
+	 */
 	public function setMode($_mode);
 
+	/**
+	 * @return scalar|null
+	 */
 	public function setpoint();
 
+	/**
+	 * @param scalar|null $_value
+	 * @return void
+	 */
 	public function setSetpoint($_value);
 
+	/**
+	 * @param scalar|null $_value
+	 * @return void
+	 */
 	public function historizeSetpoint($_value);
 
+	/**
+	 * @param int $_active
+	 * @return void
+	 */
 	public function setActive($_active);
 
+	/**
+	 * @return scalar|null
+	 */
 	public function power();
 
+	/**
+	 * @param int|float $_power
+	 * @return void
+	 */
 	public function setPower($_power);
 
+	/**
+	 * @return bool
+	 */
 	public function locked();
 
+	/**
+	 * @return bool
+	 */
 	public function hasLockState();
 
+	/**
+	 * @return void
+	 */
 	public function lock();
 
+	/**
+	 * @return void
+	 */
 	public function unlock();
 
+	/**
+	 * @return void
+	 */
 	public function refreshWidget();
 }

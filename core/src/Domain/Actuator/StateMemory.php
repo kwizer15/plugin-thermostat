@@ -20,7 +20,14 @@ namespace Jeedom\Plugin\Thermostat\Domain\Actuator;
 
 interface StateMemory {
 
+	/**
+	 * @return string
+	 */
 	public function lastState();
 
+	/**
+	 * @param string $_state
+	 * @return void
+	 */
 	public function setLastState($_state);
 }

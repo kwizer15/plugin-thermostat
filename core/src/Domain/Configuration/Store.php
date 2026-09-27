@@ -20,9 +20,22 @@ namespace Jeedom\Plugin\Thermostat\Domain\Configuration;
 
 interface Store {
 
+	/**
+	 * @param string $_key
+	 * @param mixed $_default
+	 * @return mixed
+	 */
 	public function value($_key, $_default = '');
 
+	/**
+	 * @param string $_key
+	 * @param mixed $_value
+	 * @return void
+	 */
 	public function change($_key, $_value);
 
+	/**
+	 * @return void
+	 */
 	public function markAsHeating();
 }

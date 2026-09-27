@@ -20,9 +20,19 @@ namespace Jeedom\Plugin\Thermostat\Domain\SmartStart;
 
 interface Calendar {
 
+	/**
+	 * @return bool
+	 */
 	public function available();
 
+	/**
+	 * @return array{date: string, event: object, calendar_id: int|string, consigne: mixed, type: string, cmd?: int|string}|null
+	 */
 	public function nextEvent();
 
+	/**
+	 * @param int|string $_calendarId
+	 * @return bool
+	 */
 	public function isInactive($_calendarId);
 }

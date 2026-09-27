@@ -20,5 +20,9 @@ namespace Jeedom\Plugin\Thermostat\Domain\Command;
 
 interface Memory {
 
+	/**
+	 * @param int|float $_delta
+	 * @return void
+	 */
 	public function setDeltaOrder($_delta);
 }

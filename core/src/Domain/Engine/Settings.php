@@ -20,21 +20,50 @@ namespace Jeedom\Plugin\Thermostat\Domain\Engine;
 
 interface Settings {
 
+	/**
+	 * @return int|float|string
+	 */
 	public function cycle();
 
+	/**
+	 * @return int|float|string
+	 */
 	public function maxTimeUpdateTemp();
 
+	/**
+	 * @return bool
+	 */
 	public function smartStartEnabled();
 
+	/**
+	 * @return int|string
+	 */
 	public function stoveBoiler();
 
+	/**
+	 * @return int|float|string
+	 */
 	public function minCycleDuration();
 
+	/**
+	 * @return int|float|string
+	 */
 	public function heatFailureOffset();
 
+	/**
+	 * @return int|float|string
+	 */
 	public function coldFailureOffset();
 
+	/**
+	 * @param string $_key
+	 * @return int|float|string
+	 */
 	public function learnedCount($_key);
 
+	/**
+	 * @param string $_datetime
+	 * @return void
+	 */
 	public function setCycleEndDate($_datetime);
 }

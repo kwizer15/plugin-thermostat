@@ -20,11 +20,24 @@ namespace Jeedom\Plugin\Thermostat\Domain\Power;
 
 interface Memory {
 
+	/**
+	 * @return string
+	 */
 	public function lastState();
 
+	/**
+	 * @return int|float|string
+	 */
 	public function lastPower();
 
+	/**
+	 * @return int|float|string
+	 */
 	public function temperatureAlert();
 
+	/**
+	 * @param int $_alert
+	 * @return void
+	 */
 	public function setTemperatureAlert($_alert);
 }

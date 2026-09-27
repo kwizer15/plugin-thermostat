@@ -20,15 +20,35 @@ namespace Jeedom\Plugin\Thermostat\Domain\SmartStart;
 
 interface Settings {
 
+	/**
+	 * @return string
+	 */
 	public function engine();
 
+	/**
+	 * @return int|float|string
+	 */
 	public function cycle();
 
+	/**
+	 * @return int|float|string
+	 */
 	public function anticipationFactor();
 
+	/**
+	 * @return int|float|string
+	 */
 	public function anticipationCount();
 
+	/**
+	 * @param int|float $_factor
+	 * @param int|float $_count
+	 * @return void
+	 */
 	public function storeAnticipation($_factor, $_count);
 
+	/**
+	 * @return bool
+	 */
 	public function smartStartEnabled();
 }

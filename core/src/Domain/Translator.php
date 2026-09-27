@@ -20,5 +20,9 @@ namespace Jeedom\Plugin\Thermostat\Domain;
 
 interface Translator {
 
+	/**
+	 * @param string $_text
+	 * @return string
+	 */
 	public function translate($_text);
 }

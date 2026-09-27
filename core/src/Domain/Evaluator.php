@@ -20,5 +20,9 @@ namespace Jeedom\Plugin\Thermostat\Domain;
 
 interface Evaluator {
 
+	/**
+	 * @param scalar|null $_expression
+	 * @return scalar|null
+	 */
 	public function evaluate($_expression);
 }

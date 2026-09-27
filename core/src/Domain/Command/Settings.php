@@ -20,7 +20,16 @@ namespace Jeedom\Plugin\Thermostat\Domain\Command;
 
 interface Settings {
 
+	/**
+	 * @param string $_key
+	 * @param scalar|null $_value
+	 * @return void
+	 */
 	public function setOffset($_key, $_value);
 
+	/**
+	 * @param string $_mode
+	 * @return void
+	 */
 	public function setAllowMode($_mode);
 }

@@ -20,9 +20,18 @@ namespace Jeedom\Plugin\Thermostat\Domain\SensorWatch;
 
 interface Settings {
 
+	/**
+	 * @return int|float|string
+	 */
 	public function maxTimeUpdateTemp();
 
+	/**
+	 * @return int|float|string
+	 */
 	public function indoorMinimum();
 
+	/**
+	 * @return int|float|string
+	 */
 	public function indoorMaximum();
 }

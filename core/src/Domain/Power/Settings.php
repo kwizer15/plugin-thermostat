@@ -20,17 +20,41 @@ namespace Jeedom\Plugin\Thermostat\Domain\Power;
 
 interface Settings {
 
+	/**
+	 * @param int|float $_direction
+	 * @return int|float|string
+	 */
 	public function coefficientIndoor($_direction);
 
+	/**
+	 * @param int|float $_direction
+	 * @return int|float|string
+	 */
 	public function coefficientOutdoor($_direction);
 
+	/**
+	 * @param int|float $_direction
+	 * @return int|float|string
+	 */
 	public function offset($_direction);
 
+	/**
+	 * @return int|float|string
+	 */
 	public function directionDeltaHeat();
 
+	/**
+	 * @return int|float|string
+	 */
 	public function directionDeltaCool();
 
+	/**
+	 * @return int|float|string
+	 */
 	public function nextFullCycleOffset();
 
+	/**
+	 * @return int|float|string
+	 */
 	public function heatHotThreshold();
 }

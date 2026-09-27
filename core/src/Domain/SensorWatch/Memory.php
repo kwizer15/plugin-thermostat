@@ -20,7 +20,14 @@ namespace Jeedom\Plugin\Thermostat\Domain\SensorWatch;
 
 interface Memory {
 
+	/**
+	 * @return int|float|string
+	 */
 	public function temperatureAlert();
 
+	/**
+	 * @param int $_alert
+	 * @return void
+	 */
 	public function setTemperatureAlert($_alert);
 }

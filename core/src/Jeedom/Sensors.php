@@ -37,7 +37,7 @@ class Sensors implements DomainSensors {
 	public function outdoorTemperature() {
 		return $this->eqLogic->getCmd(null, 'temperature_outdoor')->execCmd();
 	}
-	public function indoorReading() {
+	public function indoorReading(): Reading {
 		$cmd = $this->eqLogic->getCmd(null, 'temperature');
 		$value = $cmd->execCmd();
 		return new Reading($value, $cmd->getCollectDate(), $cmd->getValueDate());

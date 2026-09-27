@@ -20,7 +20,13 @@ namespace Jeedom\Plugin\Thermostat\Domain\Window;
 
 interface Settings {
 
+	/**
+	 * @return list<array<string, mixed>>|string
+	 */
 	public function windows();
 
+	/**
+	 * @return int|float|string
+	 */
 	public function windowAlertDelay();
 }

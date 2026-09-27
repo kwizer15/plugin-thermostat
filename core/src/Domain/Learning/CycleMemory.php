@@ -20,13 +20,28 @@ namespace Jeedom\Plugin\Thermostat\Domain\Learning;
 
 interface CycleMemory {
 
+	/**
+	 * @return string
+	 */
 	public function lastState();
 
+	/**
+	 * @return int|float|string
+	 */
 	public function lastPower();
 
+	/**
+	 * @return int|float|string
+	 */
 	public function lastOrder();
 
+	/**
+	 * @return int|float|string
+	 */
 	public function lastTempIn();
 
+	/**
+	 * @return int|float|string
+	 */
 	public function consecutiveFailures();
 }

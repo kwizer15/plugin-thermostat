@@ -20,9 +20,21 @@ namespace Jeedom\Plugin\Thermostat\Domain\SmartStart;
 
 interface Controls {
 
+	/**
+	 * @param scalar|null $_value
+	 * @return void
+	 */
 	public function requestSetpoint($_value);
 
+	/**
+	 * @param int|string $_cmdId
+	 * @return bool
+	 */
 	public function modeExists($_cmdId);
 
+	/**
+	 * @param int|string $_cmdId
+	 * @return void
+	 */
 	public function runMode($_cmdId);
 }

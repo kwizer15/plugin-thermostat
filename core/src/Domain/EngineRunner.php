@@ -20,5 +20,8 @@ namespace Jeedom\Plugin\Thermostat\Domain;
 
 interface EngineRunner {
 
+	/**
+	 * @return void
+	 */
 	public function run();
 }

@@ -20,29 +20,75 @@ namespace Jeedom\Plugin\Thermostat\Domain\Engine;
 
 interface Memory {
 
+	/**
+	 * @return string
+	 */
 	public function lastState();
 
+	/**
+	 * @param string $_state
+	 * @return void
+	 */
 	public function setLastState($_state);
 
+	/**
+	 * @return int|float|string
+	 */
 	public function temperatureAlert();
 
+	/**
+	 * @param int $_alert
+	 * @return void
+	 */
 	public function setTemperatureAlert($_alert);
 
+	/**
+	 * @return int|float|string
+	 */
 	public function lastOrder();
 
+	/**
+	 * @param scalar|null $_order
+	 * @return void
+	 */
 	public function setLastOrder($_order);
 
+	/**
+	 * @return int|float|string
+	 */
 	public function lastTempIn();
 
+	/**
+	 * @param scalar|null $_temperature
+	 * @return void
+	 */
 	public function setLastTempIn($_temperature);
 
+	/**
+	 * @param scalar|null $_temperature
+	 * @return void
+	 */
 	public function setLastTempOut($_temperature);
 
+	/**
+	 * @param int|float $_power
+	 * @return void
+	 */
 	public function setLastPower($_power);
 
+	/**
+	 * @return int|float|string
+	 */
 	public function consecutiveFailures();
 
+	/**
+	 * @param int|float $_count
+	 * @return void
+	 */
 	public function setConsecutiveFailures($_count);
 
+	/**
+	 * @return int|float|string
+	 */
 	public function deltaOrder();
 }

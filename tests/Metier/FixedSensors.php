@@ -24,7 +24,7 @@ class FixedSensors implements Sensors {
 		return $this->outdoor;
 	}
 
-	public function indoorReading() {
+	public function indoorReading(): Reading {
 		return new Reading($this->indoor, $this->collectDate, $this->collectDate);
 	}
 }

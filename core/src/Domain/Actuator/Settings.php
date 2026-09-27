@@ -20,19 +20,43 @@ namespace Jeedom\Plugin\Thermostat\Domain\Actuator;
 
 interface Settings {
 
+	/**
+	 * @return string
+	 */
 	public function allowMode();
 
+	/**
+	 * @return list<array<string, mixed>>|string
+	 */
 	public function heatingActions();
 
+	/**
+	 * @return list<array<string, mixed>>|string
+	 */
 	public function coolingActions();
 
+	/**
+	 * @return list<array<string, mixed>>|string
+	 */
 	public function stoppingActions();
 
+	/**
+	 * @return list<array<string, mixed>>|string
+	 */
 	public function orderChangeActions();
 
+	/**
+	 * @return list<array<string, mixed>>|string
+	 */
 	public function failureActions();
 
+	/**
+	 * @return list<array<string, mixed>>|string
+	 */
 	public function failureActuatorActions();
 
+	/**
+	 * @return list<array<string, mixed>>|string
+	 */
 	public function modes();
 }

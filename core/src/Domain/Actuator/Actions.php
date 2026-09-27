@@ -20,7 +20,18 @@ namespace Jeedom\Plugin\Thermostat\Domain\Actuator;
 
 interface Actions {
 
+	/**
+	 * @param list<array<string, mixed>> $_actions
+	 * @param bool $_skipOwnCmds
+	 * @param array<string, mixed> $_extraOptions
+	 * @return void
+	 */
 	public function execute($_actions, $_skipOwnCmds, $_extraOptions = array());
 
+	/**
+	 * @param list<array<string, mixed>> $_actions
+	 * @param scalar|null $_consigne
+	 * @return bool
+	 */
 	public function applyMode($_actions, $_consigne);
 }

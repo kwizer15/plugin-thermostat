@@ -20,9 +20,18 @@ namespace Jeedom\Plugin\Thermostat\Domain;
 
 interface Persistence {
 
+	/**
+	 * @return void
+	 */
 	public function reload();
 
+	/**
+	 * @return void
+	 */
 	public function persist();
 
+	/**
+	 * @return void
+	 */
 	public function saveWithCommands();
 }

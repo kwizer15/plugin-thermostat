@@ -20,13 +20,33 @@ namespace Jeedom\Plugin\Thermostat\Domain\Learning;
 
 interface Settings {
 
+	/**
+	 * @return int|string
+	 */
 	public function autolearn();
 
+	/**
+	 * @return string
+	 */
 	public function cycleEndDate();
 
+	/**
+	 * @param string $_key
+	 * @return int|float|string
+	 */
 	public function coefficient($_key);
 
+	/**
+	 * @param string $_key
+	 * @return int|float|string
+	 */
 	public function learnedCount($_key);
 
+	/**
+	 * @param string $_key
+	 * @param int|float $_coefficient
+	 * @param int|float $_count
+	 * @return void
+	 */
 	public function storeCoefficient($_key, $_coefficient, $_count);
 }

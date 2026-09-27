@@ -20,7 +20,14 @@ namespace Jeedom\Plugin\Thermostat\Domain\SmartStart;
 
 interface Memory {
 
+	/**
+	 * @return array{start: string, date: string, consigne: scalar|null, temperature: scalar|null}|string|null
+	 */
 	public function smartStart();
 
+	/**
+	 * @param array{start: string, date: string, consigne: scalar|null, temperature: scalar|null}|null $_smartStart
+	 * @return void
+	 */
 	public function setSmartStart($_smartStart);
 }

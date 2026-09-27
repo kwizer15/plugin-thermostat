@@ -20,5 +20,11 @@ namespace Jeedom\Plugin\Thermostat\Domain;
 
 interface Scheduling {
 
+	/**
+	 * @param string|null $_next
+	 * @param bool $_stop
+	 * @param array<string, mixed>|false $_smartThermostat
+	 * @return void
+	 */
 	public function reschedule($_next = null, $_stop = false, $_smartThermostat = false);
 }

@@ -20,5 +20,8 @@ namespace Jeedom\Plugin\Thermostat\Domain\Statistics;
 
 interface Settings {
 
+	/**
+	 * @return int|float|string
+	 */
 	public function consumption();
 }

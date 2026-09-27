@@ -20,19 +20,51 @@ namespace Jeedom\Plugin\Thermostat\Domain\Window;
 
 interface Memory {
 
+	/**
+	 * @param int|string $_cmdId
+	 * @return int|float|string
+	 */
 	public function windowState($_cmdId);
 
+	/**
+	 * @param int|string $_cmdId
+	 * @param int $_state
+	 * @return void
+	 */
 	public function setWindowState($_cmdId, $_state);
 
+	/**
+	 * @param int|string $_cmdId
+	 * @return string
+	 */
 	public function closedAt($_cmdId);
 
+	/**
+	 * @param int|string $_cmdId
+	 * @param string $_datetime
+	 * @return void
+	 */
 	public function setClosedAt($_cmdId, $_datetime);
 
+	/**
+	 * @return int|float|string
+	 */
 	public function openSince();
 
+	/**
+	 * @param int $_timestamp
+	 * @return void
+	 */
 	public function setOpenSince($_timestamp);
 
+	/**
+	 * @return int|float|string
+	 */
 	public function alertSent();
 
+	/**
+	 * @param int $_sent
+	 * @return void
+	 */
 	public function setAlertSent($_sent);
 }

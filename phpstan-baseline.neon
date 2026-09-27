@@ -727,62 +727,8 @@ parameters:
 			path: core/src/Assembly.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actions\:\:applyMode\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Actuator/Actions.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actions\:\:applyMode\(\) has parameter \$_actions with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Actuator/Actions.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actions\:\:applyMode\(\) has parameter \$_consigne with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Actuator/Actions.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actions\:\:execute\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Actuator/Actions.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actions\:\:execute\(\) has parameter \$_actions with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Actuator/Actions.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actions\:\:execute\(\) has parameter \$_extraOptions with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Actuator/Actions.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actions\:\:execute\(\) has parameter \$_skipOwnCmds with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Actuator/Actions.php
-
-		-
-			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			message: '#^Argument of an invalid type list\<array\<string, mixed\>\>\|string supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
-			count: 1
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot access offset ''actions'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Cannot access offset ''name'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
 			path: core/src/Domain/Actuator/Actuator.php
 
@@ -865,76 +811,34 @@ parameters:
 			path: core/src/Domain/Actuator/Actuator.php
 
 		-
-			message: '#^Parameter \#1 \$var of function count expects array\|Countable, mixed given\.$#'
+			message: '#^Parameter \#1 \$_actions of method Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actions\:\:applyMode\(\) expects list\<array\<string, mixed\>\>, mixed given\.$#'
 			identifier: argument.type
-			count: 2
+			count: 1
 			path: core/src/Domain/Actuator/Actuator.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Settings\:\:allowMode\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Actuator/Settings.php
+			message: '#^Parameter \#1 \$_actions of method Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actions\:\:execute\(\) expects list\<array\<string, mixed\>\>, list\<array\<string, mixed\>\>\|string given\.$#'
+			identifier: argument.type
+			count: 3
+			path: core/src/Domain/Actuator/Actuator.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Settings\:\:coolingActions\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Parameter \#1 \$_mode of method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:setMode\(\) expects string, mixed given\.$#'
+			identifier: argument.type
 			count: 1
-			path: core/src/Domain/Actuator/Settings.php
+			path: core/src/Domain/Actuator/Actuator.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Settings\:\:failureActions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Actuator/Settings.php
+			message: '#^Parameter \#1 \$_status of method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:setStatus\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 5
+			path: core/src/Domain/Actuator/Actuator.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Settings\:\:failureActuatorActions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Actuator/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Settings\:\:heatingActions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Actuator/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Settings\:\:modes\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Actuator/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Settings\:\:orderChangeActions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Actuator/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Settings\:\:stoppingActions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Actuator/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\StateMemory\:\:lastState\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Actuator/StateMemory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\StateMemory\:\:setLastState\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Actuator/StateMemory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\StateMemory\:\:setLastState\(\) has parameter \$_state with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Actuator/StateMemory.php
+			message: '#^Parameter \#1 \$var of function count expects array\|Countable, list\<array\<string, mixed\>\>\|string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: core/src/Domain/Actuator/Actuator.php
 
 		-
 			message: '#^Cannot access offset ''modeChange'' on mixed\.$#'
@@ -985,52 +889,46 @@ parameters:
 			path: core/src/Domain/Command/Handler.php
 
 		-
-			message: '#^Parameter \#3 \$subject of function str_replace expects array\<string\>\|string, mixed given\.$#'
+			message: '#^Parameter \#1 \$_delta of method Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Memory\:\:setDeltaOrder\(\) expects float\|int, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: core/src/Domain/Command/Handler.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Memory\:\:setDeltaOrder\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Parameter \#1 \$_key of method Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Settings\:\:setOffset\(\) expects string, mixed given\.$#'
+			identifier: argument.type
 			count: 1
-			path: core/src/Domain/Command/Memory.php
+			path: core/src/Domain/Command/Handler.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Memory\:\:setDeltaOrder\(\) has parameter \$_delta with no type specified\.$#'
-			identifier: missingType.parameter
+			message: '#^Parameter \#1 \$_mode of method Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Settings\:\:setAllowMode\(\) expects string, mixed given\.$#'
+			identifier: argument.type
 			count: 1
-			path: core/src/Domain/Command/Memory.php
+			path: core/src/Domain/Command/Handler.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Settings\:\:setAllowMode\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Command/Settings.php
+			message: '#^Parameter \#1 \$_mode of method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:setMode\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: core/src/Domain/Command/Handler.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Settings\:\:setAllowMode\(\) has parameter \$_mode with no type specified\.$#'
-			identifier: missingType.parameter
+			message: '#^Parameter \#1 \$_status of method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:setStatus\(\) expects string, mixed given\.$#'
+			identifier: argument.type
 			count: 1
-			path: core/src/Domain/Command/Settings.php
+			path: core/src/Domain/Command/Handler.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Settings\:\:setOffset\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Parameter \#1 \$_value of method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:setSetpoint\(\) expects bool\|float\|int\|string\|null, mixed given\.$#'
+			identifier: argument.type
 			count: 1
-			path: core/src/Domain/Command/Settings.php
+			path: core/src/Domain/Command/Handler.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Settings\:\:setOffset\(\) has parameter \$_key with no type specified\.$#'
-			identifier: missingType.parameter
+			message: '#^Parameter \#3 \$subject of function str_replace expects array\<string\>\|string, mixed given\.$#'
+			identifier: argument.type
 			count: 1
-			path: core/src/Domain/Command/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Command\\Settings\:\:setOffset\(\) has parameter \$_value with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Command/Settings.php
+			path: core/src/Domain/Command/Handler.php
 
 		-
 			message: '#^Cannot access offset ''name'' on mixed\.$#'
@@ -1045,12 +943,6 @@ parameters:
 			path: core/src/Domain/Configuration/Configuration.php
 
 		-
-			message: '#^Parameter \#1 \$message of class Exception constructor expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 6
-			path: core/src/Domain/Configuration/Configuration.php
-
-		-
 			message: '#^Parameter \#1 \$str of function strtolower expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 3
@@ -1061,48 +953,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: core/src/Domain/Configuration/Configuration.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Configuration\\Store\:\:change\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Configuration/Store.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Configuration\\Store\:\:change\(\) has parameter \$_key with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Configuration/Store.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Configuration\\Store\:\:change\(\) has parameter \$_value with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Configuration/Store.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Configuration\\Store\:\:markAsHeating\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Configuration/Store.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Configuration\\Store\:\:value\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Configuration/Store.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Configuration\\Store\:\:value\(\) has parameter \$_default with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Configuration/Store.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Configuration\\Store\:\:value\(\) has parameter \$_key with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Configuration/Store.php
 
 		-
 			message: '#^Binary operation "\*" between mixed and mixed results in an error\.$#'
@@ -1147,139 +997,13 @@ parameters:
 			path: core/src/Domain/Cycle/Planner.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:hasLockState\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:historizeSetpoint\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:historizeSetpoint\(\) has parameter \$_value with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:lock\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:locked\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:mode\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:power\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:refreshWidget\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:setActive\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:setActive\(\) has parameter \$_active with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:setMode\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:setMode\(\) has parameter \$_mode with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:setPower\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:setPower\(\) has parameter \$_power with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:setSetpoint\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:setSetpoint\(\) has parameter \$_value with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:setStatus\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:setStatus\(\) has parameter \$_status with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:setpoint\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:status\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:unlock\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Display.php
-
-		-
-			message: '#^Binary operation "\*" between 2 and mixed results in an error\.$#'
+			message: '#^Binary operation "\*" between 2 and float\|int\|string results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 2
 			path: core/src/Domain/Engine/HysteresisDecision.php
 
 		-
-			message: '#^Binary operation "\+" between mixed and \(float\|int\) results in an error\.$#'
+			message: '#^Binary operation "\+" between mixed and float\|int\|string results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: core/src/Domain/Engine/HysteresisDecision.php
@@ -1291,19 +1015,13 @@ parameters:
 			path: core/src/Domain/Engine/HysteresisDecision.php
 
 		-
-			message: '#^Binary operation "\-" between mixed and \(float\|int\) results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: core/src/Domain/Engine/HysteresisDecision.php
-
-		-
-			message: '#^Binary operation "\-" between mixed and mixed results in an error\.$#'
+			message: '#^Binary operation "\-" between mixed and float\|int\|string results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 2
 			path: core/src/Domain/Engine/HysteresisDecision.php
 
 		-
-			message: '#^Binary operation "\." between mixed and '' \=\> '' results in an error\.$#'
+			message: '#^Binary operation "\-" between mixed and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: core/src/Domain/Engine/HysteresisDecision.php
@@ -1311,7 +1029,7 @@ parameters:
 		-
 			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
-			count: 7
+			count: 5
 			path: core/src/Domain/Engine/HysteresisDecision.php
 
 		-
@@ -1345,38 +1063,14 @@ parameters:
 			path: core/src/Domain/Engine/HysteresisDecision.php
 
 		-
-			message: '#^Binary operation "\." between ''\-'' and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Binary operation "\." between mixed and '' \: '' results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 2
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Cannot call method collectDate\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
-			message: '#^Cannot call method value\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Engine/HysteresisEngine.php
-
-		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisEngine\:\:run\(\) has no return type specified\.$#'
 			identifier: missingType.return
+			count: 1
+			path: core/src/Domain/Engine/HysteresisEngine.php
+
+		-
+			message: '#^Parameter \#1 \$_status of method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:setStatus\(\) expects string, mixed given\.$#'
+			identifier: argument.type
 			count: 1
 			path: core/src/Domain/Engine/HysteresisEngine.php
 
@@ -1387,225 +1081,27 @@ parameters:
 			path: core/src/Domain/Engine/HysteresisEngine.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisSettings\:\:allowMode\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Engine/HysteresisSettings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisSettings\:\:hysteresisThreshold\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Engine/HysteresisSettings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\HysteresisSettings\:\:positiveHysteresis\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Engine/HysteresisSettings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Memory\:\:consecutiveFailures\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Engine/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Memory\:\:deltaOrder\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Engine/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Memory\:\:lastOrder\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Engine/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Memory\:\:lastState\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Engine/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Memory\:\:lastTempIn\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Engine/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Memory\:\:setConsecutiveFailures\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Engine/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Memory\:\:setConsecutiveFailures\(\) has parameter \$_count with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Engine/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Memory\:\:setLastOrder\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Engine/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Memory\:\:setLastOrder\(\) has parameter \$_order with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Engine/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Memory\:\:setLastPower\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Engine/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Memory\:\:setLastPower\(\) has parameter \$_power with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Engine/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Memory\:\:setLastState\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Engine/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Memory\:\:setLastState\(\) has parameter \$_state with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Engine/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Memory\:\:setLastTempIn\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Engine/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Memory\:\:setLastTempIn\(\) has parameter \$_temperature with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Engine/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Memory\:\:setLastTempOut\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Engine/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Memory\:\:setLastTempOut\(\) has parameter \$_temperature with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Engine/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Memory\:\:setTemperatureAlert\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Engine/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Memory\:\:setTemperatureAlert\(\) has parameter \$_alert with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Engine/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Memory\:\:temperatureAlert\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Engine/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Settings\:\:coldFailureOffset\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Engine/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Settings\:\:cycle\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Engine/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Settings\:\:heatFailureOffset\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Engine/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Settings\:\:learnedCount\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Engine/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Settings\:\:learnedCount\(\) has parameter \$_key with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Engine/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Settings\:\:maxTimeUpdateTemp\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Engine/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Settings\:\:minCycleDuration\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Engine/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Settings\:\:setCycleEndDate\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Engine/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Settings\:\:setCycleEndDate\(\) has parameter \$_datetime with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Engine/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Settings\:\:smartStartEnabled\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Engine/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Settings\:\:stoveBoiler\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Engine/Settings.php
-
-		-
-			message: '#^Binary operation "\*" between mixed and 0\.9 results in an error\.$#'
+			message: '#^Binary operation "\*" between bool\|float\|int\|string\|null and 0\.9 results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: core/src/Domain/Engine/TemporalEngine.php
 
 		-
-			message: '#^Binary operation "\+" between mixed and 1 results in an error\.$#'
+			message: '#^Binary operation "\+" between bool\|float\|int\|string\|null and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: core/src/Domain/Engine/TemporalEngine.php
 
 		-
-			message: '#^Binary operation "\+" between mixed and mixed results in an error\.$#'
+			message: '#^Binary operation "\+" between float\|int\|string and 1 results in an error\.$#'
 			identifier: binaryOp.invalid
-			count: 2
+			count: 1
+			path: core/src/Domain/Engine/TemporalEngine.php
+
+		-
+			message: '#^Binary operation "\+" between float\|int\|string and float\|int\|string results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
 			path: core/src/Domain/Engine/TemporalEngine.php
 
 		-
@@ -1615,7 +1111,7 @@ parameters:
 			path: core/src/Domain/Engine/TemporalEngine.php
 
 		-
-			message: '#^Binary operation "\-" between mixed and mixed results in an error\.$#'
+			message: '#^Binary operation "\-" between float\|int\|string and float\|int\|string results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: core/src/Domain/Engine/TemporalEngine.php
@@ -1623,53 +1119,17 @@ parameters:
 		-
 			message: '#^Binary operation "\." between ''\+'' and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
-			count: 3
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Binary operation "\." between ''\-'' and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Binary operation "\." between mixed and ''  \: '' results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Binary operation "\." between mixed and '' '' results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 2
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Binary operation "\." between mixed and '' \('' results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 2
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Binary operation "\." between mixed and '' \: '' results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Binary operation "\." between mixed and non\-falsy\-string results in an error\.$#'
-			identifier: binaryOp.invalid
 			count: 1
 			path: core/src/Domain/Engine/TemporalEngine.php
 
 		-
 			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
-			count: 12
+			count: 3
 			path: core/src/Domain/Engine/TemporalEngine.php
 
 		-
-			message: '#^Binary operation "/" between mixed and 2 results in an error\.$#'
+			message: '#^Binary operation "/" between float\|int\<1, max\>\|string and 2 results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: core/src/Domain/Engine/TemporalEngine.php
@@ -1684,12 +1144,6 @@ parameters:
 			message: '#^Cannot access offset ''power'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 5
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
-			message: '#^Cannot call method collectDate\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
 			path: core/src/Domain/Engine/TemporalEngine.php
 
 		-
@@ -1711,14 +1165,32 @@ parameters:
 			path: core/src/Domain/Engine/TemporalEngine.php
 
 		-
-			message: '#^Cannot call method value\(\) on mixed\.$#'
-			identifier: method.nonObject
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine\:\:run\(\) has no return type specified\.$#'
+			identifier: missingType.return
 			count: 1
 			path: core/src/Domain/Engine/TemporalEngine.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\TemporalEngine\:\:run\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Parameter \#1 \$_count of method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Memory\:\:setConsecutiveFailures\(\) expects float\|int, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/src/Domain/Engine/TemporalEngine.php
+
+		-
+			message: '#^Parameter \#1 \$_power of method Jeedom\\Plugin\\Thermostat\\Domain\\Engine\\Memory\:\:setLastPower\(\) expects float\|int, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/src/Domain/Engine/TemporalEngine.php
+
+		-
+			message: '#^Parameter \#1 \$_status of method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:setStatus\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: core/src/Domain/Engine/TemporalEngine.php
+
+		-
+			message: '#^Parameter \#1 \$number of function ceil expects float, mixed given\.$#'
+			identifier: argument.type
 			count: 1
 			path: core/src/Domain/Engine/TemporalEngine.php
 
@@ -1729,67 +1201,55 @@ parameters:
 			path: core/src/Domain/Engine/TemporalEngine.php
 
 		-
-			message: '#^Parameter \#1 \$var of function floatval expects array\|bool\|float\|GMP\|int\|resource\|SimpleXMLElement\|string\|null, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Domain/Engine/TemporalEngine.php
-
-		-
 			message: '#^Parameter \#2 \$timestamp of function date expects int, int\|false given\.$#'
 			identifier: argument.type
 			count: 5
 			path: core/src/Domain/Engine/TemporalEngine.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\EngineRunner\:\:run\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/EngineRunner.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Evaluator\:\:evaluate\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Evaluator.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Evaluator\:\:evaluate\(\) has parameter \$_expression with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Evaluator.php
-
-		-
-			message: '#^Binary operation "\*" between mixed and \(float\|int\) results in an error\.$#'
+			message: '#^Binary operation "\*" between float\|int\|string and \(float\|int\) results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 4
 			path: core/src/Domain/Learning/CoefficientLearner.php
 
 		-
-			message: '#^Binary operation "\*" between mixed and mixed results in an error\.$#'
+			message: '#^Binary operation "\*" between float\|int\|string and float\|int\|string results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: core/src/Domain/Learning/CoefficientLearner.php
 
 		-
-			message: '#^Binary operation "\+" between \(float\|int\) and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 3
-			path: core/src/Domain/Learning/CoefficientLearner.php
-
-		-
-			message: '#^Binary operation "\+" between mixed and 1 results in an error\.$#'
+			message: '#^Binary operation "\+" between float\|int\|string and 1 results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 2
 			path: core/src/Domain/Learning/CoefficientLearner.php
 
 		-
-			message: '#^Binary operation "\-" between mixed and mixed results in an error\.$#'
+			message: '#^Binary operation "\+" between mixed and float\|int\|string results in an error\.$#'
 			identifier: binaryOp.invalid
-			count: 8
+			count: 2
 			path: core/src/Domain/Learning/CoefficientLearner.php
 
 		-
-			message: '#^Binary operation "\." between ''Last power ok,…'' and mixed results in an error\.$#'
+			message: '#^Binary operation "\+" between mixed and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: core/src/Domain/Learning/CoefficientLearner.php
+
+		-
+			message: '#^Binary operation "\-" between float\|int\|string and float\|int\|string results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 2
+			path: core/src/Domain/Learning/CoefficientLearner.php
+
+		-
+			message: '#^Binary operation "\-" between float\|int\|string and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 5
+			path: core/src/Domain/Learning/CoefficientLearner.php
+
+		-
+			message: '#^Binary operation "\-" between mixed and float\|int\|string results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: core/src/Domain/Learning/CoefficientLearner.php
@@ -1810,6 +1270,18 @@ parameters:
 			message: '#^Binary operation "\." between ''New coeff outdoor…'' and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 2
+			path: core/src/Domain/Learning/CoefficientLearner.php
+
+		-
+			message: '#^Binary operation "/" between \(array\|float\|int\) and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: core/src/Domain/Learning/CoefficientLearner.php
+
+		-
+			message: '#^Binary operation "/" between mixed and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 4
 			path: core/src/Domain/Learning/CoefficientLearner.php
 
 		-
@@ -1855,151 +1327,37 @@ parameters:
 			path: core/src/Domain/Learning/CoefficientLearner.php
 
 		-
-			message: '#^Parameter \#1 \$time of function strtotime expects string, mixed given\.$#'
+			message: '#^Parameter \#1 \$_key of method Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\Settings\:\:coefficient\(\) expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: core/src/Domain/Learning/CoefficientLearner.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\CycleMemory\:\:consecutiveFailures\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Parameter \#1 \$_key of method Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\Settings\:\:learnedCount\(\) expects string, mixed given\.$#'
+			identifier: argument.type
 			count: 1
-			path: core/src/Domain/Learning/CycleMemory.php
+			path: core/src/Domain/Learning/CoefficientLearner.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\CycleMemory\:\:lastOrder\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Parameter \#1 \$_key of method Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\Settings\:\:storeCoefficient\(\) expects string, mixed given\.$#'
+			identifier: argument.type
 			count: 1
-			path: core/src/Domain/Learning/CycleMemory.php
+			path: core/src/Domain/Learning/CoefficientLearner.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\CycleMemory\:\:lastPower\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Parameter \#3 \$_count of method Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\Settings\:\:storeCoefficient\(\) expects float\|int, mixed given\.$#'
+			identifier: argument.type
 			count: 1
-			path: core/src/Domain/Learning/CycleMemory.php
+			path: core/src/Domain/Learning/CoefficientLearner.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\CycleMemory\:\:lastState\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Learning/CycleMemory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\CycleMemory\:\:lastTempIn\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Learning/CycleMemory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\Settings\:\:autolearn\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Learning/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\Settings\:\:coefficient\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Learning/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\Settings\:\:coefficient\(\) has parameter \$_key with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Learning/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\Settings\:\:cycleEndDate\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Learning/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\Settings\:\:learnedCount\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Learning/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\Settings\:\:learnedCount\(\) has parameter \$_key with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Learning/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\Settings\:\:storeCoefficient\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Learning/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\Settings\:\:storeCoefficient\(\) has parameter \$_coefficient with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Learning/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\Settings\:\:storeCoefficient\(\) has parameter \$_count with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Learning/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\Settings\:\:storeCoefficient\(\) has parameter \$_key with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Learning/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Log\:\:debug\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Log.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Log\:\:debug\(\) has parameter \$_message with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Log.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Log\:\:error\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Log.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Log\:\:error\(\) has parameter \$_message with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Log.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Persistence\:\:persist\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Persistence.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Persistence\:\:reload\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Persistence.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Persistence\:\:saveWithCommands\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Persistence.php
-
-		-
-			message: '#^Binary operation "\*" between \(float\|int\) and mixed results in an error\.$#'
+			message: '#^Binary operation "\*" between \(float\|int\) and float\|int\|string results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 2
 			path: core/src/Domain/Power/Calculator.php
 
 		-
-			message: '#^Binary operation "\+" between \(float\|int\) and mixed results in an error\.$#'
+			message: '#^Binary operation "\+" between \(array\|float\|int\) and float\|int\|string results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: core/src/Domain/Power/Calculator.php
@@ -2017,13 +1375,19 @@ parameters:
 			path: core/src/Domain/Power/Calculator.php
 
 		-
-			message: '#^Binary operation "\-" between 100 and mixed results in an error\.$#'
+			message: '#^Binary operation "\+" between mixed and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: core/src/Domain/Power/Calculator.php
+
+		-
+			message: '#^Binary operation "\-" between 100 and float\|int\<min, 99\>\|string results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 2
 			path: core/src/Domain/Power/Calculator.php
 
 		-
-			message: '#^Binary operation "\-" between mixed and \(float\|int\) results in an error\.$#'
+			message: '#^Binary operation "\-" between float\|int\<1, max\>\|non\-empty\-string and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: core/src/Domain/Power/Calculator.php
@@ -2047,27 +1411,21 @@ parameters:
 			path: core/src/Domain/Power/Calculator.php
 
 		-
-			message: '#^Binary operation "\-\=" between \(float\|int\) and mixed results in an error\.$#'
+			message: '#^Binary operation "\-\=" between mixed and float\|int\<1, max\>\|non\-empty\-string results in an error\.$#'
 			identifier: assignOp.invalid
 			count: 1
 			path: core/src/Domain/Power/Calculator.php
 
 		-
-			message: '#^Binary operation "\." between mixed and '' '' results in an error\.$#'
-			identifier: binaryOp.invalid
+			message: '#^Binary operation "\-\=" between mixed and mixed results in an error\.$#'
+			identifier: assignOp.invalid
 			count: 1
-			path: core/src/Domain/Power/Calculator.php
-
-		-
-			message: '#^Binary operation "\." between mixed and '' \: '' results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 5
 			path: core/src/Domain/Power/Calculator.php
 
 		-
 			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
-			count: 14
+			count: 7
 			path: core/src/Domain/Power/Calculator.php
 
 		-
@@ -2101,165 +1459,9 @@ parameters:
 			path: core/src/Domain/Power/Calculator.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Memory\:\:lastPower\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Power/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Memory\:\:lastState\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Power/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Memory\:\:setTemperatureAlert\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Power/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Memory\:\:setTemperatureAlert\(\) has parameter \$_alert with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Power/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Memory\:\:temperatureAlert\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Power/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Settings\:\:coefficientIndoor\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Power/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Settings\:\:coefficientIndoor\(\) has parameter \$_direction with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Power/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Settings\:\:coefficientOutdoor\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Power/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Settings\:\:coefficientOutdoor\(\) has parameter \$_direction with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Power/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Settings\:\:directionDeltaCool\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Power/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Settings\:\:directionDeltaHeat\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Power/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Settings\:\:heatHotThreshold\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Power/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Settings\:\:nextFullCycleOffset\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Power/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Settings\:\:offset\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Power/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Settings\:\:offset\(\) has parameter \$_direction with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Power/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Scheduling\:\:reschedule\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Scheduling.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Scheduling\:\:reschedule\(\) has parameter \$_next with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Scheduling.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Scheduling\:\:reschedule\(\) has parameter \$_smartThermostat with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Scheduling.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Scheduling\:\:reschedule\(\) has parameter \$_stop with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Scheduling.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SensorWatch\\Memory\:\:setTemperatureAlert\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/SensorWatch/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SensorWatch\\Memory\:\:setTemperatureAlert\(\) has parameter \$_alert with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/SensorWatch/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SensorWatch\\Memory\:\:temperatureAlert\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/SensorWatch/Memory.php
-
-		-
-			message: '#^Binary operation "\." between ''\-'' and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: core/src/Domain/SensorWatch/SensorWatch.php
-
-		-
-			message: '#^Binary operation "\." between mixed and '' \: '' results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 3
-			path: core/src/Domain/SensorWatch/SensorWatch.php
-
-		-
 			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
-			count: 5
-			path: core/src/Domain/SensorWatch/SensorWatch.php
-
-		-
-			message: '#^Cannot call method collectDate\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Domain/SensorWatch/SensorWatch.php
-
-		-
-			message: '#^Cannot call method value\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
+			count: 2
 			path: core/src/Domain/SensorWatch/SensorWatch.php
 
 		-
@@ -2269,231 +1471,81 @@ parameters:
 			path: core/src/Domain/SensorWatch/SensorWatch.php
 
 		-
-			message: '#^Parameter \#1 \$str of function strtolower expects string, mixed given\.$#'
+			message: '#^Parameter \#1 \$str of function strtolower expects string, bool\|float\|int\|string\|null given\.$#'
 			identifier: argument.type
 			count: 1
 			path: core/src/Domain/SensorWatch/SensorWatch.php
 
 		-
-			message: '#^Parameter \#1 \$time of function strtotime expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Domain/SensorWatch/SensorWatch.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SensorWatch\\Settings\:\:indoorMaximum\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/SensorWatch/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SensorWatch\\Settings\:\:indoorMinimum\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/SensorWatch/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SensorWatch\\Settings\:\:maxTimeUpdateTemp\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/SensorWatch/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Sensors\:\:indoorReading\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Sensors.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Sensors\:\:indoorTemperature\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Sensors.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Sensors\:\:outdoorTemperature\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Sensors.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Calendar\:\:available\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/SmartStart/Calendar.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Calendar\:\:isInactive\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/SmartStart/Calendar.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Calendar\:\:isInactive\(\) has parameter \$_calendarId with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/SmartStart/Calendar.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Calendar\:\:nextEvent\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/SmartStart/Calendar.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Controls\:\:modeExists\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/SmartStart/Controls.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Controls\:\:modeExists\(\) has parameter \$_cmdId with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/SmartStart/Controls.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Controls\:\:requestSetpoint\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/SmartStart/Controls.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Controls\:\:requestSetpoint\(\) has parameter \$_value with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/SmartStart/Controls.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Controls\:\:runMode\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/SmartStart/Controls.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Controls\:\:runMode\(\) has parameter \$_cmdId with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/SmartStart/Controls.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Memory\:\:setSmartStart\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/SmartStart/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Memory\:\:setSmartStart\(\) has parameter \$_smartStart with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/SmartStart/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Memory\:\:smartStart\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/SmartStart/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Settings\:\:anticipationCount\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/SmartStart/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Settings\:\:anticipationFactor\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/SmartStart/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Settings\:\:cycle\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/SmartStart/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Settings\:\:engine\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/SmartStart/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Settings\:\:smartStartEnabled\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/SmartStart/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Settings\:\:storeAnticipation\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/SmartStart/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Settings\:\:storeAnticipation\(\) has parameter \$_count with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/SmartStart/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Settings\:\:storeAnticipation\(\) has parameter \$_factor with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/SmartStart/Settings.php
-
-		-
-			message: '#^Binary operation "\*" between \(float\|int\) and mixed results in an error\.$#'
+			message: '#^Binary operation "\*" between \(float\|int\) and float\|int\|string results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: core/src/Domain/SmartStart/SmartStart.php
 
 		-
-			message: '#^Binary operation "\*" between mixed and 1\|2\|float results in an error\.$#'
+			message: '#^Binary operation "\*" between float\|int\|string and 1\|2\|float results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: core/src/Domain/SmartStart/SmartStart.php
 
 		-
-			message: '#^Binary operation "\*" between mixed and mixed results in an error\.$#'
+			message: '#^Binary operation "\*" between float\|int\|string and float\|int\|string results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: core/src/Domain/SmartStart/SmartStart.php
+
+		-
+			message: '#^Binary operation "\*" between mixed and bool\|float\|int\|string\|null results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: core/src/Domain/SmartStart/SmartStart.php
+
+		-
+			message: '#^Binary operation "\+" between float\|int\|string and 1 results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 2
 			path: core/src/Domain/SmartStart/SmartStart.php
 
 		-
-			message: '#^Binary operation "\+" between mixed and 1 results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 2
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Binary operation "\-" between mixed and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 2
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Binary operation "\." between mixed and '' '' results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 2
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Binary operation "\." between mixed and '' \('' results in an error\.$#'
+			message: '#^Binary operation "\+" between mixed and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: core/src/Domain/SmartStart/SmartStart.php
 
 		-
-			message: '#^Binary operation "\." between mixed and '' \: '' results in an error\.$#'
+			message: '#^Binary operation "\-" between bool\|float\|int\|string\|null and bool\|float\|int\|string\|null results in an error\.$#'
 			identifier: binaryOp.invalid
-			count: 6
+			count: 1
+			path: core/src/Domain/SmartStart/SmartStart.php
+
+		-
+			message: '#^Binary operation "\-" between mixed and bool\|float\|int\|string\|null results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
 			path: core/src/Domain/SmartStart/SmartStart.php
 
 		-
 			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 7
+			path: core/src/Domain/SmartStart/SmartStart.php
+
+		-
+			message: '#^Binary operation "/" between \(array\|float\|int\) and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: core/src/Domain/SmartStart/SmartStart.php
+
+		-
+			message: '#^Binary operation "/" between mixed and 100 results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: core/src/Domain/SmartStart/SmartStart.php
+
+		-
+			message: '#^Binary operation "/" between mixed and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
 			path: core/src/Domain/SmartStart/SmartStart.php
 
 		-
@@ -2511,13 +1563,13 @@ parameters:
 		-
 			message: '#^Cannot access offset ''consigne'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
-			count: 4
+			count: 3
 			path: core/src/Domain/SmartStart/SmartStart.php
 
 		-
 			message: '#^Cannot access offset ''date'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
-			count: 3
+			count: 1
 			path: core/src/Domain/SmartStart/SmartStart.php
 
 		-
@@ -2533,15 +1585,15 @@ parameters:
 			path: core/src/Domain/SmartStart/SmartStart.php
 
 		-
-			message: '#^Cannot access offset ''schedule'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
 			message: '#^Cannot access offset ''type'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 2
+			path: core/src/Domain/SmartStart/SmartStart.php
+
+		-
+			message: '#^Loose comparison using \!\= between non\-empty\-string and '''' will always evaluate to true\.$#'
+			identifier: notEqual.alwaysTrue
+			count: 1
 			path: core/src/Domain/SmartStart/SmartStart.php
 
 		-
@@ -2587,9 +1639,51 @@ parameters:
 			path: core/src/Domain/SmartStart/SmartStart.php
 
 		-
-			message: '#^Parameter \#1 \$time of function strtotime expects string, mixed given\.$#'
+			message: '#^Parameter \#1 \$_calendarId of method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Calendar\:\:isInactive\(\) expects int\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/src/Domain/SmartStart/SmartStart.php
+
+		-
+			message: '#^Parameter \#1 \$_cmdId of method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Controls\:\:modeExists\(\) expects int\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/src/Domain/SmartStart/SmartStart.php
+
+		-
+			message: '#^Parameter \#1 \$_cmdId of method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Controls\:\:runMode\(\) expects int\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/src/Domain/SmartStart/SmartStart.php
+
+		-
+			message: '#^Parameter \#1 \$_expression of method Jeedom\\Plugin\\Thermostat\\Domain\\Evaluator\:\:evaluate\(\) expects bool\|float\|int\|string\|null, mixed given\.$#'
 			identifier: argument.type
 			count: 2
+			path: core/src/Domain/SmartStart/SmartStart.php
+
+		-
+			message: '#^Parameter \#1 \$_smartStart of method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Memory\:\:setSmartStart\(\) expects array\{start\: string, date\: string, consigne\: bool\|float\|int\|string\|null, temperature\: bool\|float\|int\|string\|null\}\|null, array\{start\: non\-falsy\-string, date\: mixed, consigne\: bool\|float\|int\|string\|null, temperature\: bool\|float\|int\|string\|null\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/src/Domain/SmartStart/SmartStart.php
+
+		-
+			message: '#^Parameter \#1 \$_value of method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Controls\:\:requestSetpoint\(\) expects bool\|float\|int\|string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/src/Domain/SmartStart/SmartStart.php
+
+		-
+			message: '#^Parameter \#1 \$number of function round expects float, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/src/Domain/SmartStart/SmartStart.php
+
+		-
+			message: '#^Parameter \#2 \$_count of method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Settings\:\:storeAnticipation\(\) expects float\|int, mixed given\.$#'
+			identifier: argument.type
+			count: 1
 			path: core/src/Domain/SmartStart/SmartStart.php
 
 		-
@@ -2597,72 +1691,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Statistics\\History\:\:activeHistory\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Statistics/History.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Statistics\\History\:\:activeHistory\(\) has parameter \$_end with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Statistics/History.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Statistics\\History\:\:activeHistory\(\) has parameter \$_start with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Statistics/History.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Statistics\\History\:\:hasPerformance\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Statistics/History.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Statistics\\History\:\:outdoorStatistics\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Statistics/History.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Statistics\\History\:\:outdoorStatistics\(\) has parameter \$_end with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Statistics/History.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Statistics\\History\:\:outdoorStatistics\(\) has parameter \$_start with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Statistics/History.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Statistics\\History\:\:publishPerformance\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Statistics/History.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Statistics\\History\:\:publishPerformance\(\) has parameter \$_performance with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Statistics/History.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Statistics\\Settings\:\:consumption\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Statistics/Settings.php
-
-		-
-			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
-			count: 1
-			path: core/src/Domain/Statistics/Statistics.php
 
 		-
 			message: '#^Binary operation "\+" between mixed and mixed results in an error\.$#'
@@ -2689,33 +1717,9 @@ parameters:
 			path: core/src/Domain/Statistics/Statistics.php
 
 		-
-			message: '#^Binary operation "/" between mixed and mixed results in an error\.$#'
+			message: '#^Binary operation "/" between bool\|float\|int\|string\|null and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
-			path: core/src/Domain/Statistics/Statistics.php
-
-		-
-			message: '#^Cannot access offset ''datetime'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 6
-			path: core/src/Domain/Statistics/Statistics.php
-
-		-
-			message: '#^Cannot access offset ''max'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: core/src/Domain/Statistics/Statistics.php
-
-		-
-			message: '#^Cannot access offset ''min'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: core/src/Domain/Statistics/Statistics.php
-
-		-
-			message: '#^Cannot access offset ''value'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
 			path: core/src/Domain/Statistics/Statistics.php
 
 		-
@@ -2761,15 +1765,27 @@ parameters:
 			path: core/src/Domain/Statistics/Statistics.php
 
 		-
-			message: '#^Parameter \#1 \$time of function strtotime expects string, mixed given\.$#'
+			message: '#^Parameter \#1 \$_start of method Jeedom\\Plugin\\Thermostat\\Domain\\Statistics\\History\:\:activeHistory\(\) expects string, mixed given\.$#'
 			identifier: argument.type
-			count: 6
+			count: 1
+			path: core/src/Domain/Statistics/Statistics.php
+
+		-
+			message: '#^Parameter \#1 \$number of function round expects float, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/src/Domain/Statistics/Statistics.php
+
+		-
+			message: '#^Parameter \#2 \$_end of method Jeedom\\Plugin\\Thermostat\\Domain\\Statistics\\History\:\:activeHistory\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
 			path: core/src/Domain/Statistics/Statistics.php
 
 		-
 			message: '#^Parameter \#2 \$timestamp of function date expects int, int\|false given\.$#'
 			identifier: argument.type
-			count: 1
+			count: 4
 			path: core/src/Domain/Statistics/Statistics.php
 
 		-
@@ -2827,175 +1843,25 @@ parameters:
 			path: core/src/Domain/StatusLabels.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Translator\:\:translate\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Translator.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Translator\:\:translate\(\) has parameter \$_text with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Translator.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Memory\:\:alertSent\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Window/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Memory\:\:closedAt\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Window/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Memory\:\:closedAt\(\) has parameter \$_cmdId with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Window/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Memory\:\:openSince\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Window/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Memory\:\:setAlertSent\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Window/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Memory\:\:setAlertSent\(\) has parameter \$_sent with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Window/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Memory\:\:setClosedAt\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Window/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Memory\:\:setClosedAt\(\) has parameter \$_cmdId with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Window/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Memory\:\:setClosedAt\(\) has parameter \$_datetime with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Window/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Memory\:\:setOpenSince\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Window/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Memory\:\:setOpenSince\(\) has parameter \$_timestamp with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Window/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Memory\:\:setWindowState\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Window/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Memory\:\:setWindowState\(\) has parameter \$_cmdId with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Window/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Memory\:\:setWindowState\(\) has parameter \$_state with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Window/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Memory\:\:windowState\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Window/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Memory\:\:windowState\(\) has parameter \$_cmdId with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Window/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Sensors\:\:exists\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Window/Sensors.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Sensors\:\:exists\(\) has parameter \$_cmdId with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Window/Sensors.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Sensors\:\:name\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Window/Sensors.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Sensors\:\:name\(\) has parameter \$_cmd with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Window/Sensors.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Sensors\:\:read\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Window/Sensors.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Sensors\:\:read\(\) has parameter \$_cmdId with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Domain/Window/Sensors.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Settings\:\:windowAlertDelay\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Window/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Settings\:\:windows\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Domain/Window/Settings.php
-
-		-
-			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			message: '#^Argument of an invalid type list\<array\<string, mixed\>\>\|string supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
 			count: 2
 			path: core/src/Domain/Window/Windows.php
 
 		-
-			message: '#^Binary operation "\*" between mixed and 60 results in an error\.$#'
+			message: '#^Binary operation "\*" between float\|int\<1, max\>\|non\-empty\-string and 60 results in an error\.$#'
 			identifier: binaryOp.invalid
-			count: 3
+			count: 1
 			path: core/src/Domain/Window/Windows.php
 
 		-
-			message: '#^Binary operation "\-" between int\<1, max\> and mixed results in an error\.$#'
+			message: '#^Binary operation "\*" between mixed and 60 results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 2
+			path: core/src/Domain/Window/Windows.php
+
+		-
+			message: '#^Binary operation "\-" between int\<1, max\> and float\|int\|string results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 2
 			path: core/src/Domain/Window/Windows.php
@@ -3007,27 +1873,15 @@ parameters:
 			path: core/src/Domain/Window/Windows.php
 
 		-
-			message: '#^Binary operation "\." between ''\[windowClose\] '' and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 6
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Binary operation "\." between ''\[windowOpen\] '' and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 7
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Binary operation "\." between mixed and '' \: '' results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 2
-			path: core/src/Domain/Window/Windows.php
-
-		-
 			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
-			count: 12
+			count: 4
+			path: core/src/Domain/Window/Windows.php
+
+		-
+			message: '#^Binary operation "/" between mixed and 60 results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
 			path: core/src/Domain/Window/Windows.php
 
 		-
@@ -3039,7 +1893,7 @@ parameters:
 		-
 			message: '#^Cannot access offset ''cmd'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
-			count: 9
+			count: 5
 			path: core/src/Domain/Window/Windows.php
 
 		-
@@ -3051,13 +1905,13 @@ parameters:
 		-
 			message: '#^Cannot access offset ''invert'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
-			count: 3
+			count: 1
 			path: core/src/Domain/Window/Windows.php
 
 		-
 			message: '#^Cannot access offset ''restartTime'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
+			count: 1
 			path: core/src/Domain/Window/Windows.php
 
 		-
@@ -3073,13 +1927,13 @@ parameters:
 			path: core/src/Domain/Window/Windows.php
 
 		-
-			message: '#^Cannot call method value\(\) on mixed\.$#'
+			message: '#^Cannot call method value\(\) on Jeedom\\Plugin\\Thermostat\\Domain\\Reading\|null\.$#'
 			identifier: method.nonObject
-			count: 2
+			count: 1
 			path: core/src/Domain/Window/Windows.php
 
 		-
-			message: '#^Cannot call method valueDate\(\) on mixed\.$#'
+			message: '#^Cannot call method valueDate\(\) on Jeedom\\Plugin\\Thermostat\\Domain\\Reading\|null\.$#'
 			identifier: method.nonObject
 			count: 3
 			path: core/src/Domain/Window/Windows.php
@@ -3127,15 +1981,21 @@ parameters:
 			path: core/src/Domain/Window/Windows.php
 
 		-
-			message: '#^Parameter \#1 \$seconds of function sleep expects int, float\|int given\.$#'
+			message: '#^Parameter \#1 \$_cmd of method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Sensors\:\:name\(\) expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: core/src/Domain/Window/Windows.php
 
 		-
-			message: '#^Parameter \#1 \$time of function strtotime expects string, mixed given\.$#'
+			message: '#^Parameter \#1 \$_status of method Jeedom\\Plugin\\Thermostat\\Domain\\Display\:\:setStatus\(\) expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 2
+			path: core/src/Domain/Window/Windows.php
+
+		-
+			message: '#^Parameter \#1 \$seconds of function sleep expects int, float\|int given\.$#'
+			identifier: argument.type
+			count: 1
 			path: core/src/Domain/Window/Windows.php
 
 		-
@@ -3147,25 +2007,19 @@ parameters:
 		-
 			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
-			count: 4
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Binary operation "\." between mixed and '' '' results in an error\.$#'
-			identifier: binaryOp.invalid
 			count: 1
 			path: core/src/Jeedom/ActionList.php
 
 		-
 			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
-			count: 3
+			count: 2
 			path: core/src/Jeedom/ActionList.php
 
 		-
 			message: '#^Cannot access offset ''cmd'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
-			count: 6
+			count: 1
 			path: core/src/Jeedom/ActionList.php
 
 		-
@@ -3183,7 +2037,13 @@ parameters:
 		-
 			message: '#^Cannot access offset mixed on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
+			count: 1
+			path: core/src/Jeedom/ActionList.php
+
+		-
+			message: '#^Cannot access offset string on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
 			path: core/src/Jeedom/ActionList.php
 
 		-
@@ -3201,48 +2061,6 @@ parameters:
 		-
 			message: '#^Cannot call method getMessage\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\ActionList\:\:applyMode\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\ActionList\:\:applyMode\(\) has parameter \$_actions with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\ActionList\:\:applyMode\(\) has parameter \$_consigne with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\ActionList\:\:execute\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\ActionList\:\:execute\(\) has parameter \$_actions with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\ActionList\:\:execute\(\) has parameter \$_extraOptions with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\ActionList\:\:execute\(\) has parameter \$_skipOwnCmds with no type specified\.$#'
-			identifier: missingType.parameter
 			count: 1
 			path: core/src/Jeedom/ActionList.php
 
@@ -3385,26 +2203,8 @@ parameters:
 			path: core/src/Jeedom/Calendar.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Calendar\:\:available\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Calendar.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Calendar\:\:isInactive\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Calendar.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Calendar\:\:isInactive\(\) has parameter \$_calendarId with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Calendar.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Calendar\:\:nextEvent\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Calendar\:\:nextEvent\(\) should return array\{date\: string, event\: object, calendar_id\: int\|string, consigne\: mixed, type\: string, cmd\?\: int\|string\}\|null but returns array\{date\: non\-empty\-string, event\: calendar_event, calendar_id\: mixed, consigne\: mixed, type\: ''thermostat''\}\|array\{date\: non\-empty\-string, event\: calendar_event, consigne\: mixed, calendar_id\: mixed, cmd\: int\|string, type\: ''mode''\}\|null\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Calendar.php
 
@@ -3412,12 +2212,6 @@ parameters:
 			message: '#^Offset ''date'' might not exist on array\{date\?\: string, position\?\: string\}\|string\|null\.$#'
 			identifier: offsetAccess.notFound
 			count: 2
-			path: core/src/Jeedom/Calendar.php
-
-		-
-			message: '#^Parameter \#1 \$_id of static method eqLogic\:\:byId\(\) expects int\|string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
 			path: core/src/Jeedom/Calendar.php
 
 		-
@@ -3667,48 +2461,6 @@ parameters:
 			path: core/src/Jeedom/Controls.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Controls\:\:modeExists\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Controls.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Controls\:\:modeExists\(\) has parameter \$_cmdId with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Controls.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Controls\:\:requestSetpoint\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Controls.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Controls\:\:requestSetpoint\(\) has parameter \$_value with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Controls.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Controls\:\:runMode\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Controls.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Controls\:\:runMode\(\) has parameter \$_cmdId with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Controls.php
-
-		-
-			message: '#^Parameter \#1 \$_id of static method cmd\:\:byId\(\) expects int\|string, mixed given\.$#'
-			identifier: argument.type
-			count: 2
-			path: core/src/Jeedom/Controls.php
-
-		-
 			message: '#^Cannot call method addHistoryValue\(\) on cmd\|false\.$#'
 			identifier: method.nonObject
 			count: 1
@@ -3727,146 +2479,32 @@ parameters:
 			path: core/src/Jeedom/Display.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:hasLockState\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:mode\(\) should return bool\|float\|int\|string\|null but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Display.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:historizeSetpoint\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:power\(\) should return bool\|float\|int\|string\|null but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Display.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:historizeSetpoint\(\) has parameter \$_value with no type specified\.$#'
-			identifier: missingType.parameter
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:setpoint\(\) should return bool\|float\|int\|string\|null but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Display.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:lock\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:status\(\) should return bool\|float\|int\|string\|null but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Display.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:locked\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:mode\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:power\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:refreshWidget\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:setActive\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:setActive\(\) has parameter \$_active with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:setMode\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:setMode\(\) has parameter \$_mode with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:setPower\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:setPower\(\) has parameter \$_power with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:setSetpoint\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:setSetpoint\(\) has parameter \$_value with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:setStatus\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:setStatus\(\) has parameter \$_status with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:setpoint\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:status\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Display\:\:unlock\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Display.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\EngineRunner\:\:run\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/EngineRunner.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Evaluator\:\:evaluate\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Evaluator.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Evaluator\:\:evaluate\(\) has parameter \$_expression with no type specified\.$#'
-			identifier: missingType.parameter
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Evaluator\:\:evaluate\(\) should return bool\|float\|int\|string\|null but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Evaluator.php
 
@@ -3877,394 +2515,76 @@ parameters:
 			path: core/src/Jeedom/History.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\History\:\:activeHistory\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/History.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\History\:\:activeHistory\(\) has parameter \$_end with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/History.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\History\:\:activeHistory\(\) has parameter \$_start with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/History.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\History\:\:hasPerformance\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/History.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\History\:\:outdoorStatistics\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/History.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\History\:\:outdoorStatistics\(\) has parameter \$_end with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/History.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\History\:\:outdoorStatistics\(\) has parameter \$_start with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/History.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\History\:\:publishPerformance\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/History.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\History\:\:publishPerformance\(\) has parameter \$_performance with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/History.php
-
-		-
-			message: '#^Parameter \#1 \$_dateStart of method cmd\:\:getHistory\(\) expects string\|null, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Jeedom/History.php
-
-		-
-			message: '#^Parameter \#1 \$_startTime of method cmd\:\:getStatistique\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Jeedom/History.php
-
-		-
-			message: '#^Parameter \#2 \$_dateEnd of method cmd\:\:getHistory\(\) expects string\|null, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Jeedom/History.php
-
-		-
-			message: '#^Parameter \#2 \$_endTime of method cmd\:\:getStatistique\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Jeedom/History.php
-
-		-
-			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 2
-			path: core/src/Jeedom/Log.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Log\:\:debug\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Log.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Log\:\:debug\(\) has parameter \$_message with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Log.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Log\:\:error\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Log.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Log\:\:error\(\) has parameter \$_message with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Log.php
-
-		-
-			message: '#^Binary operation "\." between ''window\:\:close\:\:'' and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 2
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Binary operation "\." between ''window\:\:state\:\:'' and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 2
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:alertSent\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:alertSent\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Memory.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:closedAt\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:closedAt\(\) should return string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Memory.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:closedAt\(\) has parameter \$_cmdId with no type specified\.$#'
-			identifier: missingType.parameter
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:consecutiveFailures\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Memory.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:consecutiveFailures\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:deltaOrder\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Memory.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:deltaOrder\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:lastOrder\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Memory.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:lastOrder\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:lastPower\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Memory.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:lastPower\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:lastState\(\) should return string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Memory.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:lastState\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:lastTempIn\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Memory.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:lastTempIn\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:openSince\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Memory.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:openSince\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:smartStart\(\) should return array\{start\: string, date\: string, consigne\: bool\|float\|int\|string\|null, temperature\: bool\|float\|int\|string\|null\}\|string\|null but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Memory.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setAlertSent\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:temperatureAlert\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Memory.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setAlertSent\(\) has parameter \$_sent with no type specified\.$#'
-			identifier: missingType.parameter
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:windowState\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setClosedAt\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setClosedAt\(\) has parameter \$_cmdId with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setClosedAt\(\) has parameter \$_datetime with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setConsecutiveFailures\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setConsecutiveFailures\(\) has parameter \$_count with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setDeltaOrder\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setDeltaOrder\(\) has parameter \$_delta with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setLastOrder\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setLastOrder\(\) has parameter \$_order with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setLastPower\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setLastPower\(\) has parameter \$_power with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setLastState\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setLastState\(\) has parameter \$_state with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setLastTempIn\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setLastTempIn\(\) has parameter \$_temperature with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setLastTempOut\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setLastTempOut\(\) has parameter \$_temperature with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setOpenSince\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setOpenSince\(\) has parameter \$_timestamp with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setSmartStart\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setSmartStart\(\) has parameter \$_smartStart with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setTemperatureAlert\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setTemperatureAlert\(\) has parameter \$_alert with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setWindowState\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setWindowState\(\) has parameter \$_cmdId with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:setWindowState\(\) has parameter \$_state with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:smartStart\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:temperatureAlert\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:windowState\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:windowState\(\) has parameter \$_cmdId with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Memory.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Persistence\:\:persist\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Persistence.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Persistence\:\:reload\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Persistence.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Persistence\:\:saveWithCommands\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Persistence.php
 
 		-
 			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
@@ -4274,18 +2594,6 @@ parameters:
 
 		-
 			message: '#^Binary operation "\+" between mixed and 10 results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Binary operation "\." between ''Reschedule, next \: '' and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: core/src/Jeedom/Scheduler.php
@@ -4339,30 +2647,6 @@ parameters:
 			path: core/src/Jeedom/Scheduler.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Scheduler\:\:reschedule\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Scheduler\:\:reschedule\(\) has parameter \$_next with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Scheduler\:\:reschedule\(\) has parameter \$_smartThermostat with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Scheduler\:\:reschedule\(\) has parameter \$_stop with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Scheduler\:\:runHysteresisCron\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -4381,7 +2665,7 @@ parameters:
 			path: core/src/Jeedom/Scheduler.php
 
 		-
-			message: '#^Parameter \#1 \$_date of static method cron\:\:convertDateToCron\(\) expects string, \(int\|false\) given\.$#'
+			message: '#^Parameter \#1 \$_date of static method cron\:\:convertDateToCron\(\) expects string, int\|false given\.$#'
 			identifier: argument.type
 			count: 1
 			path: core/src/Jeedom/Scheduler.php
@@ -4390,12 +2674,6 @@ parameters:
 			message: '#^Parameter \#1 \$expression of class Cron\\CronExpression constructor expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 2
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Parameter \#1 \$time of function strtotime expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
 			path: core/src/Jeedom/Scheduler.php
 
 		-
@@ -4429,410 +2707,230 @@ parameters:
 			path: core/src/Jeedom/Sensors.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Sensors\:\:indoorReading\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Sensors\:\:indoorTemperature\(\) should return bool\|float\|int\|string\|null but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Sensors.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Sensors\:\:indoorTemperature\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Sensors\:\:outdoorTemperature\(\) should return bool\|float\|int\|string\|null but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Sensors.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Sensors\:\:outdoorTemperature\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Sensors.php
-
-		-
-			message: '#^Binary operation "\." between mixed and ''_autolearn'' results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 2
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:allowMode\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:allowMode\(\) should return string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:anticipationCount\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:anticipationCount\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:anticipationFactor\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:anticipationFactor\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:autolearn\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:autolearn\(\) should return int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:change\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:coefficient\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:change\(\) has parameter \$_key with no type specified\.$#'
-			identifier: missingType.parameter
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:coefficientIndoor\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:change\(\) has parameter \$_value with no type specified\.$#'
-			identifier: missingType.parameter
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:coefficientOutdoor\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:coefficient\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:coldFailureOffset\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:coefficient\(\) has parameter \$_key with no type specified\.$#'
-			identifier: missingType.parameter
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:consumption\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:coefficientIndoor\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:coolingActions\(\) should return list\<array\<string, mixed\>\>\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:coefficientIndoor\(\) has parameter \$_direction with no type specified\.$#'
-			identifier: missingType.parameter
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:cycle\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:coefficientOutdoor\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:cycleEndDate\(\) should return string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:coefficientOutdoor\(\) has parameter \$_direction with no type specified\.$#'
-			identifier: missingType.parameter
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:directionDeltaCool\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:coldFailureOffset\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:directionDeltaHeat\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:consumption\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:engine\(\) should return string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:coolingActions\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:failureActions\(\) should return list\<array\<string, mixed\>\>\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:cycle\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:failureActuatorActions\(\) should return list\<array\<string, mixed\>\>\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:cycleEndDate\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:heatFailureOffset\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:directionDeltaCool\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:heatHotThreshold\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:directionDeltaHeat\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:heatingActions\(\) should return list\<array\<string, mixed\>\>\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:engine\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:hysteresisThreshold\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:failureActions\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:indoorMaximum\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:failureActuatorActions\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:indoorMinimum\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:heatFailureOffset\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:learnedCount\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:heatHotThreshold\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:maxTimeUpdateTemp\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:heatingActions\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:minCycleDuration\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:hysteresisThreshold\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:modes\(\) should return list\<array\<string, mixed\>\>\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:indoorMaximum\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:nextFullCycleOffset\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:indoorMinimum\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:offset\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:learnedCount\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:orderChangeActions\(\) should return list\<array\<string, mixed\>\>\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:learnedCount\(\) has parameter \$_key with no type specified\.$#'
-			identifier: missingType.parameter
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:positiveHysteresis\(\) should return int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:markAsHeating\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:stoppingActions\(\) should return list\<array\<string, mixed\>\>\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:maxTimeUpdateTemp\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:stoveBoiler\(\) should return int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:minCycleDuration\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:windowAlertDelay\(\) should return float\|int\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:modes\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:windows\(\) should return list\<array\<string, mixed\>\>\|string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:nextFullCycleOffset\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:offset\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:offset\(\) has parameter \$_direction with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:orderChangeActions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:positiveHysteresis\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:setAllowMode\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:setAllowMode\(\) has parameter \$_mode with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:setCycleEndDate\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:setCycleEndDate\(\) has parameter \$_datetime with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:setOffset\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:setOffset\(\) has parameter \$_key with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:setOffset\(\) has parameter \$_value with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:smartStartEnabled\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:stoppingActions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:storeAnticipation\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:storeAnticipation\(\) has parameter \$_count with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:storeAnticipation\(\) has parameter \$_factor with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:storeCoefficient\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:storeCoefficient\(\) has parameter \$_coefficient with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:storeCoefficient\(\) has parameter \$_count with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:storeCoefficient\(\) has parameter \$_key with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:stoveBoiler\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:value\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:value\(\) has parameter \$_default with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:value\(\) has parameter \$_key with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:windowAlertDelay\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:windows\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Translator\:\:translate\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/Translator.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Translator\:\:translate\(\) has parameter \$_text with no type specified\.$#'
-			identifier: missingType.parameter
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Translator\:\:translate\(\) should return string but returns string\|null\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Translator.php
 
@@ -4843,55 +2941,7 @@ parameters:
 			path: core/src/Jeedom/Translator.php
 
 		-
-			message: '#^Parameter \#3 \$subject of function preg_replace_callback expects array\<float\|int\|string\>\|string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Jeedom/Translator.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\WindowSensors\:\:exists\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/WindowSensors.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\WindowSensors\:\:exists\(\) has parameter \$_cmdId with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/WindowSensors.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\WindowSensors\:\:name\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/WindowSensors.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\WindowSensors\:\:name\(\) has parameter \$_cmd with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/WindowSensors.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\WindowSensors\:\:read\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: core/src/Jeedom/WindowSensors.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\WindowSensors\:\:read\(\) has parameter \$_cmdId with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: core/src/Jeedom/WindowSensors.php
-
-		-
-			message: '#^Parameter \#1 \$_id of static method cmd\:\:byId\(\) expects int\|string, mixed given\.$#'
-			identifier: argument.type
-			count: 2
-			path: core/src/Jeedom/WindowSensors.php
-
-		-
-			message: '#^Parameter \#1 \$_string of static method cmd\:\:byString\(\) expects string, mixed given\.$#'
-			identifier: argument.type
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\WindowSensors\:\:name\(\) should return string but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/WindowSensors.php
