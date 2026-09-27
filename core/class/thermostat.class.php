@@ -19,6 +19,10 @@
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 require_once dirname(__FILE__) . '/thermostatLog.class.php';
 require_once dirname(__FILE__) . '/thermostatJeedomLog.class.php';
+require_once dirname(__FILE__) . '/thermostatPowerSettings.class.php';
+require_once dirname(__FILE__) . '/thermostatPowerMemory.class.php';
+require_once dirname(__FILE__) . '/thermostatJeedomSettings.class.php';
+require_once dirname(__FILE__) . '/thermostatJeedomMemory.class.php';
 require_once dirname(__FILE__) . '/thermostatActionList.class.php';
 require_once dirname(__FILE__) . '/thermostatPowerCalculator.class.php';
 require_once dirname(__FILE__) . '/thermostatCoefficientLearner.class.php';
@@ -226,7 +230,7 @@ class thermostat extends eqLogic {
 	}
 
 	public function calculTemporalData($_consigne, $_allowOverfull = false) {
-		return $this->assembly()->powerCalculator()->compute($_consigne, $_allowOverfull);
+		return $this->assembly()->powerCalculator()->compute($_consigne, $this->getCmd(null, 'temperature')->execCmd(), $this->getCmd(null, 'temperature_outdoor')->execCmd(), $_allowOverfull);
 	}
 
 	public function getNextState() {

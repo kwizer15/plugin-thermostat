@@ -145,7 +145,7 @@ class thermostatSmartStart {
 		}
 		$cycle = jeedom::evaluateExpression($this->thermostat->getConfiguration('cycle'));
 		if ($next['date'] != '' && strtotime($next['date']) > strtotime(date('Y-m-d H:i:s'))) {
-			$temporal_data = $this->powerCalculator->compute(jeedom::evaluateExpression($next['consigne']), true);
+			$temporal_data = $this->powerCalculator->compute(jeedom::evaluateExpression($next['consigne']), $this->thermostat->getCmd(null, 'temperature')->execCmd(), $this->thermostat->getCmd(null, 'temperature_outdoor')->execCmd(), true);
 			if ($temporal_data['power'] < 0) {
 				$this->log->debug(__('Smartstart non pris en compte car power < 0 ', __FILE__) . ' ' . $temporal_data['power']);
 				return;

@@ -18,17 +18,19 @@
 
 class thermostatPowerCalculator {
 
-	private $thermostat;
+	private $settings;
+	private $memory;
 	private $log;
 
-	public function __construct($_thermostat, thermostatLog $_log) {
-		$this->thermostat = $_thermostat;
+	public function __construct(thermostatPowerSettings $_settings, thermostatPowerMemory $_memory, thermostatLog $_log) {
+		$this->settings = $_settings;
+		$this->memory = $_memory;
 		$this->log = $_log;
 	}
 
-	public function compute($_consigne, $_allowOverfull = false) {
-		$temp_out = $this->thermostat->getCmd(null, 'temperature_outdoor')->execCmd();
-		$temp_in = $this->thermostat->getCmd(null, 'temperature')->execCmd();
+	public function compute($_consigne, $_tempIn, $_tempOut, $_allowOverfull = false) {
+		$temp_out = $_tempOut;
+		$temp_in = $_tempIn;
 		if (!is_numeric($temp_out)) {
 			$this->log->debug(__('Attention température extérieure erronée', __FILE__) . ' : ' . $temp_out);
 			$temp_out = $_consigne;
@@ -38,42 +40,44 @@ class thermostatPowerCalculator {
 		$diff_in = $_consigne - $temp_in;
 		$diff_out = $_consigne - $temp_out;
 		$direction = ($_consigne > $temp_in) ? +1 : -1;
-		if ($direction < 0 && (($temp_in < ($_consigne + 0.5) && $this->thermostat->getCache('lastState') == 'heat') || ($_consigne - $temp_out) > $this->thermostat->getConfiguration('direction::delta::heat', 0))) {
+		if ($direction < 0 && (($temp_in < ($_consigne + 0.5) && $this->memory->lastState() == 'heat') || ($_consigne - $temp_out) > $this->settings->directionDeltaHeat())) {
 			$direction = +1;
 		}
-		if ($direction > 0 && (($temp_in > ($_consigne - 0.5) && $this->thermostat->getCache('lastState') == 'cool') || ($_consigne - $temp_out) < $this->thermostat->getConfiguration('direction::delta::cool', 0))) {
+		if ($direction > 0 && (($temp_in > ($_consigne - 0.5) && $this->memory->lastState() == 'cool') || ($_consigne - $temp_out) < $this->settings->directionDeltaCool())) {
 			$direction = -1;
 		}
 		$this->log->debug(__('Direction', __FILE__) . ' : ' . $direction);
 		if ($temp_in >= ($_consigne + 1.5) && $direction == 1) {
-			if ($this->thermostat->getCache('temp_threshold', 0) == 0) {
+			if ($this->memory->temperatureAlert() == 0) {
 				$this->log->debug(__('La température est supérieure à la consigne de plus de 1.5°C, je ne fais rien', __FILE__));
 			}
-			$this->thermostat->setCache('temp_threshold', 1);
+			$this->memory->setTemperatureAlert(1);
 			return array('power' => 0, 'direction' => $direction);
 		}
 		if ($temp_in <= ($_consigne - 1.5) && $direction == -1) {
-			if ($this->thermostat->getCache('temp_threshold', 0) == 0) {
+			if ($this->memory->temperatureAlert() == 0) {
 				$this->log->debug(__('La température est inférieure à la consigne de plus de 1.5°C, je ne fais rien', __FILE__));
 			}
-			$this->thermostat->setCache('temp_threshold', 1);
+			$this->memory->setTemperatureAlert(1);
 			return array('power' => 0, 'direction' => $direction);
 		}
-		$this->thermostat->setCache('temp_threshold', 0);
-		$coeff_out = ($direction > 0) ? $this->thermostat->getConfiguration('coeff_outdoor_heat') : $this->thermostat->getConfiguration('coeff_outdoor_cool');
-		$coeff_in = ($direction > 0) ? $this->thermostat->getConfiguration('coeff_indoor_heat') : $this->thermostat->getConfiguration('coeff_indoor_cool');
-		$offset = ($direction > 0) ? $this->thermostat->getConfiguration('offset_heat') : $this->thermostat->getConfiguration('offset_cool');
+		$this->memory->setTemperatureAlert(0);
+		$coeff_out = $this->settings->coefficientOutdoor($direction);
+		$coeff_in = $this->settings->coefficientIndoor($direction);
+		$offset = $this->settings->offset($direction);
 		$power = ($direction * $diff_in * $coeff_in) + ($direction * $diff_out * $coeff_out) + $offset;
 		$this->log->debug('Power calcul : (' . $diff_in . ' * ' . $coeff_in . ') + (' . $diff_out . ' * ' . $coeff_out . ') + ' . $offset . ' = ' . $power);
 
-		if (!$_allowOverfull && $this->thermostat->getConfiguration('offset_nextFullCyle') != '' && $this->thermostat->getConfiguration('offset_nextFullCyle') > 0 && $this->thermostat->getCache('last_power', 0) >= $this->thermostat->getConfiguration('threshold_heathot', 100)) {
-			if ($this->thermostat->getCache('last_power', 0) >= 100) {
-				$this->log->debug(__('Cycle précédent à 100%, applique offset', __FILE__) . ' : ' . $this->thermostat->getConfiguration('offset_nextFullCyle') . '%');
-				$power -= $this->thermostat->getConfiguration('offset_nextFullCyle');
+		$fullCycleOffset = $this->settings->nextFullCycleOffset();
+		$lastPower = $this->memory->lastPower();
+		if (!$_allowOverfull && $fullCycleOffset != '' && $fullCycleOffset > 0 && $lastPower >= $this->settings->heatHotThreshold()) {
+			if ($lastPower >= 100) {
+				$this->log->debug(__('Cycle précédent à 100%, applique offset', __FILE__) . ' : ' . $fullCycleOffset . '%');
+				$power -= $fullCycleOffset;
 			} else {
-				$this->log->debug(__('Cycle précédent à', __FILE__) . ' ' . $this->thermostat->getCache('last_power', 0) . '%, ' . __('applique offset', __FILE__) . ' : ' . $this->thermostat->getConfiguration('offset_nextFullCyle') . '%');
-				$this->log->debug(__('Puissance de chauffe du cycle', __FILE__) . ' : ' . $power . '% - ' . $this->thermostat->getConfiguration('offset_nextFullCyle') . '% + ' . (100 - $this->thermostat->getCache('last_power', 0)) . '%');
-				$power -= $this->thermostat->getConfiguration('offset_nextFullCyle') - (100 - $this->thermostat->getCache('last_power', 0));
+				$this->log->debug(__('Cycle précédent à', __FILE__) . ' ' . $lastPower . '%, ' . __('applique offset', __FILE__) . ' : ' . $fullCycleOffset . '%');
+				$this->log->debug(__('Puissance de chauffe du cycle', __FILE__) . ' : ' . $power . '% - ' . $fullCycleOffset . '% + ' . (100 - $lastPower) . '%');
+				$power -= $fullCycleOffset - (100 - $lastPower);
 			}
 		}
 		if ($power > 100 && !$_allowOverfull) {

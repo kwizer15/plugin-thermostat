@@ -100,10 +100,10 @@ class thermostatTemporalEngine {
 			$delta = $delta / 2;
 		}
 		$consigne = $this->thermostat->getCmd(null, 'order')->execCmd();
-		$temporal_data = $this->powerCalculator->compute(floatval($consigne) - $delta);
+		$temporal_data = $this->powerCalculator->compute(floatval($consigne) - $delta, $this->thermostat->getCmd(null, 'temperature')->execCmd(), $this->thermostat->getCmd(null, 'temperature_outdoor')->execCmd());
 		if ($temporal_data['power'] > 0 && $delta > 0) {
 			$this->log->debug(__('Power > 0 et delta consigne > 0', __FILE__) . ' (' . $delta . '), ' . __('je relance le calcul avec consigne + delta/2', __FILE__));
-			$temporal_data = $this->powerCalculator->compute($consigne + $delta);
+			$temporal_data = $this->powerCalculator->compute($consigne + $delta, $this->thermostat->getCmd(null, 'temperature')->execCmd(), $this->thermostat->getCmd(null, 'temperature_outdoor')->execCmd());
 		}
 		$this->thermostat->setCache('last_power', $temporal_data['power']);
 		$cycle = jeedom::evaluateExpression($this->thermostat->getConfiguration('cycle'));

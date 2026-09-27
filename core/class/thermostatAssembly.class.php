@@ -28,12 +28,20 @@ class thermostatAssembly {
 		return new thermostatJeedomLog($this->thermostat->getHumanName());
 	}
 
+	public function settings() {
+		return new thermostatJeedomSettings($this->thermostat);
+	}
+
+	public function memory() {
+		return new thermostatJeedomMemory($this->thermostat);
+	}
+
 	public function actionList() {
 		return new thermostatActionList($this->thermostat, $this->log());
 	}
 
 	public function powerCalculator() {
-		return new thermostatPowerCalculator($this->thermostat, $this->log());
+		return new thermostatPowerCalculator($this->settings(), $this->memory(), $this->log());
 	}
 
 	public function coefficientLearner() {
