@@ -312,6 +312,17 @@
         "Type thermostat envoi de la consigne": "Thermostattyp Senden des Sollwerts",
         "Type mode envoi de la commande": "Art des Auftragssendemodus"
     },
+    "plugins\/thermostat\/core\/class\/thermostatStatusLabels.class.php": {
+        "Chauffage": "Heizung",
+        "Climatisation": "Klimaanlage",
+        "Arrêté": "Verhaftet",
+        "Suspendu": "Ausgesetzt",
+        "Calcul": "Berechnung",
+        "Défaillance sonde": "Sondenfehler",
+        "Défaillance chauffage": "Heizungsfehler",
+        "Off": "Aus",
+        "Aucun": "Ohne"
+    },
     "plugins\/thermostat\/core\/class\/thermostatTemporalEngine.class.php": {
         "Début calcul temporel": "Berechnung der Startzeit",
         "Reprogrammation automatique : ": "Automatische Neuprogrammierung:",

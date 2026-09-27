@@ -312,6 +312,17 @@
         "Type thermostat envoi de la consigne": "Thermostat type sending of the setpoint",
         "Type mode envoi de la commande": "Type of order sending mode"
     },
+    "plugins\/thermostat\/core\/class\/thermostatStatusLabels.class.php": {
+        "Chauffage": "Heating",
+        "Climatisation": "Air conditioning",
+        "Arrêté": "Stopped",
+        "Suspendu": "Suspended",
+        "Calcul": "Calculation",
+        "Défaillance sonde": "Probe failure",
+        "Défaillance chauffage": "Heating failure",
+        "Off": "Off",
+        "Aucun": "None"
+    },
     "plugins\/thermostat\/core\/class\/thermostatTemporalEngine.class.php": {
         "Début calcul temporel": "Start time calculation",
         "Reprogrammation automatique : ": "Automatic reprogramming:",

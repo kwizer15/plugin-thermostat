@@ -28,6 +28,14 @@ class thermostatAssembly {
 		return new thermostatJeedomLog($this->thermostat->getHumanName());
 	}
 
+	public function translator($_class) {
+		return new thermostatJeedomTranslator(dirname(__FILE__) . '/' . $_class . '.class.php');
+	}
+
+	public function statusLabels() {
+		return new thermostatStatusLabels($this->translator('thermostatStatusLabels'));
+	}
+
 	public function settings() {
 		return new thermostatJeedomSettings($this->thermostat);
 	}

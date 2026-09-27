@@ -312,6 +312,17 @@
         "Type thermostat envoi de la consigne": "Type thermostat envoi de la consigne",
         "Type mode envoi de la commande": "Type mode envoi de la commande"
     },
+    "plugins\/thermostat\/core\/class\/thermostatStatusLabels.class.php": {
+        "Chauffage": "Kalorifer",
+        "Climatisation": "Klima",
+        "Arrêté": "Durduruldu",
+        "Suspendu": "Suspendu",
+        "Calcul": "Hesap",
+        "Défaillance sonde": "Défaillance sonde",
+        "Défaillance chauffage": "Défaillance chauffage",
+        "Off": "Off",
+        "Aucun": "Hiçbir"
+    },
     "plugins\/thermostat\/core\/class\/thermostatTemporalEngine.class.php": {
         "Début calcul temporel": "Début calcul temporel",
         "Reprogrammation automatique : ": "Reprogrammation automatique :",

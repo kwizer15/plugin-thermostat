@@ -312,6 +312,17 @@
         "Type thermostat envoi de la consigne": "Envio do tipo de termostato do ponto de ajuste",
         "Type mode envoi de la commande": "Tipo de modo de envio de pedido"
     },
+    "plugins\/thermostat\/core\/class\/thermostatStatusLabels.class.php": {
+        "Chauffage": "Aquecimento",
+        "Climatisation": "Ar condicionado",
+        "Arrêté": "Parado",
+        "Suspendu": "Suspenso",
+        "Calcul": "Cálculo",
+        "Défaillance sonde": "Falha na sonda",
+        "Défaillance chauffage": "Falha no aquecimento",
+        "Off": "Off",
+        "Aucun": "Nenhum"
+    },
     "plugins\/thermostat\/core\/class\/thermostatTemporalEngine.class.php": {
         "Début calcul temporel": "Cálculo da hora de início",
         "Reprogrammation automatique : ": "Reprogramação automática:",
