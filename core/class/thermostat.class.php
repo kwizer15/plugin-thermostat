@@ -85,9 +85,6 @@ class thermostat extends eqLogic {
 	}
 
 	public static function updatePerformance($_options) {
-		if (date('Gi') > 2358 && date('Gi') < 1) {
-			return;
-		}
 		$thermostat = thermostat::byId($_options['thermostat_id']);
 		if (!is_object($thermostat)) {
 			return;
@@ -483,7 +480,7 @@ class thermostat extends eqLogic {
 			preg_match_all("/#([0-9]*)#/", $thermostat_json, $matches);
 			foreach ($matches[1] as $cmd_id) {
 				if (is_numeric($cmd_id)) {
-					if (!cmd::byId(str_replace('#', '', $cmd_id))) {
+					if (!cmd::byId($cmd_id)) {
 						$return[] = array('detail' => 'Thermostat ' . $thermostat->getHumanName(), 'help' => 'Action', 'who' => '#' . $cmd_id . '#');
 					}
 				}
@@ -902,9 +899,6 @@ class thermostat extends eqLogic {
 		}
 		if ($this->getConfiguration('autolearn') === '') {
 			$this->setConfiguration('autolearn', 1);
-		}
-		if ($this->getConfiguration('coeff_indoor_cool') === '') {
-			$this->setConfiguration('coeff_indoor_cool', 0);
 		}
 		if ($this->getConfiguration('coeff_indoor_cool_autolearn') === '' || $this->getConfiguration('coeff_indoor_cool_autolearn') < 1) {
 			$this->setConfiguration('coeff_indoor_cool_autolearn', 1);
@@ -1450,7 +1444,6 @@ class thermostat extends eqLogic {
 		$return = array();
 		$prevValue = 0;
 		$prevDatetime = 0;
-		$day = null;
 		$day = strtotime($_startDate . ' 00:00:00 UTC');
 		$endDatetime = strtotime($_endDate . ' 00:00:00 UTC');
 		while ($day <= $endDatetime) {
