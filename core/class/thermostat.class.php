@@ -835,6 +835,19 @@ class thermostat extends eqLogic {
 		$this->unschedule();
 	}
 
+	private function firstInfoCmdId($_expression) {
+		preg_match_all("/#([0-9]*)#/", $_expression, $matches);
+		foreach ($matches[1] as $cmd_id) {
+			if (is_numeric($cmd_id)) {
+				$cmd = cmd::byId($cmd_id);
+				if (is_object($cmd) && $cmd->getType() == 'info') {
+					return $cmd_id;
+				}
+			}
+		}
+		return null;
+	}
+
 	private function unschedule() {
 		$cron = cron::byClassAndFunction(__CLASS__, 'pull', array('thermostat_id' => intval($this->getId())));
 		if (is_object($cron)) {
@@ -1074,18 +1087,8 @@ class thermostat extends eqLogic {
 		$temperature->setSubType('numeric');
 		$temperature->setLogicalId('temperature');
 		$temperature->setUnite('°C');
-		$value = '';
-		preg_match_all("/#([0-9]*)#/", $this->getConfiguration('temperature_indoor'), $matches);
-		foreach ($matches[1] as $cmd_id) {
-			if (is_numeric($cmd_id)) {
-				$cmd = cmd::byId($cmd_id);
-				if (is_object($cmd) && $cmd->getType() == 'info') {
-					$value .= '#' . $cmd_id . '#';
-					break;
-				}
-			}
-		}
-		$temperature->setValue($value);
+		$cmd_id = $this->firstInfoCmdId($this->getConfiguration('temperature_indoor'));
+		$temperature->setValue(($cmd_id === null) ? '' : '#' . $cmd_id . '#');
 		$temperature->setGeneric_type('THERMOSTAT_TEMPERATURE');
 		$temperature->save();
 		if (!is_numeric($temperature->execCmd()) || $temperature->execCmd() == '') {
@@ -1107,18 +1110,8 @@ class thermostat extends eqLogic {
 		$temperature_outdoor->setLogicalId('temperature_outdoor');
 		$temperature_outdoor->setUnite('°C');
 
-		$value = '';
-		preg_match_all("/#([0-9]*)#/", $this->getConfiguration('temperature_outdoor'), $matches);
-		foreach ($matches[1] as $cmd_id) {
-			if (is_numeric($cmd_id)) {
-				$cmd = cmd::byId($cmd_id);
-				if (is_object($cmd) && $cmd->getType() == 'info') {
-					$value .= '#' . $cmd_id . '#';
-					break;
-				}
-			}
-		}
-		$temperature_outdoor->setValue($value);
+		$cmd_id = $this->firstInfoCmdId($this->getConfiguration('temperature_outdoor'));
+		$temperature_outdoor->setValue(($cmd_id === null) ? '' : '#' . $cmd_id . '#');
 		$temperature_outdoor->setGeneric_type('THERMOSTAT_TEMPERATURE_OUTDOOR');
 		$temperature_outdoor->save();
 		if (!is_numeric($temperature_outdoor->execCmd()) || $temperature_outdoor->execCmd() == '') {
@@ -1347,26 +1340,15 @@ class thermostat extends eqLogic {
 			$customCmd->setEqLogic_id($this->getId());
 			$customCmd->setLogicalId('customCmd');
 			$customCmd->setType('info');
-			$value = '';
-			preg_match_all("/#([0-9]*)#/", $this->getConfiguration('customCmd'), $matches);
-			foreach ($matches[1] as $cmd_id) {
-				if (is_numeric($cmd_id)) {
-					$cmd = cmd::byId($cmd_id);
-					if (is_object($cmd) && $cmd->getType() == 'info') {
-						$customCmdName = $cmd->getName();
-						$customCmdSubType = $cmd->getSubType();
-						$customCmdUnite = $cmd->getUnite();
-						$customCmdGeneric = $cmd->getGeneric_type();
-						$value .= '#' . $cmd_id . '#';
-						$customCmd->setValue($value);
-						$customCmd->setSubType($customCmdSubType);
-						$customCmd->setName($customCmdName);
-						$customCmd->setUnite($customCmdUnite);
-						$customCmd->setGeneric_type($customCmdGeneric);
-						$customCmd->save();
-						break;
-					}
-				}
+			$cmd_id = $this->firstInfoCmdId($this->getConfiguration('customCmd'));
+			if ($cmd_id !== null) {
+				$cmd = cmd::byId($cmd_id);
+				$customCmd->setValue('#' . $cmd_id . '#');
+				$customCmd->setSubType($cmd->getSubType());
+				$customCmd->setName($cmd->getName());
+				$customCmd->setUnite($cmd->getUnite());
+				$customCmd->setGeneric_type($cmd->getGeneric_type());
+				$customCmd->save();
 			}
 			if ($customCmd->execCmd() == '') {
 				$customCmd->event($customCmd->execute());
