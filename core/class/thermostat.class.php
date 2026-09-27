@@ -160,7 +160,6 @@ class thermostat extends eqLogic {
 			$thermostat->assembly()->windows()->alert();
 			$thermostat->assembly()->scheduler()->watchdog();
 			$thermostat->assembly()->scheduler()->runHysteresisCron();
-
 			$thermostat->assembly()->sensorWatch()->check();
 		}
 	}
@@ -320,7 +319,6 @@ class thermostat extends eqLogic {
 	public function calculDju($_date = null) {
 		return $this->assembly()->statistics()->dju($_date);
 	}
-
 }
 
 class thermostatCmd extends cmd {
