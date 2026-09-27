@@ -198,18 +198,11 @@
         "Détails": "Detalhes"
     },
     "plugins\/thermostat\/core\/class\/thermostatActuator.class.php": {
-        "Off": "Off",
-        "Suspendu": "Suspenso",
-        "Chauffage": "Aquecimento",
         "Action chauffage": "Ação de aquecimento",
-        "Climatisation": "Ar condicionado",
         "Action froid": "Ação frio",
-        "Arrêté": "Parado",
         "Action stop": "Parar ação",
         "Action défaillance sonde": "Ação falha da sonda",
-        "Défaillance sonde": "Falha na sonda",
-        "Action défaillance chauffage": "Ação falha de aquecimento",
-        "Défaillance chauffage": "Falha no aquecimento"
+        "Action défaillance chauffage": "Ação falha de aquecimento"
     },
     "plugins\/thermostat\/core\/class\/thermostatCoefficientLearner.class.php": {
         "Démarre auto-apprentissage": "Inicia a autoaprendizagem"
@@ -352,8 +345,6 @@
         "valeur": "valor",
         "Fenêtre fermée": "Janela fechada",
         "Fenêtre ouverte": "Janela aberta",
-        "Off": "Off",
-        "Suspendu": "Suspenso",
         "Thermostat arreté ou suspendu je ne fais rien": "Termostato parado ou suspenso eu não faço nada",
         "Commande introuvable je ne fais rien": "Comando não encontrado, não faço nada",
         "Pause de": "Intervalo de",
@@ -368,7 +359,6 @@
         "Fenêtre ouverte, je ne fais rien": "Janela aberta, eu não faço nada",
         "Fenêtre fermée depuis trop peu de temps, je ne fais rien": "Janela fechada por pouco tempo, não faço nada",
         "Toutes les fenêtres sont fermées, je relance le chauffage": "Todas as janelas estão fechadas, ligo o aquecimento",
-        "Calcul": "Cálculo",
         "Attention le thermostat est suspendu à cause d'une fenêtre ouverte depuis": "Observe que o termostato está suspenso devido a uma janela que esteve aberta por"
     },
     "info.json": {

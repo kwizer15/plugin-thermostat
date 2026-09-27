@@ -23,7 +23,7 @@ class ActuatorTest extends TestCase {
 	}
 
 	private function actuator() {
-		return new thermostatActuator($this->settings, $this->memory, $this->persistence, $this->display, $this->actions, $this->engine, new RecordingLog());
+		return new thermostatActuator($this->settings, $this->memory, $this->persistence, $this->display, $this->actions, $this->engine, new RecordingLog(), new thermostatStatusLabels(new IdentityTranslator()), new IdentityTranslator());
 	}
 
 	public function testHeatExecutesActionsAndRecordsState() {

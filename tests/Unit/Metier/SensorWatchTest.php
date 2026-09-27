@@ -25,7 +25,7 @@ class SensorWatchTest extends TestCase {
 	}
 
 	private function check() {
-		$actuator = new thermostatActuator($this->settings, $this->memory, new CountingPersistence(), $this->display, $this->actions, new CountingRunner(), $this->log);
+		$actuator = new thermostatActuator($this->settings, $this->memory, new CountingPersistence(), $this->display, $this->actions, new CountingRunner(), $this->log, new thermostatStatusLabels(new IdentityTranslator()), new IdentityTranslator());
 		(new thermostatSensorWatch($this->settings, $this->memory, $this->display, $this->sensors, $actuator, $this->log))->check();
 	}
 

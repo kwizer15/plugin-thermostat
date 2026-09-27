@@ -25,8 +25,8 @@ class WindowsTest extends TestCase {
 	}
 
 	private function windows() {
-		$actuator = new thermostatActuator($this->settings, $this->memory, new CountingPersistence(), $this->display, $this->actions, $this->engine, new RecordingLog());
-		return new thermostatWindows($this->settings, $this->memory, $this->display, $this->sensors, $actuator, $this->engine, new RecordingLog());
+		$actuator = new thermostatActuator($this->settings, $this->memory, new CountingPersistence(), $this->display, $this->actions, $this->engine, new RecordingLog(), new thermostatStatusLabels(new IdentityTranslator()), new IdentityTranslator());
+		return new thermostatWindows($this->settings, $this->memory, $this->display, $this->sensors, $actuator, $this->engine, new RecordingLog(), new thermostatStatusLabels(new IdentityTranslator()), new IdentityTranslator());
 	}
 
 	private function configure(array $_windows) {
@@ -172,7 +172,7 @@ class WindowsTest extends TestCase {
 		$this->display->status = 'Suspendu';
 		$this->memory->setOpenSince(strtotime('2026-01-15 09:29:59'));
 		$log = new RecordingLog();
-		$windows = new thermostatWindows($this->settings, $this->memory, $this->display, $this->sensors, new thermostatActuator($this->settings, $this->memory, new CountingPersistence(), $this->display, $this->actions, $this->engine, $log), $this->engine, $log);
+		$windows = new thermostatWindows($this->settings, $this->memory, $this->display, $this->sensors, new thermostatActuator($this->settings, $this->memory, new CountingPersistence(), $this->display, $this->actions, $this->engine, $log, new thermostatStatusLabels(new IdentityTranslator()), new IdentityTranslator()), $this->engine, $log, new thermostatStatusLabels(new IdentityTranslator()), new IdentityTranslator());
 
 		$windows->alert();
 		$windows->alert();

@@ -198,18 +198,11 @@
         "Détails": "Einzelheiten"
     },
     "plugins\/thermostat\/core\/class\/thermostatActuator.class.php": {
-        "Off": "Aus",
-        "Suspendu": "Ausgesetzt",
-        "Chauffage": "Heizung",
         "Action chauffage": "Heizwirkung",
-        "Climatisation": "Klimaanlage",
         "Action froid": "Kalte Aktion",
-        "Arrêté": "Verhaftet",
         "Action stop": "Aktion stoppen",
         "Action défaillance sonde": "Aktion bei Sondenausfall",
-        "Défaillance sonde": "Sondenfehler",
-        "Action défaillance chauffage": "Aktion bei Heizungsausfall",
-        "Défaillance chauffage": "Heizungsfehler"
+        "Action défaillance chauffage": "Aktion bei Heizungsausfall"
     },
     "plugins\/thermostat\/core\/class\/thermostatCoefficientLearner.class.php": {
         "Démarre auto-apprentissage": "Startet Selbstlernen"
@@ -352,8 +345,6 @@
         "valeur": "Wert",
         "Fenêtre fermée": "Fenster geschlossen",
         "Fenêtre ouverte": "Fenster öffnen",
-        "Off": "Aus",
-        "Suspendu": "Ausgesetzt",
         "Thermostat arreté ou suspendu je ne fais rien": "Thermostat gestoppt oder ausgesetzt Ich tue nichts",
         "Commande introuvable je ne fais rien": "Befehl nicht gefunden Ich tue nichts",
         "Pause de": "Pause von",
@@ -368,7 +359,6 @@
         "Fenêtre ouverte, je ne fais rien": "Fenster offen, ich tue nichts",
         "Fenêtre fermée depuis trop peu de temps, je ne fais rien": "Fenster zu kurz geschlossen, ich tue nichts",
         "Toutes les fenêtres sont fermées, je relance le chauffage": "Alle Fenster sind geschlossen, ich mach die Heizung an",
-        "Calcul": "Berechnung",
         "Attention le thermostat est suspendu à cause d'une fenêtre ouverte depuis": "Bitte beachten Sie, dass der Thermostat aufgrund eines geöffneten Fensters ausgeschaltet ist"
     },
     "info.json": {

@@ -89,11 +89,11 @@ class thermostatAssembly {
 	}
 
 	public function actuator() {
-		return new thermostatActuator($this->settings(), $this->memory(), $this->persistence(), $this->display(), $this->actionList(), $this->engineRunner(), $this->log());
+		return new thermostatActuator($this->settings(), $this->memory(), $this->persistence(), $this->display(), $this->actionList(), $this->engineRunner(), $this->log(), $this->statusLabels(), $this->translator('thermostatActuator'));
 	}
 
 	public function windows() {
-		return new thermostatWindows($this->settings(), $this->memory(), $this->display(), new thermostatJeedomWindowSensors(), $this->actuator(), $this->engineRunner(), $this->log());
+		return new thermostatWindows($this->settings(), $this->memory(), $this->display(), new thermostatJeedomWindowSensors(), $this->actuator(), $this->engineRunner(), $this->log(), $this->statusLabels(), $this->translator('thermostatWindows'));
 	}
 
 	public function temporalEngine() {

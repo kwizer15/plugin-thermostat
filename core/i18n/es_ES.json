@@ -198,18 +198,11 @@
         "Détails": "Detalles"
     },
     "plugins\/thermostat\/core\/class\/thermostatActuator.class.php": {
-        "Off": "Apagado",
-        "Suspendu": "Suspendido",
-        "Chauffage": "Calefacción",
         "Action chauffage": "Acción de calentamiento",
-        "Climatisation": "Climatización",
         "Action froid": "Acción fría",
-        "Arrêté": "Detenido",
         "Action stop": "Detener la acción",
         "Action défaillance sonde": "Acción de falla de sonda",
-        "Défaillance sonde": "Falla de la sonda",
-        "Action défaillance chauffage": "Acción de falla de calefacción",
-        "Défaillance chauffage": "Fallo de calentamiento"
+        "Action défaillance chauffage": "Acción de falla de calefacción"
     },
     "plugins\/thermostat\/core\/class\/thermostatCoefficientLearner.class.php": {
         "Démarre auto-apprentissage": "Inicia el autoaprendizaje"
@@ -352,8 +345,6 @@
         "valeur": "valor",
         "Fenêtre fermée": "Ventana cerrada",
         "Fenêtre ouverte": "Ventana abierta",
-        "Off": "Apagado",
-        "Suspendu": "Suspendido",
         "Thermostat arreté ou suspendu je ne fais rien": "Termostato parado o suspendido no hago nada",
         "Commande introuvable je ne fais rien": "Comando no encontrado no hago nada",
         "Pause de": "Romper con",
@@ -368,7 +359,6 @@
         "Fenêtre ouverte, je ne fais rien": "Ventana abierta, no hago nada",
         "Fenêtre fermée depuis trop peu de temps, je ne fais rien": "Ventana cerrada por muy poco tiempo, no hago nada",
         "Toutes les fenêtres sont fermées, je relance le chauffage": "Todas las ventanas están cerradas, enciendo la calefacción",
-        "Calcul": "Cálculo",
         "Attention le thermostat est suspendu à cause d'une fenêtre ouverte depuis": "Tenga en cuenta que el termostato está suspendido debido a una ventana que ha estado abierta durante"
     },
     "info.json": {

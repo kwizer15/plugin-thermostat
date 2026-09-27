@@ -25,8 +25,10 @@ class thermostatWindows {
 	private $actuator;
 	private $engine;
 	private $log;
+	private $labels;
+	private $translator;
 
-	public function __construct(thermostatWindowSettings $_settings, thermostatWindowMemory $_memory, thermostatDisplay $_display, thermostatWindowSensors $_sensors, thermostatActuator $_actuator, thermostatEngineRunner $_engine, thermostatLog $_log) {
+	public function __construct(thermostatWindowSettings $_settings, thermostatWindowMemory $_memory, thermostatDisplay $_display, thermostatWindowSensors $_sensors, thermostatActuator $_actuator, thermostatEngineRunner $_engine, thermostatLog $_log, thermostatStatusLabels $_labels, thermostatTranslator $_translator) {
 		$this->settings = $_settings;
 		$this->memory = $_memory;
 		$this->display = $_display;
@@ -34,22 +36,24 @@ class thermostatWindows {
 		$this->actuator = $_actuator;
 		$this->engine = $_engine;
 		$this->log = $_log;
+		$this->labels = $_labels;
+		$this->translator = $_translator;
 	}
 
 	public function handle($_option) {
-		$this->log->debug(__("Détection d'un changement sur une fenêtre", __FILE__));
+		$this->log->debug($this->translator->translate("{{Détection d'un changement sur une fenêtre}}"));
 		$windows = $this->settings->windows();
 		foreach ($windows as $window) {
 			if ('#' . $_option['event_id'] . '#' == $window['cmd']) {
 				if (isset($window['invert']) && $window['invert'] == 1) {
 					$_option['value'] = ($_option['value'] == 0) ? 1 : 0;
 				}
-				$this->log->debug(__('Fenêtre trouvée', __FILE__) . ' : ' . $this->sensors->name($window['cmd']) . ' - ' . __('valeur', __FILE__) . ' : ' . $_option['value']);
+				$this->log->debug($this->translator->translate('{{Fenêtre trouvée}}') . ' : ' . $this->sensors->name($window['cmd']) . ' - ' . $this->translator->translate('{{valeur}}') . ' : ' . $_option['value']);
 				if ($_option['value'] == 0) {
-					$this->log->debug(__('Fenêtre fermée', __FILE__));
+					$this->log->debug($this->translator->translate('{{Fenêtre fermée}}'));
 					$this->close($window);
 				} else {
-					$this->log->debug(__('Fenêtre ouverte', __FILE__));
+					$this->log->debug($this->translator->translate('{{Fenêtre ouverte}}'));
 					$this->open($window);
 				}
 			}
@@ -59,19 +63,19 @@ class thermostatWindows {
 	public function open($_window) {
 		$this->log->debug('[windowOpen] => ' . json_encode($_window));
 		$this->memory->setWindowState(str_replace('#', '', $_window['cmd']), 1);
-		if ($this->display->mode() == __('Off', __FILE__) || $this->display->status() == __('Suspendu', __FILE__)) {
-			$this->log->debug('[windowOpen] ' . __('Thermostat arreté ou suspendu je ne fais rien', __FILE__));
+		if ($this->display->mode() == $this->labels->off() || $this->display->status() == $this->labels->suspended()) {
+			$this->log->debug('[windowOpen] ' . $this->translator->translate('{{Thermostat arreté ou suspendu je ne fais rien}}'));
 			return;
 		}
 		$startime = strtotime('now');
 		$cmdId = str_replace('#', '', $_window['cmd']);
 		if (!$this->sensors->exists($cmdId)) {
-			$this->log->debug('[windowOpen] ' . __('Commande introuvable je ne fais rien', __FILE__));
+			$this->log->debug('[windowOpen] ' . $this->translator->translate('{{Commande introuvable je ne fais rien}}'));
 			return;
 		}
 		$stopTime = (isset($_window['stopTime']) && $_window['stopTime'] != '') ? $_window['stopTime'] : 0;
 		if (is_numeric($stopTime) && $stopTime > 0) {
-			$this->log->debug('[windowOpen] ' . __('Pause de', __FILE__) . ' ' . $stopTime . ' ' . __('minutes', __FILE__));
+			$this->log->debug('[windowOpen] ' . $this->translator->translate('{{Pause de}}') . ' ' . $stopTime . ' ' . $this->translator->translate('{{minutes}}'));
 			sleep($stopTime * 60);
 		}
 		$reading = $this->sensors->read($cmdId);
@@ -79,17 +83,17 @@ class thermostatWindows {
 		if (isset($_window['invert']) && $_window['invert'] == 1) {
 			$value = ($value == 0) ? 1 : 0;
 		}
-		$this->log->debug('[windowOpen] ' . __('Valeur commande', __FILE__) . ' : ' . $value . __(' en date du : ', __FILE__) . $reading->valueDate());
+		$this->log->debug('[windowOpen] ' . $this->translator->translate('{{Valeur commande}}') . ' : ' . $value . $this->translator->translate('{{ en date du : }}') . $reading->valueDate());
 		if ($value != 1) {
-			$this->log->debug('[windowOpen] ' . __("L'ouvrant n'est plus ouvert, je ne fais rien", __FILE__));
+			$this->log->debug('[windowOpen] ' . $this->translator->translate("{{L'ouvrant n'est plus ouvert, je ne fais rien}}"));
 			return true;
 		}
 		if (strtotime($reading->valueDate()) > ($startime + 5)) {
-			$this->log->debug('[windowOpen] ' . __("L'ouvrant à été refermé pendant la pause, je ne fais rien, refermé à", __FILE__) . ' ' . $reading->valueDate());
+			$this->log->debug('[windowOpen] ' . $this->translator->translate("{{L'ouvrant à été refermé pendant la pause, je ne fais rien, refermé à}}") . ' ' . $reading->valueDate());
 			return true;
 		}
-		$this->log->debug('[windowOpen] ' . __('Arrêt du thermostat', __FILE__));
-		$this->display->setStatus(__('Suspendu', __FILE__));
+		$this->log->debug('[windowOpen] ' . $this->translator->translate('{{Arrêt du thermostat}}'));
+		$this->display->setStatus($this->labels->suspended());
 		$this->actuator->stop(false, true);
 		$this->memory->setOpenSince(strtotime('now'));
 		return true;
@@ -97,19 +101,19 @@ class thermostatWindows {
 
 	public function close($_window) {
 		if ($this->memory->windowState(str_replace('#', '', $_window['cmd'])) != 1) {
-			$this->log->debug('[windowClose] ' . __("Je n'ai jamais vu cette fenêtre ouverte, je ne fais rien", __FILE__));
+			$this->log->debug('[windowClose] ' . $this->translator->translate("{{Je n'ai jamais vu cette fenêtre ouverte, je ne fais rien}}"));
 			return;
 		}
 		$this->memory->setWindowState(str_replace('#', '', $_window['cmd']), 0);
 		$this->log->debug('[windowClose] => ' . json_encode($_window));
-		if ($this->display->status() != __('Suspendu', __FILE__)) {
-			$this->log->debug('[windowClose] ' . __('Thermostat non suspendu je ne fais rien', __FILE__));
+		if ($this->display->status() != $this->labels->suspended()) {
+			$this->log->debug('[windowClose] ' . $this->translator->translate('{{Thermostat non suspendu je ne fais rien}}'));
 			return;
 		}
 		$this->memory->setClosedAt(str_replace('#', '', $_window['cmd']), date('Y-m-d H:i:s'));
 		$restartTime = (isset($_window['restartTime']) && $_window['restartTime'] != '') ? $_window['restartTime'] * 60 : 0;
 		if (is_numeric($restartTime) && $restartTime > 0) {
-			$this->log->debug('[windowClose] ' . __('Pause de', __FILE__) . ' ' . $restartTime . 's');
+			$this->log->debug('[windowClose] ' . $this->translator->translate('{{Pause de}}') . ' ' . $restartTime . 's');
 			sleep($restartTime);
 		}
 		$windows = $this->settings->windows();
@@ -124,17 +128,17 @@ class thermostatWindows {
 				$value = ($value == 0) ? 1 : 0;
 			}
 			if ($value == 1) {
-				$this->log->debug('[windowClose] ' . __('Fenêtre ouverte, je ne fais rien', __FILE__) . ' : ' . $window['cmd']);
+				$this->log->debug('[windowClose] ' . $this->translator->translate('{{Fenêtre ouverte, je ne fais rien}}') . ' : ' . $window['cmd']);
 				return;
 			}
 			$restartTime = (isset($window['restartTime']) && $window['restartTime'] != '') ? $window['restartTime'] * 60 : 0;
 			if ((strtotime($this->memory->closedAt($cmdId)) + $restartTime - 1) > strtotime('now')) {
-				$this->log->debug('[windowClose] ' . __('Fenêtre fermée depuis trop peu de temps, je ne fais rien', __FILE__) . ' : ' . $window['cmd'] . ' => ' . $this->memory->closedAt($cmdId) . '+' . $restartTime . 's');
+				$this->log->debug('[windowClose] ' . $this->translator->translate('{{Fenêtre fermée depuis trop peu de temps, je ne fais rien}}') . ' : ' . $window['cmd'] . ' => ' . $this->memory->closedAt($cmdId) . '+' . $restartTime . 's');
 				return;
 			}
 		}
-		$this->log->debug('[windowClose] ' . __('Toutes les fenêtres sont fermées, je relance le chauffage', __FILE__));
-		$this->display->setStatus(__('Calcul', __FILE__));
+		$this->log->debug('[windowClose] ' . $this->translator->translate('{{Toutes les fenêtres sont fermées, je relance le chauffage}}'));
+		$this->display->setStatus($this->labels->computing());
 		$this->memory->setOpenSince(-1);
 		$this->engine->run();
 	}
@@ -145,10 +149,10 @@ class thermostatWindows {
 			&& $this->settings->windowAlertDelay() > 0
 			&& $this->memory->openSince() != -1
 			&& (strtotime('now') - $this->memory->openSince()) > ($this->settings->windowAlertDelay() * 60)
-			&& $this->display->status() == __('Suspendu', __FILE__)
+			&& $this->display->status() == $this->labels->suspended()
 		) {
 			if ($this->memory->alertSent() != 1) {
-				$this->log->error(__("Attention le thermostat est suspendu à cause d'une fenêtre ouverte depuis", __FILE__) . ' : ' .  ((strtotime('now') - $this->memory->openSince()) / 60) . __('minutes', __FILE__));
+				$this->log->error($this->translator->translate("{{Attention le thermostat est suspendu à cause d'une fenêtre ouverte depuis}}") . ' : ' .  ((strtotime('now') - $this->memory->openSince()) / 60) . $this->translator->translate('{{minutes}}'));
 				$this->memory->setAlertSent(1);
 			}
 		} else {

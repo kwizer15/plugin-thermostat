@@ -23,7 +23,7 @@ class CommandHandlerTest extends TestCase {
 	}
 
 	private function handle($_logicalId, array $_options = array(), $_name = '') {
-		$actuator = new thermostatActuator($this->settings, $this->memory, $this->persistence, $this->display, $this->actions, $this->engine, new RecordingLog());
+		$actuator = new thermostatActuator($this->settings, $this->memory, $this->persistence, $this->display, $this->actions, $this->engine, new RecordingLog(), new thermostatStatusLabels(new IdentityTranslator()), new IdentityTranslator());
 		return (new thermostatCommandHandler($this->settings, $this->memory, $this->persistence, $this->display, $actuator, $this->engine))->handle($_logicalId, $_name, $_options);
 	}
 

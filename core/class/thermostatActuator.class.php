@@ -25,8 +25,10 @@ class thermostatActuator {
 	private $actions;
 	private $engine;
 	private $log;
+	private $labels;
+	private $translator;
 
-	public function __construct(thermostatActuatorSettings $_settings, thermostatStateMemory $_memory, thermostatPersistence $_persistence, thermostatDisplay $_display, thermostatActions $_actions, thermostatEngineRunner $_engine, thermostatLog $_log) {
+	public function __construct(thermostatActuatorSettings $_settings, thermostatStateMemory $_memory, thermostatPersistence $_persistence, thermostatDisplay $_display, thermostatActions $_actions, thermostatEngineRunner $_engine, thermostatLog $_log, thermostatStatusLabels $_labels, thermostatTranslator $_translator) {
 		$this->settings = $_settings;
 		$this->memory = $_memory;
 		$this->persistence = $_persistence;
@@ -34,11 +36,13 @@ class thermostatActuator {
 		$this->actions = $_actions;
 		$this->engine = $_engine;
 		$this->log = $_log;
+		$this->labels = $_labels;
+		$this->translator = $_translator;
 	}
 
 	public function heat($_repeat = false) {
 		if (!$_repeat) {
-			if ($this->display->mode() == __('Off', __FILE__) || $this->display->status() == __('Suspendu', __FILE__)) {
+			if ($this->display->mode() == $this->labels->off() || $this->display->status() == $this->labels->suspended()) {
 				return false;
 			}
 			if ($this->settings->allowMode() != 'all' && $this->settings->allowMode() != 'heat') {
@@ -50,8 +54,8 @@ class thermostatActuator {
 				return false;
 			}
 		}
-		$this->display->setStatus(__('Chauffage', __FILE__));
-		$this->log->debug(__('Action chauffage', __FILE__));
+		$this->display->setStatus($this->labels->heating());
+		$this->log->debug($this->translator->translate('{{Action chauffage}}'));
 		$this->actions->execute($this->settings->heatingActions(), true);
 		if (!$_repeat) {
 			$this->persistence->reload();
@@ -63,7 +67,7 @@ class thermostatActuator {
 
 	public function cool($_repeat = false) {
 		if (!$_repeat) {
-			if ($this->display->mode() == __('Off', __FILE__) || $this->display->status() == __('Suspendu', __FILE__)) {
+			if ($this->display->mode() == $this->labels->off() || $this->display->status() == $this->labels->suspended()) {
 				return false;
 			}
 			if ($this->settings->allowMode() != 'all' && $this->settings->allowMode() != 'cool') {
@@ -75,8 +79,8 @@ class thermostatActuator {
 				return false;
 			}
 		}
-		$this->display->setStatus(__('Climatisation', __FILE__));
-		$this->log->debug(__('Action froid', __FILE__));
+		$this->display->setStatus($this->labels->cooling());
+		$this->log->debug($this->translator->translate('{{Action froid}}'));
 		$this->actions->execute($this->settings->coolingActions(), true);
 		if (!$_repeat) {
 			$this->persistence->reload();
@@ -87,20 +91,20 @@ class thermostatActuator {
 	}
 
 	public function stop($_repeat = false, $_suspend = false) {
-		if (!$_repeat && $this->display->status() == __('Arrêté', __FILE__)) {
+		if (!$_repeat && $this->display->status() == $this->labels->stopped()) {
 			if ($this->display->power() > 0) {
 				$_repeat = true;
 			} else {
 				return;
 			}
 		}
-		$this->log->debug(__('Action stop', __FILE__));
+		$this->log->debug($this->translator->translate('{{Action stop}}'));
 		$this->actions->execute($this->settings->stoppingActions(), true);
 		$this->display->setPower(0);
 		$this->display->setActive(0);
 
 		if (!$_suspend) {
-			$this->display->setStatus(__('Arrêté', __FILE__));
+			$this->display->setStatus($this->labels->stopped());
 		}
 		if ($_repeat) {
 			return;
@@ -109,7 +113,7 @@ class thermostatActuator {
 	}
 
 	public function orderChange() {
-		if ($this->display->mode() == __('Off', __FILE__) || $this->display->status() == __('Suspendu', __FILE__)) {
+		if ($this->display->mode() == $this->labels->off() || $this->display->status() == $this->labels->suspended()) {
 			return;
 		}
 		if (!is_array($this->settings->orderChangeActions()) || count($this->settings->orderChangeActions()) == 0) {
@@ -119,27 +123,27 @@ class thermostatActuator {
 	}
 
 	public function failure() {
-		if ($this->display->mode() == __('Off', __FILE__) || $this->display->status() == __('Suspendu', __FILE__)) {
+		if ($this->display->mode() == $this->labels->off() || $this->display->status() == $this->labels->suspended()) {
 			return;
 		}
 		if (!is_array($this->settings->failureActions()) || count($this->settings->failureActions()) == 0) {
 			return;
 		}
-		$this->log->debug(__('Action défaillance sonde', __FILE__));
+		$this->log->debug($this->translator->translate('{{Action défaillance sonde}}'));
 		$this->actions->execute($this->settings->failureActions(), false);
-		$this->display->setStatus(__('Défaillance sonde', __FILE__));
+		$this->display->setStatus($this->labels->sensorFailure());
 	}
 
 	public function failureActuator() {
-		if ($this->display->mode() == __('Off', __FILE__) || $this->display->status() == __('Suspendu', __FILE__)) {
+		if ($this->display->mode() == $this->labels->off() || $this->display->status() == $this->labels->suspended()) {
 			return;
 		}
 		if (!is_array($this->settings->failureActuatorActions()) || count($this->settings->failureActuatorActions()) == 0) {
 			return;
 		}
-		$this->log->debug(__('Action défaillance chauffage', __FILE__));
+		$this->log->debug($this->translator->translate('{{Action défaillance chauffage}}'));
 		$this->actions->execute($this->settings->failureActuatorActions(), false);
-		$this->display->setStatus(__('Défaillance chauffage', __FILE__));
+		$this->display->setStatus($this->labels->heatingFailure());
 	}
 
 	public function executeMode($_name) {
@@ -159,13 +163,13 @@ class thermostatActuator {
 
 	public function repeat() {
 		switch ($this->display->status()) {
-			case __('Chauffage', __FILE__):
+			case $this->labels->heating():
 				$this->heat(true);
 				break;
-			case __('Arrêté', __FILE__):
+			case $this->labels->stopped():
 				$this->stop(true);
 				break;
-			case __('Climatisation', __FILE__):
+			case $this->labels->cooling():
 				$this->cool(true);
 				break;
 		}

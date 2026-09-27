@@ -198,18 +198,11 @@
         "Détails": "Détails"
     },
     "plugins\/thermostat\/core\/class\/thermostatActuator.class.php": {
-        "Off": "Off",
-        "Suspendu": "Suspendu",
-        "Chauffage": "Pemanasan",
         "Action chauffage": "Action chauffage",
-        "Climatisation": "Climatisation",
         "Action froid": "Action froid",
-        "Arrêté": "Berhenti",
         "Action stop": "Action stop",
         "Action défaillance sonde": "Action défaillance sonde",
-        "Défaillance sonde": "Défaillance sonde",
-        "Action défaillance chauffage": "Action défaillance chauffage",
-        "Défaillance chauffage": "Défaillance chauffage"
+        "Action défaillance chauffage": "Action défaillance chauffage"
     },
     "plugins\/thermostat\/core\/class\/thermostatCoefficientLearner.class.php": {
         "Démarre auto-apprentissage": "Démarre auto-apprentissage"
@@ -352,8 +345,6 @@
         "valeur": "valeur",
         "Fenêtre fermée": "Fenêtre fermée",
         "Fenêtre ouverte": "Fenêtre ouverte",
-        "Off": "Off",
-        "Suspendu": "Suspendu",
         "Thermostat arreté ou suspendu je ne fais rien": "Thermostat arreté ou suspendu je ne fais rien",
         "Commande introuvable je ne fais rien": "Commande introuvable je ne fais rien",
         "Pause de": "Pause de",
@@ -368,7 +359,6 @@
         "Fenêtre ouverte, je ne fais rien": "Fenêtre ouverte, je ne fais rien",
         "Fenêtre fermée depuis trop peu de temps, je ne fais rien": "Fenêtre fermée depuis trop peu de temps, je ne fais rien",
         "Toutes les fenêtres sont fermées, je relance le chauffage": "Toutes les fenêtres sont fermées, je relance le chauffage",
-        "Calcul": "Perhitungan",
         "Attention le thermostat est suspendu à cause d'une fenêtre ouverte depuis": "Attention le thermostat est suspendu à cause d'une fenêtre ouverte depuis"
     },
     "info.json": {
