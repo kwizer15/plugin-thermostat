@@ -28,6 +28,7 @@ require_once dirname(__FILE__) . '/thermostatHysteresisEngine.class.php';
 require_once dirname(__FILE__) . '/thermostatTemporalEngine.class.php';
 require_once dirname(__FILE__) . '/thermostatCommands.class.php';
 require_once dirname(__FILE__) . '/thermostatConfiguration.class.php';
+require_once dirname(__FILE__) . '/thermostatStatistics.class.php';
 
 class thermostat extends eqLogic {
 
@@ -98,19 +99,7 @@ class thermostat extends eqLogic {
 		if (!is_object($thermostat)) {
 			return;
 		}
-		$dju = $thermostat->calculDju(date('Y-m-d'));
-		if ($dju === null) {
-			return;
-		}
-		$cmd = $thermostat->getCmd('info', 'performance');
-		if (!is_object($cmd)) {
-			return;
-		}
-		$performance = round(jeedom::evaluateExpression($thermostat->getConfiguration('consumption')) / $dju, 2);
-		if ($performance <= 0) {
-			return;
-		}
-		$cmd->event($performance);
+		(new thermostatStatistics($thermostat))->updatePerformance();
 	}
 
 	public static function hysteresis($_options) {
@@ -331,58 +320,13 @@ class thermostat extends eqLogic {
 	}
 
 	public function runtimeByDay($_startDate = null, $_endDate = null) {
-		$actifCmd = $this->getCmd(null, 'actif');
-		if (!is_object($actifCmd)) {
-			return array();
-		}
-		$return = array();
-		$prevValue = 0;
-		$prevDatetime = 0;
-		$day = strtotime($_startDate . ' 00:00:00 UTC');
-		$endDatetime = strtotime($_endDate . ' 00:00:00 UTC');
-		while ($day <= $endDatetime) {
-			$return[date('Y-m-d', $day)] = array($day * 1000, 0);
-			$day = $day + 3600 * 24;
-		}
-		foreach ($actifCmd->getHistory($_startDate, $_endDate) as $history) {
-			if (date('Y-m-d', strtotime($history->getDatetime())) != $day && $prevValue == 1 && $day != null) {
-				if (strtotime($day . ' 23:59:59') > $prevDatetime) {
-					$return[$day][1] += (strtotime($day . ' 23:59:59') - $prevDatetime) / 60;
-				}
-				$prevDatetime = strtotime(date('Y-m-d 00:00:00', strtotime($history->getDatetime())));
-			}
-			$day = date('Y-m-d', strtotime($history->getDatetime()));
-			if (!isset($return[$day])) {
-				$return[$day] = array(strtotime($day . ' 00:00:00 UTC') * 1000, 0);
-			}
-			if ($history->getValue() == 1 && $prevValue == 0) {
-				$prevDatetime = strtotime($history->getDatetime());
-				$prevValue = 1;
-			}
-			if ($history->getValue() == 0 && $prevValue == 1) {
-				if ($prevDatetime > 0 && strtotime($history->getDatetime()) > $prevDatetime) {
-					$return[$day][1] += (strtotime($history->getDatetime()) - $prevDatetime) / 60;
-				}
-				$prevValue = 0;
-			}
-		}
-		return $return;
+		return (new thermostatStatistics($this))->runtimeByDay($_startDate, $_endDate);
 	}
 
 	public function calculDju($_date = null) {
-		if ($_date == null) {
-			$_date = date('Y-m-d');
-		}
-		$cmd = $this->getCmd(null, 'temperature_outdoor');
-		if (!is_object($cmd)) {
-			return null;
-		}
-		$stats = $cmd->getStatistique($_date . ' 00:00:01', $_date . ' 23:59:59');
-		if (!isset($stats['min']) || !isset($stats['max'])) {
-			return null;
-		}
-		return 18 - (($stats['min'] + $stats['max']) / 2);
+		return (new thermostatStatistics($this))->dju($_date);
 	}
+
 }
 
 class thermostatCmd extends cmd {
