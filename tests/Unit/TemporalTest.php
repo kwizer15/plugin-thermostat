@@ -177,6 +177,17 @@ class TemporalTest extends ThermostatTestCase {
 		$this->assertSame('00 01 01 01 *', $this->stopSchedule($thermostat));
 	}
 
+	public function testFullCycleCancelsPendingStop() {
+		$thermostat = $this->equippedThermostat();
+		$thermostat->reschedule('2026-01-15 10:24:00', true);
+		$this->setValueOf($thermostat, 'temperature', 10);
+		$this->setValueOf($thermostat, 'temperature_outdoor', -10);
+
+		$this->runTemporal($thermostat);
+
+		$this->assertSame('00 01 01 01 *', $this->stopSchedule($thermostat));
+	}
+
 	public function testDirectionChangeStopsBeforeCooling() {
 		$thermostat = $this->equippedThermostat(array(), 25, 30, 22);
 		$thermostat->setCache('lastState', 'heat');
