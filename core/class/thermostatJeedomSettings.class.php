@@ -16,7 +16,7 @@
 * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 */
 
-class thermostatJeedomSettings implements thermostatPowerSettings, thermostatLearningSettings, thermostatSmartStartSettings, thermostatHysteresisSettings, thermostatActuatorSettings, thermostatWindowSettings {
+class thermostatJeedomSettings implements thermostatPowerSettings, thermostatLearningSettings, thermostatSmartStartSettings, thermostatHysteresisSettings, thermostatActuatorSettings, thermostatWindowSettings, thermostatEngineSettings {
 
 	private $eqLogic;
 
@@ -140,5 +140,32 @@ class thermostatJeedomSettings implements thermostatPowerSettings, thermostatLea
 
 	public function windowAlertDelay() {
 		return $this->eqLogic->getConfiguration('window_alertIfOpenMoreThan');
+	}
+	public function maxTimeUpdateTemp() {
+		return $this->eqLogic->getConfiguration('maxTimeUpdateTemp');
+	}
+
+	public function smartStartEnabled() {
+		return $this->eqLogic->getConfiguration('smart_start') == 1;
+	}
+
+	public function stoveBoiler() {
+		return $this->eqLogic->getConfiguration('stove_boiler');
+	}
+
+	public function minCycleDuration() {
+		return $this->eqLogic->getConfiguration('minCycleDuration', 5);
+	}
+
+	public function heatFailureOffset() {
+		return $this->eqLogic->getConfiguration('offsetHeatFaillure', 1);
+	}
+
+	public function coldFailureOffset() {
+		return $this->eqLogic->getConfiguration('offsetColdFaillure', 1);
+	}
+
+	public function setCycleEndDate($_datetime) {
+		$this->eqLogic->setConfiguration('endDate', $_datetime);
 	}
 }

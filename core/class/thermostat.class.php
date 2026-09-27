@@ -35,6 +35,8 @@ require_once dirname(__FILE__) . '/thermostatStateMemory.class.php';
 require_once dirname(__FILE__) . '/thermostatPersistence.class.php';
 require_once dirname(__FILE__) . '/thermostatWindowSettings.class.php';
 require_once dirname(__FILE__) . '/thermostatWindowMemory.class.php';
+require_once dirname(__FILE__) . '/thermostatEngineSettings.class.php';
+require_once dirname(__FILE__) . '/thermostatEngineMemory.class.php';
 require_once dirname(__FILE__) . '/thermostatJeedomSettings.class.php';
 require_once dirname(__FILE__) . '/thermostatJeedomMemory.class.php';
 require_once dirname(__FILE__) . '/thermostatJeedomCalendar.class.php';
@@ -164,7 +166,7 @@ class thermostat extends eqLogic {
 			}
 			$thermostat->assembly()->windows()->alert();
 			$thermostat->assembly()->scheduler()->watchdog();
-			$thermostat->assembly()->hysteresisEngine()->cron();
+			$thermostat->assembly()->scheduler()->runHysteresisCron();
 
 			if (strtolower($thermostat->getCmd(null, 'mode')->execCmd()) == 'off') {
 				continue;

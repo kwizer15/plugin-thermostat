@@ -19,12 +19,16 @@
 class thermostatHysteresisEngine {
 
 	private $thermostat;
+	private $settings;
+	private $memory;
 	private $actuator;
 	private $decision;
 	private $log;
 
-	public function __construct($_thermostat, thermostatActuator $_actuator, thermostatHysteresisDecision $_decision, thermostatLog $_log) {
+	public function __construct($_thermostat, thermostatEngineSettings $_settings, thermostatEngineMemory $_memory, thermostatActuator $_actuator, thermostatHysteresisDecision $_decision, thermostatLog $_log) {
 		$this->thermostat = $_thermostat;
+		$this->settings = $_settings;
+		$this->memory = $_memory;
 		$this->actuator = $_actuator;
 		$this->decision = $_decision;
 		$this->log = $_log;
@@ -46,19 +50,19 @@ class thermostatHysteresisEngine {
 		}
 		$cmd = $this->thermostat->getCmd(null, 'temperature');
 		$temp = $cmd->execCmd();
-		if ($cmd->getCollectDate() != '' && $cmd->getCollectDate() < date('Y-m-d H:i:s', strtotime('-' . $this->thermostat->getConfiguration('maxTimeUpdateTemp') . ' minutes' . date('Y-m-d H:i:s')))) {
-			if ($this->thermostat->getCache('temp_threshold', 0) == 0) {
+		if ($cmd->getCollectDate() != '' && $cmd->getCollectDate() < date('Y-m-d H:i:s', strtotime('-' . $this->settings->maxTimeUpdateTemp() . ' minutes' . date('Y-m-d H:i:s')))) {
+			if ($this->memory->temperatureAlert() == 0) {
 				$this->actuator->failure();
-				$this->log->error(__("Attention il n'y a pas eu de mise à jour de la température depuis plus de", __FILE__) . ' : ' . $this->thermostat->getConfiguration('maxTimeUpdateTemp') . 'min (' . $cmd->getCollectDate() . ')');
+				$this->log->error(__("Attention il n'y a pas eu de mise à jour de la température depuis plus de", __FILE__) . ' : ' . $this->settings->maxTimeUpdateTemp() . 'min (' . $cmd->getCollectDate() . ')');
 			}
-			$this->thermostat->setCache('temp_threshold', 1);
+			$this->memory->setTemperatureAlert(1);
 			$this->thermostat->getCmd(null, 'status')->event(__('Défaillance sonde', __FILE__));
 			return;
 		}
-		$this->thermostat->setCache('temp_threshold', 0);
+		$this->memory->setTemperatureAlert(0);
 		$consigne = $this->thermostat->getCmd(null, 'order')->execCmd();
 		$this->thermostat->getCmd(null, 'order')->addHistoryValue($consigne);
-		$action = $this->decision->decide($temp, $consigne, $status, $this->thermostat->getCache('lastState'));
+		$action = $this->decision->decide($temp, $consigne, $status, $this->memory->lastState());
 
 		if ($action == 'heat') {
 			if ($status != __('Chauffage', __FILE__)) {
@@ -74,20 +78,6 @@ class thermostatHysteresisEngine {
 			if ($status != __('Arrêté', __FILE__)) {
 				$this->log->debug(__("Je m'arrête", __FILE__));
 				$this->actuator->stop();
-			}
-		}
-	}
-
-	public function cron() {
-		if ($this->thermostat->getConfiguration('engine', 'temporal') == 'hysteresis' && $this->thermostat->getConfiguration('hysteresis_cron') != '') {
-			try {
-				$c = new Cron\CronExpression(checkAndFixCron($this->thermostat->getConfiguration('hysteresis_cron')), new Cron\FieldFactory);
-				if ($c->isDue()) {
-					$this->thermostat->getCmd(null, 'temperature')->event(jeedom::evaluateExpression($this->thermostat->getConfiguration('temperature_indoor')));
-					thermostat::hysteresis(array('thermostat_id' => $this->thermostat->getId()));
-				}
-			} catch (Exception $e) {
-				$this->log->error(': ' . $e->getMessage());
 			}
 		}
 	}

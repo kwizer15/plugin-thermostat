@@ -81,11 +81,11 @@ class thermostatAssembly {
 	}
 
 	public function temporalEngine() {
-		return new thermostatTemporalEngine($this->thermostat, $this->actuator(), $this->scheduler(), $this->powerCalculator(), $this->smartStart(), $this->coefficientLearner(), new thermostatCyclePlanner(), $this->log());
+		return new thermostatTemporalEngine($this->thermostat, $this->settings(), $this->memory(), $this->persistence(), $this->evaluator(), $this->actuator(), $this->scheduler(), $this->powerCalculator(), $this->smartStart(), $this->coefficientLearner(), new thermostatCyclePlanner(), $this->log());
 	}
 
 	public function hysteresisEngine() {
-		return new thermostatHysteresisEngine($this->thermostat, $this->actuator(), new thermostatHysteresisDecision($this->settings(), $this->log()), $this->log());
+		return new thermostatHysteresisEngine($this->thermostat, $this->settings(), $this->memory(), $this->actuator(), new thermostatHysteresisDecision($this->settings(), $this->log()), $this->log());
 	}
 
 	public function commands() {
