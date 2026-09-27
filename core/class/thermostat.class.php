@@ -832,6 +832,10 @@ class thermostat extends eqLogic {
 	}
 
 	public function preRemove() {
+		$this->unschedule();
+	}
+
+	private function unschedule() {
 		$cron = cron::byClassAndFunction(__CLASS__, 'pull', array('thermostat_id' => intval($this->getId())));
 		if (is_object($cron)) {
 			$cron->remove();
@@ -1472,26 +1476,7 @@ class thermostat extends eqLogic {
 				}
 			}
 		} else {
-			$cron = cron::byClassAndFunction(__CLASS__, 'pull', array('thermostat_id' => intval($this->getId())));
-			if (is_object($cron)) {
-				$cron->remove();
-			}
-			$cron = cron::byClassAndFunction(__CLASS__, 'pull', array('thermostat_id' => intval($this->getId()), 'stop' => intval(1)));
-			if (is_object($cron)) {
-				$cron->remove();
-			}
-			$listener = listener::byClassAndFunction(__CLASS__, 'window', array('thermostat_id' => intval($this->getId())));
-			if (is_object($listener)) {
-				$listener->remove();
-			}
-			$listener = listener::byClassAndFunction(__CLASS__, 'hysteresis', array('thermostat_id' => intval($this->getId())));
-			if (is_object($listener)) {
-				$listener->remove();
-			}
-			$listener = listener::byClassAndFunction(__CLASS__, 'updatePerformance', array('thermostat_id' => intval($this->getId())));
-			if (is_object($listener)) {
-				$listener->remove();
-			}
+			$this->unschedule();
 		}
 	}
 
