@@ -51,7 +51,7 @@ class CoefficientLearner {
 	 * @return void
 	 */
 	public function learn($_temp_in, $_temp_out) {
-		if ($this->memory->consecutiveFailures() >= 3 || $this->settings->autolearn() != 1 || strtotime($this->settings->cycleEndDate()) >= $this->clock->now()) {
+		if ($this->memory->consecutiveFailures() >= 3 || !$this->settings->autolearn() || strtotime($this->settings->cycleEndDate()) >= $this->clock->now()) {
 			return;
 		}
 		$this->log->debug($this->translator->translate('{{Démarre auto-apprentissage}}'));

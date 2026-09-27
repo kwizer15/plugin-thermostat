@@ -919,24 +919,6 @@ parameters:
 			path: core/src/Domain/Engine/TemporalEngine.php
 
 		-
-			message: '#^Binary operation "\*" between float and float\|int\|string results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: core/src/Domain/Learning/CoefficientLearner.php
-
-		-
-			message: '#^Binary operation "\+" between float\|int\|string and 1 results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 2
-			path: core/src/Domain/Learning/CoefficientLearner.php
-
-		-
-			message: '#^Binary operation "\+" between mixed and float\|int results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: core/src/Domain/Learning/CoefficientLearner.php
-
-		-
 			message: '#^Binary operation "\-" between bool\|float\|int\|string and float\|int\|string results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
@@ -961,26 +943,14 @@ parameters:
 			path: core/src/Domain/Learning/CoefficientLearner.php
 
 		-
-			message: '#^Binary operation "/" between \(float\|int\) and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: core/src/Domain/Learning/CoefficientLearner.php
-
-		-
 			message: '#^Binary operation "/" between mixed and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 4
 			path: core/src/Domain/Learning/CoefficientLearner.php
 
 		-
-			message: '#^Call to function is_numeric\(\) with \(float\|int\<0, max\>\) will always evaluate to true\.$#'
+			message: '#^Call to function is_numeric\(\) with float will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
-			count: 1
-			path: core/src/Domain/Learning/CoefficientLearner.php
-
-		-
-			message: '#^Parameter \#3 \$_count of method Jeedom\\Plugin\\Thermostat\\Domain\\Learning\\Settings\:\:storeCoefficient\(\) expects float\|int, mixed given\.$#'
-			identifier: argument.type
 			count: 1
 			path: core/src/Domain/Learning/CoefficientLearner.php
 
@@ -1069,25 +1039,7 @@ parameters:
 			path: core/src/Domain/SensorWatch/SensorWatch.php
 
 		-
-			message: '#^Binary operation "\*" between float and float\|int\|string results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
 			message: '#^Binary operation "\*" between float\|int\<0, max\> and bool\|float\|int\|string\|null results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Binary operation "\+" between float\|int\|string and 1 results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 2
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Binary operation "\+" between mixed and float results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: core/src/Domain/SmartStart/SmartStart.php
@@ -1102,12 +1054,6 @@ parameters:
 			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 6
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Binary operation "/" between float and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
 			path: core/src/Domain/SmartStart/SmartStart.php
 
 		-
@@ -1202,12 +1148,6 @@ parameters:
 
 		-
 			message: '#^Parameter \#1 \$_value of method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Controls\:\:requestSetpoint\(\) expects bool\|float\|int\|string\|null, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Domain/SmartStart/SmartStart.php
-
-		-
-			message: '#^Parameter \#2 \$_count of method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\Settings\:\:storeAnticipation\(\) expects float\|int, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: core/src/Domain/SmartStart/SmartStart.php
@@ -1663,18 +1603,6 @@ parameters:
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:anticipationCount\(\) should return float\|int\|string but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:autolearn\(\) should return int\|string but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:consumption\(\) should return float\|int\|string but returns mixed\.$#'
 			identifier: return.type
 			count: 1
@@ -1735,12 +1663,6 @@ parameters:
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:learnedCount\(\) should return float\|int\|string but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:maxTimeUpdateTemp\(\) should return float\|int\|string but returns mixed\.$#'
 			identifier: return.type
 			count: 1
@@ -1765,19 +1687,7 @@ parameters:
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:positiveHysteresis\(\) should return int\|string but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:stoppingActions\(\) should return list\<array\{cmd\: string, options\?\: array\<string, bool\|float\|int\|string\|null\>\}\> but returns array\<mixed\>\.$#'
-			identifier: return.type
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:stoveBoiler\(\) should return int\|string but returns mixed\.$#'
 			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php

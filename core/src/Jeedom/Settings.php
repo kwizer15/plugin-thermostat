@@ -71,8 +71,8 @@ class Settings implements PowerSettings, LearningSettings, SmartStartSettings, H
 		return Value::number($this->eqLogic->getConfiguration(Key::HEAT_HOT_THRESHOLD), 100.0);
 	}
 
-	public function autolearn() {
-		return $this->eqLogic->getConfiguration(Key::AUTOLEARN);
+	public function autolearn(): bool {
+		return Value::flag($this->eqLogic->getConfiguration(Key::AUTOLEARN));
 	}
 
 	public function cycleEndDate() {
@@ -84,8 +84,8 @@ class Settings implements PowerSettings, LearningSettings, SmartStartSettings, H
 		return Value::number($this->eqLogic->getConfiguration($_key), $default);
 	}
 
-	public function learnedCount($_key) {
-		return $this->eqLogic->getConfiguration($_key . '_autolearn');
+	public function learnedCount($_key): int {
+		return Value::integer($this->eqLogic->getConfiguration($_key . '_autolearn'), 0);
 	}
 
 	public function storeCoefficient($_key, $_coefficient, $_count) {
@@ -106,8 +106,8 @@ class Settings implements PowerSettings, LearningSettings, SmartStartSettings, H
 		return Value::number($this->eqLogic->getConfiguration(Key::SMART_START_FACTOR), 1.0);
 	}
 
-	public function anticipationCount() {
-		return $this->eqLogic->getConfiguration(Key::SMART_START_AUTOLEARN, 0);
+	public function anticipationCount(): int {
+		return Value::integer($this->eqLogic->getConfiguration(Key::SMART_START_AUTOLEARN), 0);
 	}
 
 	public function storeAnticipation($_factor, $_count) {
@@ -120,8 +120,8 @@ class Settings implements PowerSettings, LearningSettings, SmartStartSettings, H
 		return $this->eqLogic->getConfiguration(Key::ALLOW_MODE, AllowMode::ALL);
 	}
 
-	public function positiveHysteresis() {
-		return $this->eqLogic->getConfiguration(Key::POSITIVE_HYSTERESIS, 0);
+	public function positiveHysteresis(): bool {
+		return Value::flag($this->eqLogic->getConfiguration(Key::POSITIVE_HYSTERESIS));
 	}
 
 	public function hysteresisThreshold(): float {
@@ -169,8 +169,8 @@ class Settings implements PowerSettings, LearningSettings, SmartStartSettings, H
 		return $this->eqLogic->getConfiguration(Key::SMART_START) == 1;
 	}
 
-	public function stoveBoiler() {
-		return $this->eqLogic->getConfiguration(Key::STOVE_BOILER);
+	public function stoveBoiler(): bool {
+		return Value::flag($this->eqLogic->getConfiguration(Key::STOVE_BOILER));
 	}
 
 	public function minCycleDuration(): float {

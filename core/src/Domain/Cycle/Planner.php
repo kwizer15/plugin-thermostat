@@ -25,15 +25,15 @@ class Planner {
 	 * @param scalar|null $_cycle
 	 * @param bool $_wasHeating
 	 * @param float $_minCycleDuration
-	 * @param int|string $_stoveBoiler
+	 * @param bool $_stoveBoiler
 	 */
 	public function plan($_power, $_cycle, $_wasHeating, $_minCycleDuration, $_stoveBoiler): Plan {
 		$duration = round(($_power * $_cycle) / 100);
 		$belowMinCycle = ($_power < $_minCycleDuration);
-		$tooShort = ($belowMinCycle && ($_stoveBoiler == 0 || !$_wasHeating)) || ($_wasHeating && $_power < 1);
+		$tooShort = ($belowMinCycle && (!$_stoveBoiler || !$_wasHeating)) || ($_wasHeating && $_power < 1);
 		$stop = Plan::STOP_UNCHANGED;
 		if ($duration > 0 && $duration < $_cycle) {
-			$stop = ($_stoveBoiler == 0) ? Plan::STOP_AFTER : Plan::STOP_CANCEL;
+			$stop = !$_stoveBoiler ? Plan::STOP_AFTER : Plan::STOP_CANCEL;
 		}
 		if ($duration >= $_cycle) {
 			$stop = Plan::STOP_CANCEL;

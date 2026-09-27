@@ -8,7 +8,7 @@ use Jeedom\Plugin\Thermostat\Tests\ThermostatTestCase;
 
 class BoundaryTest extends ThermostatTestCase {
 
-	const RAW = array('empty' => '', 'null' => null, 'text' => 'abc', 'decimal' => '12.50', 'comma' => '12,5', 'integer' => 7);
+	const RAW = array('empty' => '', 'null' => null, 'text' => 'abc', 'decimal' => '12.50', 'comma' => '12,5', 'integer' => 7, 'one' => '1');
 
 	/**
 	 * @dataProvider settings
@@ -29,17 +29,17 @@ class BoundaryTest extends ThermostatTestCase {
 			'directionDeltaCool' => array(array(), Key::DIRECTION_DELTA_COOL, 0.0, 'number'),
 			'nextFullCycleOffset' => array(array(), Key::NEXT_FULL_CYCLE_OFFSET, ''),
 			'heatHotThreshold' => array(array(), Key::HEAT_HOT_THRESHOLD, 100.0, 'number'),
-			'autolearn' => array(array(), Key::AUTOLEARN, ''),
+			'autolearn' => array(array(), Key::AUTOLEARN, false, 'flag'),
 			'coefficient' => array(array(Key::COEFF_INDOOR_HEAT), Key::COEFF_INDOOR_HEAT, 10.0, 'number'),
 			'coefficient outdoor' => array(array(Key::COEFF_OUTDOOR_COOL), Key::COEFF_OUTDOOR_COOL, 2.0, 'number'),
-			'learnedCount' => array(array(Key::COEFF_INDOOR_HEAT), Key::COEFF_INDOOR_HEAT_AUTOLEARN, ''),
+			'learnedCount' => array(array(Key::COEFF_INDOOR_HEAT), Key::COEFF_INDOOR_HEAT_AUTOLEARN, 0, 'integer'),
 			'anticipationFactor' => array(array(), Key::SMART_START_FACTOR, 1.0, 'number'),
-			'anticipationCount' => array(array(), Key::SMART_START_AUTOLEARN, 0),
-			'positiveHysteresis' => array(array(), Key::POSITIVE_HYSTERESIS, 0),
+			'anticipationCount' => array(array(), Key::SMART_START_AUTOLEARN, 0, 'integer'),
+			'positiveHysteresis' => array(array(), Key::POSITIVE_HYSTERESIS, false, 'flag'),
 			'hysteresisThreshold' => array(array(), Key::HYSTERESIS_THRESHOLD, 1.0, 'number'),
 			'windowAlertDelay' => array(array(), Key::WINDOW_ALERT_DELAY, ''),
 			'maxTimeUpdateTemp' => array(array(), Key::MAX_TIME_UPDATE_TEMP, ''),
-			'stoveBoiler' => array(array(), Key::STOVE_BOILER, ''),
+			'stoveBoiler' => array(array(), Key::STOVE_BOILER, false, 'flag'),
 			'minCycleDuration' => array(array(), Key::MIN_CYCLE_DURATION, 5.0, 'number'),
 			'heatFailureOffset' => array(array(), Key::HEAT_FAILURE_OFFSET, 1.0, 'number'),
 			'coldFailureOffset' => array(array(), Key::COLD_FAILURE_OFFSET, 1.0, 'number'),
@@ -89,6 +89,10 @@ class BoundaryTest extends ThermostatTestCase {
 		switch ($_kind) {
 			case 'number':
 				return is_numeric($number) ? floatval($number) : $_default;
+			case 'integer':
+				return is_numeric($number) ? intval(floatval($number)) : $_default;
+			case 'flag':
+				return $_raw == 1;
 		}
 		return ($_raw === '' || $_raw === null) ? $_default : $_raw;
 	}

@@ -93,7 +93,7 @@ class InMemorySettings implements PowerSettings, LearningSettings, SmartStartSet
 		return $this->values['threshold_heathot'];
 	}
 
-	public function autolearn() {
+	public function autolearn(): bool {
 		return $this->values['autolearn'];
 	}
 
@@ -105,7 +105,7 @@ class InMemorySettings implements PowerSettings, LearningSettings, SmartStartSet
 		return $this->values[$_key];
 	}
 
-	public function learnedCount($_key) {
+	public function learnedCount($_key): int {
 		return $this->values[$_key . '_autolearn'];
 	}
 
@@ -127,7 +127,7 @@ class InMemorySettings implements PowerSettings, LearningSettings, SmartStartSet
 		return $this->values['smart_start_factor'];
 	}
 
-	public function anticipationCount() {
+	public function anticipationCount(): int {
 		return $this->values['smart_start_autolearn'];
 	}
 
@@ -141,7 +141,7 @@ class InMemorySettings implements PowerSettings, LearningSettings, SmartStartSet
 		return $this->values['allow_mode'];
 	}
 
-	public function positiveHysteresis() {
+	public function positiveHysteresis(): bool {
 		return $this->values['positiveHysteresis'];
 	}
 
@@ -193,7 +193,7 @@ class InMemorySettings implements PowerSettings, LearningSettings, SmartStartSet
 		return $this->values['smart_start'] == 1;
 	}
 
-	public function stoveBoiler() {
+	public function stoveBoiler(): bool {
 		return $this->values['stove_boiler'];
 	}
 

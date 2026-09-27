@@ -32,10 +32,7 @@ interface Settings {
 
 	public function anticipationFactor(): float;
 
-	/**
-	 * @return int|float|string
-	 */
-	public function anticipationCount();
+	public function anticipationCount(): int;
 
 	/**
 	 * @param int|float $_factor

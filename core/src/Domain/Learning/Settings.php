@@ -20,10 +20,7 @@ namespace Jeedom\Plugin\Thermostat\Domain\Learning;
 
 interface Settings {
 
-	/**
-	 * @return int|string
-	 */
-	public function autolearn();
+	public function autolearn(): bool;
 
 	/**
 	 * @return string
@@ -37,9 +34,8 @@ interface Settings {
 
 	/**
 	 * @param string $_key
-	 * @return int|float|string
 	 */
-	public function learnedCount($_key);
+	public function learnedCount($_key): int;
 
 	/**
 	 * @param string $_key

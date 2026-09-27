@@ -35,10 +35,7 @@ interface Settings {
 	 */
 	public function smartStartEnabled();
 
-	/**
-	 * @return int|string
-	 */
-	public function stoveBoiler();
+	public function stoveBoiler(): bool;
 
 	public function minCycleDuration(): float;
 
@@ -48,9 +45,8 @@ interface Settings {
 
 	/**
 	 * @param string $_key
-	 * @return int|float|string
 	 */
-	public function learnedCount($_key);
+	public function learnedCount($_key): int;
 
 	/**
 	 * @param string $_datetime

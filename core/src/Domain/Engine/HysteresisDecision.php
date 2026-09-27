@@ -52,7 +52,7 @@ class HysteresisDecision {
 	public function decide($_temp, $_consigne, $_status, $_lastState) {
 		$allowMode = $this->settings->allowMode();
 		$threshold = $this->settings->hysteresisThreshold();
-		$positive = ($this->settings->positiveHysteresis() == 1);
+		$positive = $this->settings->positiveHysteresis();
 		$hysteresis_low = ($allowMode == AllowMode::HEAT && $positive) ? $_consigne : $_consigne - $threshold;
 		$hysteresis_hight = ($allowMode == AllowMode::COOL && $positive) ? $_consigne : $_consigne + $threshold;
 		$this->log->debug($this->translator->translate('{{Calcul}}') . ' => ' . $this->translator->translate('{{consigne}}') . ' : ' . $_consigne . ' hysteresis_low : ' . $hysteresis_low . ' hysteresis_hight : ' . $hysteresis_hight . ' temp : ' . $_temp . ' ' . $this->translator->translate('{{état précédent}}') . ' : ' . $_lastState);
