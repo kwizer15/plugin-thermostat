@@ -197,14 +197,30 @@ class CmdExecuteTest extends ThermostatTestCase {
 		);
 	}
 
-	public function testNonNumericSetpointIsAcceptedButDropped() {
+	public function testNonNumericSetpointIsIgnored() {
 		$thermostat = $this->equippedThermostat();
 
 		$this->execute($thermostat, 'thermostat', array('slider' => 'abc'));
 
 		$this->assertSame(20.0, $this->valueOf($thermostat, 'order'));
-		$this->assertSame('Aucun', $this->valueOf($thermostat, 'mode'));
-		$this->assertSame(array('heat'), $this->executed());
+		$this->assertSame('', $this->valueOf($thermostat, 'mode'));
+		$this->assertSame(array(), $this->executed());
+	}
+
+	public function testCommaDecimalSetpointIsAccepted() {
+		$thermostat = $this->equippedThermostat();
+
+		$this->execute($thermostat, 'thermostat', array('slider' => '20,5'));
+
+		$this->assertSame(20.5, $this->valueOf($thermostat, 'order'));
+	}
+
+	public function testZeroSetpointIsAccepted() {
+		$thermostat = $this->equippedThermostat(array('order_min' => 0));
+
+		$this->execute($thermostat, 'thermostat', array('slider' => 0));
+
+		$this->assertSame(0.0, $this->valueOf($thermostat, 'order'));
 	}
 
 	public function testOutOfRangeSetpointIsDroppedButEngineRuns() {
