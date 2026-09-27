@@ -32,6 +32,9 @@ class Configuration {
 		$this->translator = $_translator;
 	}
 
+	/**
+	 * @return void
+	 */
 	public function apply() {
 		if ($this->store->value('order_max') === '') {
 			$this->store->change('order_max', 28);

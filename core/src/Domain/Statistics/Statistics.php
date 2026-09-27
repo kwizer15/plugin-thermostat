@@ -35,6 +35,9 @@ class Statistics {
 		$this->history = $_history;
 	}
 
+	/**
+	 * @return void
+	 */
 	public function updatePerformance() {
 		$dju = $this->dju(date('Y-m-d'));
 		if ($dju === null) {
@@ -50,6 +53,11 @@ class Statistics {
 		$this->history->publishPerformance($performance);
 	}
 
+	/**
+	 * @param string|null $_startDate
+	 * @param string|null $_endDate
+	 * @return array<string, array{int|float, int|float}>
+	 */
 	public function runtimeByDay($_startDate = null, $_endDate = null) {
 		$histories = $this->history->activeHistory($_startDate, $_endDate);
 		if ($histories === null) {
@@ -89,6 +97,10 @@ class Statistics {
 		return $return;
 	}
 
+	/**
+	 * @param string|null $_date
+	 * @return int|float|null
+	 */
 	public function dju($_date = null) {
 		if ($_date == null) {
 			$_date = date('Y-m-d');

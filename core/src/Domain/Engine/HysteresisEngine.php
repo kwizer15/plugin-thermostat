@@ -58,6 +58,9 @@ class HysteresisEngine {
 		$this->translator = $_translator;
 	}
 
+	/**
+	 * @return void
+	 */
 	public function run() {
 		$this->log->debug($this->translator->translate("{{Lancement du calcul d'hystérésis}}"));
 		$status = $this->display->status();

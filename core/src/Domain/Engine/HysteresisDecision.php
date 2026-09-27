@@ -40,6 +40,13 @@ class HysteresisDecision {
 		$this->translator = $_translator;
 	}
 
+	/**
+	 * @param scalar|null $_temp
+	 * @param scalar|null $_consigne
+	 * @param scalar|null $_status
+	 * @param string $_lastState
+	 * @return 'none'|'heat'|'cool'|'stop'
+	 */
 	public function decide($_temp, $_consigne, $_status, $_lastState) {
 		$allowMode = $this->settings->allowMode();
 		$threshold = $this->settings->hysteresisThreshold();

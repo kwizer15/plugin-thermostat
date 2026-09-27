@@ -26,37 +26,37 @@ interface Settings {
 	public function allowMode();
 
 	/**
-	 * @return list<array<string, mixed>>|string
+	 * @return list<array{cmd: string, options?: array<string, scalar|null>}>|string
 	 */
 	public function heatingActions();
 
 	/**
-	 * @return list<array<string, mixed>>|string
+	 * @return list<array{cmd: string, options?: array<string, scalar|null>}>|string
 	 */
 	public function coolingActions();
 
 	/**
-	 * @return list<array<string, mixed>>|string
+	 * @return list<array{cmd: string, options?: array<string, scalar|null>}>|string
 	 */
 	public function stoppingActions();
 
 	/**
-	 * @return list<array<string, mixed>>|string
+	 * @return list<array{cmd: string, options?: array<string, scalar|null>}>|string
 	 */
 	public function orderChangeActions();
 
 	/**
-	 * @return list<array<string, mixed>>|string
+	 * @return list<array{cmd: string, options?: array<string, scalar|null>}>|string
 	 */
 	public function failureActions();
 
 	/**
-	 * @return list<array<string, mixed>>|string
+	 * @return list<array{cmd: string, options?: array<string, scalar|null>}>|string
 	 */
 	public function failureActuatorActions();
 
 	/**
-	 * @return list<array<string, mixed>>|string
+	 * @return list<array{name: string, actions: list<array{cmd: string, options?: array<string, scalar|null>}>}>|string
 	 */
 	public function modes();
 }

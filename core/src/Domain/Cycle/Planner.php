@@ -20,7 +20,14 @@ namespace Jeedom\Plugin\Thermostat\Domain\Cycle;
 
 class Planner {
 
-	public function plan($_power, $_cycle, $_wasHeating, $_minCycleDuration, $_stoveBoiler) {
+	/**
+	 * @param int|float $_power
+	 * @param scalar|null $_cycle
+	 * @param bool $_wasHeating
+	 * @param int|float|string $_minCycleDuration
+	 * @param int|string $_stoveBoiler
+	 */
+	public function plan($_power, $_cycle, $_wasHeating, $_minCycleDuration, $_stoveBoiler): Plan {
 		$duration = round(($_power * $_cycle) / 100);
 		$belowMinCycle = ($_power < $_minCycleDuration);
 		$tooShort = ($belowMinCycle && ($_stoveBoiler == 0 || !$_wasHeating)) || ($_wasHeating && $_power < 1);

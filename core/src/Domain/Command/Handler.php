@@ -51,6 +51,12 @@ class Handler {
 		$this->labels = $_labels;
 	}
 
+	/**
+	 * @param string $_logicalId
+	 * @param string $_name
+	 * @param array<string, mixed> $_options
+	 * @return void
+	 */
 	public function handle($_logicalId, $_name, $_options) {
 		if ($_logicalId == 'deltaOrder') {
 			$this->memory->setDeltaOrder($_options['slider']);
@@ -100,6 +106,10 @@ class Handler {
 		}
 	}
 
+	/**
+	 * @param string $_mode
+	 * @return void
+	 */
 	private function allow($_mode) {
 		$this->settings->setAllowMode($_mode);
 		$this->persistence->saveWithCommands();

@@ -58,6 +58,10 @@ class Actuator {
 		$this->translator = $_translator;
 	}
 
+	/**
+	 * @param bool $_repeat
+	 * @return bool
+	 */
 	public function heat($_repeat = false) {
 		if (!$_repeat) {
 			if ($this->display->mode() == $this->labels->off() || $this->display->status() == $this->labels->suspended()) {
@@ -83,6 +87,10 @@ class Actuator {
 		return true;
 	}
 
+	/**
+	 * @param bool $_repeat
+	 * @return bool
+	 */
 	public function cool($_repeat = false) {
 		if (!$_repeat) {
 			if ($this->display->mode() == $this->labels->off() || $this->display->status() == $this->labels->suspended()) {
@@ -108,6 +116,11 @@ class Actuator {
 		return true;
 	}
 
+	/**
+	 * @param bool $_repeat
+	 * @param bool $_suspend
+	 * @return void
+	 */
 	public function stop($_repeat = false, $_suspend = false) {
 		if (!$_repeat && $this->display->status() == $this->labels->stopped()) {
 			if ($this->display->power() > 0) {
@@ -130,6 +143,9 @@ class Actuator {
 		$this->persistence->persist();
 	}
 
+	/**
+	 * @return void
+	 */
 	public function orderChange() {
 		if ($this->display->mode() == $this->labels->off() || $this->display->status() == $this->labels->suspended()) {
 			return;
@@ -140,6 +156,9 @@ class Actuator {
 		$this->actions->execute($this->settings->orderChangeActions(), true, array('modeChange' => true));
 	}
 
+	/**
+	 * @return void
+	 */
 	public function failure() {
 		if ($this->display->mode() == $this->labels->off() || $this->display->status() == $this->labels->suspended()) {
 			return;
@@ -152,6 +171,9 @@ class Actuator {
 		$this->display->setStatus($this->labels->sensorFailure());
 	}
 
+	/**
+	 * @return void
+	 */
 	public function failureActuator() {
 		if ($this->display->mode() == $this->labels->off() || $this->display->status() == $this->labels->suspended()) {
 			return;
@@ -164,6 +186,10 @@ class Actuator {
 		$this->display->setStatus($this->labels->heatingFailure());
 	}
 
+	/**
+	 * @param string $_name
+	 * @return void
+	 */
 	public function executeMode($_name) {
 		$thermostatCmd = false;
 		$consigne = $this->display->setpoint();
@@ -179,6 +205,9 @@ class Actuator {
 		$this->engine->run();
 	}
 
+	/**
+	 * @return void
+	 */
 	public function repeat() {
 		switch ($this->display->status()) {
 			case $this->labels->heating():

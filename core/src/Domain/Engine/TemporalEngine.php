@@ -84,6 +84,9 @@ class TemporalEngine {
 		$this->translator = $_translator;
 	}
 
+	/**
+	 * @return void
+	 */
 	public function run() {
 		$this->log->debug($this->translator->translate('{{Début calcul temporel}}'));
 		$this->scheduler->reschedule(date('Y-m-d H:i:00', strtotime('+' . $this->settings->cycle() . ' min ' . date('Y-m-d H:i:00'))));

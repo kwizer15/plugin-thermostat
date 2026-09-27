@@ -39,6 +39,13 @@ class Calculator {
 		$this->translator = $_translator;
 	}
 
+	/**
+	 * @param scalar|null $_consigne
+	 * @param scalar|null $_tempIn
+	 * @param scalar|null $_tempOut
+	 * @param bool $_allowOverfull
+	 * @return array{power: int|float, direction: int}
+	 */
 	public function compute($_consigne, $_tempIn, $_tempOut, $_allowOverfull = false) {
 		$temp_out = $_tempOut;
 		$temp_in = $_tempIn;

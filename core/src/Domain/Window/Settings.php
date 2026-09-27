@@ -21,7 +21,7 @@ namespace Jeedom\Plugin\Thermostat\Domain\Window;
 interface Settings {
 
 	/**
-	 * @return list<array<string, mixed>>|string
+	 * @return list<array{cmd: string, invert?: int|string, stopTime?: int|string, restartTime?: int|string}>|string
 	 */
 	public function windows();
 

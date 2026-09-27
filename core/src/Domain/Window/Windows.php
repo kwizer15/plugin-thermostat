@@ -58,6 +58,10 @@ class Windows {
 		$this->translator = $_translator;
 	}
 
+	/**
+	 * @param array{event_id: int|string, value: scalar|null} $_option
+	 * @return void
+	 */
 	public function handle($_option) {
 		$this->log->debug($this->translator->translate("{{Détection d'un changement sur une fenêtre}}"));
 		$windows = $this->settings->windows();
@@ -78,6 +82,10 @@ class Windows {
 		}
 	}
 
+	/**
+	 * @param array{cmd: string, invert?: int|string, stopTime?: int|string, restartTime?: int|string} $_window
+	 * @return true|null
+	 */
 	public function open($_window) {
 		$this->log->debug('[windowOpen] => ' . json_encode($_window));
 		$this->memory->setWindowState(str_replace('#', '', $_window['cmd']), 1);
@@ -117,6 +125,10 @@ class Windows {
 		return true;
 	}
 
+	/**
+	 * @param array{cmd: string, invert?: int|string, stopTime?: int|string, restartTime?: int|string} $_window
+	 * @return void
+	 */
 	public function close($_window) {
 		if ($this->memory->windowState(str_replace('#', '', $_window['cmd'])) != 1) {
 			$this->log->debug('[windowClose] ' . $this->translator->translate("{{Je n'ai jamais vu cette fenêtre ouverte, je ne fais rien}}"));
@@ -161,6 +173,9 @@ class Windows {
 		$this->engine->run();
 	}
 
+	/**
+	 * @return void
+	 */
 	public function alert() {
 		if (
 			$this->settings->windowAlertDelay() != ''

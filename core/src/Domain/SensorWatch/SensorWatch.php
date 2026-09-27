@@ -51,6 +51,9 @@ class SensorWatch {
 		$this->translator = $_translator;
 	}
 
+	/**
+	 * @return void
+	 */
 	public function check() {
 		if (strtolower($this->display->mode()) == 'off') {
 			return;

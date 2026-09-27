@@ -39,6 +39,11 @@ class CoefficientLearner {
 		$this->translator = $_translator;
 	}
 
+	/**
+	 * @param scalar|null $_temp_in
+	 * @param scalar|null $_temp_out
+	 * @return void
+	 */
 	public function learn($_temp_in, $_temp_out) {
 		if ($this->memory->consecutiveFailures() >= 3 || $this->settings->autolearn() != 1 || strtotime($this->settings->cycleEndDate()) >= strtotime('now')) {
 			return;
@@ -78,6 +83,11 @@ class CoefficientLearner {
 		}
 	}
 
+	/**
+	 * @param string $_key
+	 * @param int|float $_measured
+	 * @return int|float
+	 */
 	public function learnCoefficient($_key, $_measured) {
 		$count = $this->settings->learnedCount($_key);
 		$coeff = ($this->settings->coefficient($_key) * $count + $_measured) / ($count + 1);

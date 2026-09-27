@@ -27,38 +27,65 @@ class StatusLabels {
 		$this->translator = $_translator;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function heating() {
 		return $this->translator->translate('{{Chauffage}}');
 	}
 
+	/**
+	 * @return string
+	 */
 	public function cooling() {
 		return $this->translator->translate('{{Climatisation}}');
 	}
 
+	/**
+	 * @return string
+	 */
 	public function stopped() {
 		return $this->translator->translate('{{Arrêté}}');
 	}
 
+	/**
+	 * @return string
+	 */
 	public function suspended() {
 		return $this->translator->translate('{{Suspendu}}');
 	}
 
+	/**
+	 * @return string
+	 */
 	public function computing() {
 		return $this->translator->translate('{{Calcul}}');
 	}
 
+	/**
+	 * @return string
+	 */
 	public function sensorFailure() {
 		return $this->translator->translate('{{Défaillance sonde}}');
 	}
 
+	/**
+	 * @return string
+	 */
 	public function heatingFailure() {
 		return $this->translator->translate('{{Défaillance chauffage}}');
 	}
 
+	/**
+	 * @return string
+	 */
 	public function off() {
 		return $this->translator->translate('{{Off}}');
 	}
 
+	/**
+	 * @return string
+	 */
 	public function none() {
 		return $this->translator->translate('{{Aucun}}');
 	}

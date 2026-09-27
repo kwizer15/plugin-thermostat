@@ -65,6 +65,9 @@ class SmartStart {
 		$this->translator = $_translator;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function plan() {
 		if ($this->settings->engine() != 'temporal') {
 			return '';
@@ -99,6 +102,10 @@ class SmartStart {
 		}
 	}
 
+	/**
+	 * @param array<string, mixed> $_options
+	 * @return void
+	 */
 	public function trigger($_options) {
 		if (isset($_options['next']) && isset($_options['next']['calendar_id']) && $this->calendar->isInactive($_options['next']['calendar_id'])) {
 			return;
@@ -120,6 +127,10 @@ class SmartStart {
 		}
 	}
 
+	/**
+	 * @param array<string, mixed> $_next
+	 * @return void
+	 */
 	public function remember($_next) {
 		$this->memory->setSmartStart(array(
 			'start' => date('Y-m-d H:i:s'),
@@ -129,6 +140,10 @@ class SmartStart {
 		));
 	}
 
+	/**
+	 * @param scalar|null $_temperature
+	 * @return void
+	 */
 	public function learn($_temperature) {
 		$smartStart = $this->memory->smartStart();
 		if (!is_array($smartStart)) {
