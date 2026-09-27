@@ -16,7 +16,7 @@
 * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 */
 
-class thermostatJeedomSettings implements thermostatPowerSettings {
+class thermostatJeedomSettings implements thermostatPowerSettings, thermostatLearningSettings {
 
 	private $eqLogic;
 
@@ -50,5 +50,27 @@ class thermostatJeedomSettings implements thermostatPowerSettings {
 
 	public function heatHotThreshold() {
 		return $this->eqLogic->getConfiguration('threshold_heathot', 100);
+	}
+
+	public function autolearn() {
+		return $this->eqLogic->getConfiguration('autolearn');
+	}
+
+	public function cycleEndDate() {
+		return $this->eqLogic->getConfiguration('endDate');
+	}
+
+	public function coefficient($_key) {
+		return $this->eqLogic->getConfiguration($_key);
+	}
+
+	public function learnedCount($_key) {
+		return $this->eqLogic->getConfiguration($_key . '_autolearn');
+	}
+
+	public function storeCoefficient($_key, $_coefficient, $_count) {
+		$this->eqLogic->setConfiguration($_key . '_autolearn', $_count);
+		$this->eqLogic->setConfiguration($_key, $_coefficient);
+		$this->eqLogic->checkAndUpdateCmd($_key, $_coefficient);
 	}
 }

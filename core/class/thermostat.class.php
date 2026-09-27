@@ -21,6 +21,8 @@ require_once dirname(__FILE__) . '/thermostatLog.class.php';
 require_once dirname(__FILE__) . '/thermostatJeedomLog.class.php';
 require_once dirname(__FILE__) . '/thermostatPowerSettings.class.php';
 require_once dirname(__FILE__) . '/thermostatPowerMemory.class.php';
+require_once dirname(__FILE__) . '/thermostatCycleMemory.class.php';
+require_once dirname(__FILE__) . '/thermostatLearningSettings.class.php';
 require_once dirname(__FILE__) . '/thermostatJeedomSettings.class.php';
 require_once dirname(__FILE__) . '/thermostatJeedomMemory.class.php';
 require_once dirname(__FILE__) . '/thermostatActionList.class.php';

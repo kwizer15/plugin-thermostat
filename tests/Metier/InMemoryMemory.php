@@ -1,11 +1,14 @@
 <?php
 
-class InMemoryMemory implements thermostatPowerMemory {
+class InMemoryMemory implements thermostatPowerMemory, thermostatCycleMemory {
 
 	public $values = array(
 		'lastState' => '',
 		'last_power' => 0,
 		'temp_threshold' => 0,
+		'lastOrder' => 0,
+		'lastTempIn' => 0,
+		'nbConsecutiveFaillure' => 0,
 	);
 
 	public function __construct(array $_values = array()) {
@@ -18,6 +21,18 @@ class InMemoryMemory implements thermostatPowerMemory {
 
 	public function lastPower() {
 		return $this->values['last_power'];
+	}
+
+	public function lastOrder() {
+		return $this->values['lastOrder'];
+	}
+
+	public function lastTempIn() {
+		return $this->values['lastTempIn'];
+	}
+
+	public function consecutiveFailures() {
+		return $this->values['nbConsecutiveFaillure'];
 	}
 
 	public function temperatureAlert() {

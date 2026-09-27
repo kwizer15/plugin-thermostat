@@ -45,7 +45,7 @@ class thermostatAssembly {
 	}
 
 	public function coefficientLearner() {
-		return new thermostatCoefficientLearner($this->thermostat, $this->log());
+		return new thermostatCoefficientLearner($this->settings(), $this->memory(), $this->log());
 	}
 
 	public function scheduler() {

@@ -1,6 +1,6 @@
 <?php
 
-class InMemorySettings implements thermostatPowerSettings {
+class InMemorySettings implements thermostatPowerSettings, thermostatLearningSettings {
 
 	public $values = array(
 		'coeff_indoor_heat' => 10,
@@ -13,7 +13,15 @@ class InMemorySettings implements thermostatPowerSettings {
 		'direction::delta::cool' => 0,
 		'offset_nextFullCyle' => '',
 		'threshold_heathot' => 100,
+		'autolearn' => 1,
+		'endDate' => '',
+		'coeff_indoor_heat_autolearn' => 1,
+		'coeff_indoor_cool_autolearn' => 1,
+		'coeff_outdoor_heat_autolearn' => 0,
+		'coeff_outdoor_cool_autolearn' => 0,
 	);
+
+	public $published = array();
 
 	public function __construct(array $_values = array()) {
 		$this->values = array_merge($this->values, $_values);
@@ -45,5 +53,27 @@ class InMemorySettings implements thermostatPowerSettings {
 
 	public function heatHotThreshold() {
 		return $this->values['threshold_heathot'];
+	}
+
+	public function autolearn() {
+		return $this->values['autolearn'];
+	}
+
+	public function cycleEndDate() {
+		return $this->values['endDate'];
+	}
+
+	public function coefficient($_key) {
+		return $this->values[$_key];
+	}
+
+	public function learnedCount($_key) {
+		return $this->values[$_key . '_autolearn'];
+	}
+
+	public function storeCoefficient($_key, $_coefficient, $_count) {
+		$this->values[$_key . '_autolearn'] = $_count;
+		$this->values[$_key] = $_coefficient;
+		$this->published[$_key] = $_coefficient;
 	}
 }
