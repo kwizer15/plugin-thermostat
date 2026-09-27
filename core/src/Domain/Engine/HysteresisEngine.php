@@ -20,6 +20,7 @@ namespace Jeedom\Plugin\Thermostat\Domain\Engine;
 
 use Jeedom\Plugin\Thermostat\Domain\Actuator\Actuator;
 use Jeedom\Plugin\Thermostat\Domain\Display;
+use Jeedom\Plugin\Thermostat\Domain\HeatingAction;
 use Jeedom\Plugin\Thermostat\Domain\Log;
 use Jeedom\Plugin\Thermostat\Domain\Sensors;
 use Jeedom\Plugin\Thermostat\Domain\StatusLabels;
@@ -91,17 +92,17 @@ class HysteresisEngine {
 		$this->display->historizeSetpoint($consigne);
 		$action = $this->decision->decide($temp, $consigne, $status, $this->memory->lastState());
 
-		if ($action == 'heat') {
+		if ($action == HeatingAction::HEAT) {
 			if ($status != $this->labels->heating()) {
 				$this->log->debug($this->translator->translate('{{Je dois chauffer}}'));
 				$this->actuator->heat();
 			}
-		} else if ($action == 'cool') {
+		} else if ($action == HeatingAction::COOL) {
 			if ($status != $this->labels->cooling()) {
 				$this->log->debug($this->translator->translate('{{Je dois refroidir}}'));
 				$this->actuator->cool();
 			}
-		} else if ($action == 'stop') {
+		} else if ($action == HeatingAction::STOP) {
 			if ($status != $this->labels->stopped()) {
 				$this->log->debug($this->translator->translate("{{Je m'arrête}}"));
 				$this->actuator->stop();

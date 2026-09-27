@@ -16,22 +16,13 @@
 * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace Jeedom\Plugin\Thermostat\Domain\Command;
+namespace Jeedom\Plugin\Thermostat\Domain\Engine;
 
-use Jeedom\Plugin\Thermostat\Domain\AllowMode;
+final class EngineType {
 
-interface Settings {
+	const TEMPORAL = 'temporal';
+	const HYSTERESIS = 'hysteresis';
 
-	/**
-	 * @param string $_key
-	 * @param scalar|null $_value
-	 * @return void
-	 */
-	public function setOffset($_key, $_value);
-
-	/**
-	 * @param AllowMode::* $_mode
-	 * @return void
-	 */
-	public function setAllowMode($_mode);
+	private function __construct() {
+	}
 }

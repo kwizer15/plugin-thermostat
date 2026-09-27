@@ -19,8 +19,10 @@
 namespace Jeedom\Plugin\Thermostat\Jeedom;
 
 use Jeedom\Plugin\Thermostat\Domain\Actuator\Settings as ActuatorSettings;
+use Jeedom\Plugin\Thermostat\Domain\AllowMode;
 use Jeedom\Plugin\Thermostat\Domain\Command\Settings as CommandSettings;
 use Jeedom\Plugin\Thermostat\Domain\Configuration\Store;
+use Jeedom\Plugin\Thermostat\Domain\Engine\EngineType;
 use Jeedom\Plugin\Thermostat\Domain\Engine\HysteresisSettings;
 use Jeedom\Plugin\Thermostat\Domain\Engine\Settings as EngineSettings;
 use Jeedom\Plugin\Thermostat\Domain\Learning\Settings as LearningSettings;
@@ -90,7 +92,7 @@ class Settings implements PowerSettings, LearningSettings, SmartStartSettings, H
 	}
 
 	public function engine() {
-		return $this->eqLogic->getConfiguration('engine', 'temporal');
+		return $this->eqLogic->getConfiguration('engine', EngineType::TEMPORAL);
 	}
 
 	public function cycle() {
@@ -112,7 +114,7 @@ class Settings implements PowerSettings, LearningSettings, SmartStartSettings, H
 	}
 
 	public function allowMode() {
-		return $this->eqLogic->getConfiguration('allow_mode', 'all');
+		return $this->eqLogic->getConfiguration('allow_mode', AllowMode::ALL);
 	}
 
 	public function positiveHysteresis() {

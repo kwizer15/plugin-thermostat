@@ -18,6 +18,7 @@
 
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 use Jeedom\Plugin\Thermostat\Assembly;
+use Jeedom\Plugin\Thermostat\Domain\Engine\EngineType;
 
 spl_autoload_register(function ($_class) {
 	$prefix = 'Jeedom\\Plugin\\Thermostat\\';
@@ -45,7 +46,7 @@ class thermostat extends eqLogic {
 			}
 			throw new Exception(__('Thermostat ID non trouvé', __FILE__) . ' : ' . $_options['thermostat_id'] . '. ' . __('Tâche supprimée', __FILE__));
 		}
-		if ($thermostat->getConfiguration('engine', 'temporal') != 'temporal') {
+		if ($thermostat->getConfiguration('engine', EngineType::TEMPORAL) != EngineType::TEMPORAL) {
 			$cron = cron::byClassAndFunction(__CLASS__, 'pull', $_options);
 			if (is_object($cron)) {
 				$cron->remove();
@@ -191,7 +192,7 @@ class thermostat extends eqLogic {
 				$scheduler->listen('window', $events);
 			}
 
-			if ($this->getConfiguration('engine', 'temporal') == 'hysteresis') {
+			if ($this->getConfiguration('engine', EngineType::TEMPORAL) == EngineType::HYSTERESIS) {
 				preg_match_all("/#([0-9]*)#/", $this->getConfiguration('temperature_indoor'), $matches);
 				$scheduler->listen('hysteresis', $matches[1]);
 				$commands->removePower();
@@ -199,7 +200,7 @@ class thermostat extends eqLogic {
 				$scheduler->forget('hysteresis');
 				$commands->definePower();
 			}
-			if ($this->getConfiguration('engine', 'temporal') != 'temporal' || $this->getIsEnable() != 1) {
+			if ($this->getConfiguration('engine', EngineType::TEMPORAL) != EngineType::TEMPORAL || $this->getIsEnable() != 1) {
 				$cron = cron::byClassAndFunction(__CLASS__, 'pull', array('thermostat_id' => intval($this->getId())));
 				if (is_object($cron)) {
 					$this->stopThermostat();
@@ -227,9 +228,9 @@ class thermostat extends eqLogic {
 	}
 
 	public function runEngine() {
-		if ($this->getConfiguration('engine', 'temporal') == 'temporal') {
+		if ($this->getConfiguration('engine', EngineType::TEMPORAL) == EngineType::TEMPORAL) {
 			thermostat::temporal(array('thermostat_id' => $this->getId()));
-		} else if ($this->getConfiguration('engine', 'temporal') == 'hysteresis') {
+		} else if ($this->getConfiguration('engine', EngineType::TEMPORAL) == EngineType::HYSTERESIS) {
 			thermostat::hysteresis(array('thermostat_id' => $this->getId()));
 		}
 	}

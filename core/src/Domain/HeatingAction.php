@@ -16,22 +16,15 @@
 * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace Jeedom\Plugin\Thermostat\Domain\Command;
+namespace Jeedom\Plugin\Thermostat\Domain;
 
-use Jeedom\Plugin\Thermostat\Domain\AllowMode;
+final class HeatingAction {
 
-interface Settings {
+	const NONE = 'none';
+	const HEAT = 'heat';
+	const COOL = 'cool';
+	const STOP = 'stop';
 
-	/**
-	 * @param string $_key
-	 * @param scalar|null $_value
-	 * @return void
-	 */
-	public function setOffset($_key, $_value);
-
-	/**
-	 * @param AllowMode::* $_mode
-	 * @return void
-	 */
-	public function setAllowMode($_mode);
+	private function __construct() {
+	}
 }

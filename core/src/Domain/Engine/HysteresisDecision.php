@@ -18,6 +18,8 @@
 
 namespace Jeedom\Plugin\Thermostat\Domain\Engine;
 
+use Jeedom\Plugin\Thermostat\Domain\AllowMode;
+use Jeedom\Plugin\Thermostat\Domain\HeatingAction;
 use Jeedom\Plugin\Thermostat\Domain\Log;
 use Jeedom\Plugin\Thermostat\Domain\StatusLabels;
 use Jeedom\Plugin\Thermostat\Domain\Translator;
@@ -45,36 +47,36 @@ class HysteresisDecision {
 	 * @param scalar|null $_consigne
 	 * @param scalar|null $_status
 	 * @param string $_lastState
-	 * @return 'none'|'heat'|'cool'|'stop'
+	 * @return HeatingAction::*
 	 */
 	public function decide($_temp, $_consigne, $_status, $_lastState) {
 		$allowMode = $this->settings->allowMode();
 		$threshold = $this->settings->hysteresisThreshold();
 		$positive = ($this->settings->positiveHysteresis() == 1);
-		$hysteresis_low = ($allowMode == 'heat' && $positive) ? $_consigne : $_consigne - $threshold;
-		$hysteresis_hight = ($allowMode == 'cool' && $positive) ? $_consigne : $_consigne + $threshold;
+		$hysteresis_low = ($allowMode == AllowMode::HEAT && $positive) ? $_consigne : $_consigne - $threshold;
+		$hysteresis_hight = ($allowMode == AllowMode::COOL && $positive) ? $_consigne : $_consigne + $threshold;
 		$this->log->debug($this->translator->translate('{{Calcul}}') . ' => ' . $this->translator->translate('{{consigne}}') . ' : ' . $_consigne . ' hysteresis_low : ' . $hysteresis_low . ' hysteresis_hight : ' . $hysteresis_hight . ' temp : ' . $_temp . ' ' . $this->translator->translate('{{état précédent}}') . ' : ' . $_lastState);
-		$action = 'none';
+		$action = HeatingAction::NONE;
 		if ($_temp < $hysteresis_low) {
-			$action = 'heat';
+			$action = HeatingAction::HEAT;
 		}
 		if ($_temp > $hysteresis_hight) {
-			$action = 'cool';
+			$action = HeatingAction::COOL;
 		}
-		if ($action == 'heat' && $_lastState == 'cool' && ($_consigne - 2 * $threshold) < $_temp) {
-			$action = 'none';
+		if ($action == HeatingAction::HEAT && $_lastState == HeatingAction::COOL && ($_consigne - 2 * $threshold) < $_temp) {
+			$action = HeatingAction::NONE;
 		}
-		if ($action == 'cool' && $_lastState == 'heat' && ($_consigne + 2 * $threshold) > $_temp) {
-			$action = 'none';
+		if ($action == HeatingAction::COOL && $_lastState == HeatingAction::HEAT && ($_consigne + 2 * $threshold) > $_temp) {
+			$action = HeatingAction::NONE;
 		}
 		if ($_status == $this->labels->heating() && $_temp > $hysteresis_hight) {
-			$action = 'stop';
+			$action = HeatingAction::STOP;
 		}
 		if ($_status == $this->labels->cooling() && $_temp < ($_consigne - $threshold)) {
-			$action = 'stop';
+			$action = HeatingAction::STOP;
 		}
-		if (($action == 'cool' || $action == 'heat') && $allowMode != 'all' && $allowMode != $action) {
-			$action = 'none';
+		if (($action == HeatingAction::COOL || $action == HeatingAction::HEAT) && $allowMode != AllowMode::ALL && $allowMode != $action) {
+			$action = HeatingAction::NONE;
 		}
 		return $action;
 	}

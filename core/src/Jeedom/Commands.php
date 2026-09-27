@@ -18,6 +18,7 @@
 
 namespace Jeedom\Plugin\Thermostat\Jeedom;
 
+use Jeedom\Plugin\Thermostat\Domain\Engine\EngineType;
 use Jeedom\Plugin\Thermostat\Domain\Translator;
 
 class Commands {
@@ -207,7 +208,7 @@ class Commands {
 			'coeff_outdoor_cool' => $this->translator->translate('{{Isolation froid}}'),
 			'smart_start_factor' => $this->translator->translate('{{Anticipation smart start}}'),
 		);
-		if ($this->thermostat->getConfiguration('engine', 'temporal') == 'temporal') {
+		if ($this->thermostat->getConfiguration('engine', EngineType::TEMPORAL) == EngineType::TEMPORAL) {
 			$deltaOrder = $this->upsertCmd('deltaOrder', 'action', 'slider', function ($cmd) {
 				$cmd->setUnite('°C');
 				$cmd->setName($this->translator->translate('{{Delta consigne}}'));

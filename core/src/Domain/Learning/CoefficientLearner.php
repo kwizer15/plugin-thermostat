@@ -18,6 +18,7 @@
 
 namespace Jeedom\Plugin\Thermostat\Domain\Learning;
 
+use Jeedom\Plugin\Thermostat\Domain\HeatingAction;
 use Jeedom\Plugin\Thermostat\Domain\Log;
 use Jeedom\Plugin\Thermostat\Domain\Translator;
 
@@ -57,7 +58,7 @@ class CoefficientLearner {
 		$lastOrder = $this->memory->lastOrder();
 		$lastTempIn = $this->memory->lastTempIn();
 		$this->log->debug('Last power ok, check what I have to learn, last state : ' . $lastState);
-		if ($lastState == 'heat') {
+		if ($lastState == HeatingAction::HEAT) {
 			$this->log->debug('Last state is heat');
 			if ($_temp_in > $lastTempIn && $lastOrder > $lastTempIn) {
 				$this->log->debug('Last temps in < at current temp in');
@@ -69,7 +70,7 @@ class CoefficientLearner {
 				$this->log->debug('New coeff outdoor heat: ' . $coeff);
 			}
 		}
-		if ($lastState == 'cool') {
+		if ($lastState == HeatingAction::COOL) {
 			$this->log->debug('Last state is cool');
 			if ($_temp_in < $lastTempIn && $lastOrder < $lastTempIn) {
 				$this->log->debug('Last temps in > at current temp in');

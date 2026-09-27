@@ -18,6 +18,8 @@
 
 namespace Jeedom\Plugin\Thermostat\Domain\Engine;
 
+use Jeedom\Plugin\Thermostat\Domain\HeatingAction;
+
 interface Memory {
 
 	/**
@@ -26,7 +28,7 @@ interface Memory {
 	public function lastState();
 
 	/**
-	 * @param string $_state
+	 * @param HeatingAction::HEAT|HeatingAction::COOL|HeatingAction::STOP $_state
 	 * @return void
 	 */
 	public function setLastState($_state);

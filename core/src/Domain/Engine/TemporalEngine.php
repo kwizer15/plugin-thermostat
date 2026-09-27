@@ -23,6 +23,7 @@ use Jeedom\Plugin\Thermostat\Domain\Cycle\Plan;
 use Jeedom\Plugin\Thermostat\Domain\Cycle\Planner;
 use Jeedom\Plugin\Thermostat\Domain\Display;
 use Jeedom\Plugin\Thermostat\Domain\Evaluator;
+use Jeedom\Plugin\Thermostat\Domain\HeatingAction;
 use Jeedom\Plugin\Thermostat\Domain\Learning\CoefficientLearner;
 use Jeedom\Plugin\Thermostat\Domain\Log;
 use Jeedom\Plugin\Thermostat\Domain\Persistence;
@@ -133,8 +134,8 @@ class TemporalEngine {
 		}
 		$this->memory->setTemperatureAlert(0);
 		$this->smartStart->learn($temp_in);
-		if (($temp_in < ($this->memory->lastOrder() - $this->settings->heatFailureOffset()) && $temp_in < $this->memory->lastTempIn() && $this->memory->lastState() == 'heat' && $this->settings->learnedCount('coeff_indoor_heat') > 25) ||
-			($temp_in > ($this->memory->lastOrder() + $this->settings->coldFailureOffset()) && $temp_in > $this->memory->lastTempIn() && $this->memory->lastState() == 'cool' && $this->settings->learnedCount('coeff_indoor_cool') > 25)
+		if (($temp_in < ($this->memory->lastOrder() - $this->settings->heatFailureOffset()) && $temp_in < $this->memory->lastTempIn() && $this->memory->lastState() == HeatingAction::HEAT && $this->settings->learnedCount('coeff_indoor_heat') > 25) ||
+			($temp_in > ($this->memory->lastOrder() + $this->settings->coldFailureOffset()) && $temp_in > $this->memory->lastTempIn() && $this->memory->lastState() == HeatingAction::COOL && $this->settings->learnedCount('coeff_indoor_cool') > 25)
 		) {
 			$this->memory->setConsecutiveFailures($this->memory->consecutiveFailures() + 1);
 			if ($this->memory->consecutiveFailures() == 2) {
@@ -158,7 +159,7 @@ class TemporalEngine {
 		}
 		$this->memory->setLastPower($temporal_data['power']);
 		$cycle = $this->evaluator->evaluate($this->settings->cycle());
-		$plan = $this->cyclePlanner->plan($temporal_data['power'], $cycle, $this->memory->lastState() == 'heat', $this->settings->minCycleDuration(), $this->settings->stoveBoiler());
+		$plan = $this->cyclePlanner->plan($temporal_data['power'], $cycle, $this->memory->lastState() == HeatingAction::HEAT, $this->settings->minCycleDuration(), $this->settings->stoveBoiler());
 		$duration = $plan->duration();
 		$this->memory->setLastOrder($consigne);
 		$this->memory->setLastTempIn($temp_in);
@@ -167,7 +168,7 @@ class TemporalEngine {
 		$this->log->debug($this->translator->translate('{{Durée du cycle}}') . '  : ' . $duration);
 		if ($plan->isTooShort()) {
 			$this->log->debug($this->translator->translate('{{Durée du cycle trop courte, aucun lancement}}'));
-			$this->memory->setLastState('stop');
+			$this->memory->setLastState(HeatingAction::STOP);
 			$this->actuator->stop();
 			$this->persistence->persist();
 			return;
@@ -179,14 +180,14 @@ class TemporalEngine {
 			$this->scheduler->reschedule(null, true);
 		}
 
-		if ($this->memory->lastState() == 'heat' && $temporal_data['direction'] < 0) {
+		if ($this->memory->lastState() == HeatingAction::HEAT && $temporal_data['direction'] < 0) {
 			$this->log->debug($this->translator->translate('{{Je dois refroidir mais avant je chauffais, je stop tout avant}}'));
-			$this->memory->setLastState('stop');
+			$this->memory->setLastState(HeatingAction::STOP);
 			$this->actuator->stop();
 			sleep(5);
-		}else if ($this->memory->lastState() == 'cool' && $temporal_data['direction'] > 0) {
+		}else if ($this->memory->lastState() == HeatingAction::COOL && $temporal_data['direction'] > 0) {
 			$this->log->debug($this->translator->translate('{{Je dois chauffer mais avant je refroidissait, je stop tout avant}}'));
-			$this->memory->setLastState('stop');
+			$this->memory->setLastState(HeatingAction::STOP);
 			$this->actuator->stop();
 			sleep(5);
 		}

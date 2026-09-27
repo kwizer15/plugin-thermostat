@@ -18,6 +18,7 @@
 
 namespace Jeedom\Plugin\Thermostat\Domain\Power;
 
+use Jeedom\Plugin\Thermostat\Domain\HeatingAction;
 use Jeedom\Plugin\Thermostat\Domain\Log;
 use Jeedom\Plugin\Thermostat\Domain\Translator;
 
@@ -58,10 +59,10 @@ class Calculator {
 		$diff_in = $_consigne - $temp_in;
 		$diff_out = $_consigne - $temp_out;
 		$direction = ($_consigne > $temp_in) ? +1 : -1;
-		if ($direction < 0 && (($temp_in < ($_consigne + 0.5) && $this->memory->lastState() == 'heat') || ($_consigne - $temp_out) > $this->settings->directionDeltaHeat())) {
+		if ($direction < 0 && (($temp_in < ($_consigne + 0.5) && $this->memory->lastState() == HeatingAction::HEAT) || ($_consigne - $temp_out) > $this->settings->directionDeltaHeat())) {
 			$direction = +1;
 		}
-		if ($direction > 0 && (($temp_in > ($_consigne - 0.5) && $this->memory->lastState() == 'cool') || ($_consigne - $temp_out) < $this->settings->directionDeltaCool())) {
+		if ($direction > 0 && (($temp_in > ($_consigne - 0.5) && $this->memory->lastState() == HeatingAction::COOL) || ($_consigne - $temp_out) < $this->settings->directionDeltaCool())) {
 			$direction = -1;
 		}
 		$this->log->debug($this->translator->translate('{{Direction}}') . ' : ' . $direction);

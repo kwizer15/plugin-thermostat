@@ -19,6 +19,7 @@
 namespace Jeedom\Plugin\Thermostat\Domain\SmartStart;
 
 use Jeedom\Plugin\Thermostat\Domain\Display;
+use Jeedom\Plugin\Thermostat\Domain\Engine\EngineType;
 use Jeedom\Plugin\Thermostat\Domain\Evaluator;
 use Jeedom\Plugin\Thermostat\Domain\Log;
 use Jeedom\Plugin\Thermostat\Domain\Power\Calculator;
@@ -69,7 +70,7 @@ class SmartStart {
 	 * @return string|null
 	 */
 	public function plan() {
-		if ($this->settings->engine() != 'temporal') {
+		if ($this->settings->engine() != EngineType::TEMPORAL) {
 			return '';
 		}
 		if (!$this->calendar->available()) {
@@ -116,11 +117,11 @@ class SmartStart {
 		$this->log->debug($this->translator->translate('{{Next info}}') . ' : ' . print_r($_options['next'], true));
 		if ($this->display->locked()) {
 			$this->log->debug($this->translator->translate('{{Thermostat verrouillé je ne fais rien}}'));
-		} else if ($_options['next']['type'] == 'thermostat') {
+		} else if ($_options['next']['type'] == EventType::THERMOSTAT) {
 			$this->log->debug($this->translator->translate('{{Type thermostat envoi de la consigne}}') . ' : ' . $_options['next']['consigne']);
 			$this->remember($_options['next']);
 			$this->controls->requestSetpoint($_options['next']['consigne']);
-		} else if ($_options['next']['type'] == 'mode' && isset($_options['next']['cmd']) && $this->controls->modeExists($_options['next']['cmd'])) {
+		} else if ($_options['next']['type'] == EventType::MODE && isset($_options['next']['cmd']) && $this->controls->modeExists($_options['next']['cmd'])) {
 			$this->log->debug($this->translator->translate('{{Type mode envoi de la commande}}') . ' : ' . $_options['next']['cmd']);
 			$this->remember($_options['next']);
 			$this->controls->runMode($_options['next']['cmd']);

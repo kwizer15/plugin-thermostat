@@ -20,6 +20,7 @@ namespace Jeedom\Plugin\Thermostat\Jeedom;
 
 use Jeedom\Plugin\Thermostat\Domain\Log;
 use Jeedom\Plugin\Thermostat\Domain\SmartStart\Calendar as SmartStartCalendar;
+use Jeedom\Plugin\Thermostat\Domain\SmartStart\EventType;
 use Jeedom\Plugin\Thermostat\Domain\Translator;
 
 class Calendar implements SmartStartCalendar {
@@ -99,7 +100,7 @@ class Calendar implements SmartStartCalendar {
 								'consigne' => $consigne,
 								'calendar_id' => $calendar->getId(),
 								'cmd' => $mode->getId(),
-								'type' => 'mode',
+								'type' => EventType::MODE,
 							);
 						}
 					}
@@ -137,7 +138,7 @@ class Calendar implements SmartStartCalendar {
 						'event' => $event,
 						'calendar_id' => $calendar->getId(),
 						'consigne' => $options['slider'],
-						'type' => 'thermostat',
+						'type' => EventType::THERMOSTAT,
 					);
 				}
 			}

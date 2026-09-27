@@ -19,6 +19,7 @@
 namespace Jeedom\Plugin\Thermostat\Domain\Command;
 
 use Jeedom\Plugin\Thermostat\Domain\Actuator\Actuator;
+use Jeedom\Plugin\Thermostat\Domain\AllowMode;
 use Jeedom\Plugin\Thermostat\Domain\Display;
 use Jeedom\Plugin\Thermostat\Domain\EngineRunner;
 use Jeedom\Plugin\Thermostat\Domain\Persistence;
@@ -71,11 +72,11 @@ class Handler {
 				$this->persistence->saveWithCommands();
 			}
 		} else if ($_logicalId == 'cool_only') {
-			$this->allow('cool');
+			$this->allow(AllowMode::COOL);
 		} else if ($_logicalId == 'heat_only') {
-			$this->allow('heat');
+			$this->allow(AllowMode::HEAT);
 		} else if ($_logicalId == 'all_allow') {
-			$this->allow('all');
+			$this->allow(AllowMode::ALL);
 		}
 		if (!$this->display->hasLockState() || $this->display->locked()) {
 			$this->display->refreshWidget();
@@ -107,7 +108,7 @@ class Handler {
 	}
 
 	/**
-	 * @param string $_mode
+	 * @param AllowMode::* $_mode
 	 * @return void
 	 */
 	private function allow($_mode) {

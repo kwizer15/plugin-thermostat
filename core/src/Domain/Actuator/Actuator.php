@@ -18,8 +18,10 @@
 
 namespace Jeedom\Plugin\Thermostat\Domain\Actuator;
 
+use Jeedom\Plugin\Thermostat\Domain\AllowMode;
 use Jeedom\Plugin\Thermostat\Domain\Display;
 use Jeedom\Plugin\Thermostat\Domain\EngineRunner;
+use Jeedom\Plugin\Thermostat\Domain\HeatingAction;
 use Jeedom\Plugin\Thermostat\Domain\Log;
 use Jeedom\Plugin\Thermostat\Domain\Persistence;
 use Jeedom\Plugin\Thermostat\Domain\StatusLabels;
@@ -67,7 +69,7 @@ class Actuator {
 			if ($this->display->mode() == $this->labels->off() || $this->display->status() == $this->labels->suspended()) {
 				return false;
 			}
-			if ($this->settings->allowMode() != 'all' && $this->settings->allowMode() != 'heat') {
+			if ($this->settings->allowMode() != AllowMode::ALL && $this->settings->allowMode() != AllowMode::HEAT) {
 				$this->stop();
 				return false;
 			}
@@ -81,7 +83,7 @@ class Actuator {
 		$this->actions->execute($this->settings->heatingActions(), true);
 		if (!$_repeat) {
 			$this->persistence->reload();
-			$this->memory->setLastState('heat');
+			$this->memory->setLastState(HeatingAction::HEAT);
 			$this->display->setActive(1);
 		}
 		return true;
@@ -96,7 +98,7 @@ class Actuator {
 			if ($this->display->mode() == $this->labels->off() || $this->display->status() == $this->labels->suspended()) {
 				return false;
 			}
-			if ($this->settings->allowMode() != 'all' && $this->settings->allowMode() != 'cool') {
+			if ($this->settings->allowMode() != AllowMode::ALL && $this->settings->allowMode() != AllowMode::COOL) {
 				$this->stop();
 				return false;
 			}
@@ -110,7 +112,7 @@ class Actuator {
 		$this->actions->execute($this->settings->coolingActions(), true);
 		if (!$_repeat) {
 			$this->persistence->reload();
-			$this->memory->setLastState('cool');
+			$this->memory->setLastState(HeatingAction::COOL);
 			$this->display->setActive(1);
 		}
 		return true;

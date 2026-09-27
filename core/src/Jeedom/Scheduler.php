@@ -18,6 +18,7 @@
 
 namespace Jeedom\Plugin\Thermostat\Jeedom;
 
+use Jeedom\Plugin\Thermostat\Domain\Engine\EngineType;
 use Jeedom\Plugin\Thermostat\Domain\Log;
 use Jeedom\Plugin\Thermostat\Domain\Scheduling;
 
@@ -126,7 +127,7 @@ class Scheduler implements Scheduling {
 	 * @return void
 	 */
 	public function watchdog() {
-		if ($this->thermostat->getConfiguration('engine', 'temporal') == 'temporal' && date('i') % 10 == 0) {
+		if ($this->thermostat->getConfiguration('engine', EngineType::TEMPORAL) == EngineType::TEMPORAL && date('i') % 10 == 0) {
 			$cron = \cron::byClassAndFunction('thermostat', 'pull', array('thermostat_id' => intval($this->thermostat->getId())));
 			if (!is_object($cron)) {
 				$this->reschedule(date('Y-m-d H:i:s', strtotime('+2 min ' . date('Y-m-d H:i:s'))));
@@ -149,7 +150,7 @@ class Scheduler implements Scheduling {
 	 * @return void
 	 */
 	public function runHysteresisCron() {
-		if ($this->thermostat->getConfiguration('engine', 'temporal') == 'hysteresis' && $this->thermostat->getConfiguration('hysteresis_cron') != '') {
+		if ($this->thermostat->getConfiguration('engine', EngineType::TEMPORAL) == EngineType::HYSTERESIS && $this->thermostat->getConfiguration('hysteresis_cron') != '') {
 			try {
 				$c = new \Cron\CronExpression(checkAndFixCron($this->thermostat->getConfiguration('hysteresis_cron')), new \Cron\FieldFactory);
 				if ($c->isDue()) {

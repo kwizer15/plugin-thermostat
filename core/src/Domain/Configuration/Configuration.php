@@ -18,6 +18,7 @@
 
 namespace Jeedom\Plugin\Thermostat\Domain\Configuration;
 
+use Jeedom\Plugin\Thermostat\Domain\Engine\EngineType;
 use Jeedom\Plugin\Thermostat\Domain\Translator;
 
 class Configuration {
@@ -93,7 +94,7 @@ class Configuration {
 		if ($this->store->value('coeff_outdoor_cool_autolearn') === '' || $this->store->value('coeff_outdoor_cool_autolearn') < 1) {
 			$this->store->change('coeff_outdoor_cool_autolearn', 0);
 		}
-		if ($this->store->value('engine') == 'hysteresis') {
+		if ($this->store->value('engine') == EngineType::HYSTERESIS) {
 			$this->store->change('hysteresis_threshold', str_replace(',', '.', $this->store->value('hysteresis_threshold', 1)));
 		}
 		if (is_array($this->store->value('existingMode'))) {
