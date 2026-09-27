@@ -1,6 +1,6 @@
 <?php
 
-class InMemorySettings implements thermostatPowerSettings, thermostatLearningSettings, thermostatSmartStartSettings, thermostatHysteresisSettings, thermostatActuatorSettings, thermostatWindowSettings, thermostatEngineSettings {
+class InMemorySettings implements thermostatPowerSettings, thermostatLearningSettings, thermostatSmartStartSettings, thermostatHysteresisSettings, thermostatActuatorSettings, thermostatWindowSettings, thermostatEngineSettings, thermostatStatisticsSettings {
 
 	public $values = array(
 		'coeff_indoor_heat' => 10,
@@ -41,6 +41,7 @@ class InMemorySettings implements thermostatPowerSettings, thermostatLearningSet
 		'minCycleDuration' => 5,
 		'offsetHeatFaillure' => 1,
 		'offsetColdFaillure' => 1,
+		'consumption' => '',
 	);
 
 	public $published = array();
@@ -195,5 +196,9 @@ class InMemorySettings implements thermostatPowerSettings, thermostatLearningSet
 
 	public function setCycleEndDate($_datetime) {
 		$this->values['endDate'] = $_datetime;
+	}
+
+	public function consumption() {
+		return $this->values['consumption'];
 	}
 }

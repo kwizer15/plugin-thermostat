@@ -105,6 +105,6 @@ class thermostatAssembly {
 	}
 
 	public function statistics() {
-		return new thermostatStatistics($this->thermostat, $this->settings(), $this->evaluator());
+		return new thermostatStatistics($this->settings(), $this->evaluator(), new thermostatJeedomHistory($this->thermostat));
 	}
 }

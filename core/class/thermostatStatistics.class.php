@@ -18,14 +18,14 @@
 
 class thermostatStatistics {
 
-	private $thermostat;
 	private $settings;
 	private $evaluator;
+	private $history;
 
-	public function __construct($_thermostat, thermostatStatisticsSettings $_settings, thermostatEvaluator $_evaluator) {
-		$this->thermostat = $_thermostat;
+	public function __construct(thermostatStatisticsSettings $_settings, thermostatEvaluator $_evaluator, thermostatHistory $_history) {
 		$this->settings = $_settings;
 		$this->evaluator = $_evaluator;
+		$this->history = $_history;
 	}
 
 	public function updatePerformance() {
@@ -33,20 +33,19 @@ class thermostatStatistics {
 		if ($dju === null) {
 			return;
 		}
-		$cmd = $this->thermostat->getCmd('info', 'performance');
-		if (!is_object($cmd)) {
+		if (!$this->history->hasPerformance()) {
 			return;
 		}
 		$performance = round($this->evaluator->evaluate($this->settings->consumption()) / $dju, 2);
 		if ($performance <= 0) {
 			return;
 		}
-		$cmd->event($performance);
+		$this->history->publishPerformance($performance);
 	}
 
 	public function runtimeByDay($_startDate = null, $_endDate = null) {
-		$actifCmd = $this->thermostat->getCmd(null, 'actif');
-		if (!is_object($actifCmd)) {
+		$histories = $this->history->activeHistory($_startDate, $_endDate);
+		if ($histories === null) {
 			return array();
 		}
 		$return = array();
@@ -58,24 +57,24 @@ class thermostatStatistics {
 			$return[date('Y-m-d', $day)] = array($day * 1000, 0);
 			$day = $day + 3600 * 24;
 		}
-		foreach ($actifCmd->getHistory($_startDate, $_endDate) as $history) {
-			if (date('Y-m-d', strtotime($history->getDatetime())) != $day && $prevValue == 1 && $day != null) {
+		foreach ($histories as $history) {
+			if (date('Y-m-d', strtotime($history['datetime'])) != $day && $prevValue == 1 && $day != null) {
 				if (strtotime($day . ' 23:59:59') > $prevDatetime) {
 					$return[$day][1] += (strtotime($day . ' 23:59:59') - $prevDatetime) / 60;
 				}
-				$prevDatetime = strtotime(date('Y-m-d 00:00:00', strtotime($history->getDatetime())));
+				$prevDatetime = strtotime(date('Y-m-d 00:00:00', strtotime($history['datetime'])));
 			}
-			$day = date('Y-m-d', strtotime($history->getDatetime()));
+			$day = date('Y-m-d', strtotime($history['datetime']));
 			if (!isset($return[$day])) {
 				$return[$day] = array(strtotime($day . ' 00:00:00 UTC') * 1000, 0);
 			}
-			if ($history->getValue() == 1 && $prevValue == 0) {
-				$prevDatetime = strtotime($history->getDatetime());
+			if ($history['value'] == 1 && $prevValue == 0) {
+				$prevDatetime = strtotime($history['datetime']);
 				$prevValue = 1;
 			}
-			if ($history->getValue() == 0 && $prevValue == 1) {
-				if ($prevDatetime > 0 && strtotime($history->getDatetime()) > $prevDatetime) {
-					$return[$day][1] += (strtotime($history->getDatetime()) - $prevDatetime) / 60;
+			if ($history['value'] == 0 && $prevValue == 1) {
+				if ($prevDatetime > 0 && strtotime($history['datetime']) > $prevDatetime) {
+					$return[$day][1] += (strtotime($history['datetime']) - $prevDatetime) / 60;
 				}
 				$prevValue = 0;
 			}
@@ -87,11 +86,10 @@ class thermostatStatistics {
 		if ($_date == null) {
 			$_date = date('Y-m-d');
 		}
-		$cmd = $this->thermostat->getCmd(null, 'temperature_outdoor');
-		if (!is_object($cmd)) {
+		$stats = $this->history->outdoorStatistics($_date . ' 00:00:01', $_date . ' 23:59:59');
+		if ($stats === null) {
 			return null;
 		}
-		$stats = $cmd->getStatistique($_date . ' 00:00:01', $_date . ' 23:59:59');
 		if (!isset($stats['min']) || !isset($stats['max'])) {
 			return null;
 		}
