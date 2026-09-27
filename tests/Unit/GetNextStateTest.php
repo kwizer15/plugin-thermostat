@@ -107,6 +107,20 @@ class GetNextStateTest extends ThermostatTestCase {
 		$this->assertSame('29 19 15 01 *', $this->smartCrons()[0]->getSchedule());
 	}
 
+	public function testImminentEventDoesNotHideNextOne() {
+		$thermostat = $this->thermostatWithModes(array('Confort' => '21'));
+		$calendar = $this->calendar();
+		$mode = $this->mode($thermostat, 'Confort');
+		$this->eventOnStart($calendar, $mode, '2026-01-15 10:01:00');
+		$this->eventOnStart($calendar, $mode, '2026-01-15 18:00:00');
+
+		$thermostat->getNextState();
+
+		$crons = $this->smartCrons();
+		$this->assertCount(1, $crons);
+		$this->assertSame('29 17 15 01 *', $crons[0]->getSchedule());
+	}
+
 	public function testReplacesPreviousSmartCron() {
 		$thermostat = $this->thermostatWithModes(array('Confort' => '21'));
 		$calendar = $this->calendar();

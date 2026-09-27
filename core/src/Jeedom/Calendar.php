@@ -84,7 +84,7 @@ class Calendar implements SmartStartCalendar {
 						}
 					}
 					$nextOccurence = $event->nextOccurrence($position, true);
-					if ($nextOccurence['date'] != '' && ($next == null || (strtotime($next['date']) > strtotime($nextOccurence['date']) && strtotime($nextOccurence['date']) > (strtotime('now') + 120)))) {
+					if ($nextOccurence['date'] != '' && strtotime($nextOccurence['date']) > (strtotime('now') + 120) && ($next == null || strtotime($next['date']) > strtotime($nextOccurence['date']))) {
 						$consigne = null;
 						foreach ($this->eqLogic->getConfiguration(Key::MODES) as $existingMode) {
 							if ($mode->getName() == $existingMode['name']) {
@@ -136,7 +136,7 @@ class Calendar implements SmartStartCalendar {
 					}
 				}
 				$nextOccurence = $event->nextOccurrence($position, true);
-				if ($nextOccurence['date'] != '' && ($next == null || (strtotime($next['date']) > strtotime($nextOccurence['date']) && strtotime($nextOccurence['date']) > (strtotime('now') + 120)))) {
+				if ($nextOccurence['date'] != '' && strtotime($nextOccurence['date']) > (strtotime('now') + 120) && ($next == null || strtotime($next['date']) > strtotime($nextOccurence['date']))) {
 					$next = array(
 						'date' => $nextOccurence['date'],
 						'event' => $event,
