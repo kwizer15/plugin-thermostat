@@ -93,10 +93,10 @@ class thermostatAssembly {
 	}
 
 	public function configuration() {
-		return new thermostatConfiguration($this->thermostat);
+		return new thermostatConfiguration($this->settings());
 	}
 
 	public function statistics() {
-		return new thermostatStatistics($this->thermostat);
+		return new thermostatStatistics($this->thermostat, $this->settings(), $this->evaluator());
 	}
 }

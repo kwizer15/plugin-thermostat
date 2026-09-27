@@ -18,75 +18,75 @@
 
 class thermostatConfiguration {
 
-	private $thermostat;
+	private $store;
 
-	public function __construct($_thermostat) {
-		$this->thermostat = $_thermostat;
+	public function __construct(thermostatConfigurationStore $_store) {
+		$this->store = $_store;
 	}
 
 	public function apply() {
-		if ($this->thermostat->getConfiguration('order_max') === '') {
-			$this->thermostat->setConfiguration('order_max', 28);
+		if ($this->store->value('order_max') === '') {
+			$this->store->change('order_max', 28);
 		}
-		if ($this->thermostat->getConfiguration('order_min') === '') {
-			$this->thermostat->setConfiguration('order_min', 15);
+		if ($this->store->value('order_min') === '') {
+			$this->store->change('order_min', 15);
 		}
-		if ($this->thermostat->getConfiguration('order_min') > $this->thermostat->getConfiguration('order_max')) {
+		if ($this->store->value('order_min') > $this->store->value('order_max')) {
 			throw new Exception(__('La température de consigne minimale ne peut être supérieure à la consigne maximale', __FILE__));
 		}
-		if ($this->thermostat->getConfiguration('coeff_indoor_heat') === '') {
-			$this->thermostat->setConfiguration('coeff_indoor_heat', 10);
+		if ($this->store->value('coeff_indoor_heat') === '') {
+			$this->store->change('coeff_indoor_heat', 10);
 		}
-		if ($this->thermostat->getConfiguration('coeff_indoor_cool') === '') {
-			$this->thermostat->setConfiguration('coeff_indoor_cool', 10);
+		if ($this->store->value('coeff_indoor_cool') === '') {
+			$this->store->change('coeff_indoor_cool', 10);
 		}
-		if ($this->thermostat->getConfiguration('coeff_outdoor_heat') === '') {
-			$this->thermostat->setConfiguration('coeff_outdoor_heat', 2);
+		if ($this->store->value('coeff_outdoor_heat') === '') {
+			$this->store->change('coeff_outdoor_heat', 2);
 		}
-		if ($this->thermostat->getConfiguration('coeff_outdoor_cool') === '') {
-			$this->thermostat->setConfiguration('coeff_outdoor_cool', 2);
+		if ($this->store->value('coeff_outdoor_cool') === '') {
+			$this->store->change('coeff_outdoor_cool', 2);
 		}
-		if ($this->thermostat->getConfiguration('minCycleDuration') === '') {
-			$this->thermostat->setConfiguration('minCycleDuration', 5);
+		if ($this->store->value('minCycleDuration') === '') {
+			$this->store->change('minCycleDuration', 5);
 		}
-		if ($this->thermostat->getConfiguration('offset_heat') === '') {
-			$this->thermostat->setConfiguration('offset_heat', 0);
+		if ($this->store->value('offset_heat') === '') {
+			$this->store->change('offset_heat', 0);
 		}
-		if ($this->thermostat->getConfiguration('offset_cool') === '') {
-			$this->thermostat->setConfiguration('offset_cool', 0);
+		if ($this->store->value('offset_cool') === '') {
+			$this->store->change('offset_cool', 0);
 		}
-		if ($this->thermostat->getConfiguration('minCycleDuration') < 0 || $this->thermostat->getConfiguration('minCycleDuration') > 90) {
+		if ($this->store->value('minCycleDuration') < 0 || $this->store->value('minCycleDuration') > 90) {
 			throw new Exception(__('Le temps de chauffe minimal doit être compris entre 0% et 90%', __FILE__));
 		}
-		if ($this->thermostat->getConfiguration('cycle') === '') {
-			$this->thermostat->setConfiguration('cycle', 59);
+		if ($this->store->value('cycle') === '') {
+			$this->store->change('cycle', 59);
 		}
-		if ($this->thermostat->getConfiguration('smart_start') === '') {
-			$this->thermostat->setConfiguration('smart_start', 1);
+		if ($this->store->value('smart_start') === '') {
+			$this->store->change('smart_start', 1);
 		}
-		if ($this->thermostat->getConfiguration('cycle') < 15) {
+		if ($this->store->value('cycle') < 15) {
 			throw new Exception(__('Le temps de cycle doit être supérieur à 15 minutes', __FILE__));
 		}
-		if ($this->thermostat->getConfiguration('autolearn') === '') {
-			$this->thermostat->setConfiguration('autolearn', 1);
+		if ($this->store->value('autolearn') === '') {
+			$this->store->change('autolearn', 1);
 		}
-		if ($this->thermostat->getConfiguration('coeff_indoor_cool_autolearn') === '' || $this->thermostat->getConfiguration('coeff_indoor_cool_autolearn') < 1) {
-			$this->thermostat->setConfiguration('coeff_indoor_cool_autolearn', 1);
+		if ($this->store->value('coeff_indoor_cool_autolearn') === '' || $this->store->value('coeff_indoor_cool_autolearn') < 1) {
+			$this->store->change('coeff_indoor_cool_autolearn', 1);
 		}
-		if ($this->thermostat->getConfiguration('coeff_indoor_heat_autolearn') === '' || $this->thermostat->getConfiguration('coeff_indoor_heat_autolearn') < 1) {
-			$this->thermostat->setConfiguration('coeff_indoor_heat_autolearn', 1);
+		if ($this->store->value('coeff_indoor_heat_autolearn') === '' || $this->store->value('coeff_indoor_heat_autolearn') < 1) {
+			$this->store->change('coeff_indoor_heat_autolearn', 1);
 		}
-		if ($this->thermostat->getConfiguration('coeff_outdoor_heat_autolearn') === '' || $this->thermostat->getConfiguration('coeff_outdoor_heat_autolearn') < 1) {
-			$this->thermostat->setConfiguration('coeff_outdoor_heat_autolearn', 0);
+		if ($this->store->value('coeff_outdoor_heat_autolearn') === '' || $this->store->value('coeff_outdoor_heat_autolearn') < 1) {
+			$this->store->change('coeff_outdoor_heat_autolearn', 0);
 		}
-		if ($this->thermostat->getConfiguration('coeff_outdoor_cool_autolearn') === '' || $this->thermostat->getConfiguration('coeff_outdoor_cool_autolearn') < 1) {
-			$this->thermostat->setConfiguration('coeff_outdoor_cool_autolearn', 0);
+		if ($this->store->value('coeff_outdoor_cool_autolearn') === '' || $this->store->value('coeff_outdoor_cool_autolearn') < 1) {
+			$this->store->change('coeff_outdoor_cool_autolearn', 0);
 		}
-		if ($this->thermostat->getConfiguration('engine') == 'hysteresis') {
-			$this->thermostat->setConfiguration('hysteresis_threshold', str_replace(',', '.', $this->thermostat->getConfiguration('hysteresis_threshold', 1)));
+		if ($this->store->value('engine') == 'hysteresis') {
+			$this->store->change('hysteresis_threshold', str_replace(',', '.', $this->store->value('hysteresis_threshold', 1)));
 		}
-		if (is_array($this->thermostat->getConfiguration('existingMode'))) {
-			foreach ($this->thermostat->getConfiguration('existingMode') as $existingMode) {
+		if (is_array($this->store->value('existingMode'))) {
+			foreach ($this->store->value('existingMode') as $existingMode) {
 				if (strtolower($existingMode['name']) == __('off', __FILE__)) {
 					throw new Exception(__("Vous ne pouvez faire un mode s'appelant Off car une commande Off existe déjà", __FILE__));
 				}
@@ -98,6 +98,6 @@ class thermostatConfiguration {
 				}
 			}
 		}
-		$this->thermostat->setCategory('heating', 1);
+		$this->store->markAsHeating();
 	}
 }

@@ -19,9 +19,13 @@
 class thermostatStatistics {
 
 	private $thermostat;
+	private $settings;
+	private $evaluator;
 
-	public function __construct($_thermostat) {
+	public function __construct($_thermostat, thermostatStatisticsSettings $_settings, thermostatEvaluator $_evaluator) {
 		$this->thermostat = $_thermostat;
+		$this->settings = $_settings;
+		$this->evaluator = $_evaluator;
 	}
 
 	public function updatePerformance() {
@@ -33,7 +37,7 @@ class thermostatStatistics {
 		if (!is_object($cmd)) {
 			return;
 		}
-		$performance = round(jeedom::evaluateExpression($this->thermostat->getConfiguration('consumption')) / $dju, 2);
+		$performance = round($this->evaluator->evaluate($this->settings->consumption()) / $dju, 2);
 		if ($performance <= 0) {
 			return;
 		}
