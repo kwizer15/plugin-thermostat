@@ -23,6 +23,7 @@ require_once dirname(__FILE__) . '/thermostatCoefficientLearner.class.php';
 require_once dirname(__FILE__) . '/thermostatSmartStart.class.php';
 require_once dirname(__FILE__) . '/thermostatActuator.class.php';
 require_once dirname(__FILE__) . '/thermostatWindows.class.php';
+require_once dirname(__FILE__) . '/thermostatScheduler.class.php';
 
 class thermostat extends eqLogic {
 
@@ -324,23 +325,7 @@ class thermostat extends eqLogic {
 				}
 			}
 			(new thermostatWindows($thermostat))->alert();
-			if ($thermostat->getConfiguration('engine', 'temporal') == 'temporal' && date('i') % 10 == 0) {
-				$cron = cron::byClassAndFunction(__CLASS__, 'pull', array('thermostat_id' => intval($thermostat->getId())));
-				if (!is_object($cron)) {
-					$thermostat->reschedule(date('Y-m-d H:i:s', strtotime('+2 min ' . date('Y-m-d H:i:s'))));
-				} else {
-					if ($cron->getState() != 'run') {
-						try {
-							$c = new Cron\CronExpression(checkAndFixCron($cron->getSchedule()), new Cron\FieldFactory);
-							if (!$c->isDue()) {
-								$c->getNextRunDate();
-							}
-						} catch (Exception $ex) {
-							$thermostat->reschedule(date('Y-m-d H:i:s', strtotime('+2 min ' . date('Y-m-d H:i:s'))));
-						}
-					}
-				}
-			}
+			(new thermostatScheduler($thermostat))->watchdog();
 			if ($thermostat->getConfiguration('engine', 'temporal') == 'hysteresis' && $thermostat->getConfiguration('hysteresis_cron') != '') {
 				try {
 					$c = new Cron\CronExpression(checkAndFixCron($thermostat->getConfiguration('hysteresis_cron')), new Cron\FieldFactory);
@@ -434,37 +419,7 @@ class thermostat extends eqLogic {
 	}
 
 	public function reschedule($_next = null, $_stop = false, $_smartThermostat = false) {
-		log::add(__CLASS__, 'debug', $this->getHumanName() . ' Reschedule, next : '.$_next.', stop : '.$_stop.', smartThermostat : '.json_encode($_smartThermostat));
-		$options = array('thermostat_id' => intval($this->getId()));
-		if ($_stop) {
-			$options['stop'] = intval(1);
-		}
-		if ($_smartThermostat !== false) {
-			$crons = cron::searchClassAndFunction('thermostat', 'pull', '"thermostat_id":' . intval($this->getId()) . '%"smartThermostat":1');
-			if (is_array($crons) && count($crons)) {
-				foreach ($crons as $cron) {
-					$cron->remove(false);
-				}
-			}
-			$options['smartThermostat'] = intval(1);
-			$options['next'] = $_smartThermostat;
-		}
-		$cron = cron::byClassAndFunction(__CLASS__, 'pull', $options);
-		if (is_object($cron)) {
-			$cron->remove(false);
-		}
-		if($_next == null){
-			return;
-		}
-		$cron = new cron();
-		$cron->setClass('thermostat');
-		$cron->setFunction('pull');
-		$cron->setOption($options);
-		$_next = strtotime($_next);
-		$cron->setTimeout($this->getConfiguration('cycle') + 10);
-		$cron->setSchedule(cron::convertDateToCron($_next));
-		$cron->setOnce(1);
-		$cron->save();
+		(new thermostatScheduler($this))->reschedule($_next, $_stop, $_smartThermostat);
 	}
 
 	public function calculTemporalData($_consigne, $_allowOverfull = false) {
@@ -476,7 +431,7 @@ class thermostat extends eqLogic {
 	}
 
 	public function preRemove() {
-		$this->unschedule();
+		(new thermostatScheduler($this))->unschedule();
 	}
 
 	private function upsertCmd($_logicalId, $_type, $_subType, $_onCreate = null) {
@@ -505,29 +460,6 @@ class thermostat extends eqLogic {
 			}
 		}
 		return null;
-	}
-
-	private function unschedule() {
-		$cron = cron::byClassAndFunction(__CLASS__, 'pull', array('thermostat_id' => intval($this->getId())));
-		if (is_object($cron)) {
-			$cron->remove();
-		}
-		$cron = cron::byClassAndFunction(__CLASS__, 'pull', array('thermostat_id' => intval($this->getId()), 'stop' => intval(1)));
-		if (is_object($cron)) {
-			$cron->remove();
-		}
-		$listener = listener::byClassAndFunction(__CLASS__, 'window', array('thermostat_id' => intval($this->getId())));
-		if (is_object($listener)) {
-			$listener->remove();
-		}
-		$listener = listener::byClassAndFunction(__CLASS__, 'hysteresis', array('thermostat_id' => intval($this->getId())));
-		if (is_object($listener)) {
-			$listener->remove();
-		}
-		$listener = listener::byClassAndFunction(__CLASS__, 'updatePerformance', array('thermostat_id' => intval($this->getId())));
-		if (is_object($listener)) {
-			$listener->remove();
-		}
 	}
 
 	public function preSave() {
@@ -774,20 +706,9 @@ class thermostat extends eqLogic {
 			$performance->setConfiguration('historizeMode', 'max');
 			$performance->setUnite('kWh/DJU');
 			$performance->save();
-			$listener = listener::byClassAndFunction(__CLASS__, 'updatePerformance', array('thermostat_id' => intval($this->getId())));
-			if (!is_object($listener)) {
-				$listener = new listener();
-			}
-			$listener->setClass('thermostat');
-			$listener->setFunction('updatePerformance');
-			$listener->setOption(array('thermostat_id' => intval($this->getId())));
-			$listener->emptyEvent();
 			preg_match_all("/#([0-9]*)#/", $this->getConfiguration('consumption'), $matches);
-			foreach ($matches[1] as $cmd_id) {
-				$listener->addEvent($cmd_id);
-			}
-			$listener->addEvent($this->getCmd(null, 'temperature_outdoor')->getId());
-			$listener->save();
+			$matches[1][] = $this->getCmd(null, 'temperature_outdoor')->getId();
+			(new thermostatScheduler($this))->listen('updatePerformance', $matches[1]);
 		}
 
 		if ($this->getConfiguration('customCmd', '') != '') {
@@ -857,43 +778,22 @@ class thermostat extends eqLogic {
 		if ($this->getIsEnable() == 1) {
 			$windows = $this->getConfiguration('window');
 			if (is_array($windows) && count($windows) > 0) {
-				$listener = listener::byClassAndFunction(__CLASS__, 'window', array('thermostat_id' => intval($this->getId())));
-				if (!is_object($listener)) {
-					$listener = new listener();
-				}
-				$listener->setClass('thermostat');
-				$listener->setFunction('window');
-				$listener->setOption(array('thermostat_id' => intval($this->getId())));
-				$listener->emptyEvent();
+				$events = array();
 				foreach ($windows as $window) {
-					$listener->addEvent($window['cmd']);
+					$events[] = $window['cmd'];
 				}
-				$listener->save();
+				(new thermostatScheduler($this))->listen('window', $events);
 			}
 
 			if ($this->getConfiguration('engine', 'temporal') == 'hysteresis') {
-				$listener = listener::byClassAndFunction(__CLASS__, 'hysteresis', array('thermostat_id' => intval($this->getId())));
-				if (!is_object($listener)) {
-					$listener = new listener();
-				}
-				$listener->setClass('thermostat');
-				$listener->setFunction('hysteresis');
-				$listener->setOption(array('thermostat_id' => intval($this->getId())));
-				$listener->emptyEvent();
 				preg_match_all("/#([0-9]*)#/", $this->getConfiguration('temperature_indoor'), $matches);
-				foreach ($matches[1] as $cmd_id) {
-					$listener->addEvent($cmd_id);
-				}
-				$listener->save();
+				(new thermostatScheduler($this))->listen('hysteresis', $matches[1]);
 				$power = $this->getCmd(null, 'power');
 				if (is_object($power)) {
 					$power->remove();
 				}
 			} else {
-				$listener = listener::byClassAndFunction(__CLASS__, 'hysteresis', array('thermostat_id' => intval($this->getId())));
-				if (is_object($listener)) {
-					$listener->remove();
-				}
+				(new thermostatScheduler($this))->forget('hysteresis');
 				$power = $this->getCmd(null, 'power');
 				if (!is_object($power)) {
 					$power = new thermostatCmd();
@@ -919,7 +819,7 @@ class thermostat extends eqLogic {
 				}
 			}
 		} else {
-			$this->unschedule();
+			(new thermostatScheduler($this))->unschedule();
 		}
 	}
 

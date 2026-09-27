@@ -153,7 +153,7 @@ class thermostatSmartStart {
 			log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' ' . __('Durée Smartstart', __FILE__) . ' : ' . $duration . ' ' . __('à', __FILE__) . ' ' . $next['date'] . ' ' . __('programmation', __FILE__) . ' : ' . $next['schedule']);
 			if (strtotime($next['schedule']) > (strtotime('now') + 120)) {
 				log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' ' . __('Prochain Smartstart', __FILE__) . ' : ' . $next['schedule']);
-				$this->thermostat->reschedule($next['schedule'], false, $next);
+				(new thermostatScheduler($this->thermostat))->reschedule($next['schedule'], false, $next);
 			}
 		}
 	}
