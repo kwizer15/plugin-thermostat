@@ -1,0 +1,15 @@
+includes:
+    - phpstan-baseline.neon
+
+parameters:
+    level: max
+    phpVersion: 70100
+    paths:
+        - core/class
+        - core/src
+    scanFiles:
+        - tests/fake-core/php/core.inc.php
+    scanDirectories:
+        - tests/fake-core/class
+        - vendor/mtdowling/cron-expression/src
+    tmpDir: var/phpstan
