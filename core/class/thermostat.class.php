@@ -478,11 +478,7 @@ class thermostat extends eqLogic {
 				continue;
 			}
 			$thermostat->stopThermostat();
-			if ($thermostat->getConfiguration('engine', 'temporal') == 'temporal') {
-				thermostat::temporal(array('thermostat_id' => $thermostat->getId()));
-			} else if ($thermostat->getConfiguration('engine', 'temporal') == 'hysteresis') {
-				thermostat::hysteresis(array('thermostat_id' => $thermostat->getId()));
-			}
+			$thermostat->runEngine();
 		}
 	}
 
@@ -567,11 +563,7 @@ class thermostat extends eqLogic {
 		log::add(__CLASS__, 'debug', $this->getHumanName() . ' [windowClose] ' . __('Toutes les fenêtres sont fermées, je relance le chauffage', __FILE__));
 		$this->getCmd(null, 'status')->event(__('Calcul', __FILE__));
 		$this->setCache('window::state::open', -1);
-		if ($this->getConfiguration('engine', 'temporal') == 'temporal') {
-			thermostat::temporal(array('thermostat_id' => $this->getId()));
-		} else if ($this->getConfiguration('engine', 'temporal') == 'hysteresis') {
-			thermostat::hysteresis(array('thermostat_id' => $this->getId()));
-		}
+		$this->runEngine();
 	}
 
 	public function windowOpen($_window) {
@@ -1503,6 +1495,14 @@ class thermostat extends eqLogic {
 		}
 	}
 
+	public function runEngine() {
+		if ($this->getConfiguration('engine', 'temporal') == 'temporal') {
+			thermostat::temporal(array('thermostat_id' => $this->getId()));
+		} else if ($this->getConfiguration('engine', 'temporal') == 'hysteresis') {
+			thermostat::hysteresis(array('thermostat_id' => $this->getId()));
+		}
+	}
+
 	private function actionOptions($_action, $_consigne) {
 		$options = array();
 		if (isset($_action['options'])) {
@@ -1670,12 +1670,7 @@ class thermostat extends eqLogic {
 		if ($thermostatCmd == true) {
 			$this->orderChange();
 		}
-		if ($this->getConfiguration('engine', 'temporal') == 'temporal') {
-			thermostat::temporal(array('thermostat_id' => $this->getId()));
-		}
-		if ($this->getConfiguration('engine', 'temporal') == 'hysteresis') {
-			thermostat::hysteresis(array('thermostat_id' => $this->getId()));
-		}
+		$this->runEngine();
 	}
 
 	public function runtimeByDay($_startDate = null, $_endDate = null) {
@@ -1765,27 +1760,15 @@ class thermostatCmd extends cmd {
 		} else if ($this->getLogicalId() == 'cool_only') {
 			$eqLogic->setConfiguration('allow_mode', 'cool');
 			$eqLogic->save();
-			if ($eqLogic->getConfiguration('engine', 'temporal') == 'temporal') {
-				thermostat::temporal(array('thermostat_id' => $eqLogic->getId()));
-			} else if ($eqLogic->getConfiguration('engine', 'temporal') == 'hysteresis') {
-				thermostat::hysteresis(array('thermostat_id' => $eqLogic->getId()));
-			}
+			$eqLogic->runEngine();
 		} else if ($this->getLogicalId() == 'heat_only') {
 			$eqLogic->setConfiguration('allow_mode', 'heat');
 			$eqLogic->save();
-			if ($eqLogic->getConfiguration('engine', 'temporal') == 'temporal') {
-				thermostat::temporal(array('thermostat_id' => $eqLogic->getId()));
-			} else if ($eqLogic->getConfiguration('engine', 'temporal') == 'hysteresis') {
-				thermostat::hysteresis(array('thermostat_id' => $eqLogic->getId()));
-			}
+			$eqLogic->runEngine();
 		} else if ($this->getLogicalId() == 'all_allow') {
 			$eqLogic->setConfiguration('allow_mode', 'all');
 			$eqLogic->save();
-			if ($eqLogic->getConfiguration('engine', 'temporal') == 'temporal') {
-				thermostat::temporal(array('thermostat_id' => $eqLogic->getId()));
-			} else if ($eqLogic->getConfiguration('engine', 'temporal') == 'hysteresis') {
-				thermostat::hysteresis(array('thermostat_id' => $eqLogic->getId()));
-			}
+			$eqLogic->runEngine();
 		}
 		if (!is_object($lockState) || $lockState->execCmd() == 1) {
 			$eqLogic->refreshWidget();
@@ -1811,11 +1794,7 @@ class thermostatCmd extends cmd {
 			}
 			$eqLogic->orderChange();
 			if ($changed) {
-				if ($eqLogic->getConfiguration('engine', 'temporal') == 'temporal') {
-					thermostat::temporal(array('thermostat_id' => $eqLogic->getId()));
-				} else if ($eqLogic->getConfiguration('engine', 'temporal') == 'hysteresis') {
-					thermostat::hysteresis(array('thermostat_id' => $eqLogic->getId()));
-				}
+				$eqLogic->runEngine();
 			}
 		}
 	}
