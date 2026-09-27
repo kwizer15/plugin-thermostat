@@ -222,7 +222,6 @@
         "La température intérieure n'est pas un numérique": "Die Innentemperatur ist kein numerischer Wert",
         "Je ne fais rien car la température intérieure n'est pas un numérique": "Ich mache nichts, weil die Innentemperatur nicht digital ist",
         "Attention une défaillance du chauffage est détectée": "Bitte beachten Sie, dass ein Heizungsfehler erkannt wird",
-        "Démarre auto-apprentissage": "Startet Selbstlernen",
         "Delta consigne > 0": "Sollwert-Delta> 0",
         "je lance le calcul avec consigne - delta\/2": "Ich laufe die Berechnung mit Sollwert - Delta \/ 2",
         "Power > 0 et delta consigne > 0": "Leistung> 0 und Sollwert-Delta> 0",
@@ -301,6 +300,9 @@
     "plugins\/thermostat\/core\/class\/thermostatActionList.class.php": {
         "Erreur lors de l'exécution de": "Fehler beim Ausführen",
         "Détails": "Einzelheiten"
+    },
+    "plugins\/thermostat\/core\/class\/thermostatCoefficientLearner.class.php": {
+        "Démarre auto-apprentissage": "Startet Selbstlernen"
     },
     "plugins\/thermostat\/core\/class\/thermostatPowerCalculator.class.php": {
         "Attention température extérieure erronée": "Warnung falsche Außentemperatur",

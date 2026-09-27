@@ -222,7 +222,6 @@
         "La température intérieure n'est pas un numérique": "La temperatura interior no es numérica",
         "Je ne fais rien car la température intérieure n'est pas un numérique": "No hago nada porque la temperatura interior no es digital",
         "Attention une défaillance du chauffage est détectée": "Tenga en cuenta que se detecta un fallo de calefacción",
-        "Démarre auto-apprentissage": "Inicia el autoaprendizaje",
         "Delta consigne > 0": "Delta de consigna> 0",
         "je lance le calcul avec consigne - delta\/2": "Ejecuto el cálculo con setpoint - delta \/ 2",
         "Power > 0 et delta consigne > 0": "Potencia> 0 y delta de consigna> 0",
@@ -301,6 +300,9 @@
     "plugins\/thermostat\/core\/class\/thermostatActionList.class.php": {
         "Erreur lors de l'exécution de": "Error al ejecutar",
         "Détails": "Detalles"
+    },
+    "plugins\/thermostat\/core\/class\/thermostatCoefficientLearner.class.php": {
+        "Démarre auto-apprentissage": "Inicia el autoaprendizaje"
     },
     "plugins\/thermostat\/core\/class\/thermostatPowerCalculator.class.php": {
         "Attention température extérieure erronée": "Advertencia de temperatura exterior incorrecta",
