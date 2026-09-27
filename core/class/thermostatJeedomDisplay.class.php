@@ -71,4 +71,19 @@ class thermostatJeedomDisplay implements thermostatDisplay {
 		$lockState = $this->eqLogic->getCmd(null, 'lock_state');
 		return is_object($lockState) && $lockState->execCmd() == 1;
 	}
+	public function hasLockState() {
+		return is_object($this->eqLogic->getCmd(null, 'lock_state'));
+	}
+
+	public function lock() {
+		$this->eqLogic->getCmd(null, 'lock_state')->event(1);
+	}
+
+	public function unlock() {
+		$this->eqLogic->getCmd(null, 'lock_state')->event(0);
+	}
+
+	public function refreshWidget() {
+		$this->eqLogic->refreshWidget();
+	}
 }

@@ -191,10 +191,7 @@
         "Thermostat ID non trouvé": "Thermostat ID non trouvé",
         "Tâche supprimée": "Tâche supprimée",
         "Suspendu": "Suspendu",
-        "Thermostat::pull => mode smart": "Thermostat::pull => mode smart",
-        "Off": "オフ",
-        "Arrêté": "逮捕",
-        "Aucun": "何でもありません"
+        "Thermostat::pull => mode smart": "Thermostat::pull => mode smart"
     },
     "plugins\/thermostat\/core\/class\/thermostatActionList.class.php": {
         "Erreur lors de l'exécution de": "Erreur lors de l'exécution de",
@@ -216,6 +213,12 @@
     },
     "plugins\/thermostat\/core\/class\/thermostatCoefficientLearner.class.php": {
         "Démarre auto-apprentissage": "Démarre auto-apprentissage"
+    },
+    "plugins\/thermostat\/core\/class\/thermostatCommandHandler.class.php": {
+        "Off": "オフ",
+        "Arrêté": "逮捕",
+        "Aucun": "何でもありません",
+        "Suspendu": "Suspendu"
     },
     "plugins\/thermostat\/core\/class\/thermostatCommands.class.php": {
         "Consigne": "オーダー",

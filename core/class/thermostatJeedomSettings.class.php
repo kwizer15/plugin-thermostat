@@ -16,7 +16,7 @@
 * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 */
 
-class thermostatJeedomSettings implements thermostatPowerSettings, thermostatLearningSettings, thermostatSmartStartSettings, thermostatHysteresisSettings, thermostatActuatorSettings, thermostatWindowSettings, thermostatEngineSettings, thermostatConfigurationStore, thermostatStatisticsSettings, thermostatSensorWatchSettings {
+class thermostatJeedomSettings implements thermostatPowerSettings, thermostatLearningSettings, thermostatSmartStartSettings, thermostatHysteresisSettings, thermostatActuatorSettings, thermostatWindowSettings, thermostatEngineSettings, thermostatConfigurationStore, thermostatStatisticsSettings, thermostatSensorWatchSettings, thermostatCommandSettings {
 
 	private $eqLogic;
 
@@ -189,5 +189,12 @@ class thermostatJeedomSettings implements thermostatPowerSettings, thermostatLea
 
 	public function indoorMaximum() {
 		return $this->eqLogic->getConfiguration('temperature_indoor_max');
+	}
+	public function setOffset($_key, $_value) {
+		$this->eqLogic->setConfiguration($_key, $_value);
+	}
+
+	public function setAllowMode($_mode) {
+		$this->eqLogic->setConfiguration('allow_mode', $_mode);
 	}
 }

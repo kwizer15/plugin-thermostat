@@ -10,6 +10,8 @@ class InMemoryDisplay implements thermostatDisplay {
 	public $history = array();
 	public $events = array();
 	public $locked = false;
+	public $lockState = true;
+	public $widgetRefreshes = 0;
 
 	public function status() {
 		return $this->status;
@@ -61,5 +63,21 @@ class InMemoryDisplay implements thermostatDisplay {
 
 	public function locked() {
 		return $this->locked;
+	}
+
+	public function hasLockState() {
+		return $this->lockState;
+	}
+
+	public function lock() {
+		$this->locked = true;
+	}
+
+	public function unlock() {
+		$this->locked = false;
+	}
+
+	public function refreshWidget() {
+		$this->widgetRefreshes++;
 	}
 }

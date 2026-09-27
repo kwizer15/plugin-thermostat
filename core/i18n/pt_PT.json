@@ -191,10 +191,7 @@
         "Thermostat ID non trouvé": "ID do termostato não encontrado",
         "Tâche supprimée": "Tarefa excluída",
         "Suspendu": "Suspenso",
-        "Thermostat::pull => mode smart": "Termostato :: pull => modo inteligente",
-        "Off": "Off",
-        "Arrêté": "Parado",
-        "Aucun": "Nenhum"
+        "Thermostat::pull => mode smart": "Termostato :: pull => modo inteligente"
     },
     "plugins\/thermostat\/core\/class\/thermostatActionList.class.php": {
         "Erreur lors de l'exécution de": "Erro ao executar",
@@ -216,6 +213,12 @@
     },
     "plugins\/thermostat\/core\/class\/thermostatCoefficientLearner.class.php": {
         "Démarre auto-apprentissage": "Inicia a autoaprendizagem"
+    },
+    "plugins\/thermostat\/core\/class\/thermostatCommandHandler.class.php": {
+        "Off": "Off",
+        "Arrêté": "Parado",
+        "Aucun": "Nenhum",
+        "Suspendu": "Suspenso"
     },
     "plugins\/thermostat\/core\/class\/thermostatCommands.class.php": {
         "Consigne": "Pedido",

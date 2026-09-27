@@ -1,6 +1,6 @@
 <?php
 
-class InMemorySettings implements thermostatPowerSettings, thermostatLearningSettings, thermostatSmartStartSettings, thermostatHysteresisSettings, thermostatActuatorSettings, thermostatWindowSettings, thermostatEngineSettings, thermostatStatisticsSettings, thermostatSensorWatchSettings {
+class InMemorySettings implements thermostatPowerSettings, thermostatLearningSettings, thermostatSmartStartSettings, thermostatHysteresisSettings, thermostatActuatorSettings, thermostatWindowSettings, thermostatEngineSettings, thermostatStatisticsSettings, thermostatSensorWatchSettings, thermostatCommandSettings {
 
 	public $values = array(
 		'coeff_indoor_heat' => 10,
@@ -210,5 +210,13 @@ class InMemorySettings implements thermostatPowerSettings, thermostatLearningSet
 
 	public function indoorMaximum() {
 		return $this->values['temperature_indoor_max'];
+	}
+
+	public function setOffset($_key, $_value) {
+		$this->values[$_key] = $_value;
+	}
+
+	public function setAllowMode($_mode) {
+		$this->values['allow_mode'] = $_mode;
 	}
 }

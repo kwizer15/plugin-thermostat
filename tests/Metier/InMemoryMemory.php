@@ -1,6 +1,6 @@
 <?php
 
-class InMemoryMemory implements thermostatPowerMemory, thermostatCycleMemory, thermostatSmartStartMemory, thermostatStateMemory, thermostatWindowMemory, thermostatEngineMemory, thermostatSensorWatchMemory {
+class InMemoryMemory implements thermostatPowerMemory, thermostatCycleMemory, thermostatSmartStartMemory, thermostatStateMemory, thermostatWindowMemory, thermostatEngineMemory, thermostatSensorWatchMemory, thermostatCommandMemory {
 
 	public $values = array(
 		'lastState' => '',
@@ -114,5 +114,9 @@ class InMemoryMemory implements thermostatPowerMemory, thermostatCycleMemory, th
 
 	public function deltaOrder() {
 		return $this->values['deltaOrder'];
+	}
+
+	public function setDeltaOrder($_delta) {
+		$this->values['deltaOrder'] = $_delta;
 	}
 }

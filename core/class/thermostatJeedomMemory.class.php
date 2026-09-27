@@ -16,7 +16,7 @@
 * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 */
 
-class thermostatJeedomMemory implements thermostatPowerMemory, thermostatCycleMemory, thermostatSmartStartMemory, thermostatStateMemory, thermostatWindowMemory, thermostatEngineMemory, thermostatSensorWatchMemory {
+class thermostatJeedomMemory implements thermostatPowerMemory, thermostatCycleMemory, thermostatSmartStartMemory, thermostatStateMemory, thermostatWindowMemory, thermostatEngineMemory, thermostatSensorWatchMemory, thermostatCommandMemory {
 
 	private $eqLogic;
 
@@ -115,5 +115,8 @@ class thermostatJeedomMemory implements thermostatPowerMemory, thermostatCycleMe
 
 	public function deltaOrder() {
 		return $this->eqLogic->getCache('deltaOrder', 0);
+	}
+	public function setDeltaOrder($_delta) {
+		$this->eqLogic->setCache('deltaOrder', $_delta);
 	}
 }

@@ -16,11 +16,9 @@
 * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 */
 
-interface thermostatPersistence {
+interface thermostatCommandSettings {
 
-	public function reload();
+	public function setOffset($_key, $_value);
 
-	public function persist();
-
-	public function saveWithCommands();
+	public function setAllowMode($_mode);
 }

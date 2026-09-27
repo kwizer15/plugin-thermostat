@@ -48,6 +48,8 @@ require_once dirname(__FILE__) . '/thermostatHistory.class.php';
 require_once dirname(__FILE__) . '/thermostatControls.class.php';
 require_once dirname(__FILE__) . '/thermostatSensorWatchSettings.class.php';
 require_once dirname(__FILE__) . '/thermostatSensorWatchMemory.class.php';
+require_once dirname(__FILE__) . '/thermostatCommandSettings.class.php';
+require_once dirname(__FILE__) . '/thermostatCommandMemory.class.php';
 require_once dirname(__FILE__) . '/thermostatJeedomSettings.class.php';
 require_once dirname(__FILE__) . '/thermostatJeedomMemory.class.php';
 require_once dirname(__FILE__) . '/thermostatJeedomCalendar.class.php';
@@ -69,6 +71,7 @@ require_once dirname(__FILE__) . '/thermostatSmartStart.class.php';
 require_once dirname(__FILE__) . '/thermostatActuator.class.php';
 require_once dirname(__FILE__) . '/thermostatWindows.class.php';
 require_once dirname(__FILE__) . '/thermostatSensorWatch.class.php';
+require_once dirname(__FILE__) . '/thermostatCommandHandler.class.php';
 require_once dirname(__FILE__) . '/thermostatScheduler.class.php';
 require_once dirname(__FILE__) . '/thermostatHysteresisEngine.class.php';
 require_once dirname(__FILE__) . '/thermostatTemporalEngine.class.php';
@@ -79,7 +82,7 @@ require_once dirname(__FILE__) . '/thermostatAssembly.class.php';
 
 class thermostat extends eqLogic {
 
-	private function assembly() {
+	public function assembly() {
 		return new thermostatAssembly($this);
 	}
 
@@ -328,65 +331,13 @@ class thermostatCmd extends cmd {
 
 	public function execute($_options = array()) {
 		$eqLogic = $this->getEqLogic();
-		$lockState = $eqLogic->getCmd(null, 'lock_state');
-
-		if ($this->getLogicalId() == 'deltaOrder') {
-			$eqLogic->setCache('deltaOrder', $_options['slider']);
-			return;
-		} else if ($this->getLogicalId() == 'lock') {
-			$lockState->event(1);
-		} else if ($this->getLogicalId() == 'unlock') {
-			$lockState->event(0);
-		} else if ($this->getLogicalId() == 'offset_heat' || $this->getLogicalId() == 'offset_cool') {
-			if (is_numeric($_options['slider'])) {
-				$eqLogic->setConfiguration($this->getLogicalId(), $_options['slider']);
-				$eqLogic->save();
-			}
-		} else if ($this->getLogicalId() == 'temperature') {
+		if ($this->getLogicalId() == 'temperature') {
 			return round(jeedom::evaluateExpression($eqLogic->getConfiguration('temperature_indoor',0)), 1);
 		} else if ($this->getLogicalId() == 'temperature_outdoor') {
 			return round(jeedom::evaluateExpression($eqLogic->getConfiguration('temperature_outdoor',0)), 1);
 		} else if ($this->getLogicalId() == 'customCmd') {
 			return jeedom::evaluateExpression($eqLogic->getConfiguration('customCmd'));
-		} else if ($this->getLogicalId() == 'cool_only') {
-			$eqLogic->setConfiguration('allow_mode', 'cool');
-			$eqLogic->save();
-			$eqLogic->runEngine();
-		} else if ($this->getLogicalId() == 'heat_only') {
-			$eqLogic->setConfiguration('allow_mode', 'heat');
-			$eqLogic->save();
-			$eqLogic->runEngine();
-		} else if ($this->getLogicalId() == 'all_allow') {
-			$eqLogic->setConfiguration('allow_mode', 'all');
-			$eqLogic->save();
-			$eqLogic->runEngine();
 		}
-		if (!is_object($lockState) || $lockState->execCmd() == 1) {
-			$eqLogic->refreshWidget();
-			return;
-		}
-		if ($this->getLogicalId() == 'modeAction') {
-			$eqLogic->executeMode($this->getName());
-		} else if ($this->getLogicalId() == 'off') {
-			$eqLogic->stopThermostat(false);
-			$eqLogic->getCmd(null, 'mode')->event(__('Off', __FILE__));
-			$eqLogic->getCmd(null, 'status')->event(__('Arrêté', __FILE__));
-		} else if ($this->getLogicalId() == 'thermostat') {
-			if (!isset($_options['slider']) || !is_numeric(str_replace(',', '.', $_options['slider']))) {
-				return;
-			}
-			$changed = ($eqLogic->getCmd(null, 'order')->execCmd() != $_options['slider']);
-			$eqLogic->getCmd(null, 'order')->event($_options['slider']);
-			if (!isset($_options['modeChange'])) {
-				$eqLogic->getCmd(null, 'mode')->event(__('Aucun', __FILE__));
-			}
-			if ($eqLogic->getCmd(null, 'status')->execCmd() == __('Suspendu', __FILE__)) {
-				return;
-			}
-			$eqLogic->orderChange();
-			if ($changed) {
-				$eqLogic->runEngine();
-			}
-		}
+		return $eqLogic->assembly()->commandHandler()->handle($this->getLogicalId(), $this->getName(), $_options);
 	}
 }

@@ -31,4 +31,7 @@ class thermostatJeedomPersistence implements thermostatPersistence {
 	public function persist() {
 		$this->eqLogic->save(true);
 	}
+	public function saveWithCommands() {
+		$this->eqLogic->save();
+	}
 }

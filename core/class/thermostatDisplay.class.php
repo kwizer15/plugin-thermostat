@@ -39,4 +39,12 @@ interface thermostatDisplay {
 	public function setPower($_power);
 
 	public function locked();
+
+	public function hasLockState();
+
+	public function lock();
+
+	public function unlock();
+
+	public function refreshWidget();
 }

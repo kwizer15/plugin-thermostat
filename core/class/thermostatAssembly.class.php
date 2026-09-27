@@ -100,6 +100,10 @@ class thermostatAssembly {
 		return new thermostatSensorWatch($this->settings(), $this->memory(), $this->display(), $this->sensors(), $this->actuator(), $this->log());
 	}
 
+	public function commandHandler() {
+		return new thermostatCommandHandler($this->settings(), $this->memory(), $this->persistence(), $this->display(), $this->actuator(), $this->engineRunner());
+	}
+
 	public function commands() {
 		return new thermostatCommands($this->thermostat, $this->scheduler());
 	}

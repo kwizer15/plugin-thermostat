@@ -191,10 +191,7 @@
         "Thermostat ID non trouvé": "Thermostat-ID nicht gefunden",
         "Tâche supprimée": "Gelöschte Aufgabe",
         "Suspendu": "Ausgesetzt",
-        "Thermostat::pull => mode smart": "Thermostat :: ziehen => Smart Mode",
-        "Off": "Aus",
-        "Arrêté": "Verhaftet",
-        "Aucun": "Ohne"
+        "Thermostat::pull => mode smart": "Thermostat :: ziehen => Smart Mode"
     },
     "plugins\/thermostat\/core\/class\/thermostatActionList.class.php": {
         "Erreur lors de l'exécution de": "Fehler beim Ausführen",
@@ -216,6 +213,12 @@
     },
     "plugins\/thermostat\/core\/class\/thermostatCoefficientLearner.class.php": {
         "Démarre auto-apprentissage": "Startet Selbstlernen"
+    },
+    "plugins\/thermostat\/core\/class\/thermostatCommandHandler.class.php": {
+        "Off": "Aus",
+        "Arrêté": "Verhaftet",
+        "Aucun": "Ohne",
+        "Suspendu": "Ausgesetzt"
     },
     "plugins\/thermostat\/core\/class\/thermostatCommands.class.php": {
         "Consigne": "Anleitung",

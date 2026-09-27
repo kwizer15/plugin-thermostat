@@ -191,10 +191,7 @@
         "Thermostat ID non trouvé": "No se encontró el ID del termostato",
         "Tâche supprimée": "Tarea eliminada",
         "Suspendu": "Suspendido",
-        "Thermostat::pull => mode smart": "Termostato :: tirón => modo inteligente",
-        "Off": "Apagado",
-        "Arrêté": "Detenido",
-        "Aucun": "Ninguna"
+        "Thermostat::pull => mode smart": "Termostato :: tirón => modo inteligente"
     },
     "plugins\/thermostat\/core\/class\/thermostatActionList.class.php": {
         "Erreur lors de l'exécution de": "Error al ejecutar",
@@ -216,6 +213,12 @@
     },
     "plugins\/thermostat\/core\/class\/thermostatCoefficientLearner.class.php": {
         "Démarre auto-apprentissage": "Inicia el autoaprendizaje"
+    },
+    "plugins\/thermostat\/core\/class\/thermostatCommandHandler.class.php": {
+        "Off": "Apagado",
+        "Arrêté": "Detenido",
+        "Aucun": "Ninguna",
+        "Suspendu": "Suspendido"
     },
     "plugins\/thermostat\/core\/class\/thermostatCommands.class.php": {
         "Consigne": "Consigna",

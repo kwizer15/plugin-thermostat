@@ -16,11 +16,7 @@
 * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 */
 
-interface thermostatPersistence {
+interface thermostatCommandMemory {
 
-	public function reload();
-
-	public function persist();
-
-	public function saveWithCommands();
+	public function setDeltaOrder($_delta);
 }
