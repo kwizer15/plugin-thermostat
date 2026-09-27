@@ -95,6 +95,18 @@ class GetNextStateTest extends ThermostatTestCase {
 		$this->assertSame('29 19 15 01 *', $this->smartCrons()[0]->getSchedule());
 	}
 
+	public function testEndPositionIsNotInheritedFromPreviousEvent() {
+		$thermostat = $this->thermostatWithModes(array('Confort' => '21'));
+		$calendar = $this->calendar();
+		$mode = $this->mode($thermostat, 'Confort');
+		$this->eventOnStart($calendar, $mode, '2026-01-15 22:00:00');
+		\calendar_event::create($calendar, array(), array(array('cmd' => '#' . $mode->getId() . '#')), array('end' => array('date' => '2026-01-15 20:00:00')));
+
+		$thermostat->getNextState();
+
+		$this->assertSame('29 19 15 01 *', $this->smartCrons()[0]->getSchedule());
+	}
+
 	public function testReplacesPreviousSmartCron() {
 		$thermostat = $this->thermostatWithModes(array('Confort' => '21'));
 		$calendar = $this->calendar();

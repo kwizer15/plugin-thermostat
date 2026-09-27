@@ -56,7 +56,6 @@ class Calendar implements SmartStartCalendar {
 	public function nextEvent() {
 		$thermostat = $this->eqLogic->getCmd(null, LogicalId::THERMOSTAT);
 		$next = null;
-		$position = null;
 		foreach ($this->eqLogic->getCmd(null, LogicalId::MODE_ACTION, null, true) as $mode) {
 			if(!is_object($mode)){
 				continue;
@@ -69,6 +68,7 @@ class Calendar implements SmartStartCalendar {
 					if ($calendar->getIsEnable() == 0 || (is_object($stateCalendar) && $stateCalendar->execCmd() != 1)) {
 						continue;
 					}
+					$position = null;
 					foreach ($event->getCmd_param('start') as $action) {
 						if ($action['cmd'] == '#' . $mode->getId() . '#') {
 							$position = 'start';
@@ -117,6 +117,8 @@ class Calendar implements SmartStartCalendar {
 				if ($calendar->getIsEnable() == 0 || (is_object($stateCalendar) && $stateCalendar->execCmd() != 1)) {
 					continue;
 				}
+				$position = null;
+				$options = array();
 				foreach ($event->getCmd_param('start') as $action) {
 					if ($action['cmd'] == '#' . $thermostat->getId() . '#') {
 						$position = 'start';

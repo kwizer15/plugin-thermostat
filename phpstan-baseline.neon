@@ -1147,12 +1147,6 @@ parameters:
 			path: core/src/Jeedom/Calendar.php
 
 		-
-			message: '#^Variable \$options might not be defined\.$#'
-			identifier: variable.undefined
-			count: 1
-			path: core/src/Jeedom/Calendar.php
-
-		-
 			message: '#^Cannot access offset ''isVisible'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 2
