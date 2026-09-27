@@ -33,11 +33,11 @@ class CalculTemporalDataTest extends ThermostatTestCase {
 	public function testKeepsHeatingJustAboveSetpointWhenAlreadyHeating() {
 		$thermostat = $this->thermostatAt(20.3, 20, array('offset_heat' => 10));
 
-		$this->assertEqualsWithDelta(array('power' => 3, 'direction' => -1), $thermostat->calculTemporalData(20), 0.0001);
+		$this->assertEquals(array('power' => 3, 'direction' => -1), $thermostat->calculTemporalData(20), '', 0.0001);
 
 		$thermostat->setCache('lastState', 'heat');
 
-		$this->assertEqualsWithDelta(7, $thermostat->calculTemporalData(20)['power'], 0.0001);
+		$this->assertEquals(7, $thermostat->calculTemporalData(20)['power'], '', 0.0001);
 		$this->assertSame(1, $thermostat->calculTemporalData(20)['direction']);
 	}
 
@@ -57,7 +57,7 @@ class CalculTemporalDataTest extends ThermostatTestCase {
 		$thermostat = $this->thermostatAt(21.8, 30);
 		$thermostat->setCache('lastState', 'cool');
 
-		$this->assertEqualsWithDelta(array('power' => 14, 'direction' => -1), $thermostat->calculTemporalData(22), 0.0001);
+		$this->assertEquals(array('power' => 14, 'direction' => -1), $thermostat->calculTemporalData(22), '', 0.0001);
 	}
 
 	public function testKeepsCoolingJustBelowSetpointEvenWhenCoolerOutside() {

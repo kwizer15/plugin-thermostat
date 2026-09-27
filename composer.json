@@ -3,12 +3,12 @@
     "description": "Plugin Thermostat pour Jeedom",
     "license": "AGPL-3.0-or-later",
     "require-dev": {
-        "phpunit/phpunit": "^9.6",
+        "phpunit/phpunit": "^6.5",
         "mtdowling/cron-expression": "1.2.0"
     },
     "config": {
         "platform": {
-            "php": "7.3.33"
+            "php": "7.0.33"
         },
         "sort-packages": true
     }

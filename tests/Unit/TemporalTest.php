@@ -240,9 +240,9 @@ class TemporalTest extends ThermostatTestCase {
 
 		$this->runTemporal($thermostat);
 
-		$this->assertEqualsWithDelta(3.0, $thermostat->getConfiguration('coeff_outdoor_heat'), 0.0001);
+		$this->assertEquals(3.0, $thermostat->getConfiguration('coeff_outdoor_heat'), '', 0.0001);
 		$this->assertSame(1, $thermostat->getConfiguration('coeff_outdoor_heat_autolearn'));
-		$this->assertEqualsWithDelta(3.0, $this->valueOf($thermostat, 'coeff_outdoor_heat'), 0.0001);
+		$this->assertEquals(3.0, $this->valueOf($thermostat, 'coeff_outdoor_heat'), '', 0.0001);
 	}
 
 	public function testLearnsIndoorCoolCoefficient() {
@@ -261,7 +261,7 @@ class TemporalTest extends ThermostatTestCase {
 
 		$this->runTemporal($thermostat);
 
-		$this->assertEqualsWithDelta(5.13, $thermostat->getConfiguration('coeff_outdoor_cool'), 0.0001);
+		$this->assertEquals(5.13, $thermostat->getConfiguration('coeff_outdoor_cool'), '', 0.0001);
 		$this->assertSame(1, $thermostat->getConfiguration('coeff_outdoor_cool_autolearn'));
 	}
 
@@ -272,7 +272,7 @@ class TemporalTest extends ThermostatTestCase {
 		$this->runTemporal($thermostat);
 
 		$this->assertSame(50, $thermostat->getConfiguration('coeff_indoor_heat_autolearn'));
-		$this->assertEqualsWithDelta((10 * 50 + 20) / 51, $thermostat->getConfiguration('coeff_indoor_heat'), 0.01);
+		$this->assertEquals((10 * 50 + 20) / 51, $thermostat->getConfiguration('coeff_indoor_heat'), '', 0.01);
 	}
 
 	public function testNegativeLearnedCoefficientBecomesZero() {

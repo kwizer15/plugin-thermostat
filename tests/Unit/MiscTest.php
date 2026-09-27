@@ -115,7 +115,7 @@ class MiscTest extends ThermostatTestCase {
 		$this->assertSame(array('2026-01-13', '2026-01-14', '2026-01-15'), array_keys($runtime));
 		$this->assertSame(array(1768262400000, 0), $runtime['2026-01-13']);
 		$this->assertSame(1768348800000, $runtime['2026-01-14'][0]);
-		$this->assertEqualsWithDelta(90 + 3599 / 60, $runtime['2026-01-14'][1], 0.0001);
+		$this->assertEquals(90 + 3599 / 60, $runtime['2026-01-14'][1], '', 0.0001);
 		$this->assertEquals(array(1768435200000, 60), $runtime['2026-01-15']);
 	}
 }

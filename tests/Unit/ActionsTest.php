@@ -75,7 +75,6 @@ class ActionsTest extends ThermostatTestCase {
 	}
 
 	public function testHeatWithUnsetActions() {
-		$this->allowPhpError('count(): Parameter must be an array or an object that implements Countable');
 		$this->allowPhpError('Invalid argument supplied for foreach()');
 		$thermostat = $this->equippedThermostat();
 		$thermostat->setConfiguration('heating', null)->save();
