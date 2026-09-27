@@ -77,7 +77,7 @@ class PullTest extends ThermostatTestCase {
 
 	public function testSmartStartSendsSetpoint() {
 		$thermostat = $this->equippedThermostat(array(), 19, 5, 17);
-		$options = $this->smartOptions($thermostat, array('type' => 'thermostat', 'consigne' => 21));
+		$options = $this->smartOptions($thermostat, array('type' => 'thermostat', 'consigne' => 21, 'date' => '2026-01-15 11:00:00'));
 		$cron = new cron();
 		$cron->setClass('thermostat')->setFunction('pull')->setOption($options)->save();
 
@@ -96,7 +96,7 @@ class PullTest extends ThermostatTestCase {
 		)));
 		$mode = $thermostat->getCmd(null, 'modeAction', null, true)[0];
 
-		thermostat::pull($this->smartOptions($thermostat, array('type' => 'mode', 'cmd' => $mode->getId())));
+		thermostat::pull($this->smartOptions($thermostat, array('type' => 'mode', 'cmd' => $mode->getId(), 'consigne' => 21, 'date' => '2026-01-15 11:00:00')));
 
 		$this->assertSame('Confort', $this->valueOf($thermostat, 'mode'));
 		$this->assertSame(array('comfort', 'heat'), $this->executed());
@@ -106,7 +106,7 @@ class PullTest extends ThermostatTestCase {
 		$thermostat = $this->equippedThermostat();
 		$this->setValueOf($thermostat, 'lock_state', 1);
 
-		thermostat::pull($this->smartOptions($thermostat, array('type' => 'thermostat', 'consigne' => 21)));
+		thermostat::pull($this->smartOptions($thermostat, array('type' => 'thermostat', 'consigne' => 21, 'date' => '2026-01-15 11:00:00')));
 
 		$this->assertSame(20.0, $this->valueOf($thermostat, 'order'));
 	}
@@ -114,7 +114,7 @@ class PullTest extends ThermostatTestCase {
 	public function testSmartStartIgnoredWhenDisabled() {
 		$thermostat = $this->equippedThermostat(array('smart_start' => 0));
 
-		thermostat::pull($this->smartOptions($thermostat, array('type' => 'thermostat', 'consigne' => 21)));
+		thermostat::pull($this->smartOptions($thermostat, array('type' => 'thermostat', 'consigne' => 21, 'date' => '2026-01-15 11:00:00')));
 
 		$this->assertSame(20.0, $this->valueOf($thermostat, 'order'));
 	}
@@ -126,7 +126,7 @@ class PullTest extends ThermostatTestCase {
 		$thermostat = $this->equippedThermostat();
 		$calendar = $this->calendar($_isEnable, $_state);
 
-		thermostat::pull($this->smartOptions($thermostat, array('type' => 'thermostat', 'consigne' => 21, 'calendar_id' => $calendar->getId())));
+		thermostat::pull($this->smartOptions($thermostat, array('type' => 'thermostat', 'consigne' => 21, 'date' => '2026-01-15 11:00:00', 'calendar_id' => $calendar->getId())));
 
 		$this->assertSame(20.0, $this->valueOf($thermostat, 'order'));
 	}
@@ -142,7 +142,7 @@ class PullTest extends ThermostatTestCase {
 		$thermostat = $this->equippedThermostat();
 		$calendar = $this->calendar(1, null);
 
-		thermostat::pull($this->smartOptions($thermostat, array('type' => 'thermostat', 'consigne' => 21, 'calendar_id' => $calendar->getId())));
+		thermostat::pull($this->smartOptions($thermostat, array('type' => 'thermostat', 'consigne' => 21, 'date' => '2026-01-15 11:00:00', 'calendar_id' => $calendar->getId())));
 
 		$this->assertSame(21.0, $this->valueOf($thermostat, 'order'));
 	}

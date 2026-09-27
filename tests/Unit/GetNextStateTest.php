@@ -58,6 +58,16 @@ class GetNextStateTest extends ThermostatTestCase {
 		$this->assertSame('2026-01-15 17:29:00', $next['schedule']);
 	}
 
+	public function testAppliesLearnedAnticipationFactor() {
+		$thermostat = $this->thermostatWithModes(array('Confort' => '21'));
+		$thermostat->setConfiguration('smart_start_factor', 1.5)->save();
+		$this->eventOnStart($this->calendar(), $this->mode($thermostat, 'Confort'), '2026-01-15 18:00:00');
+
+		$thermostat->getNextState();
+
+		$this->assertSame('14 17 15 01 *', $this->smartCrons()[0]->getSchedule());
+	}
+
 	public function testPicksEarliestEvent() {
 		$thermostat = $this->thermostatWithModes(array('Confort' => '21'));
 		$calendar = $this->calendar();

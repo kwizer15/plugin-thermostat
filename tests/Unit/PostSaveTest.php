@@ -21,7 +21,7 @@ class PostSaveTest extends ThermostatTestCase {
 		$this->assertSame(array(
 			'actif', 'all_allow', 'coeff_indoor_cool', 'coeff_indoor_heat', 'coeff_outdoor_cool', 'coeff_outdoor_heat',
 			'cool_only', 'deltaOrder', 'heat_only', 'lock', 'lock_state', 'mode', 'off', 'offset_cool', 'offset_heat',
-			'order', 'power', 'status', 'temperature', 'temperature_outdoor', 'thermostat', 'unlock',
+			'order', 'power', 'smart_start_factor', 'status', 'temperature', 'temperature_outdoor', 'thermostat', 'unlock',
 		), $this->logicalIds($thermostat));
 	}
 
@@ -42,6 +42,7 @@ class PostSaveTest extends ThermostatTestCase {
 		$this->assertNotContains('power', $this->logicalIds($thermostat));
 		$this->assertNotContains('deltaOrder', $this->logicalIds($thermostat));
 		$this->assertNotContains('coeff_indoor_heat', $this->logicalIds($thermostat));
+		$this->assertNotContains('smart_start_factor', $this->logicalIds($thermostat));
 	}
 
 	public function testDisabledThermostatHasNoPowerCommand() {

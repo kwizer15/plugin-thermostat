@@ -65,12 +65,14 @@ class thermostat extends eqLogic {
 					log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Thermostat verrouillé je ne fais rien', __FILE__));
 				} else if ($_options['next']['type'] == 'thermostat') {
 					log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Type thermostat envoi de la consigne', __FILE__) . ' : ' . $_options['next']['consigne']);
+					$thermostat->rememberSmartStart($_options['next']);
 					$cmd = $thermostat->getCmd(null, 'thermostat');
 					$cmd->execCmd(array('slider' => $_options['next']['consigne']));
 				} else if ($_options['next']['type'] == 'mode' && isset($_options['next']['cmd'])) {
 					$mode = cmd::byId($_options['next']['cmd']);
 					if (is_object($mode)) {
 						log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Type mode envoi de la commande', __FILE__) . ' : ' . $_options['next']['cmd']);
+						$thermostat->rememberSmartStart($_options['next']);
 						$mode->execCmd();
 					}
 				}
@@ -225,6 +227,7 @@ class thermostat extends eqLogic {
 			return;
 		}
 		$thermostat->setCache('temp_threshold', 0);
+		$thermostat->learnSmartStart($temp_in);
 		if (($temp_in < ($thermostat->getCache('lastOrder', 0) - $thermostat->getConfiguration('offsetHeatFaillure', 1)) && $temp_in < $thermostat->getCache('lastTempIn', 0) && $thermostat->getCache('lastState') == 'heat' && $thermostat->getConfiguration('coeff_indoor_heat_autolearn') > 25) ||
 			($temp_in > ($thermostat->getCache('lastOrder', 0) + $thermostat->getConfiguration('offsetColdFaillure', 1)) && $temp_in > $thermostat->getCache('lastTempIn', 0) && $thermostat->getCache('lastState') == 'cool' && $thermostat->getConfiguration('coeff_indoor_cool_autolearn') > 25)
 		) {
@@ -779,7 +782,7 @@ class thermostat extends eqLogic {
 				log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Smartstart non pris en compte car power < 0 ', __FILE__) . ' ' . $temporal_data['power']);
 				return;
 			}
-			$duration = round(($temporal_data['power'] * $cycle) / 100);
+			$duration = round(($temporal_data['power'] * $cycle) / 100 * $this->getConfiguration('smart_start_factor', 1));
 			if ($duration < 5) {
 				log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Smartstart non pris en compte car la durée', __FILE__) . ' ' . $duration);
 				return '';
@@ -1053,6 +1056,7 @@ class thermostat extends eqLogic {
 			'coeff_outdoor_heat' => __('Isolation chaud', __FILE__),
 			'coeff_indoor_cool' => __('Coefficient froid', __FILE__),
 			'coeff_outdoor_cool' => __('Isolation froid', __FILE__),
+			'smart_start_factor' => __('Anticipation smart start', __FILE__),
 		);
 		if ($this->getConfiguration('engine', 'temporal') == 'temporal') {
 			$deltaOrder = $this->upsertCmd('deltaOrder', 'action', 'slider', function ($cmd) {
@@ -1238,6 +1242,44 @@ class thermostat extends eqLogic {
 		} else {
 			$this->unschedule();
 		}
+	}
+
+	public function rememberSmartStart($_next) {
+		$this->setCache('smartStart', array(
+			'start' => date('Y-m-d H:i:s'),
+			'date' => $_next['date'],
+			'consigne' => jeedom::evaluateExpression($_next['consigne']),
+			'temperature' => $this->getCmd(null, 'temperature')->execCmd(),
+		));
+	}
+
+	public function learnSmartStart($_temperature) {
+		$smartStart = $this->getCache('smartStart');
+		if (!is_array($smartStart)) {
+			return;
+		}
+		$eventTime = strtotime($smartStart['date']);
+		if (strtotime('now') < $eventTime - 60) {
+			return;
+		}
+		$this->setCache('smartStart', null);
+		if (strtotime('now') > $eventTime + 7200) {
+			return;
+		}
+		$needed = $smartStart['consigne'] - $smartStart['temperature'];
+		$achieved = $_temperature - $smartStart['temperature'];
+		if ($needed < 0.5 || $achieved <= 0) {
+			log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Smartstart : pas d\'apprentissage', __FILE__) . ' (' . $needed . ' / ' . $achieved . ')');
+			return;
+		}
+		$factor = $this->getConfiguration('smart_start_factor', 1);
+		$count = $this->getConfiguration('smart_start_autolearn', 0);
+		$target = $factor * min(max($needed / $achieved, 0.5), 2);
+		$factor = min(max(($factor * $count + $target) / ($count + 1), 0.5), 3);
+		$this->setConfiguration('smart_start_factor', round($factor, 2));
+		$this->setConfiguration('smart_start_autolearn', min($count + 1, 10));
+		$this->checkAndUpdateCmd('smart_start_factor', round($factor, 2));
+		log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Smartstart : nouvelle anticipation', __FILE__) . ' : ' . round($factor, 2) . ' (' . $achieved . '/' . $needed . '°C)');
 	}
 
 	public function learnCoefficient($_key, $_measured) {
