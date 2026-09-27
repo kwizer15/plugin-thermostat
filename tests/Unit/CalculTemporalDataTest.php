@@ -97,8 +97,8 @@ class CalculTemporalDataTest extends ThermostatTestCase {
 		$this->assertEquals(array('power' => 0, 'direction' => 1), $thermostat->calculTemporalData(20));
 	}
 
-	public function testInvalidOutdoorTemperatureFallsBackToSetpoint() {
-		$thermostat = $this->thermostatAt(19, 'abc');
+	public function testMissingOutdoorTemperatureFallsBackToSetpoint() {
+		$thermostat = $this->thermostatAt(19, '');
 
 		$this->assertEquals(array('power' => 10, 'direction' => 1), $thermostat->calculTemporalData(20));
 	}

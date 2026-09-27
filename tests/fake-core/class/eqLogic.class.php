@@ -92,6 +92,25 @@ class eqLogic {
 		return $cmds;
 	}
 
+	public function checkAndUpdateCmd($_logicalId, $_value, $_updateTime = null) {
+		if ($this->getIsEnable() == 0) {
+			return false;
+		}
+		$cmd = is_object($_logicalId) ? $_logicalId : $this->getCmd('info', $_logicalId);
+		if (!is_object($cmd)) {
+			return false;
+		}
+		$oldValue = $cmd->execCmd();
+		if ($oldValue !== $cmd->formatValue($_value) || $oldValue === '') {
+			$cmd->event($_value, $_updateTime);
+			return true;
+		}
+		if ($_updateTime === null) {
+			$cmd->setCache('collectDate', date('Y-m-d H:i:s'));
+		}
+		return false;
+	}
+
 	public function getHumanName($_tag = false, $_prettify = false) {
 		return '[' . $this->name . ']';
 	}

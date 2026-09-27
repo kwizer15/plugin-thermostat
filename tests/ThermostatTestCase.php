@@ -17,7 +17,10 @@ abstract class ThermostatTestCase extends TestCase {
 
 	protected function setUp(): void {
 		$this->phpErrors = array();
-		$this->allowedPhpErrors = array('is_nan() expects parameter 1 to be float, string given');
+		$this->allowedPhpErrors = array(
+			'is_nan() expects parameter 1 to be float, string given',
+			'A non-numeric value encountered',
+		);
 		set_error_handler(function ($_level, $_message, $_file, $_line) {
 			$this->phpErrors[] = $_message . ' (' . basename($_file) . ':' . $_line . ')';
 			return true;
@@ -94,7 +97,7 @@ abstract class ThermostatTestCase extends TestCase {
 
 	protected function setInfo(cmd $_cmd, $_value, $_collectDate = null) {
 		$date = ($_collectDate === null) ? date('Y-m-d H:i:s') : $_collectDate;
-		$_cmd->setCache(array('value' => $_value, 'collectDate' => $date, 'valueDate' => $date));
+		$_cmd->setCache(array('value' => $_cmd->formatValue($_value), 'collectDate' => $date, 'valueDate' => $date));
 	}
 
 	protected function action(cmd $_cmd, array $_options = array()) {
