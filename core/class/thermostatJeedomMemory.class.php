@@ -16,7 +16,7 @@
 * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 */
 
-class thermostatJeedomMemory implements thermostatPowerMemory, thermostatCycleMemory {
+class thermostatJeedomMemory implements thermostatPowerMemory, thermostatCycleMemory, thermostatSmartStartMemory {
 
 	private $eqLogic;
 
@@ -50,5 +50,13 @@ class thermostatJeedomMemory implements thermostatPowerMemory, thermostatCycleMe
 
 	public function setTemperatureAlert($_alert) {
 		$this->eqLogic->setCache('temp_threshold', $_alert);
+	}
+
+	public function smartStart() {
+		return $this->eqLogic->getCache('smartStart');
+	}
+
+	public function setSmartStart($_smartStart) {
+		$this->eqLogic->setCache('smartStart', $_smartStart);
 	}
 }

@@ -277,6 +277,9 @@
         "Je dois refroidir": "Ich muss mich abkühlen",
         "Je m'arrête": "Ich halte an"
     },
+    "plugins\/thermostat\/core\/class\/thermostatJeedomCalendar.class.php": {
+        "Plugin agenda non détecté": "Agenda-Plugin nicht erkannt"
+    },
     "plugins\/thermostat\/core\/class\/thermostatPowerCalculator.class.php": {
         "Attention température extérieure erronée": "Warnung falsche Außentemperatur",
         "Température intérieure": "Innentemperatur",
@@ -291,7 +294,6 @@
         "Puissance de chauffe du cycle": "Zyklus Heizleistung"
     },
     "plugins\/thermostat\/core\/class\/thermostatSmartStart.class.php": {
-        "Plugin agenda non détecté": "Agenda-Plugin nicht erkannt",
         "Plugin agenda détecté": "Agenda-Plugin erkannt",
         "Smartstart : aucun événement trouvé": "Smartstart: kein Ereignis gefunden",
         "Smartstart non pris en compte car power < 0 ": "Smartstart nicht berücksichtigt, da Leistung <0",

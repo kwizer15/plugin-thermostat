@@ -36,6 +36,18 @@ class thermostatAssembly {
 		return new thermostatJeedomMemory($this->thermostat);
 	}
 
+	public function sensors() {
+		return new thermostatJeedomSensors($this->thermostat);
+	}
+
+	public function evaluator() {
+		return new thermostatJeedomEvaluator();
+	}
+
+	public function calendar() {
+		return new thermostatJeedomCalendar($this->thermostat, $this->log());
+	}
+
 	public function actionList() {
 		return new thermostatActionList($this->thermostat, $this->log());
 	}
@@ -53,7 +65,7 @@ class thermostatAssembly {
 	}
 
 	public function smartStart() {
-		return new thermostatSmartStart($this->thermostat, $this->powerCalculator(), $this->scheduler(), $this->log());
+		return new thermostatSmartStart($this->settings(), $this->memory(), $this->calendar(), $this->sensors(), $this->evaluator(), $this->powerCalculator(), $this->scheduler(), $this->log());
 	}
 
 	public function actuator() {

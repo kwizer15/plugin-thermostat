@@ -1,6 +1,6 @@
 <?php
 
-class InMemorySettings implements thermostatPowerSettings, thermostatLearningSettings {
+class InMemorySettings implements thermostatPowerSettings, thermostatLearningSettings, thermostatSmartStartSettings {
 
 	public $values = array(
 		'coeff_indoor_heat' => 10,
@@ -19,6 +19,10 @@ class InMemorySettings implements thermostatPowerSettings, thermostatLearningSet
 		'coeff_indoor_cool_autolearn' => 1,
 		'coeff_outdoor_heat_autolearn' => 0,
 		'coeff_outdoor_cool_autolearn' => 0,
+		'engine' => 'temporal',
+		'cycle' => 60,
+		'smart_start_factor' => 1,
+		'smart_start_autolearn' => 0,
 	);
 
 	public $published = array();
@@ -75,5 +79,27 @@ class InMemorySettings implements thermostatPowerSettings, thermostatLearningSet
 		$this->values[$_key . '_autolearn'] = $_count;
 		$this->values[$_key] = $_coefficient;
 		$this->published[$_key] = $_coefficient;
+	}
+
+	public function engine() {
+		return $this->values['engine'];
+	}
+
+	public function cycle() {
+		return $this->values['cycle'];
+	}
+
+	public function anticipationFactor() {
+		return $this->values['smart_start_factor'];
+	}
+
+	public function anticipationCount() {
+		return $this->values['smart_start_autolearn'];
+	}
+
+	public function storeAnticipation($_factor, $_count) {
+		$this->values['smart_start_factor'] = $_factor;
+		$this->values['smart_start_autolearn'] = $_count;
+		$this->published['smart_start_factor'] = $_factor;
 	}
 }

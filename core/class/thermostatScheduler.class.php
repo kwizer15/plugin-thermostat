@@ -16,7 +16,7 @@
 * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 */
 
-class thermostatScheduler {
+class thermostatScheduler implements thermostatScheduling {
 
 	private $thermostat;
 	private $log;
