@@ -252,17 +252,8 @@
         "L'ouvrant n'est plus ouvert, je ne fais rien": "L'ouvrant n'est plus ouvert, je ne fais rien",
         "L'ouvrant à été refermé pendant la pause, je ne fais rien, refermé à": "L'ouvrant à été refermé pendant la pause, je ne fais rien, refermé à",
         "Arrêt du thermostat": "Arrêt du thermostat",
-        "Attention température extérieure erronée": "Attention température extérieure erronée",
-        "Température intérieure": "Température intérieure",
         "Température extérieure": "Dış hava sıcaklığı",
         "Consigne": "Talimat",
-        "Direction": "Direction",
-        "La température est supérieure à la consigne de plus de 1.5°C, je ne fais rien": "La température est supérieure à la consigne de plus de 1.5°C, je ne fais rien",
-        "La température est inférieure à la consigne de plus de 1.5°C, je ne fais rien": "La température est inférieure à la consigne de plus de 1.5°C, je ne fais rien",
-        "Cycle précédent à 100%, applique offset": "Cycle précédent à 100%, applique offset",
-        "Cycle précédent à": "Cycle précédent à",
-        "applique offset": "applique offset",
-        "Puissance de chauffe du cycle": "Puissance de chauffe du cycle",
         "Plugin agenda non détecté": "Plugin agenda non détecté",
         "Plugin agenda détecté": "Plugin agenda détecté",
         "Smartstart : aucun événement trouvé": "Smartstart : aucun événement trouvé",
@@ -310,6 +301,19 @@
     "plugins\/thermostat\/core\/class\/thermostatActionList.class.php": {
         "Erreur lors de l'exécution de": "Erreur lors de l'exécution de",
         "Détails": "Détails"
+    },
+    "plugins\/thermostat\/core\/class\/thermostatPowerCalculator.class.php": {
+        "Attention température extérieure erronée": "Attention température extérieure erronée",
+        "Température intérieure": "Température intérieure",
+        "Température extérieure": "Dış hava sıcaklığı",
+        "Consigne": "Talimat",
+        "Direction": "Direction",
+        "La température est supérieure à la consigne de plus de 1.5°C, je ne fais rien": "La température est supérieure à la consigne de plus de 1.5°C, je ne fais rien",
+        "La température est inférieure à la consigne de plus de 1.5°C, je ne fais rien": "La température est inférieure à la consigne de plus de 1.5°C, je ne fais rien",
+        "Cycle précédent à 100%, applique offset": "Cycle précédent à 100%, applique offset",
+        "Cycle précédent à": "Cycle précédent à",
+        "applique offset": "applique offset",
+        "Puissance de chauffe du cycle": "Puissance de chauffe du cycle"
     },
     "info.json": {
         "Ce plugin très puissant et très complet vous permettra de gérer finement la température de votre logement que ce soit pour réchauffer ou refroidir celui-ci. Le plugin apprend de lui même avec le temps le meilleur moyen d'économiser de l'énergie tout en maintenant un confort optimal dans votre logement.": "Ce plugin très puissant et très complet vous permettra de gérer finement la température de votre logement que ce soit pour réchauffer ou refroidir celui-ci. Le plugin apprend de lui même avec le temps le meilleur moyen d'économiser de l'énergie tout en maintenant un confort optimal dans votre logement"

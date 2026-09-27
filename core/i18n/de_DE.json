@@ -252,17 +252,8 @@
         "L'ouvrant n'est plus ouvert, je ne fais rien": "Die Tür steht nicht mehr offen, ich tue nichts",
         "L'ouvrant à été refermé pendant la pause, je ne fais rien, refermé à": "Die Öffnung wurde in der Pause geschlossen, ich mache nichts, wieder geschlossen",
         "Arrêt du thermostat": "Thermostat ausschalten",
-        "Attention température extérieure erronée": "Warnung falsche Außentemperatur",
-        "Température intérieure": "Innentemperatur",
         "Température extérieure": "Außentemperatur",
         "Consigne": "Anleitung",
-        "Direction": "Richtung",
-        "La température est supérieure à la consigne de plus de 1.5°C, je ne fais rien": "Die Temperatur liegt um mehr als 1,5 °C über dem Sollwert, ich tue nichts",
-        "La température est inférieure à la consigne de plus de 1.5°C, je ne fais rien": "Die Temperatur liegt um mehr als 1,5 °C unter dem Sollwert, ich tue nichts",
-        "Cycle précédent à 100%, applique offset": "Vorheriger Zyklus bei 100 %, Offset angewendet",
-        "Cycle précédent à": "Vorheriger Zyklus zu",
-        "applique offset": "versetzte Applikation",
-        "Puissance de chauffe du cycle": "Zyklus Heizleistung",
         "Plugin agenda non détecté": "Agenda-Plugin nicht erkannt",
         "Plugin agenda détecté": "Agenda-Plugin erkannt",
         "Smartstart : aucun événement trouvé": "Smartstart: kein Ereignis gefunden",
@@ -310,6 +301,19 @@
     "plugins\/thermostat\/core\/class\/thermostatActionList.class.php": {
         "Erreur lors de l'exécution de": "Fehler beim Ausführen",
         "Détails": "Einzelheiten"
+    },
+    "plugins\/thermostat\/core\/class\/thermostatPowerCalculator.class.php": {
+        "Attention température extérieure erronée": "Warnung falsche Außentemperatur",
+        "Température intérieure": "Innentemperatur",
+        "Température extérieure": "Außentemperatur",
+        "Consigne": "Anleitung",
+        "Direction": "Richtung",
+        "La température est supérieure à la consigne de plus de 1.5°C, je ne fais rien": "Die Temperatur liegt um mehr als 1,5 °C über dem Sollwert, ich tue nichts",
+        "La température est inférieure à la consigne de plus de 1.5°C, je ne fais rien": "Die Temperatur liegt um mehr als 1,5 °C unter dem Sollwert, ich tue nichts",
+        "Cycle précédent à 100%, applique offset": "Vorheriger Zyklus bei 100 %, Offset angewendet",
+        "Cycle précédent à": "Vorheriger Zyklus zu",
+        "applique offset": "versetzte Applikation",
+        "Puissance de chauffe du cycle": "Zyklus Heizleistung"
     },
     "info.json": {
         "Ce plugin très puissant et très complet vous permettra de gérer finement la température de votre logement que ce soit pour réchauffer ou refroidir celui-ci. Le plugin apprend de lui même avec le temps le meilleur moyen d'économiser de l'énergie tout en maintenant un confort optimal dans votre logement.": "Mit diesem sehr leistungsstarken und sehr vollständigen Plugin können Sie die Temperatur Ihres Hauses genau regeln, unabhängig davon, ob Sie es heizen oder kühlen möchten. Das Plugin lernt im Laufe der Zeit von selbst, wie Sie am besten Energie sparen und gleichzeitig den optimalen Komfort in Ihrem Zuhause gewährleisten können"

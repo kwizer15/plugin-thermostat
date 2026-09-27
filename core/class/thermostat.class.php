@@ -18,6 +18,7 @@
 
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 require_once dirname(__FILE__) . '/thermostatActionList.class.php';
+require_once dirname(__FILE__) . '/thermostatPowerCalculator.class.php';
 
 class thermostat extends eqLogic {
 
@@ -605,62 +606,7 @@ class thermostat extends eqLogic {
 	}
 
 	public function calculTemporalData($_consigne, $_allowOverfull = false) {
-		$temp_out = $this->getCmd(null, 'temperature_outdoor')->execCmd();
-		$temp_in = $this->getCmd(null, 'temperature')->execCmd();
-		if (!is_numeric($temp_out)) {
-			log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Attention température extérieure erronée', __FILE__) . ' : ' . $temp_out);
-			$temp_out = $_consigne;
-		}
-
-		log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Température intérieure', __FILE__) . ' : ' . $temp_in . ' - ' . __('Température extérieure', __FILE__) . ' : ' . $temp_out . ' - ' . __('Consigne', __FILE__) . ' : ' . $_consigne);
-		$diff_in = $_consigne - $temp_in;
-		$diff_out = $_consigne - $temp_out;
-		$direction = ($_consigne > $temp_in) ? +1 : -1;
-		if ($direction < 0 && (($temp_in < ($_consigne + 0.5) && $this->getCache('lastState') == 'heat') || ($_consigne - $temp_out) > $this->getConfiguration('direction::delta::heat', 0))) {
-			$direction = +1;
-		}
-		if ($direction > 0 && (($temp_in > ($_consigne - 0.5) && $this->getCache('lastState') == 'cool') || ($_consigne - $temp_out) < $this->getConfiguration('direction::delta::cool', 0))) {
-			$direction = -1;
-		}
-		log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Direction', __FILE__) . ' : ' . $direction);
-		if ($temp_in >= ($_consigne + 1.5) && $direction == 1) {
-			if ($this->getCache('temp_threshold', 0) == 0) {
-				log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('La température est supérieure à la consigne de plus de 1.5°C, je ne fais rien', __FILE__));
-			}
-			$this->setCache('temp_threshold', 1);
-			return array('power' => 0, 'direction' => $direction);
-		}
-		if ($temp_in <= ($_consigne - 1.5) && $direction == -1) {
-			if ($this->getCache('temp_threshold', 0) == 0) {
-				log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('La température est inférieure à la consigne de plus de 1.5°C, je ne fais rien', __FILE__));
-			}
-			$this->setCache('temp_threshold', 1);
-			return array('power' => 0, 'direction' => $direction);
-		}
-		$this->setCache('temp_threshold', 0);
-		$coeff_out = ($direction > 0) ? $this->getConfiguration('coeff_outdoor_heat') : $this->getConfiguration('coeff_outdoor_cool');
-		$coeff_in = ($direction > 0) ? $this->getConfiguration('coeff_indoor_heat') : $this->getConfiguration('coeff_indoor_cool');
-		$offset = ($direction > 0) ? $this->getConfiguration('offset_heat') : $this->getConfiguration('offset_cool');
-		$power = ($direction * $diff_in * $coeff_in) + ($direction * $diff_out * $coeff_out) + $offset;
-		log::add(__CLASS__, 'debug', $this->getHumanName() . ' Power calcul : (' . $diff_in . ' * ' . $coeff_in . ') + (' . $diff_out . ' * ' . $coeff_out . ') + ' . $offset . ' = ' . $power);
-
-		if (!$_allowOverfull && $this->getConfiguration('offset_nextFullCyle') != '' && $this->getConfiguration('offset_nextFullCyle') > 0 && $this->getCache('last_power', 0) >= $this->getConfiguration('threshold_heathot', 100)) {
-			if ($this->getCache('last_power', 0) >= 100) {
-				log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Cycle précédent à 100%, applique offset', __FILE__) . ' : ' . $this->getConfiguration('offset_nextFullCyle') . '%');
-				$power -= $this->getConfiguration('offset_nextFullCyle');
-			} else {
-				log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Cycle précédent à', __FILE__) . ' ' . $this->getCache('last_power', 0) . '%, ' . __('applique offset', __FILE__) . ' : ' . $this->getConfiguration('offset_nextFullCyle') . '%');
-				log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Puissance de chauffe du cycle', __FILE__) . ' : ' . $power . '% - ' . $this->getConfiguration('offset_nextFullCyle') . '% + ' . (100 - $this->getCache('last_power', 0)) . '%');
-				$power -= $this->getConfiguration('offset_nextFullCyle') - (100 - $this->getCache('last_power', 0));
-			}
-		}
-		if ($power > 100 && !$_allowOverfull) {
-			$power = 100;
-		}
-		if ($power < 0) {
-			$power = 0;
-		}
-		return array('power' => $power, 'direction' => $direction);
+		return (new thermostatPowerCalculator($this))->compute($_consigne, $_allowOverfull);
 	}
 
 	public function getNextState() {
