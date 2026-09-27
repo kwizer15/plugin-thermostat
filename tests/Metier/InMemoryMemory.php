@@ -1,6 +1,6 @@
 <?php
 
-class InMemoryMemory implements thermostatPowerMemory, thermostatCycleMemory, thermostatSmartStartMemory {
+class InMemoryMemory implements thermostatPowerMemory, thermostatCycleMemory, thermostatSmartStartMemory, thermostatStateMemory {
 
 	public $values = array(
 		'lastState' => '',
@@ -50,5 +50,9 @@ class InMemoryMemory implements thermostatPowerMemory, thermostatCycleMemory, th
 
 	public function setSmartStart($_smartStart) {
 		$this->values['smartStart'] = $_smartStart;
+	}
+
+	public function setLastState($_state) {
+		$this->values['lastState'] = $_state;
 	}
 }

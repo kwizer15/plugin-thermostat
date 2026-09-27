@@ -1,6 +1,6 @@
 <?php
 
-class InMemorySettings implements thermostatPowerSettings, thermostatLearningSettings, thermostatSmartStartSettings, thermostatHysteresisSettings {
+class InMemorySettings implements thermostatPowerSettings, thermostatLearningSettings, thermostatSmartStartSettings, thermostatHysteresisSettings, thermostatActuatorSettings {
 
 	public $values = array(
 		'coeff_indoor_heat' => 10,
@@ -26,6 +26,13 @@ class InMemorySettings implements thermostatPowerSettings, thermostatLearningSet
 		'allow_mode' => 'all',
 		'positiveHysteresis' => 0,
 		'hysteresis_threshold' => 1,
+		'heating' => array(array('cmd' => '#heater#')),
+		'cooling' => array(array('cmd' => '#cooler#')),
+		'stoping' => array(array('cmd' => '#stopper#')),
+		'orderChange' => array(),
+		'failure' => array(),
+		'failureActuator' => array(),
+		'existingMode' => array(),
 	);
 
 	public $published = array();
@@ -116,5 +123,33 @@ class InMemorySettings implements thermostatPowerSettings, thermostatLearningSet
 
 	public function hysteresisThreshold() {
 		return $this->values['hysteresis_threshold'];
+	}
+
+	public function heatingActions() {
+		return $this->values['heating'];
+	}
+
+	public function coolingActions() {
+		return $this->values['cooling'];
+	}
+
+	public function stoppingActions() {
+		return $this->values['stoping'];
+	}
+
+	public function orderChangeActions() {
+		return $this->values['orderChange'];
+	}
+
+	public function failureActions() {
+		return $this->values['failure'];
+	}
+
+	public function failureActuatorActions() {
+		return $this->values['failureActuator'];
+	}
+
+	public function modes() {
+		return $this->values['existingMode'];
 	}
 }

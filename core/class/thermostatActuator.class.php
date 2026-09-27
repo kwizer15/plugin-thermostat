@@ -18,25 +18,27 @@
 
 class thermostatActuator {
 
-	private $thermostat;
 	private $settings;
 	private $memory;
 	private $persistence;
-	private $actionList;
+	private $display;
+	private $actions;
+	private $engine;
 	private $log;
 
-	public function __construct($_thermostat, thermostatActuatorSettings $_settings, thermostatStateMemory $_memory, thermostatPersistence $_persistence, thermostatActionList $_actionList, thermostatLog $_log) {
-		$this->thermostat = $_thermostat;
+	public function __construct(thermostatActuatorSettings $_settings, thermostatStateMemory $_memory, thermostatPersistence $_persistence, thermostatDisplay $_display, thermostatActions $_actions, thermostatEngineRunner $_engine, thermostatLog $_log) {
 		$this->settings = $_settings;
 		$this->memory = $_memory;
 		$this->persistence = $_persistence;
-		$this->actionList = $_actionList;
+		$this->display = $_display;
+		$this->actions = $_actions;
+		$this->engine = $_engine;
 		$this->log = $_log;
 	}
 
 	public function heat($_repeat = false) {
 		if (!$_repeat) {
-			if ($this->thermostat->getCmd(null, 'mode')->execCmd() == __('Off', __FILE__) || $this->thermostat->getCmd(null, 'status')->execCmd() == __('Suspendu', __FILE__)) {
+			if ($this->display->mode() == __('Off', __FILE__) || $this->display->status() == __('Suspendu', __FILE__)) {
 				return false;
 			}
 			if ($this->settings->allowMode() != 'all' && $this->settings->allowMode() != 'heat') {
@@ -48,20 +50,20 @@ class thermostatActuator {
 				return false;
 			}
 		}
-		$this->thermostat->getCmd(null, 'status')->event(__('Chauffage', __FILE__));
+		$this->display->setStatus(__('Chauffage', __FILE__));
 		$this->log->debug(__('Action chauffage', __FILE__));
-		$this->actionList->execute($this->settings->heatingActions(), true);
+		$this->actions->execute($this->settings->heatingActions(), true);
 		if (!$_repeat) {
 			$this->persistence->reload();
 			$this->memory->setLastState('heat');
-			$this->thermostat->getCmd(null, 'actif')->event(1);
+			$this->display->setActive(1);
 		}
 		return true;
 	}
 
 	public function cool($_repeat = false) {
 		if (!$_repeat) {
-			if ($this->thermostat->getCmd(null, 'mode')->execCmd() == __('Off', __FILE__) || $this->thermostat->getCmd(null, 'status')->execCmd() == __('Suspendu', __FILE__)) {
+			if ($this->display->mode() == __('Off', __FILE__) || $this->display->status() == __('Suspendu', __FILE__)) {
 				return false;
 			}
 			if ($this->settings->allowMode() != 'all' && $this->settings->allowMode() != 'cool') {
@@ -73,36 +75,32 @@ class thermostatActuator {
 				return false;
 			}
 		}
-		$this->thermostat->getCmd(null, 'status')->event(__('Climatisation', __FILE__));
+		$this->display->setStatus(__('Climatisation', __FILE__));
 		$this->log->debug(__('Action froid', __FILE__));
-		$this->actionList->execute($this->settings->coolingActions(), true);
+		$this->actions->execute($this->settings->coolingActions(), true);
 		if (!$_repeat) {
 			$this->persistence->reload();
 			$this->memory->setLastState('cool');
-			$this->thermostat->getCmd(null, 'actif')->event(1);
+			$this->display->setActive(1);
 		}
 		return true;
 	}
 
 	public function stop($_repeat = false, $_suspend = false) {
-		if (!$_repeat && $this->thermostat->getCmd(null, 'status')->execCmd() == __('Arrêté', __FILE__)) {
-			$power = $this->thermostat->getCmd(null, 'power');
-			if (is_object($power) && $power->execCmd() > 0) {
+		if (!$_repeat && $this->display->status() == __('Arrêté', __FILE__)) {
+			if ($this->display->power() > 0) {
 				$_repeat = true;
-			}else{
-			   return;
+			} else {
+				return;
 			}
 		}
 		$this->log->debug(__('Action stop', __FILE__));
-		$this->actionList->execute($this->settings->stoppingActions(), true);
-		$power = $this->thermostat->getCmd(null, 'power');
-		if (is_object($power)) {
-			$power->event(0);
-		}
-		$this->thermostat->getCmd(null, 'actif')->event(0);
+		$this->actions->execute($this->settings->stoppingActions(), true);
+		$this->display->setPower(0);
+		$this->display->setActive(0);
 
 		if (!$_suspend) {
-			$this->thermostat->getCmd(null, 'status')->event(__('Arrêté', __FILE__));
+			$this->display->setStatus(__('Arrêté', __FILE__));
 		}
 		if ($_repeat) {
 			return;
@@ -111,69 +109,56 @@ class thermostatActuator {
 	}
 
 	public function orderChange() {
-		if ($this->thermostat->getCmd(null, 'mode')->execCmd() == __('Off', __FILE__) || $this->thermostat->getCmd(null, 'status')->execCmd() == __('Suspendu', __FILE__)) {
+		if ($this->display->mode() == __('Off', __FILE__) || $this->display->status() == __('Suspendu', __FILE__)) {
 			return;
 		}
 		if (!is_array($this->settings->orderChangeActions()) || count($this->settings->orderChangeActions()) == 0) {
 			return;
 		}
-		$this->actionList->execute($this->settings->orderChangeActions(), true, array('modeChange' => true));
+		$this->actions->execute($this->settings->orderChangeActions(), true, array('modeChange' => true));
 	}
 
 	public function failure() {
-		if ($this->thermostat->getCmd(null, 'mode')->execCmd() == __('Off', __FILE__) || $this->thermostat->getCmd(null, 'status')->execCmd() == __('Suspendu', __FILE__)) {
+		if ($this->display->mode() == __('Off', __FILE__) || $this->display->status() == __('Suspendu', __FILE__)) {
 			return;
 		}
 		if (!is_array($this->settings->failureActions()) || count($this->settings->failureActions()) == 0) {
 			return;
 		}
 		$this->log->debug(__('Action défaillance sonde', __FILE__));
-		$this->actionList->execute($this->settings->failureActions(), false);
-		$this->thermostat->getCmd(null, 'status')->event(__('Défaillance sonde', __FILE__));
+		$this->actions->execute($this->settings->failureActions(), false);
+		$this->display->setStatus(__('Défaillance sonde', __FILE__));
 	}
 
 	public function failureActuator() {
-		if ($this->thermostat->getCmd(null, 'mode')->execCmd() == __('Off', __FILE__) || $this->thermostat->getCmd(null, 'status')->execCmd() == __('Suspendu', __FILE__)) {
+		if ($this->display->mode() == __('Off', __FILE__) || $this->display->status() == __('Suspendu', __FILE__)) {
 			return;
 		}
 		if (!is_array($this->settings->failureActuatorActions()) || count($this->settings->failureActuatorActions()) == 0) {
 			return;
 		}
 		$this->log->debug(__('Action défaillance chauffage', __FILE__));
-		$this->actionList->execute($this->settings->failureActuatorActions(), false);
-		$this->thermostat->getCmd(null, 'status')->event(__('Défaillance chauffage', __FILE__));
+		$this->actions->execute($this->settings->failureActuatorActions(), false);
+		$this->display->setStatus(__('Défaillance chauffage', __FILE__));
 	}
 
 	public function executeMode($_name) {
 		$thermostatCmd = false;
-		$consigne = $this->thermostat->getCmd(null, 'order')->execCmd();
+		$consigne = $this->display->setpoint();
 		foreach ($this->settings->modes() as $existingMode) {
-			if ($_name == $existingMode['name']) {
-				foreach ($existingMode['actions'] as $action) {
-					try {
-						$options = thermostatActionList::options($action, $consigne);
-						$cmd = (is_numeric(str_replace('#', '', $action['cmd']))) ? cmd::byString($action['cmd']) : '';
-						if (is_object($cmd) && $cmd->getEqLogic_id() == $this->thermostat->getId() && $cmd->getLogicalId() == 'thermostat') {
-							$thermostatCmd = true;
-							$this->thermostat->getCmd(null, 'order')->event(scenarioExpression::createAndExec('condition', $options['slider']));
-						} else {
-							scenarioExpression::createAndExec('action', $action['cmd'], $options);
-						}
-					} catch (Exception $e) {
-						$this->actionList->logError($action, $e);
-					}
-				}
+			if ($_name == $existingMode['name'] && $this->actions->applyMode($existingMode['actions'], $consigne)) {
+				$thermostatCmd = true;
 			}
 		}
-		$this->thermostat->getCmd(null, 'mode')->event($_name);
+		$this->display->setMode($_name);
 		if ($thermostatCmd == true) {
 			$this->orderChange();
 		}
-		$this->thermostat->runEngine();
+		$this->engine->run();
 	}
 
 	public function repeat() {
-		switch ($this->thermostat->getCmd(null, 'status')->execCmd()) {
+		switch ($this->display->status()) {
 			case __('Chauffage', __FILE__):
 				$this->heat(true);
 				break;

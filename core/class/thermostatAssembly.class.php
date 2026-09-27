@@ -52,6 +52,14 @@ class thermostatAssembly {
 		return new thermostatJeedomPersistence($this->thermostat);
 	}
 
+	public function display() {
+		return new thermostatJeedomDisplay($this->thermostat);
+	}
+
+	public function engineRunner() {
+		return new thermostatJeedomEngineRunner($this->thermostat);
+	}
+
 	public function actionList() {
 		return new thermostatActionList($this->thermostat, $this->log());
 	}
@@ -73,7 +81,7 @@ class thermostatAssembly {
 	}
 
 	public function actuator() {
-		return new thermostatActuator($this->thermostat, $this->settings(), $this->memory(), $this->persistence(), $this->actionList(), $this->log());
+		return new thermostatActuator($this->settings(), $this->memory(), $this->persistence(), $this->display(), $this->actionList(), $this->engineRunner(), $this->log());
 	}
 
 	public function windows() {

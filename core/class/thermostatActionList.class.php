@@ -16,7 +16,7 @@
 * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 */
 
-class thermostatActionList {
+class thermostatActionList implements thermostatActions {
 
 	private $thermostat;
 	private $log;
@@ -58,7 +58,26 @@ class thermostatActionList {
 		}
 	}
 
-	public function logError($_action, $_exception) {
+	public function applyMode($_actions, $_consigne) {
+		$thermostatCmd = false;
+		foreach ($_actions as $action) {
+			try {
+				$options = self::options($action, $_consigne);
+				$cmd = (is_numeric(str_replace('#', '', $action['cmd']))) ? cmd::byString($action['cmd']) : '';
+				if (is_object($cmd) && $cmd->getEqLogic_id() == $this->thermostat->getId() && $cmd->getLogicalId() == 'thermostat') {
+					$thermostatCmd = true;
+					$this->thermostat->getCmd(null, 'order')->event(scenarioExpression::createAndExec('condition', $options['slider']));
+				} else {
+					scenarioExpression::createAndExec('action', $action['cmd'], $options);
+				}
+			} catch (Exception $e) {
+				$this->logError($action, $e);
+			}
+		}
+		return $thermostatCmd;
+	}
+
+	private function logError($_action, $_exception) {
 		$this->log->error(__("Erreur lors de l'exécution de", __FILE__) . ' ' . $_action['cmd'] . '. ' . __('Détails', __FILE__) . ' : ' . $_exception->getMessage());
 	}
 }

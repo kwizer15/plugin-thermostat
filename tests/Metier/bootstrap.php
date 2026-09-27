@@ -1,6 +1,6 @@
 <?php
 
-foreach (array('RecordingLog', 'InMemorySettings', 'InMemoryMemory', 'FixedSensors', 'ScriptedCalendar', 'NumericEvaluator', 'RecordingScheduling', 'InMemoryConfigurationStore') as $class) {
+foreach (array('RecordingLog', 'InMemorySettings', 'InMemoryMemory', 'FixedSensors', 'ScriptedCalendar', 'NumericEvaluator', 'RecordingScheduling', 'InMemoryConfigurationStore', 'InMemoryDisplay', 'RecordingActions', 'CountingRunner', 'CountingPersistence') as $class) {
 	require_once __DIR__ . '/' . $class . '.php';
 }
 
