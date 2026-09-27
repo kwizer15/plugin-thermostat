@@ -205,13 +205,22 @@ class TemporalTest extends ThermostatTestCase {
 		$this->assertNull($this->stopSchedule($thermostat));
 	}
 
-	public function testDirectionChangeStopsBeforeCooling() {
+	public function testDirectionChangeStopsThenCoolsOneMinuteLater() {
 		$thermostat = $this->equippedThermostat(array(), 25, 30, 22);
 		$thermostat->setCache('lastState', 'heat');
 
 		$this->runTemporal($thermostat);
 
-		$this->assertSame(array('stop', 'cool'), $this->executed());
+		$this->assertSame(array('stop'), $this->executed());
+		$this->assertSame('Arrêté', $this->valueOf($thermostat, 'status'));
+		$this->assertSame('stop', $thermostat->getCache('lastState'));
+		$this->assertSame('01 10 15 01 *', $this->pullSchedule($thermostat));
+
+		$this->setNow('2026-01-15 10:01:00');
+		\scenarioExpression::reset();
+		$this->runTemporal($thermostat);
+
+		$this->assertSame(array('cool'), $this->executed());
 		$this->assertSame('Climatisation', $this->valueOf($thermostat, 'status'));
 		$this->assertSame('cool', $thermostat->getCache('lastState'));
 		$this->assertSame(46.0, $this->valueOf($thermostat, 'power'));

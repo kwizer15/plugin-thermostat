@@ -207,4 +207,17 @@ class TemporalEngineTest extends TestCase {
 		$this->assertSame(array('#cooler#'), $this->actions->executed);
 		$this->assertSame('cool', $this->memory->values['lastState']);
 	}
+
+	public function testDirectionChangeStopsAndRunsAgainOneMinuteLater() {
+		$this->sensors->indoor = 21;
+		$this->sensors->outdoor = 30;
+		$this->memory->values['lastState'] = 'heat';
+		$this->display->status = 'Chauffage';
+
+		$this->run_();
+
+		$this->assertSame(array('#stopper#'), $this->actions->executed);
+		$this->assertSame('stop', $this->memory->values['lastState']);
+		$this->assertSame(array('2026-01-15 10:01:00', false, false), end($this->scheduling->calls));
+	}
 }

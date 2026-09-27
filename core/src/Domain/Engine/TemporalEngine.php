@@ -186,14 +186,12 @@ class TemporalEngine {
 
 		if ($this->memory->lastState() == HeatingAction::HEAT && $temporal_data['direction'] < 0) {
 			$this->log->debug($this->translator->translate('{{Je dois refroidir mais avant je chauffais, je stop tout avant}}'));
-			$this->memory->setLastState(HeatingAction::STOP);
-			$this->actuator->stop();
-			sleep(5);
+			$this->stopBeforeReversing();
+			return;
 		}else if ($this->memory->lastState() == HeatingAction::COOL && $temporal_data['direction'] > 0) {
 			$this->log->debug($this->translator->translate('{{Je dois chauffer mais avant je refroidissait, je stop tout avant}}'));
-			$this->memory->setLastState(HeatingAction::STOP);
-			$this->actuator->stop();
-			sleep(5);
+			$this->stopBeforeReversing();
+			return;
 		}
 		$this->persistence->persist();
 		if ($duration > 0) {
@@ -207,5 +205,15 @@ class TemporalEngine {
 				}
 			}
 		}
+	}
+
+	/**
+	 * @return void
+	 */
+	private function stopBeforeReversing() {
+		$this->memory->setLastState(HeatingAction::STOP);
+		$this->actuator->stop();
+		$this->persistence->persist();
+		$this->scheduler->reschedule(date('Y-m-d H:i:s', strtotime('+1 min', $this->clock->now())));
 	}
 }
