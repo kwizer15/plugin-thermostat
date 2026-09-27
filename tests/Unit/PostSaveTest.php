@@ -116,9 +116,10 @@ class PostSaveTest extends ThermostatTestCase {
 	public function testTemperatureCommandsPointToFirstInfoCommand() {
 		$action = $this->actuator();
 		$indoor = $this->sensor(19.5);
+		$otherIndoor = $this->sensor(20.5);
 		$outdoor = $this->sensor(4.2);
 		$thermostat = $this->createThermostat(array(
-			'temperature_indoor' => '#' . $action->getId() . '# + #' . $indoor->getId() . '# + #999#',
+			'temperature_indoor' => '#' . $action->getId() . '# + #999# + #' . $indoor->getId() . '# + #' . $otherIndoor->getId() . '#',
 			'temperature_outdoor' => '#' . $outdoor->getId() . '#',
 		));
 

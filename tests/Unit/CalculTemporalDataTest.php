@@ -60,6 +60,13 @@ class CalculTemporalDataTest extends ThermostatTestCase {
 		$this->assertEqualsWithDelta(array('power' => 14, 'direction' => -1), $thermostat->calculTemporalData(22), 0.0001);
 	}
 
+	public function testKeepsCoolingJustBelowSetpointEvenWhenCoolerOutside() {
+		$thermostat = $this->thermostatAt(21.8, 20);
+		$thermostat->setCache('lastState', 'cool');
+
+		$this->assertEquals(array('power' => 0, 'direction' => -1), $thermostat->calculTemporalData(22));
+	}
+
 	public function testDoesNothingWhenFarAboveSetpointInHeatingDirection() {
 		$thermostat = $this->thermostatAt(21.5, 5);
 

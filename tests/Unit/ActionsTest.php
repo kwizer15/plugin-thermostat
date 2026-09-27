@@ -116,6 +116,14 @@ class ActionsTest extends ThermostatTestCase {
 		$this->assertSame(array('stop'), $this->executed());
 	}
 
+	public function testCoolWithoutActionsStops() {
+		$thermostat = $this->equippedThermostat(array('cooling' => array()));
+
+		$this->assertFalse($thermostat->cool());
+
+		$this->assertSame(array('stop'), $this->executed());
+	}
+
 	public function testCoolRefusedWhenModeOff() {
 		$thermostat = $this->equippedThermostat();
 		$this->setValueOf($thermostat, 'mode', 'Off');
