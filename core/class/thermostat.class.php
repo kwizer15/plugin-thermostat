@@ -20,6 +20,7 @@ require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 require_once dirname(__FILE__) . '/thermostatActionList.class.php';
 require_once dirname(__FILE__) . '/thermostatPowerCalculator.class.php';
 require_once dirname(__FILE__) . '/thermostatCoefficientLearner.class.php';
+require_once dirname(__FILE__) . '/thermostatSmartStart.class.php';
 
 class thermostat extends eqLogic {
 
@@ -68,14 +69,14 @@ class thermostat extends eqLogic {
 					log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Thermostat verrouillé je ne fais rien', __FILE__));
 				} else if ($_options['next']['type'] == 'thermostat') {
 					log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Type thermostat envoi de la consigne', __FILE__) . ' : ' . $_options['next']['consigne']);
-					$thermostat->rememberSmartStart($_options['next']);
+					(new thermostatSmartStart($thermostat))->remember($_options['next']);
 					$cmd = $thermostat->getCmd(null, 'thermostat');
 					$cmd->execCmd(array('slider' => $_options['next']['consigne']));
 				} else if ($_options['next']['type'] == 'mode' && isset($_options['next']['cmd'])) {
 					$mode = cmd::byId($_options['next']['cmd']);
 					if (is_object($mode)) {
 						log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Type mode envoi de la commande', __FILE__) . ' : ' . $_options['next']['cmd']);
-						$thermostat->rememberSmartStart($_options['next']);
+						(new thermostatSmartStart($thermostat))->remember($_options['next']);
 						$mode->execCmd();
 					}
 				}
@@ -196,7 +197,7 @@ class thermostat extends eqLogic {
 		}
 		if ($thermostat->getConfiguration('smart_start') == 1) {
 			log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Programmation Smartstart', __FILE__));
-			$thermostat->getNextState();
+			(new thermostatSmartStart($thermostat))->plan();
 			log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Arrêt Smartstart', __FILE__));
 		}
 		$mode = $thermostat->getCmd(null, 'mode')->execCmd();
@@ -230,7 +231,7 @@ class thermostat extends eqLogic {
 			return;
 		}
 		$thermostat->setCache('temp_threshold', 0);
-		$thermostat->learnSmartStart($temp_in);
+		(new thermostatSmartStart($thermostat))->learn($temp_in);
 		if (($temp_in < ($thermostat->getCache('lastOrder', 0) - $thermostat->getConfiguration('offsetHeatFaillure', 1)) && $temp_in < $thermostat->getCache('lastTempIn', 0) && $thermostat->getCache('lastState') == 'heat' && $thermostat->getConfiguration('coeff_indoor_heat_autolearn') > 25) ||
 			($temp_in > ($thermostat->getCache('lastOrder', 0) + $thermostat->getConfiguration('offsetColdFaillure', 1)) && $temp_in > $thermostat->getCache('lastTempIn', 0) && $thermostat->getCache('lastState') == 'cool' && $thermostat->getConfiguration('coeff_indoor_cool_autolearn') > 25)
 		) {
@@ -581,137 +582,7 @@ class thermostat extends eqLogic {
 	}
 
 	public function getNextState() {
-		if ($this->getConfiguration('engine', 'temporal') != 'temporal') {
-			return '';
-		}
-		try {
-			$plugin = plugin::byId('calendar');
-			if (!is_object($plugin) || $plugin->isActive() != 1) {
-				return '';
-			}
-		} catch (Exception $ex) {
-			log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Plugin agenda non détecté', __FILE__));
-			return '';
-		}
-		if (!class_exists('calendar_event')) {
-			return '';
-		}
-		log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Plugin agenda détecté', __FILE__));
-
-		$thermostat = $this->getCmd(null, 'thermostat');
-		$next = null;
-		$position = null;
-		foreach ($this->getCmd(null, 'modeAction', null, true) as $mode) {
-			if(!is_object($mode)){
-				continue;
-			}
-			$events = calendar_event::searchByCmd($mode->getId());
-			if (is_array($events) && count($events) > 0) {
-				foreach ($events as $event) {
-					$calendar = $event->getEqLogic();
-					$stateCalendar = $calendar->getCmd(null, 'state');
-					if ($calendar->getIsEnable() == 0 || (is_object($stateCalendar) && $stateCalendar->execCmd() != 1)) {
-						continue;
-					}
-					foreach ($event->getCmd_param('start') as $action) {
-						if ($action['cmd'] == '#' . $mode->getId() . '#') {
-							$position = 'start';
-						}
-					}
-					foreach ($event->getCmd_param('end') as $action) {
-						if ($action['cmd'] == '#' . $mode->getId() . '#') {
-							if ($position == 'start') {
-								$position = null;
-							} else {
-								$position = 'end';
-							}
-						}
-					}
-					$nextOccurence = $event->nextOccurrence($position, true);
-					if ($nextOccurence['date'] != '' && ($next == null || (strtotime($next['date']) > strtotime($nextOccurence['date']) && strtotime($nextOccurence['date']) > (strtotime('now') + 120)))) {
-						$consigne = null;
-						foreach ($this->getConfiguration('existingMode') as $existingMode) {
-							if ($mode->getName() == $existingMode['name']) {
-								foreach ($existingMode['actions'] as $action) {
-									if ('#' . $thermostat->getId() . '#' == $action['cmd']) {
-										$consigne = $action['options']['slider'];
-									}
-								}
-							}
-						}
-						if ($consigne !== null) {
-							$next = array(
-								'date' => $nextOccurence['date'],
-								'event' => $event,
-								'consigne' => $consigne,
-								'calendar_id' => $calendar->getId(),
-								'cmd' => $mode->getId(),
-								'type' => 'mode',
-							);
-						}
-					}
-				}
-			}
-		}
-		$events = calendar_event::searchByCmd($thermostat->getId());
-		if (is_array($events) && count($events) > 0) {
-			foreach ($events as $event) {
-				$calendar = $event->getEqLogic();
-				$stateCalendar = $calendar->getCmd(null, 'state');
-				if ($calendar->getIsEnable() == 0 || (is_object($stateCalendar) && $stateCalendar->execCmd() != 1)) {
-					continue;
-				}
-				foreach ($event->getCmd_param('start') as $action) {
-					if ($action['cmd'] == '#' . $thermostat->getId() . '#') {
-						$position = 'start';
-						$options = $action['options'];
-					}
-				}
-				foreach ($event->getCmd_param('end') as $action) {
-					if ($action['cmd'] == '#' . $thermostat->getId() . '#') {
-						if ($position == 'start') {
-							$position = null;
-						} else {
-							$position = 'end';
-							$options = $action['options'];
-						}
-					}
-				}
-				$nextOccurence = $event->nextOccurrence($position, true);
-				if ($nextOccurence['date'] != '' && ($next == null || (strtotime($next['date']) > strtotime($nextOccurence['date']) && strtotime($nextOccurence['date']) > (strtotime('now') + 120)))) {
-					$next = array(
-						'date' => $nextOccurence['date'],
-						'event' => $event,
-						'calendar_id' => $calendar->getId(),
-						'consigne' => $options['slider'],
-						'type' => 'thermostat',
-					);
-				}
-			}
-		}
-		if ($next == null || $next['date'] == '') {
-			log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Smartstart : aucun événement trouvé', __FILE__));
-			return '';
-		}
-		$cycle = jeedom::evaluateExpression($this->getConfiguration('cycle'));
-		if ($next['date'] != '' && strtotime($next['date']) > strtotime(date('Y-m-d H:i:s'))) {
-			$temporal_data = $this->calculTemporalData(jeedom::evaluateExpression($next['consigne']), true);
-			if ($temporal_data['power'] < 0) {
-				log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Smartstart non pris en compte car power < 0 ', __FILE__) . ' ' . $temporal_data['power']);
-				return;
-			}
-			$duration = round(($temporal_data['power'] * $cycle) / 100 * $this->getConfiguration('smart_start_factor', 1));
-			if ($duration < 5) {
-				log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Smartstart non pris en compte car la durée', __FILE__) . ' ' . $duration);
-				return '';
-			}
-			$next['schedule'] = date('Y-m-d H:i:s', strtotime('-' . $duration . ' min ' . $next['date']));
-			log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Durée Smartstart', __FILE__) . ' : ' . $duration . ' ' . __('à', __FILE__) . ' ' . $next['date'] . ' ' . __('programmation', __FILE__) . ' : ' . $next['schedule']);
-			if (strtotime($next['schedule']) > (strtotime('now') + 120)) {
-				log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Prochain Smartstart', __FILE__) . ' : ' . $next['schedule']);
-				$this->reschedule($next['schedule'], false, $next);
-			}
-		}
+		return (new thermostatSmartStart($this))->plan();
 	}
 
 	public function preRemove() {
@@ -1163,41 +1034,13 @@ class thermostat extends eqLogic {
 	}
 
 	public function rememberSmartStart($_next) {
-		$this->setCache('smartStart', array(
-			'start' => date('Y-m-d H:i:s'),
-			'date' => $_next['date'],
-			'consigne' => jeedom::evaluateExpression($_next['consigne']),
-			'temperature' => $this->getCmd(null, 'temperature')->execCmd(),
-		));
+		log::add(__CLASS__, 'warning', $this->getHumanName() . ' thermostat::rememberSmartStart appelé de l\'extérieur, voir thermostatSmartStart');
+		return (new thermostatSmartStart($this))->remember($_next);
 	}
 
 	public function learnSmartStart($_temperature) {
-		$smartStart = $this->getCache('smartStart');
-		if (!is_array($smartStart)) {
-			return;
-		}
-		$eventTime = strtotime($smartStart['date']);
-		if (strtotime('now') < $eventTime - 60) {
-			return;
-		}
-		$this->setCache('smartStart', null);
-		if (strtotime('now') > $eventTime + 7200) {
-			return;
-		}
-		$needed = $smartStart['consigne'] - $smartStart['temperature'];
-		$achieved = $_temperature - $smartStart['temperature'];
-		if ($needed < 0.5 || $achieved <= 0) {
-			log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Smartstart : pas d\'apprentissage', __FILE__) . ' (' . $needed . ' / ' . $achieved . ')');
-			return;
-		}
-		$factor = $this->getConfiguration('smart_start_factor', 1);
-		$count = $this->getConfiguration('smart_start_autolearn', 0);
-		$target = $factor * min(max($needed / $achieved, 0.5), 2);
-		$factor = min(max(($factor * $count + $target) / ($count + 1), 0.5), 3);
-		$this->setConfiguration('smart_start_factor', round($factor, 2));
-		$this->setConfiguration('smart_start_autolearn', min($count + 1, 10));
-		$this->checkAndUpdateCmd('smart_start_factor', round($factor, 2));
-		log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Smartstart : nouvelle anticipation', __FILE__) . ' : ' . round($factor, 2) . ' (' . $achieved . '/' . $needed . '°C)');
+		log::add(__CLASS__, 'warning', $this->getHumanName() . ' thermostat::learnSmartStart appelé de l\'extérieur, voir thermostatSmartStart');
+		return (new thermostatSmartStart($this))->learn($_temperature);
 	}
 
 	public function learnCoefficient($_key, $_measured) {

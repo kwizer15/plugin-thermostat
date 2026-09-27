@@ -253,15 +253,6 @@
         "Arrêt du thermostat": "Apagar el termostato",
         "Température extérieure": "Temperatura exterior",
         "Consigne": "Consigna",
-        "Plugin agenda non détecté": "Complemento de agenda no detectado",
-        "Plugin agenda détecté": "Complemento de agenda detectado",
-        "Smartstart : aucun événement trouvé": "Smartstart: no se encontró ningún evento",
-        "Smartstart non pris en compte car power < 0 ": "Smartstart no se tiene en cuenta porque potencia <0",
-        "Smartstart non pris en compte car la durée": "Smartstart no se tiene en cuenta porque la duración",
-        "Durée Smartstart": "Duración del inicio inteligente",
-        "à": "Para",
-        "programmation": "programación",
-        "Prochain Smartstart": "Siguiente Smartstart",
         "La température de consigne minimale ne peut être supérieure à la consigne maximale": "La temperatura mínima del punto de ajuste no puede ser mayor que el punto de ajuste máximo",
         "Le temps de chauffe minimal doit être compris entre 0% et 90%": "El tiempo mínimo de calentamiento debe estar entre 0% y 90%",
         "Le temps de cycle doit être supérieur à 15 minutes": "El tiempo de ciclo debe ser superior a 15 minutos",
@@ -316,6 +307,17 @@
         "Cycle précédent à": "Ciclo anterior a",
         "applique offset": "aplique compensado",
         "Puissance de chauffe du cycle": "Ciclo de potencia de calentamiento"
+    },
+    "plugins\/thermostat\/core\/class\/thermostatSmartStart.class.php": {
+        "Plugin agenda non détecté": "Complemento de agenda no detectado",
+        "Plugin agenda détecté": "Complemento de agenda detectado",
+        "Smartstart : aucun événement trouvé": "Smartstart: no se encontró ningún evento",
+        "Smartstart non pris en compte car power < 0 ": "Smartstart no se tiene en cuenta porque potencia <0",
+        "Smartstart non pris en compte car la durée": "Smartstart no se tiene en cuenta porque la duración",
+        "Durée Smartstart": "Duración del inicio inteligente",
+        "à": "Para",
+        "programmation": "programación",
+        "Prochain Smartstart": "Siguiente Smartstart"
     },
     "info.json": {
         "Ce plugin très puissant et très complet vous permettra de gérer finement la température de votre logement que ce soit pour réchauffer ou refroidir celui-ci. Le plugin apprend de lui même avec le temps le meilleur moyen d'économiser de l'énergie tout en maintenant un confort optimal dans votre logement.": "Este complemento muy potente y muy completo le permitirá administrar finamente la temperatura de su hogar, ya sea para calentarla o enfriarla. El complemento aprende por sí solo con el tiempo la mejor manera de ahorrar energía mientras mantiene una comodidad óptima en su hogar"

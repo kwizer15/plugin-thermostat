@@ -253,15 +253,6 @@
         "Arrêt du thermostat": "Switching off the thermostat",
         "Température extérieure": "Outside temperature",
         "Consigne": "Setpoint",
-        "Plugin agenda non détecté": "Agenda plugin not detected",
-        "Plugin agenda détecté": "Agenda plugin detected",
-        "Smartstart : aucun événement trouvé": "Smartstart: no event found",
-        "Smartstart non pris en compte car power < 0 ": "Smartstart not taken into account because power < 0",
-        "Smartstart non pris en compte car la durée": "Smartstart not taken into account because the duration",
-        "Durée Smartstart": "Smartstart duration",
-        "à": "to",
-        "programmation": "programming",
-        "Prochain Smartstart": "Next Smartstart",
         "La température de consigne minimale ne peut être supérieure à la consigne maximale": "The minimum setpoint temperature cannot be higher than the maximum setpoint",
         "Le temps de chauffe minimal doit être compris entre 0% et 90%": "The minimum heating time must be between 0% and 90%",
         "Le temps de cycle doit être supérieur à 15 minutes": "Cycle time must be more than 15 minutes",
@@ -316,6 +307,17 @@
         "Cycle précédent à": "Previous cycle to",
         "applique offset": "apply offset",
         "Puissance de chauffe du cycle": "Cycle heating power"
+    },
+    "plugins\/thermostat\/core\/class\/thermostatSmartStart.class.php": {
+        "Plugin agenda non détecté": "Agenda plugin not detected",
+        "Plugin agenda détecté": "Agenda plugin detected",
+        "Smartstart : aucun événement trouvé": "Smartstart: no event found",
+        "Smartstart non pris en compte car power < 0 ": "Smartstart not taken into account because power < 0",
+        "Smartstart non pris en compte car la durée": "Smartstart not taken into account because the duration",
+        "Durée Smartstart": "Smartstart duration",
+        "à": "to",
+        "programmation": "programming",
+        "Prochain Smartstart": "Next Smartstart"
     },
     "info.json": {
         "Ce plugin très puissant et très complet vous permettra de gérer finement la température de votre logement que ce soit pour réchauffer ou refroidir celui-ci. Le plugin apprend de lui même avec le temps le meilleur moyen d'économiser de l'énergie tout en maintenant un confort optimal dans votre logement.": "This very powerful and very complete plugin will allow you to finely manage the temperature of your home whether it is to heat or cool it. The plugin learns by itself over time the best way to save energy while maintaining optimal comfort in your home"

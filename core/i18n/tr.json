@@ -253,15 +253,6 @@
         "Arrêt du thermostat": "Arrêt du thermostat",
         "Température extérieure": "Dış hava sıcaklığı",
         "Consigne": "Talimat",
-        "Plugin agenda non détecté": "Plugin agenda non détecté",
-        "Plugin agenda détecté": "Plugin agenda détecté",
-        "Smartstart : aucun événement trouvé": "Smartstart : aucun événement trouvé",
-        "Smartstart non pris en compte car power < 0 ": "Smartstart non pris en compte car power < 0",
-        "Smartstart non pris en compte car la durée": "Smartstart non pris en compte car la durée",
-        "Durée Smartstart": "Durée Smartstart",
-        "à": "à",
-        "programmation": "programmation",
-        "Prochain Smartstart": "Prochain Smartstart",
         "La température de consigne minimale ne peut être supérieure à la consigne maximale": "La température de consigne minimale ne peut être supérieure à la consigne maximale",
         "Le temps de chauffe minimal doit être compris entre 0% et 90%": "Le temps de chauffe minimal doit être compris entre 0% et 90%",
         "Le temps de cycle doit être supérieur à 15 minutes": "Le temps de cycle doit être supérieur à 15 minutes",
@@ -316,6 +307,17 @@
         "Cycle précédent à": "Cycle précédent à",
         "applique offset": "applique offset",
         "Puissance de chauffe du cycle": "Puissance de chauffe du cycle"
+    },
+    "plugins\/thermostat\/core\/class\/thermostatSmartStart.class.php": {
+        "Plugin agenda non détecté": "Plugin agenda non détecté",
+        "Plugin agenda détecté": "Plugin agenda détecté",
+        "Smartstart : aucun événement trouvé": "Smartstart : aucun événement trouvé",
+        "Smartstart non pris en compte car power < 0 ": "Smartstart non pris en compte car power < 0",
+        "Smartstart non pris en compte car la durée": "Smartstart non pris en compte car la durée",
+        "Durée Smartstart": "Durée Smartstart",
+        "à": "à",
+        "programmation": "programmation",
+        "Prochain Smartstart": "Prochain Smartstart"
     },
     "info.json": {
         "Ce plugin très puissant et très complet vous permettra de gérer finement la température de votre logement que ce soit pour réchauffer ou refroidir celui-ci. Le plugin apprend de lui même avec le temps le meilleur moyen d'économiser de l'énergie tout en maintenant un confort optimal dans votre logement.": "Ce plugin très puissant et très complet vous permettra de gérer finement la température de votre logement que ce soit pour réchauffer ou refroidir celui-ci. Le plugin apprend de lui même avec le temps le meilleur moyen d'économiser de l'énergie tout en maintenant un confort optimal dans votre logement"
