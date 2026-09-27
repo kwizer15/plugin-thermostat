@@ -192,10 +192,6 @@
         "Tâche supprimée": "Tarea eliminada",
         "Suspendu": "Suspendido",
         "Thermostat::pull => mode smart": "Termostato :: tirón => modo inteligente",
-        "Next info": "Siguiente info",
-        "Thermostat verrouillé je ne fais rien": "Termostato bloqueado no hago nada",
-        "Type thermostat envoi de la consigne": "Tipo de termostato envío de la consigna",
-        "Type mode envoi de la commande": "Tipo de modo de envío de pedidos",
         "Off": "Apagado",
         "Arrêté": "Detenido",
         "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Tenga en cuenta que no ha habido ninguna actualización de temperatura durante más de",
@@ -305,7 +301,11 @@
         "Durée Smartstart": "Duración del inicio inteligente",
         "à": "Para",
         "programmation": "programación",
-        "Prochain Smartstart": "Siguiente Smartstart"
+        "Prochain Smartstart": "Siguiente Smartstart",
+        "Next info": "Siguiente info",
+        "Thermostat verrouillé je ne fais rien": "Termostato bloqueado no hago nada",
+        "Type thermostat envoi de la consigne": "Tipo de termostato envío de la consigna",
+        "Type mode envoi de la commande": "Tipo de modo de envío de pedidos"
     },
     "plugins\/thermostat\/core\/class\/thermostatTemporalEngine.class.php": {
         "Début calcul temporel": "Cálculo de la hora de inicio",

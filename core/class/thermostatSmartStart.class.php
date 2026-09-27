@@ -22,16 +22,20 @@ class thermostatSmartStart {
 	private $memory;
 	private $calendar;
 	private $sensors;
+	private $display;
+	private $controls;
 	private $evaluator;
 	private $powerCalculator;
 	private $scheduler;
 	private $log;
 
-	public function __construct(thermostatSmartStartSettings $_settings, thermostatSmartStartMemory $_memory, thermostatCalendar $_calendar, thermostatSensors $_sensors, thermostatEvaluator $_evaluator, thermostatPowerCalculator $_powerCalculator, thermostatScheduling $_scheduler, thermostatLog $_log) {
+	public function __construct(thermostatSmartStartSettings $_settings, thermostatSmartStartMemory $_memory, thermostatCalendar $_calendar, thermostatSensors $_sensors, thermostatDisplay $_display, thermostatControls $_controls, thermostatEvaluator $_evaluator, thermostatPowerCalculator $_powerCalculator, thermostatScheduling $_scheduler, thermostatLog $_log) {
 		$this->settings = $_settings;
 		$this->memory = $_memory;
 		$this->calendar = $_calendar;
 		$this->sensors = $_sensors;
+		$this->display = $_display;
+		$this->controls = $_controls;
 		$this->evaluator = $_evaluator;
 		$this->powerCalculator = $_powerCalculator;
 		$this->scheduler = $_scheduler;
@@ -69,6 +73,27 @@ class thermostatSmartStart {
 				$this->log->debug(__('Prochain Smartstart', __FILE__) . ' : ' . $next['schedule']);
 				$this->scheduler->reschedule($next['schedule'], false, $next);
 			}
+		}
+	}
+
+	public function trigger($_options) {
+		if (isset($_options['next']) && isset($_options['next']['calendar_id']) && $this->calendar->isInactive($_options['next']['calendar_id'])) {
+			return;
+		}
+		if (!$this->settings->smartStartEnabled()) {
+			return;
+		}
+		$this->log->debug(__('Next info', __FILE__) . ' : ' . print_r($_options['next'], true));
+		if ($this->display->locked()) {
+			$this->log->debug(__('Thermostat verrouillé je ne fais rien', __FILE__));
+		} else if ($_options['next']['type'] == 'thermostat') {
+			$this->log->debug(__('Type thermostat envoi de la consigne', __FILE__) . ' : ' . $_options['next']['consigne']);
+			$this->remember($_options['next']);
+			$this->controls->requestSetpoint($_options['next']['consigne']);
+		} else if ($_options['next']['type'] == 'mode' && isset($_options['next']['cmd']) && $this->controls->modeExists($_options['next']['cmd'])) {
+			$this->log->debug(__('Type mode envoi de la commande', __FILE__) . ' : ' . $_options['next']['cmd']);
+			$this->remember($_options['next']);
+			$this->controls->runMode($_options['next']['cmd']);
 		}
 	}
 

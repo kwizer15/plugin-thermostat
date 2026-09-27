@@ -77,7 +77,7 @@ class thermostatAssembly {
 	}
 
 	public function smartStart() {
-		return new thermostatSmartStart($this->settings(), $this->memory(), $this->calendar(), $this->sensors(), $this->evaluator(), $this->powerCalculator(), $this->scheduler(), $this->log());
+		return new thermostatSmartStart($this->settings(), $this->memory(), $this->calendar(), $this->sensors(), $this->display(), new thermostatJeedomControls($this->thermostat), $this->evaluator(), $this->powerCalculator(), $this->scheduler(), $this->log());
 	}
 
 	public function actuator() {

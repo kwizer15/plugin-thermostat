@@ -192,10 +192,6 @@
         "Tâche supprimée": "Gelöschte Aufgabe",
         "Suspendu": "Ausgesetzt",
         "Thermostat::pull => mode smart": "Thermostat :: ziehen => Smart Mode",
-        "Next info": "Nächste Info",
-        "Thermostat verrouillé je ne fais rien": "Thermostat gesperrt Ich mache nichts",
-        "Type thermostat envoi de la consigne": "Thermostattyp Senden des Sollwerts",
-        "Type mode envoi de la commande": "Art des Auftragssendemodus",
         "Off": "Aus",
         "Arrêté": "Verhaftet",
         "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Bitte beachten Sie, dass es seit mehr als keine Temperaturaktualisierung gibt",
@@ -305,7 +301,11 @@
         "Durée Smartstart": "Smartstart-Dauer",
         "à": "Zu",
         "programmation": "Programmierung",
-        "Prochain Smartstart": "Nächster Smartstart"
+        "Prochain Smartstart": "Nächster Smartstart",
+        "Next info": "Nächste Info",
+        "Thermostat verrouillé je ne fais rien": "Thermostat gesperrt Ich mache nichts",
+        "Type thermostat envoi de la consigne": "Thermostattyp Senden des Sollwerts",
+        "Type mode envoi de la commande": "Art des Auftragssendemodus"
     },
     "plugins\/thermostat\/core\/class\/thermostatTemporalEngine.class.php": {
         "Début calcul temporel": "Berechnung der Startzeit",

@@ -21,4 +21,6 @@ interface thermostatCalendar {
 	public function available();
 
 	public function nextEvent();
+
+	public function isInactive($_calendarId);
 }

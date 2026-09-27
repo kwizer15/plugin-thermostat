@@ -192,10 +192,6 @@
         "Tâche supprimée": "Tâche supprimée",
         "Suspendu": "Suspendu",
         "Thermostat::pull => mode smart": "Thermostat::pull => mode smart",
-        "Next info": "Next info",
-        "Thermostat verrouillé je ne fais rien": "Thermostat verrouillé je ne fais rien",
-        "Type thermostat envoi de la consigne": "Type thermostat envoi de la consigne",
-        "Type mode envoi de la commande": "Type mode envoi de la commande",
         "Off": "オフ",
         "Arrêté": "逮捕",
         "Attention il n'y a pas eu de mise à jour de la température depuis plus de": "Attention il n'y a pas eu de mise à jour de la température depuis plus de",
@@ -305,7 +301,11 @@
         "Durée Smartstart": "Durée Smartstart",
         "à": "à",
         "programmation": "programmation",
-        "Prochain Smartstart": "Prochain Smartstart"
+        "Prochain Smartstart": "Prochain Smartstart",
+        "Next info": "Next info",
+        "Thermostat verrouillé je ne fais rien": "Thermostat verrouillé je ne fais rien",
+        "Type thermostat envoi de la consigne": "Type thermostat envoi de la consigne",
+        "Type mode envoi de la commande": "Type mode envoi de la commande"
     },
     "plugins\/thermostat\/core\/class\/thermostatTemporalEngine.class.php": {
         "Début calcul temporel": "Début calcul temporel",

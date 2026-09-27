@@ -133,4 +133,12 @@ class thermostatJeedomCalendar implements thermostatCalendar {
 		}
 		return $next;
 	}
+	public function isInactive($_calendarId) {
+		$calendar = calendar::byId($_calendarId);
+		if (!is_object($calendar)) {
+			return false;
+		}
+		$stateCalendar = $calendar->getCmd(null, 'state');
+		return $calendar->getIsEnable() == 0 || (is_object($stateCalendar) && $stateCalendar->execCmd() != 1);
+	}
 }

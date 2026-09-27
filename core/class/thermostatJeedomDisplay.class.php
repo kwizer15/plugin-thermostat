@@ -67,4 +67,8 @@ class thermostatJeedomDisplay implements thermostatDisplay {
 			$power->event($_power);
 		}
 	}
+	public function locked() {
+		$lockState = $this->eqLogic->getCmd(null, 'lock_state');
+		return is_object($lockState) && $lockState->execCmd() == 1;
+	}
 }

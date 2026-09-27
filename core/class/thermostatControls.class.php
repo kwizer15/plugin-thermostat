@@ -16,27 +16,11 @@
 * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 */
 
-interface thermostatDisplay {
+interface thermostatControls {
 
-	public function status();
+	public function requestSetpoint($_value);
 
-	public function setStatus($_status);
+	public function modeExists($_cmdId);
 
-	public function mode();
-
-	public function setMode($_mode);
-
-	public function setpoint();
-
-	public function setSetpoint($_value);
-
-	public function historizeSetpoint($_value);
-
-	public function setActive($_active);
-
-	public function power();
-
-	public function setPower($_power);
-
-	public function locked();
+	public function runMode($_cmdId);
 }

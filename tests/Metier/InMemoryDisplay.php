@@ -9,6 +9,7 @@ class InMemoryDisplay implements thermostatDisplay {
 	public $power = 0;
 	public $history = array();
 	public $events = array();
+	public $locked = false;
 
 	public function status() {
 		return $this->status;
@@ -56,5 +57,9 @@ class InMemoryDisplay implements thermostatDisplay {
 		}
 		$this->events[] = 'power=' . $_power;
 		$this->power = $_power;
+	}
+
+	public function locked() {
+		return $this->locked;
 	}
 }

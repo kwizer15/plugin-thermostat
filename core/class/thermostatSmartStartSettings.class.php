@@ -27,4 +27,6 @@ interface thermostatSmartStartSettings {
 	public function anticipationCount();
 
 	public function storeAnticipation($_factor, $_count);
+
+	public function smartStartEnabled();
 }

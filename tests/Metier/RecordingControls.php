@@ -1,0 +1,19 @@
+<?php
+
+class RecordingControls implements thermostatControls {
+
+	public $modes = array();
+	public $calls = array();
+
+	public function requestSetpoint($_value) {
+		$this->calls[] = 'setpoint ' . $_value;
+	}
+
+	public function modeExists($_cmdId) {
+		return in_array($_cmdId, $this->modes);
+	}
+
+	public function runMode($_cmdId) {
+		$this->calls[] = 'mode ' . $_cmdId;
+	}
+}

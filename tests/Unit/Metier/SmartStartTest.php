@@ -11,6 +11,8 @@ class SmartStartTest extends TestCase {
 	private $calendar;
 	private $sensors;
 	private $scheduling;
+	private $display;
+	private $controls;
 	private $log;
 
 	protected function setUp() {
@@ -20,11 +22,13 @@ class SmartStartTest extends TestCase {
 		$this->calendar = new ScriptedCalendar();
 		$this->sensors = new FixedSensors(19, 5);
 		$this->scheduling = new RecordingScheduling();
+		$this->display = new InMemoryDisplay();
+		$this->controls = new RecordingControls();
 		$this->log = new RecordingLog();
 	}
 
 	private function smartStart() {
-		return new thermostatSmartStart($this->settings, $this->memory, $this->calendar, $this->sensors, new NumericEvaluator(), new thermostatPowerCalculator($this->settings, $this->memory, $this->log), $this->scheduling, $this->log);
+		return new thermostatSmartStart($this->settings, $this->memory, $this->calendar, $this->sensors, $this->display, $this->controls, new NumericEvaluator(), new thermostatPowerCalculator($this->settings, $this->memory, $this->log), $this->scheduling, $this->log);
 	}
 
 	private function event($_date, $_consigne = '21') {
@@ -194,5 +198,51 @@ class SmartStartTest extends TestCase {
 			'little to heat' => array(19.6, 20, 21, '2026-01-15 10:00:00'),
 			'no rise' => array(18, 20, 18, '2026-01-15 10:00:00'),
 		);
+	}
+
+	private function options(array $_next) {
+		return array('thermostat_id' => 1, 'smartThermostat' => 1, 'next' => $_next);
+	}
+
+	public function testTriggerSendsSetpointAndRemembersStart() {
+		$this->settings->values['smart_start'] = 1;
+
+		$this->smartStart()->trigger($this->options($this->event('2026-01-15 11:00:00', '21')));
+
+		$this->assertSame(array('setpoint 21'), $this->controls->calls);
+		$this->assertSame('2026-01-15 11:00:00', $this->memory->values['smartStart']['date']);
+	}
+
+	public function testTriggerRunsExistingMode() {
+		$this->settings->values['smart_start'] = 1;
+		$this->controls->modes = array(12);
+		$next = array('date' => '2026-01-15 11:00:00', 'consigne' => '21', 'type' => 'mode', 'cmd' => 12);
+
+		$this->smartStart()->trigger($this->options($next));
+		$next['cmd'] = 13;
+		$this->smartStart()->trigger($this->options($next));
+
+		$this->assertSame(array('mode 12'), $this->controls->calls);
+	}
+
+	public function testTriggerDoesNothingWhenDisabledLockedOrCalendarInactive() {
+		$next = $this->event('2026-01-15 11:00:00', '21');
+		$next['calendar_id'] = 4;
+		$this->smartStart()->trigger($this->options($next));
+
+		$this->settings->values['smart_start'] = 1;
+		$this->display->locked = true;
+		$this->smartStart()->trigger($this->options($next));
+
+		$this->display->locked = false;
+		$this->calendar->inactive = array(4);
+		$this->smartStart()->trigger($this->options($next));
+
+		$this->assertSame(array(), $this->controls->calls);
+		$this->assertSame('', $this->memory->values['smartStart']);
+
+		$this->calendar->inactive = array(5);
+		$this->smartStart()->trigger($this->options($next));
+		$this->assertSame(array('setpoint 21'), $this->controls->calls);
 	}
 }

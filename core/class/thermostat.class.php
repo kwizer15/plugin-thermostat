@@ -45,6 +45,7 @@ require_once dirname(__FILE__) . '/thermostatEngineRunner.class.php';
 require_once dirname(__FILE__) . '/thermostatReading.class.php';
 require_once dirname(__FILE__) . '/thermostatWindowSensors.class.php';
 require_once dirname(__FILE__) . '/thermostatHistory.class.php';
+require_once dirname(__FILE__) . '/thermostatControls.class.php';
 require_once dirname(__FILE__) . '/thermostatJeedomSettings.class.php';
 require_once dirname(__FILE__) . '/thermostatJeedomMemory.class.php';
 require_once dirname(__FILE__) . '/thermostatJeedomCalendar.class.php';
@@ -55,6 +56,7 @@ require_once dirname(__FILE__) . '/thermostatJeedomDisplay.class.php';
 require_once dirname(__FILE__) . '/thermostatJeedomEngineRunner.class.php';
 require_once dirname(__FILE__) . '/thermostatJeedomWindowSensors.class.php';
 require_once dirname(__FILE__) . '/thermostatJeedomHistory.class.php';
+require_once dirname(__FILE__) . '/thermostatJeedomControls.class.php';
 require_once dirname(__FILE__) . '/thermostatActionList.class.php';
 require_once dirname(__FILE__) . '/thermostatPowerCalculator.class.php';
 require_once dirname(__FILE__) . '/thermostatHysteresisDecision.class.php';
@@ -107,34 +109,7 @@ class thermostat extends eqLogic {
 			if (is_object($cron)) {
 				$cron->remove(false);
 			}
-			if (isset($_options['next']) && isset($_options['next']['calendar_id'])) {
-				$calendar = calendar::byId($_options['next']['calendar_id']);
-				if (is_object($calendar)) {
-					$stateCalendar = $calendar->getCmd(null, 'state');
-					if ($calendar->getIsEnable() == 0 || (is_object($stateCalendar) && $stateCalendar->execCmd() != 1)) {
-						return;
-					}
-				}
-			}
-			if ($thermostat->getConfiguration('smart_start') == 1) {
-				log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Next info', __FILE__) . ' : ' . print_r($_options['next'], true));
-				$lockState = $thermostat->getCmd(null, 'lock_state');
-				if (is_object($lockState) && $lockState->execCmd() == 1) {
-					log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Thermostat verrouillé je ne fais rien', __FILE__));
-				} else if ($_options['next']['type'] == 'thermostat') {
-					log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Type thermostat envoi de la consigne', __FILE__) . ' : ' . $_options['next']['consigne']);
-					$thermostat->assembly()->smartStart()->remember($_options['next']);
-					$cmd = $thermostat->getCmd(null, 'thermostat');
-					$cmd->execCmd(array('slider' => $_options['next']['consigne']));
-				} else if ($_options['next']['type'] == 'mode' && isset($_options['next']['cmd'])) {
-					$mode = cmd::byId($_options['next']['cmd']);
-					if (is_object($mode)) {
-						log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Type mode envoi de la commande', __FILE__) . ' : ' . $_options['next']['cmd']);
-						$thermostat->assembly()->smartStart()->remember($_options['next']);
-						$mode->execCmd();
-					}
-				}
-			}
+			$thermostat->assembly()->smartStart()->trigger($_options);
 		} else {
 			self::temporal($_options);
 		}
