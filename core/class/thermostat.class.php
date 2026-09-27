@@ -265,7 +265,7 @@ class thermostat extends eqLogic {
 		$this->assembly()->actuator()->orderChange();
 	}
 
-	public function failure($_failureRepeat = 999) {
+	public function failure() {
 		$this->assembly()->actuator()->failure();
 	}
 
