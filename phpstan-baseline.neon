@@ -1699,13 +1699,7 @@ parameters:
 			path: core/src/Jeedom/Scheduler.php
 
 		-
-			message: '#^Parameter \#1 \$_date of static method cron\:\:convertDateToCron\(\) expects string, int given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Parameter \#1 \$_date of static method cron\:\:convertDateToCron\(\) expects string, int\|false given\.$#'
+			message: '#^Parameter \#1 \$_date of static method cron\:\:convertDateToCron\(\) expects int, int\|false given\.$#'
 			identifier: argument.type
 			count: 1
 			path: core/src/Jeedom/Scheduler.php

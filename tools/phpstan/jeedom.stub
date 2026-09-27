@@ -106,7 +106,7 @@ class cron {
 	public static function searchClassAndFunction($_class, $_function, $_option = '') {}
 
 	/**
-	 * @param string $_date
+	 * @param int $_date
 	 * @return string
 	 */
 	public static function convertDateToCron($_date) {}
