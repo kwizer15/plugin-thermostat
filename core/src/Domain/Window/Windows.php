@@ -89,7 +89,7 @@ class Windows {
 	public function open($_window) {
 		$this->log->debug('[windowOpen] => ' . json_encode($_window));
 		$this->memory->setWindowState(str_replace('#', '', $_window['cmd']), 1);
-		if ($this->display->mode() == $this->labels->off() || $this->display->status() == $this->labels->suspended()) {
+		if ($this->display->isOff() || $this->display->status() == $this->labels->suspended()) {
 			$this->log->debug('[windowOpen] ' . $this->translator->translate('{{Thermostat arreté ou suspendu je ne fais rien}}'));
 			return;
 		}

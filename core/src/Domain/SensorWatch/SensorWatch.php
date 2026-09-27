@@ -55,7 +55,7 @@ class SensorWatch {
 	 * @return void
 	 */
 	public function check() {
-		if (strtolower($this->display->mode()) == 'off') {
+		if ($this->display->isOff()) {
 			return;
 		}
 		$reading = $this->sensors->indoorReading();

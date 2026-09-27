@@ -123,7 +123,7 @@ parameters:
 		-
 			message: '#^Cannot call method display\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 1
+			count: 2
 			path: core/class/thermostat.class.php
 
 		-
@@ -135,13 +135,13 @@ parameters:
 		-
 			message: '#^Cannot call method error\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 5
+			count: 6
 			path: core/class/thermostat.class.php
 
 		-
 			message: '#^Cannot call method execCmd\(\) on cmd\|false\.$#'
 			identifier: method.nonObject
-			count: 3
+			count: 2
 			path: core/class/thermostat.class.php
 
 		-
@@ -193,6 +193,12 @@ parameters:
 			path: core/class/thermostat.class.php
 
 		-
+			message: '#^Cannot call method isOff\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: core/class/thermostat.class.php
+
+		-
 			message: '#^Cannot call method learn\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 1
@@ -213,7 +219,7 @@ parameters:
 		-
 			message: '#^Cannot call method log\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 5
+			count: 6
 			path: core/class/thermostat.class.php
 
 		-
@@ -721,12 +727,6 @@ parameters:
 			path: core/class/thermostat.class.php
 
 		-
-			message: '#^Parameter \#1 \$str of function strtolower expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
 			message: '#^Parameter \#2 \$subject of function preg_match_all expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 1
@@ -1096,12 +1096,6 @@ parameters:
 			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 2
-			path: core/src/Domain/SensorWatch/SensorWatch.php
-
-		-
-			message: '#^Parameter \#1 \$str of function strtolower expects string, bool\|float\|int\|string\|null given\.$#'
-			identifier: argument.type
-			count: 1
 			path: core/src/Domain/SensorWatch/SensorWatch.php
 
 		-

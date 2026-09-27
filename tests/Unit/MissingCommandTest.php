@@ -61,6 +61,17 @@ class MissingCommandTest extends ThermostatTestCase {
 		$this->assertSame(array('heat'), $this->executed());
 	}
 
+	public function testStartGoesOnWithNextThermostat() {
+		$this->withoutCommand($this->equippedThermostat(), 'mode');
+		$this->equippedThermostat();
+		\scenarioExpression::reset();
+
+		\thermostat::start();
+
+		$this->assertSame(array('[Salon] Commande introuvable : mode'), \log::messages('error'));
+		$this->assertSame(array('stop', 'heat'), $this->executed());
+	}
+
 	public function testHysteresisCronWithoutTemperatureIsLogged() {
 		$thermostat = $this->withoutCommand($this->equippedThermostat(array('engine' => 'hysteresis', 'hysteresis_cron' => '* * * * *')), 'temperature');
 

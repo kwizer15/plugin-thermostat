@@ -137,11 +137,15 @@ class thermostat extends eqLogic {
 
 	public static function start() {
 		foreach (thermostat::byType('thermostat', true) as $thermostat) {
-			if (strtolower($thermostat->getCmd(null, LogicalId::MODE)->execCmd()) == 'off') {
-				continue;
+			try {
+				if ($thermostat->assembly()->display()->isOff()) {
+					continue;
+				}
+				$thermostat->stopThermostat();
+				$thermostat->runEngine();
+			} catch (MissingCommand $e) {
+				$thermostat->assembly()->log()->error($e->getMessage());
 			}
-			$thermostat->stopThermostat();
-			$thermostat->runEngine();
 		}
 	}
 

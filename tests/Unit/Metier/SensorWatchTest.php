@@ -110,7 +110,7 @@ class SensorWatchTest extends TestCase {
 	}
 
 	public function testModeOffSkipsChecks() {
-		$this->display->mode = 'OFF';
+		$this->display->mode = 'Off';
 		$this->sensors->indoor = 5;
 		$this->memory->values['temp_threshold'] = 1;
 

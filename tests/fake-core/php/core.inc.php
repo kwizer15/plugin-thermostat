@@ -4,8 +4,12 @@ foreach (array('utils', 'cache', 'log', 'jeedom', 'scenarioExpression', 'cron', 
 	require_once __DIR__ . '/../class/' . $class . '.class.php';
 }
 
+class fakeTranslation {
+	public static $texts = array();
+}
+
 function __($_content, $_name = '') {
-	return $_content;
+	return isset(fakeTranslation::$texts[$_content]) ? fakeTranslation::$texts[$_content] : $_content;
 }
 
 function checkAndFixCron($_cron) {

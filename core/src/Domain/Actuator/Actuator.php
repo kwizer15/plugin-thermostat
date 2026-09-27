@@ -66,7 +66,7 @@ class Actuator {
 	 */
 	public function heat($_repeat = false) {
 		if (!$_repeat) {
-			if ($this->display->mode() == $this->labels->off() || $this->display->status() == $this->labels->suspended()) {
+			if ($this->display->isOff() || $this->display->status() == $this->labels->suspended()) {
 				return false;
 			}
 			if ($this->settings->allowMode() != AllowMode::ALL && $this->settings->allowMode() != AllowMode::HEAT) {
@@ -95,7 +95,7 @@ class Actuator {
 	 */
 	public function cool($_repeat = false) {
 		if (!$_repeat) {
-			if ($this->display->mode() == $this->labels->off() || $this->display->status() == $this->labels->suspended()) {
+			if ($this->display->isOff() || $this->display->status() == $this->labels->suspended()) {
 				return false;
 			}
 			if ($this->settings->allowMode() != AllowMode::ALL && $this->settings->allowMode() != AllowMode::COOL) {
@@ -149,7 +149,7 @@ class Actuator {
 	 * @return void
 	 */
 	public function orderChange() {
-		if ($this->display->mode() == $this->labels->off() || $this->display->status() == $this->labels->suspended()) {
+		if ($this->display->isOff() || $this->display->status() == $this->labels->suspended()) {
 			return;
 		}
 		if (!is_array($this->settings->orderChangeActions()) || count($this->settings->orderChangeActions()) == 0) {
@@ -162,7 +162,7 @@ class Actuator {
 	 * @return void
 	 */
 	public function failure() {
-		if ($this->display->mode() == $this->labels->off() || $this->display->status() == $this->labels->suspended()) {
+		if ($this->display->isOff() || $this->display->status() == $this->labels->suspended()) {
 			return;
 		}
 		if (!is_array($this->settings->failureActions()) || count($this->settings->failureActions()) == 0) {
@@ -177,7 +177,7 @@ class Actuator {
 	 * @return void
 	 */
 	public function failureActuator() {
-		if ($this->display->mode() == $this->labels->off() || $this->display->status() == $this->labels->suspended()) {
+		if ($this->display->isOff() || $this->display->status() == $this->labels->suspended()) {
 			return;
 		}
 		if (!is_array($this->settings->failureActuatorActions()) || count($this->settings->failureActuatorActions()) == 0) {

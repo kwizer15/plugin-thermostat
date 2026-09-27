@@ -43,6 +43,11 @@ interface Display {
 	public function setMode($_mode);
 
 	/**
+	 * @return bool
+	 */
+	public function isOff();
+
+	/**
 	 * @return scalar|null
 	 */
 	public function setpoint();

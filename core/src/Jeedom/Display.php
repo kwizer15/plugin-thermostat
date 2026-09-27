@@ -20,6 +20,7 @@ namespace Jeedom\Plugin\Thermostat\Jeedom;
 
 use Jeedom\Plugin\Thermostat\Domain\Command\LogicalId;
 use Jeedom\Plugin\Thermostat\Domain\Display as DomainDisplay;
+use Jeedom\Plugin\Thermostat\Domain\StatusLabels;
 
 class Display implements DomainDisplay {
 
@@ -27,10 +28,13 @@ class Display implements DomainDisplay {
 	private $eqLogic;
 	/** @var CommandLookup */
 	private $commands;
+	/** @var StatusLabels */
+	private $labels;
 
-	public function __construct(\thermostat $_eqLogic, CommandLookup $_commands) {
+	public function __construct(\thermostat $_eqLogic, CommandLookup $_commands, StatusLabels $_labels) {
 		$this->eqLogic = $_eqLogic;
 		$this->commands = $_commands;
+		$this->labels = $_labels;
 	}
 
 	public function status() {
@@ -47,6 +51,10 @@ class Display implements DomainDisplay {
 
 	public function setMode($_mode) {
 		$this->commands->get(LogicalId::MODE)->event($_mode);
+	}
+
+	public function isOff() {
+		return $this->mode() == $this->labels->off();
 	}
 
 	public function setpoint() {

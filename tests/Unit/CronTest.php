@@ -180,7 +180,17 @@ class CronTest extends ThermostatTestCase {
 
 	public function testModeOffSkipsSensorChecks() {
 		$thermostat = $this->equippedThermostat(array('temperature_indoor_min' => 12), 11);
-		$this->setValueOf($thermostat, 'mode', 'off');
+		$this->setValueOf($thermostat, 'mode', 'Off');
+
+		\thermostat::cron();
+
+		$this->assertSame(array(), \log::messages('error'));
+	}
+
+	public function testTranslatedModeOffSkipsSensorChecks() {
+		\fakeTranslation::$texts = array('Off' => 'Aus');
+		$thermostat = $this->equippedThermostat(array('temperature_indoor_min' => 12), 11);
+		$this->setValueOf($thermostat, 'mode', 'Aus');
 
 		\thermostat::cron();
 

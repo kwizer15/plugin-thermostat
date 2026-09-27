@@ -103,8 +103,7 @@ class TemporalEngine {
 			$this->smartStart->plan();
 			$this->log->debug($this->translator->translate('{{Arrêt Smartstart}}'));
 		}
-		$mode = $this->display->mode();
-		if ($mode == 'Off') {
+		if ($this->display->isOff()) {
 			$this->log->debug($this->translator->translate('{{Thermostat sur off}}'));
 			if ($status != $this->labels->stopped()) {
 				$this->actuator->stop();

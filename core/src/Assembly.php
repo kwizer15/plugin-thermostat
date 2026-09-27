@@ -103,7 +103,7 @@ class Assembly {
 	}
 
 	public function display(): Display {
-		return new Display($this->thermostat, $this->commandLookup());
+		return new Display($this->thermostat, $this->commandLookup(), $this->statusLabels());
 	}
 
 	public function engineRunner(): EngineRunner {

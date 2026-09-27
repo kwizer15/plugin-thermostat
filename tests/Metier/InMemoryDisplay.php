@@ -35,6 +35,10 @@ class InMemoryDisplay implements Display {
 		$this->mode = $_mode;
 	}
 
+	public function isOff() {
+		return $this->mode == 'Off';
+	}
+
 	public function setpoint() {
 		return $this->setpoint;
 	}

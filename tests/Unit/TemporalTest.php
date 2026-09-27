@@ -89,6 +89,18 @@ class TemporalTest extends ThermostatTestCase {
 		$this->assertSame(0.0, $this->valueOf($thermostat, 'power'));
 	}
 
+	public function testTranslatedModeOffStops() {
+		\fakeTranslation::$texts = array('Off' => 'Aus');
+		$thermostat = $this->equippedThermostat();
+		$this->setValueOf($thermostat, 'mode', 'Aus');
+		$this->setValueOf($thermostat, 'status', 'Chauffage');
+
+		$this->runTemporal($thermostat);
+
+		$this->assertSame(array('stop'), $this->executed());
+		$this->assertSame('Arrêté', $this->valueOf($thermostat, 'status'));
+	}
+
 	public function testModeOffAlreadyStoppedDoesNothing() {
 		$thermostat = $this->equippedThermostat();
 		$this->setValueOf($thermostat, 'mode', 'Off');

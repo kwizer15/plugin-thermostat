@@ -23,6 +23,18 @@ class MiscTest extends ThermostatTestCase {
 		$this->assertSame('Chauffage', $this->valueOf($off, 'status'));
 	}
 
+	public function testStartSkipsTranslatedOffMode() {
+		\fakeTranslation::$texts = array('Off' => 'Aus');
+		$thermostat = $this->equippedThermostat();
+		$this->setValueOf($thermostat, 'mode', 'Aus');
+		$this->setValueOf($thermostat, 'status', 'Chauffage');
+
+		\thermostat::start();
+
+		$this->assertSame(array(), $this->executed());
+		$this->assertSame('Chauffage', $this->valueOf($thermostat, 'status'));
+	}
+
 	public function testDeadCmdListsMissingCommands() {
 		$sensor = $this->sensor(19);
 		$thermostat = $this->equippedThermostat(array('temperature_indoor' => '#' . $sensor->getId() . '#', 'temperature_outdoor' => '#999#'));

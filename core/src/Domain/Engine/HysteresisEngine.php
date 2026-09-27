@@ -69,7 +69,7 @@ class HysteresisEngine {
 			$this->log->debug($this->translator->translate('{{Thermostat suspendu je ne fais rien}}'));
 			return;
 		}
-		if ($this->display->mode() == $this->labels->off()) {
+		if ($this->display->isOff()) {
 			$this->log->debug($this->translator->translate('{{Thermostat arrêté je ne fais rien}}'));
 			if ($status != $this->labels->stopped()) {
 				$this->actuator->stop();
