@@ -40,7 +40,7 @@ interface Settings {
 	public function directionDeltaCool(): float;
 
 	/**
-	 * @return int|float|string
+	 * @return float|null
 	 */
 	public function nextFullCycleOffset();
 

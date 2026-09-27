@@ -29,7 +29,7 @@ class SensorWatchTest extends TestCase {
 
 	protected function setUp() {
 		$this->clock = new FixedClock('2026-01-15 10:00:00');
-		$this->settings = new InMemorySettings(array('maxTimeUpdateTemp' => '', 'failure' => array(array('cmd' => '#alarm#')), 'temperature_indoor_min' => 12, 'temperature_indoor_max' => 26));
+		$this->settings = new InMemorySettings(array('maxTimeUpdateTemp' => null, 'failure' => array(array('cmd' => '#alarm#')), 'temperature_indoor_min' => 12, 'temperature_indoor_max' => 26));
 		$this->memory = new InMemoryMemory();
 		$this->display = new InMemoryDisplay();
 		$this->sensors = new FixedSensors(19, 5);
@@ -88,8 +88,8 @@ class SensorWatchTest extends TestCase {
 		$this->check();
 		$this->assertSame(0, $this->memory->values['temp_threshold']);
 
-		$this->settings->values['temperature_indoor_min'] = 'abc';
-		$this->settings->values['temperature_indoor_max'] = '';
+		$this->settings->values['temperature_indoor_min'] = null;
+		$this->settings->values['temperature_indoor_max'] = null;
 		$this->sensors->indoor = -50;
 		$this->check();
 		$this->assertSame(0, $this->memory->values['temp_threshold']);

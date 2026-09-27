@@ -65,7 +65,7 @@ class SensorWatch {
 		$reading = $this->sensors->indoorReading();
 		$temp_in = $reading->value();
 		$failure = false;
-		if ($this->settings->maxTimeUpdateTemp() != '') {
+		if ($this->settings->maxTimeUpdateTemp() !== null) {
 			if ($reading->collectDate() != '' && strtotime($reading->collectDate()) < strtotime('-' . $this->settings->maxTimeUpdateTemp() . ' minutes' . date('Y-m-d H:i:s', $this->clock->now()))) {
 				if ($this->memory->temperatureAlert() == 0) {
 					$this->actuator->failure();
@@ -74,14 +74,14 @@ class SensorWatch {
 				$failure = true;
 			}
 		}
-		if ($this->settings->indoorMinimum() != '' && is_numeric($this->settings->indoorMinimum()) && $this->settings->indoorMinimum() > $temp_in && $temp_in !== '') {
+		if ($this->settings->indoorMinimum() !== null && $this->settings->indoorMinimum() > $temp_in && $temp_in !== '') {
 			if ($this->memory->temperatureAlert() == 0) {
 				$this->actuator->failure();
 				$this->log->error($this->translator->translate('{{Attention la température intérieure est en dessous du seuil autorisé}}') . ' : ' . $temp_in);
 			}
 			$failure = true;
 		}
-		if ($this->settings->indoorMaximum() != '' && is_numeric($this->settings->indoorMaximum()) && $this->settings->indoorMaximum() < $temp_in && $temp_in !== '') {
+		if ($this->settings->indoorMaximum() !== null && $this->settings->indoorMaximum() < $temp_in && $temp_in !== '') {
 			if ($this->memory->temperatureAlert() == 0) {
 				$this->actuator->failure();
 				$this->log->error($this->translator->translate('{{Attention la température intérieure est au dessus du seuil autorisé}}') . ' : ' . $temp_in);

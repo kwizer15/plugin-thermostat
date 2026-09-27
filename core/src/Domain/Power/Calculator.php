@@ -89,7 +89,7 @@ class Calculator {
 
 		$fullCycleOffset = $this->settings->nextFullCycleOffset();
 		$lastPower = $this->memory->lastPower();
-		if (!$_allowOverfull && $fullCycleOffset != '' && $fullCycleOffset > 0 && $lastPower >= $this->settings->heatHotThreshold()) {
+		if (!$_allowOverfull && $fullCycleOffset !== null && $fullCycleOffset > 0 && $lastPower >= $this->settings->heatHotThreshold()) {
 			if ($lastPower >= 100) {
 				$this->log->debug($this->translator->translate('{{Cycle précédent à 100%, applique offset}}') . ' : ' . $fullCycleOffset . '%');
 				$power -= $fullCycleOffset;

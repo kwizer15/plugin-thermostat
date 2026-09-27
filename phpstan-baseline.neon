@@ -997,20 +997,8 @@ parameters:
 			path: core/src/Domain/Power/Calculator.php
 
 		-
-			message: '#^Binary operation "\-" between float\|int\<1, max\>\|non\-empty\-string and mixed results in an error\.$#'
+			message: '#^Binary operation "\-" between float and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
-			count: 1
-			path: core/src/Domain/Power/Calculator.php
-
-		-
-			message: '#^Binary operation "\-\=" between float and float\|int\<1, max\>\|non\-empty\-string results in an error\.$#'
-			identifier: assignOp.invalid
-			count: 1
-			path: core/src/Domain/Power/Calculator.php
-
-		-
-			message: '#^Binary operation "\-\=" between float and mixed results in an error\.$#'
-			identifier: assignOp.invalid
 			count: 1
 			path: core/src/Domain/Power/Calculator.php
 
@@ -1024,12 +1012,6 @@ parameters:
 			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 2
-			path: core/src/Domain/Power/Calculator.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Calculator\:\:compute\(\) should return array\{power\: float\|int, direction\: int\} but returns array\{power\: mixed, direction\: \-1\|1\}\.$#'
-			identifier: return.type
-			count: 1
 			path: core/src/Domain/Power/Calculator.php
 
 		-
@@ -1205,12 +1187,6 @@ parameters:
 			identifier: argument.type
 			count: 4
 			path: core/src/Domain/Statistics/Statistics.php
-
-		-
-			message: '#^Binary operation "\*" between float\|int\<1, max\>\|non\-empty\-string and 60 results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: core/src/Domain/Window/Windows.php
 
 		-
 			message: '#^Binary operation "\*" between int\|non\-empty\-string and 60 results in an error\.$#'
@@ -1651,31 +1627,7 @@ parameters:
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:indoorMaximum\(\) should return float\|int\|string but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:indoorMinimum\(\) should return float\|int\|string but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:maxTimeUpdateTemp\(\) should return float\|int\|string but returns mixed\.$#'
-			identifier: return.type
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:modes\(\) should return list\<array\{name\: string, actions\: list\<array\{cmd\: string, options\?\: array\<string, bool\|float\|int\|string\|null\>\}\>\}\> but returns array\<mixed\>\.$#'
-			identifier: return.type
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:nextFullCycleOffset\(\) should return float\|int\|string but returns mixed\.$#'
 			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
@@ -1688,12 +1640,6 @@ parameters:
 
 		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:stoppingActions\(\) should return list\<array\{cmd\: string, options\?\: array\<string, bool\|float\|int\|string\|null\>\}\> but returns array\<mixed\>\.$#'
-			identifier: return.type
-			count: 1
-			path: core/src/Jeedom/Settings.php
-
-		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:windowAlertDelay\(\) should return float\|int\|string but returns mixed\.$#'
 			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php

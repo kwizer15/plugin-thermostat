@@ -24,7 +24,7 @@ class InMemorySettings implements PowerSettings, LearningSettings, SmartStartSet
 		'offset_cool' => 0,
 		'direction::delta::heat' => 0,
 		'direction::delta::cool' => 0,
-		'offset_nextFullCyle' => '',
+		'offset_nextFullCyle' => null,
 		'threshold_heathot' => 100,
 		'autolearn' => 1,
 		'endDate' => '',
@@ -47,7 +47,7 @@ class InMemorySettings implements PowerSettings, LearningSettings, SmartStartSet
 		'failureActuator' => array(),
 		'existingMode' => array(),
 		'window' => array(),
-		'window_alertIfOpenMoreThan' => '',
+		'window_alertIfOpenMoreThan' => null,
 		'maxTimeUpdateTemp' => 60,
 		'smart_start' => 0,
 		'stove_boiler' => 0,
@@ -55,8 +55,8 @@ class InMemorySettings implements PowerSettings, LearningSettings, SmartStartSet
 		'offsetHeatFaillure' => 1,
 		'offsetColdFaillure' => 1,
 		'consumption' => '',
-		'temperature_indoor_min' => '',
-		'temperature_indoor_max' => '',
+		'temperature_indoor_min' => null,
+		'temperature_indoor_max' => null,
 	);
 
 	public $published = array();

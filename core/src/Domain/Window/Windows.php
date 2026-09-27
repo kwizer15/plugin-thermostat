@@ -221,7 +221,7 @@ class Windows {
 	 */
 	public function alert() {
 		if (
-			$this->settings->windowAlertDelay() != ''
+			$this->settings->windowAlertDelay() !== null
 			&& $this->settings->windowAlertDelay() > 0
 			&& $this->memory->openSince() != -1
 			&& ($this->clock->now() - $this->memory->openSince()) > ($this->settings->windowAlertDelay() * 60)

@@ -64,7 +64,7 @@ class Settings implements PowerSettings, LearningSettings, SmartStartSettings, H
 	}
 
 	public function nextFullCycleOffset() {
-		return $this->eqLogic->getConfiguration(Key::NEXT_FULL_CYCLE_OFFSET);
+		return Value::optionalNumber($this->eqLogic->getConfiguration(Key::NEXT_FULL_CYCLE_OFFSET));
 	}
 
 	public function heatHotThreshold(): float {
@@ -159,10 +159,10 @@ class Settings implements PowerSettings, LearningSettings, SmartStartSettings, H
 	}
 
 	public function windowAlertDelay() {
-		return $this->eqLogic->getConfiguration(Key::WINDOW_ALERT_DELAY);
+		return Value::optionalNumber($this->eqLogic->getConfiguration(Key::WINDOW_ALERT_DELAY));
 	}
 	public function maxTimeUpdateTemp() {
-		return $this->eqLogic->getConfiguration(Key::MAX_TIME_UPDATE_TEMP);
+		return Value::optionalNumber($this->eqLogic->getConfiguration(Key::MAX_TIME_UPDATE_TEMP));
 	}
 
 	public function smartStartEnabled() {
@@ -204,11 +204,11 @@ class Settings implements PowerSettings, LearningSettings, SmartStartSettings, H
 		return $this->eqLogic->getConfiguration(Key::CONSUMPTION);
 	}
 	public function indoorMinimum() {
-		return $this->eqLogic->getConfiguration(Key::TEMPERATURE_INDOOR_MIN);
+		return Value::optionalNumber($this->eqLogic->getConfiguration(Key::TEMPERATURE_INDOOR_MIN));
 	}
 
 	public function indoorMaximum() {
-		return $this->eqLogic->getConfiguration(Key::TEMPERATURE_INDOOR_MAX);
+		return Value::optionalNumber($this->eqLogic->getConfiguration(Key::TEMPERATURE_INDOOR_MAX));
 	}
 	public function setOffset($_key, $_value) {
 		$this->eqLogic->setConfiguration($_key, $_value);

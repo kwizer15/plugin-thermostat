@@ -26,7 +26,7 @@ interface Settings {
 	public function windows();
 
 	/**
-	 * @return int|float|string
+	 * @return float|null
 	 */
 	public function windowAlertDelay();
 }

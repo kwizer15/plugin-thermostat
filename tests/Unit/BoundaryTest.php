@@ -27,7 +27,7 @@ class BoundaryTest extends ThermostatTestCase {
 			'offset' => array(array(1), Key::OFFSET_HEAT, 0.0, 'number'),
 			'directionDeltaHeat' => array(array(), Key::DIRECTION_DELTA_HEAT, 0.0, 'number'),
 			'directionDeltaCool' => array(array(), Key::DIRECTION_DELTA_COOL, 0.0, 'number'),
-			'nextFullCycleOffset' => array(array(), Key::NEXT_FULL_CYCLE_OFFSET, ''),
+			'nextFullCycleOffset' => array(array(), Key::NEXT_FULL_CYCLE_OFFSET, null, 'optional'),
 			'heatHotThreshold' => array(array(), Key::HEAT_HOT_THRESHOLD, 100.0, 'number'),
 			'autolearn' => array(array(), Key::AUTOLEARN, false, 'flag'),
 			'coefficient' => array(array(Key::COEFF_INDOOR_HEAT), Key::COEFF_INDOOR_HEAT, 10.0, 'number'),
@@ -37,14 +37,14 @@ class BoundaryTest extends ThermostatTestCase {
 			'anticipationCount' => array(array(), Key::SMART_START_AUTOLEARN, 0, 'integer'),
 			'positiveHysteresis' => array(array(), Key::POSITIVE_HYSTERESIS, false, 'flag'),
 			'hysteresisThreshold' => array(array(), Key::HYSTERESIS_THRESHOLD, 1.0, 'number'),
-			'windowAlertDelay' => array(array(), Key::WINDOW_ALERT_DELAY, ''),
-			'maxTimeUpdateTemp' => array(array(), Key::MAX_TIME_UPDATE_TEMP, ''),
+			'windowAlertDelay' => array(array(), Key::WINDOW_ALERT_DELAY, null, 'optional'),
+			'maxTimeUpdateTemp' => array(array(), Key::MAX_TIME_UPDATE_TEMP, null, 'optional'),
 			'stoveBoiler' => array(array(), Key::STOVE_BOILER, false, 'flag'),
 			'minCycleDuration' => array(array(), Key::MIN_CYCLE_DURATION, 5.0, 'number'),
 			'heatFailureOffset' => array(array(), Key::HEAT_FAILURE_OFFSET, 1.0, 'number'),
 			'coldFailureOffset' => array(array(), Key::COLD_FAILURE_OFFSET, 1.0, 'number'),
-			'indoorMinimum' => array(array(), Key::TEMPERATURE_INDOOR_MIN, ''),
-			'indoorMaximum' => array(array(), Key::TEMPERATURE_INDOOR_MAX, ''),
+			'indoorMinimum' => array(array(), Key::TEMPERATURE_INDOOR_MIN, null, 'optional'),
+			'indoorMaximum' => array(array(), Key::TEMPERATURE_INDOOR_MAX, null, 'optional'),
 		);
 		return $this->cases($keys);
 	}
@@ -88,6 +88,7 @@ class BoundaryTest extends ThermostatTestCase {
 		$number = is_string($_raw) ? str_replace(',', '.', $_raw) : $_raw;
 		switch ($_kind) {
 			case 'number':
+			case 'optional':
 				return is_numeric($number) ? floatval($number) : $_default;
 			case 'integer':
 				return is_numeric($number) ? intval(floatval($number)) : $_default;
