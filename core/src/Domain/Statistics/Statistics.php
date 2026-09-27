@@ -18,6 +18,7 @@
 
 namespace Jeedom\Plugin\Thermostat\Domain\Statistics;
 
+use Jeedom\Plugin\Thermostat\Domain\Clock;
 use Jeedom\Plugin\Thermostat\Domain\Evaluator;
 
 class Statistics {
@@ -28,18 +29,21 @@ class Statistics {
 	private $evaluator;
 	/** @var History */
 	private $history;
+	/** @var Clock */
+	private $clock;
 
-	public function __construct(Settings $_settings, Evaluator $_evaluator, History $_history) {
+	public function __construct(Settings $_settings, Evaluator $_evaluator, History $_history, Clock $_clock) {
 		$this->settings = $_settings;
 		$this->evaluator = $_evaluator;
 		$this->history = $_history;
+		$this->clock = $_clock;
 	}
 
 	/**
 	 * @return void
 	 */
 	public function updatePerformance() {
-		$dju = $this->dju(date('Y-m-d'));
+		$dju = $this->dju(date('Y-m-d', $this->clock->now()));
 		if ($dju === null) {
 			return;
 		}
@@ -103,7 +107,7 @@ class Statistics {
 	 */
 	public function dju($_date = null) {
 		if ($_date == null) {
-			$_date = date('Y-m-d');
+			$_date = date('Y-m-d', $this->clock->now());
 		}
 		$stats = $this->history->outdoorStatistics($_date . ' 00:00:01', $_date . ' 23:59:59');
 		if ($stats === null) {

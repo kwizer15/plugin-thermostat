@@ -2,8 +2,6 @@
 
 namespace Jeedom\Plugin\Thermostat\Tests\Unit\Metier;
 
-require_once __DIR__ . '/../../Metier/bootstrap.php';
-
 use Jeedom\Plugin\Thermostat\Domain\Cycle\Plan;
 use Jeedom\Plugin\Thermostat\Domain\Cycle\Planner;
 use PHPUnit\Framework\TestCase;

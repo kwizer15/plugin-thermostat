@@ -19,6 +19,7 @@
 namespace Jeedom\Plugin\Thermostat\Domain\Window;
 
 use Jeedom\Plugin\Thermostat\Domain\Actuator\Actuator;
+use Jeedom\Plugin\Thermostat\Domain\Clock;
 use Jeedom\Plugin\Thermostat\Domain\Display;
 use Jeedom\Plugin\Thermostat\Domain\EngineRunner;
 use Jeedom\Plugin\Thermostat\Domain\Log;
@@ -45,8 +46,10 @@ class Windows {
 	private $labels;
 	/** @var Translator */
 	private $translator;
+	/** @var Clock */
+	private $clock;
 
-	public function __construct(Settings $_settings, Memory $_memory, Display $_display, Sensors $_sensors, Actuator $_actuator, EngineRunner $_engine, Log $_log, StatusLabels $_labels, Translator $_translator) {
+	public function __construct(Settings $_settings, Memory $_memory, Display $_display, Sensors $_sensors, Actuator $_actuator, EngineRunner $_engine, Log $_log, StatusLabels $_labels, Translator $_translator, Clock $_clock) {
 		$this->settings = $_settings;
 		$this->memory = $_memory;
 		$this->display = $_display;
@@ -56,6 +59,7 @@ class Windows {
 		$this->log = $_log;
 		$this->labels = $_labels;
 		$this->translator = $_translator;
+		$this->clock = $_clock;
 	}
 
 	/**
@@ -93,7 +97,7 @@ class Windows {
 			$this->log->debug('[windowOpen] ' . $this->translator->translate('{{Thermostat arreté ou suspendu je ne fais rien}}'));
 			return;
 		}
-		$startime = strtotime('now');
+		$startime = $this->clock->now();
 		$cmdId = str_replace('#', '', $_window['cmd']);
 		if (!$this->sensors->exists($cmdId)) {
 			$this->log->debug('[windowOpen] ' . $this->translator->translate('{{Commande introuvable je ne fais rien}}'));
@@ -121,7 +125,7 @@ class Windows {
 		$this->log->debug('[windowOpen] ' . $this->translator->translate('{{Arrêt du thermostat}}'));
 		$this->display->setStatus($this->labels->suspended());
 		$this->actuator->stop(false, true);
-		$this->memory->setOpenSince(strtotime('now'));
+		$this->memory->setOpenSince($this->clock->now());
 		return true;
 	}
 
@@ -140,7 +144,7 @@ class Windows {
 			$this->log->debug('[windowClose] ' . $this->translator->translate('{{Thermostat non suspendu je ne fais rien}}'));
 			return;
 		}
-		$this->memory->setClosedAt(str_replace('#', '', $_window['cmd']), date('Y-m-d H:i:s'));
+		$this->memory->setClosedAt(str_replace('#', '', $_window['cmd']), date('Y-m-d H:i:s', $this->clock->now()));
 		$restartTime = (isset($_window['restartTime']) && $_window['restartTime'] != '') ? $_window['restartTime'] * 60 : 0;
 		if (is_numeric($restartTime) && $restartTime > 0) {
 			$this->log->debug('[windowClose] ' . $this->translator->translate('{{Pause de}}') . ' ' . $restartTime . 's');
@@ -162,7 +166,7 @@ class Windows {
 				return;
 			}
 			$restartTime = (isset($window['restartTime']) && $window['restartTime'] != '') ? $window['restartTime'] * 60 : 0;
-			if ((strtotime($this->memory->closedAt($cmdId)) + $restartTime - 1) > strtotime('now')) {
+			if ((strtotime($this->memory->closedAt($cmdId)) + $restartTime - 1) > $this->clock->now()) {
 				$this->log->debug('[windowClose] ' . $this->translator->translate('{{Fenêtre fermée depuis trop peu de temps, je ne fais rien}}') . ' : ' . $window['cmd'] . ' => ' . $this->memory->closedAt($cmdId) . '+' . $restartTime . 's');
 				return;
 			}
@@ -181,11 +185,11 @@ class Windows {
 			$this->settings->windowAlertDelay() != ''
 			&& $this->settings->windowAlertDelay() > 0
 			&& $this->memory->openSince() != -1
-			&& (strtotime('now') - $this->memory->openSince()) > ($this->settings->windowAlertDelay() * 60)
+			&& ($this->clock->now() - $this->memory->openSince()) > ($this->settings->windowAlertDelay() * 60)
 			&& $this->display->status() == $this->labels->suspended()
 		) {
 			if ($this->memory->alertSent() != 1) {
-				$this->log->error($this->translator->translate("{{Attention le thermostat est suspendu à cause d'une fenêtre ouverte depuis}}") . ' : ' .  ((strtotime('now') - $this->memory->openSince()) / 60) . $this->translator->translate('{{minutes}}'));
+				$this->log->error($this->translator->translate("{{Attention le thermostat est suspendu à cause d'une fenêtre ouverte depuis}}") . ' : ' .  (($this->clock->now() - $this->memory->openSince()) / 60) . $this->translator->translate('{{minutes}}'));
 				$this->memory->setAlertSent(1);
 			}
 		} else {

@@ -18,6 +18,7 @@
 
 namespace Jeedom\Plugin\Thermostat\Domain\SmartStart;
 
+use Jeedom\Plugin\Thermostat\Domain\Clock;
 use Jeedom\Plugin\Thermostat\Domain\Display;
 use Jeedom\Plugin\Thermostat\Domain\Engine\EngineType;
 use Jeedom\Plugin\Thermostat\Domain\Evaluator;
@@ -51,8 +52,10 @@ class SmartStart {
 	private $log;
 	/** @var Translator */
 	private $translator;
+	/** @var Clock */
+	private $clock;
 
-	public function __construct(Settings $_settings, Memory $_memory, Calendar $_calendar, Sensors $_sensors, Display $_display, Controls $_controls, Evaluator $_evaluator, Calculator $_powerCalculator, Scheduling $_scheduler, Log $_log, Translator $_translator) {
+	public function __construct(Settings $_settings, Memory $_memory, Calendar $_calendar, Sensors $_sensors, Display $_display, Controls $_controls, Evaluator $_evaluator, Calculator $_powerCalculator, Scheduling $_scheduler, Log $_log, Translator $_translator, Clock $_clock) {
 		$this->settings = $_settings;
 		$this->memory = $_memory;
 		$this->calendar = $_calendar;
@@ -64,6 +67,7 @@ class SmartStart {
 		$this->scheduler = $_scheduler;
 		$this->log = $_log;
 		$this->translator = $_translator;
+		$this->clock = $_clock;
 	}
 
 	/**
@@ -83,7 +87,7 @@ class SmartStart {
 			return '';
 		}
 		$cycle = $this->evaluator->evaluate($this->settings->cycle());
-		if ($next['date'] != '' && strtotime($next['date']) > strtotime(date('Y-m-d H:i:s'))) {
+		if ($next['date'] != '' && strtotime($next['date']) > strtotime(date('Y-m-d H:i:s', $this->clock->now()))) {
 			$temporal_data = $this->powerCalculator->compute($this->evaluator->evaluate($next['consigne']), $this->sensors->indoorTemperature(), $this->sensors->outdoorTemperature(), true);
 			if ($temporal_data['power'] < 0) {
 				$this->log->debug($this->translator->translate('{{Smartstart non pris en compte car power < 0 }}') . ' ' . $temporal_data['power']);
@@ -96,7 +100,7 @@ class SmartStart {
 			}
 			$next['schedule'] = date('Y-m-d H:i:s', strtotime('-' . $duration . ' min ' . $next['date']));
 			$this->log->debug($this->translator->translate('{{Durée Smartstart}}') . ' : ' . $duration . ' ' . $this->translator->translate('{{à}}') . ' ' . $next['date'] . ' ' . $this->translator->translate('{{programmation}}') . ' : ' . $next['schedule']);
-			if (strtotime($next['schedule']) > (strtotime('now') + 120)) {
+			if (strtotime($next['schedule']) > ($this->clock->now() + 120)) {
 				$this->log->debug($this->translator->translate('{{Prochain Smartstart}}') . ' : ' . $next['schedule']);
 				$this->scheduler->reschedule($next['schedule'], false, $next);
 			}
@@ -134,7 +138,7 @@ class SmartStart {
 	 */
 	public function remember($_next) {
 		$this->memory->setSmartStart(array(
-			'start' => date('Y-m-d H:i:s'),
+			'start' => date('Y-m-d H:i:s', $this->clock->now()),
 			'date' => $_next['date'],
 			'consigne' => $this->evaluator->evaluate($_next['consigne']),
 			'temperature' => $this->sensors->indoorTemperature(),
@@ -151,11 +155,11 @@ class SmartStart {
 			return;
 		}
 		$eventTime = strtotime($smartStart['date']);
-		if (strtotime('now') < $eventTime - 60) {
+		if ($this->clock->now() < $eventTime - 60) {
 			return;
 		}
 		$this->memory->setSmartStart(null);
-		if (strtotime('now') > $eventTime + 7200) {
+		if ($this->clock->now() > $eventTime + 7200) {
 			return;
 		}
 		$needed = $smartStart['consigne'] - $smartStart['temperature'];

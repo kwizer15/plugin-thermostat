@@ -2,8 +2,6 @@
 
 namespace Jeedom\Plugin\Thermostat\Tests\Unit\Metier;
 
-require_once __DIR__ . '/../../Metier/bootstrap.php';
-
 use Jeedom\Plugin\Thermostat\Domain\Configuration\Configuration;
 use Jeedom\Plugin\Thermostat\Tests\Metier\IdentityTranslator;
 use Jeedom\Plugin\Thermostat\Tests\Metier\InMemoryConfigurationStore;

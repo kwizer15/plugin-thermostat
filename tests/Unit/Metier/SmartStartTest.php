@@ -2,10 +2,9 @@
 
 namespace Jeedom\Plugin\Thermostat\Tests\Unit\Metier;
 
-require_once __DIR__ . '/../../Metier/bootstrap.php';
-
 use Jeedom\Plugin\Thermostat\Domain\Power\Calculator;
 use Jeedom\Plugin\Thermostat\Domain\SmartStart\SmartStart;
+use Jeedom\Plugin\Thermostat\Tests\Metier\FixedClock;
 use Jeedom\Plugin\Thermostat\Tests\Metier\FixedSensors;
 use Jeedom\Plugin\Thermostat\Tests\Metier\IdentityTranslator;
 use Jeedom\Plugin\Thermostat\Tests\Metier\InMemoryDisplay;
@@ -28,9 +27,10 @@ class SmartStartTest extends TestCase {
 	private $display;
 	private $controls;
 	private $log;
+	private $clock;
 
 	protected function setUp() {
-		setMetierNow('2026-01-15 10:00:00');
+		$this->clock = new FixedClock('2026-01-15 10:00:00');
 		$this->settings = new InMemorySettings();
 		$this->memory = new InMemoryMemory();
 		$this->calendar = new ScriptedCalendar();
@@ -42,7 +42,7 @@ class SmartStartTest extends TestCase {
 	}
 
 	private function smartStart() {
-		return new SmartStart($this->settings, $this->memory, $this->calendar, $this->sensors, $this->display, $this->controls, new NumericEvaluator(), new Calculator($this->settings, $this->memory, $this->log, new IdentityTranslator()), $this->scheduling, $this->log, new IdentityTranslator());
+		return new SmartStart($this->settings, $this->memory, $this->calendar, $this->sensors, $this->display, $this->controls, new NumericEvaluator(), new Calculator($this->settings, $this->memory, $this->log, new IdentityTranslator()), $this->scheduling, $this->log, new IdentityTranslator(), $this->clock);
 	}
 
 	private function event($_date, $_consigne = '21') {

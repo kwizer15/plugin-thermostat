@@ -2,8 +2,6 @@
 
 namespace Jeedom\Plugin\Thermostat\Tests\Unit\Metier;
 
-require_once __DIR__ . '/../../Metier/bootstrap.php';
-
 use Jeedom\Plugin\Thermostat\Domain\Actuator\Actuator;
 use Jeedom\Plugin\Thermostat\Domain\Command\Handler;
 use Jeedom\Plugin\Thermostat\Domain\StatusLabels;

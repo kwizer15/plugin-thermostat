@@ -19,6 +19,7 @@
 namespace Jeedom\Plugin\Thermostat\Domain\SensorWatch;
 
 use Jeedom\Plugin\Thermostat\Domain\Actuator\Actuator;
+use Jeedom\Plugin\Thermostat\Domain\Clock;
 use Jeedom\Plugin\Thermostat\Domain\Display;
 use Jeedom\Plugin\Thermostat\Domain\Log;
 use Jeedom\Plugin\Thermostat\Domain\Sensors;
@@ -40,8 +41,10 @@ class SensorWatch {
 	private $log;
 	/** @var Translator */
 	private $translator;
+	/** @var Clock */
+	private $clock;
 
-	public function __construct(Settings $_settings, Memory $_memory, Display $_display, Sensors $_sensors, Actuator $_actuator, Log $_log, Translator $_translator) {
+	public function __construct(Settings $_settings, Memory $_memory, Display $_display, Sensors $_sensors, Actuator $_actuator, Log $_log, Translator $_translator, Clock $_clock) {
 		$this->settings = $_settings;
 		$this->memory = $_memory;
 		$this->display = $_display;
@@ -49,6 +52,7 @@ class SensorWatch {
 		$this->actuator = $_actuator;
 		$this->log = $_log;
 		$this->translator = $_translator;
+		$this->clock = $_clock;
 	}
 
 	/**
@@ -62,7 +66,7 @@ class SensorWatch {
 		$temp_in = $reading->value();
 		$failure = false;
 		if ($this->settings->maxTimeUpdateTemp() != '') {
-			if ($reading->collectDate() != '' && strtotime($reading->collectDate()) < strtotime('-' . $this->settings->maxTimeUpdateTemp() . ' minutes' . date('Y-m-d H:i:s'))) {
+			if ($reading->collectDate() != '' && strtotime($reading->collectDate()) < strtotime('-' . $this->settings->maxTimeUpdateTemp() . ' minutes' . date('Y-m-d H:i:s', $this->clock->now()))) {
 				if ($this->memory->temperatureAlert() == 0) {
 					$this->actuator->failure();
 					$this->log->error($this->translator->translate("{{Attention il n'y a pas eu de mise à jour de la température depuis plus de}}") . ' : ' . $this->settings->maxTimeUpdateTemp() . ' ' . $this->translator->translate('{{minutes}}') . ' (' . $reading->collectDate() . ')');

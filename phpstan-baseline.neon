@@ -1333,7 +1333,7 @@ parameters:
 			path: core/src/Domain/Window/Windows.php
 
 		-
-			message: '#^Binary operation "\-" between int\<1, max\> and float\|int\|string results in an error\.$#'
+			message: '#^Binary operation "\-" between int and float\|int\|string results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 2
 			path: core/src/Domain/Window/Windows.php

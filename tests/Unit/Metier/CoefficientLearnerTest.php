@@ -2,9 +2,8 @@
 
 namespace Jeedom\Plugin\Thermostat\Tests\Unit\Metier;
 
-require_once __DIR__ . '/../../Metier/bootstrap.php';
-
 use Jeedom\Plugin\Thermostat\Domain\Learning\CoefficientLearner;
+use Jeedom\Plugin\Thermostat\Tests\Metier\FixedClock;
 use Jeedom\Plugin\Thermostat\Tests\Metier\IdentityTranslator;
 use Jeedom\Plugin\Thermostat\Tests\Metier\InMemoryMemory;
 use Jeedom\Plugin\Thermostat\Tests\Metier\InMemorySettings;
@@ -16,15 +15,17 @@ class CoefficientLearnerTest extends TestCase {
 	private $settings;
 	private $memory;
 	private $log;
+	private $clock;
 
 	protected function setUp() {
+		$this->clock = new FixedClock('2026-01-15 10:00:00');
 		$this->settings = new InMemorySettings();
 		$this->memory = new InMemoryMemory(array('lastState' => 'heat', 'last_power' => 50, 'lastOrder' => 20, 'lastTempIn' => 19));
 		$this->log = new RecordingLog();
 	}
 
 	private function learn($_tempIn, $_tempOut) {
-		(new CoefficientLearner($this->settings, $this->memory, $this->log, new IdentityTranslator()))->learn($_tempIn, $_tempOut);
+		(new CoefficientLearner($this->settings, $this->memory, $this->log, new IdentityTranslator(), $this->clock))->learn($_tempIn, $_tempOut);
 	}
 
 	public function testLearnsIndoorHeatFromTemperatureRise() {

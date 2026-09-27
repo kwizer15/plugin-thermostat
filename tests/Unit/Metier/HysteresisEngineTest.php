@@ -2,14 +2,13 @@
 
 namespace Jeedom\Plugin\Thermostat\Tests\Unit\Metier;
 
-require_once __DIR__ . '/../../Metier/bootstrap.php';
-
 use Jeedom\Plugin\Thermostat\Domain\Actuator\Actuator;
 use Jeedom\Plugin\Thermostat\Domain\Engine\HysteresisDecision;
 use Jeedom\Plugin\Thermostat\Domain\Engine\HysteresisEngine;
 use Jeedom\Plugin\Thermostat\Domain\StatusLabels;
 use Jeedom\Plugin\Thermostat\Tests\Metier\CountingPersistence;
 use Jeedom\Plugin\Thermostat\Tests\Metier\CountingRunner;
+use Jeedom\Plugin\Thermostat\Tests\Metier\FixedClock;
 use Jeedom\Plugin\Thermostat\Tests\Metier\FixedSensors;
 use Jeedom\Plugin\Thermostat\Tests\Metier\IdentityTranslator;
 use Jeedom\Plugin\Thermostat\Tests\Metier\InMemoryDisplay;
@@ -27,9 +26,10 @@ class HysteresisEngineTest extends TestCase {
 	private $sensors;
 	private $actions;
 	private $log;
+	private $clock;
 
 	protected function setUp() {
-		setMetierNow('2026-01-15 10:00:00');
+		$this->clock = new FixedClock('2026-01-15 10:00:00');
 		$this->settings = new InMemorySettings(array('failure' => array(array('cmd' => '#alarm#'))));
 		$this->memory = new InMemoryMemory();
 		$this->display = new InMemoryDisplay();
@@ -42,7 +42,7 @@ class HysteresisEngineTest extends TestCase {
 
 	private function run_() {
 		$actuator = new Actuator($this->settings, $this->memory, new CountingPersistence(), $this->display, $this->actions, new CountingRunner(), $this->log, new StatusLabels(new IdentityTranslator()), new IdentityTranslator());
-		(new HysteresisEngine($this->settings, $this->memory, $this->display, $this->sensors, $actuator, new HysteresisDecision($this->settings, $this->log, new StatusLabels(new IdentityTranslator()), new IdentityTranslator()), $this->log, new StatusLabels(new IdentityTranslator()), new IdentityTranslator()))->run();
+		(new HysteresisEngine($this->settings, $this->memory, $this->display, $this->sensors, $actuator, new HysteresisDecision($this->settings, $this->log, new StatusLabels(new IdentityTranslator()), new IdentityTranslator()), $this->log, new StatusLabels(new IdentityTranslator()), new IdentityTranslator(), $this->clock))->run();
 	}
 
 	public function testHeatsBelowBandAndHistorizesSetpoint() {

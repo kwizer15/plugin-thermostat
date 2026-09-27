@@ -18,6 +18,7 @@
 
 namespace Jeedom\Plugin\Thermostat\Domain\Learning;
 
+use Jeedom\Plugin\Thermostat\Domain\Clock;
 use Jeedom\Plugin\Thermostat\Domain\Configuration\Key;
 use Jeedom\Plugin\Thermostat\Domain\HeatingAction;
 use Jeedom\Plugin\Thermostat\Domain\Log;
@@ -33,12 +34,15 @@ class CoefficientLearner {
 	private $log;
 	/** @var Translator */
 	private $translator;
+	/** @var Clock */
+	private $clock;
 
-	public function __construct(Settings $_settings, CycleMemory $_memory, Log $_log, Translator $_translator) {
+	public function __construct(Settings $_settings, CycleMemory $_memory, Log $_log, Translator $_translator, Clock $_clock) {
 		$this->settings = $_settings;
 		$this->memory = $_memory;
 		$this->log = $_log;
 		$this->translator = $_translator;
+		$this->clock = $_clock;
 	}
 
 	/**
@@ -47,7 +51,7 @@ class CoefficientLearner {
 	 * @return void
 	 */
 	public function learn($_temp_in, $_temp_out) {
-		if ($this->memory->consecutiveFailures() >= 3 || $this->settings->autolearn() != 1 || strtotime($this->settings->cycleEndDate()) >= strtotime('now')) {
+		if ($this->memory->consecutiveFailures() >= 3 || $this->settings->autolearn() != 1 || strtotime($this->settings->cycleEndDate()) >= $this->clock->now()) {
 			return;
 		}
 		$this->log->debug($this->translator->translate('{{Démarre auto-apprentissage}}'));

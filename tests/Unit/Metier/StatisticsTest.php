@@ -2,9 +2,8 @@
 
 namespace Jeedom\Plugin\Thermostat\Tests\Unit\Metier;
 
-require_once __DIR__ . '/../../Metier/bootstrap.php';
-
 use Jeedom\Plugin\Thermostat\Domain\Statistics\Statistics;
+use Jeedom\Plugin\Thermostat\Tests\Metier\FixedClock;
 use Jeedom\Plugin\Thermostat\Tests\Metier\InMemoryHistory;
 use Jeedom\Plugin\Thermostat\Tests\Metier\InMemorySettings;
 use Jeedom\Plugin\Thermostat\Tests\Metier\NumericEvaluator;
@@ -14,15 +13,16 @@ class StatisticsTest extends TestCase {
 
 	private $settings;
 	private $history;
+	private $clock;
 
 	protected function setUp() {
-		setMetierNow('2026-01-15 10:00:00');
+		$this->clock = new FixedClock('2026-01-15 10:00:00');
 		$this->settings = new InMemorySettings(array('consumption' => 26));
 		$this->history = new InMemoryHistory();
 	}
 
 	private function statistics() {
-		return new Statistics($this->settings, new NumericEvaluator(), $this->history);
+		return new Statistics($this->settings, new NumericEvaluator(), $this->history, $this->clock);
 	}
 
 	public function testDjuFromOutdoorMinAndMax() {

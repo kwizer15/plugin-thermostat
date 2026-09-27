@@ -19,6 +19,7 @@
 namespace Jeedom\Plugin\Thermostat\Domain\Engine;
 
 use Jeedom\Plugin\Thermostat\Domain\Actuator\Actuator;
+use Jeedom\Plugin\Thermostat\Domain\Clock;
 use Jeedom\Plugin\Thermostat\Domain\Configuration\Key;
 use Jeedom\Plugin\Thermostat\Domain\Cycle\Plan;
 use Jeedom\Plugin\Thermostat\Domain\Cycle\Planner;
@@ -67,8 +68,10 @@ class TemporalEngine {
 	private $labels;
 	/** @var Translator */
 	private $translator;
+	/** @var Clock */
+	private $clock;
 
-	public function __construct(Settings $_settings, Memory $_memory, Persistence $_persistence, Evaluator $_evaluator, Display $_display, Sensors $_sensors, Actuator $_actuator, Scheduling $_scheduler, Calculator $_powerCalculator, SmartStart $_smartStart, CoefficientLearner $_coefficientLearner, Planner $_cyclePlanner, Log $_log, StatusLabels $_labels, Translator $_translator) {
+	public function __construct(Settings $_settings, Memory $_memory, Persistence $_persistence, Evaluator $_evaluator, Display $_display, Sensors $_sensors, Actuator $_actuator, Scheduling $_scheduler, Calculator $_powerCalculator, SmartStart $_smartStart, CoefficientLearner $_coefficientLearner, Planner $_cyclePlanner, Log $_log, StatusLabels $_labels, Translator $_translator, Clock $_clock) {
 		$this->settings = $_settings;
 		$this->memory = $_memory;
 		$this->persistence = $_persistence;
@@ -84,6 +87,7 @@ class TemporalEngine {
 		$this->log = $_log;
 		$this->labels = $_labels;
 		$this->translator = $_translator;
+		$this->clock = $_clock;
 	}
 
 	/**
@@ -91,8 +95,8 @@ class TemporalEngine {
 	 */
 	public function run() {
 		$this->log->debug($this->translator->translate('{{Début calcul temporel}}'));
-		$this->scheduler->reschedule(date('Y-m-d H:i:00', strtotime('+' . $this->settings->cycle() . ' min ' . date('Y-m-d H:i:00'))));
-		$this->log->debug($this->translator->translate('{{Reprogrammation automatique : }}') . date('Y-m-d H:i:s', strtotime('+' . $this->settings->cycle() . ' ' . $this->translator->translate('{{minutes}}') . ' ' . date('Y-m-d H:i:00'))));
+		$this->scheduler->reschedule(date('Y-m-d H:i:00', strtotime('+' . $this->settings->cycle() . ' min ' . date('Y-m-d H:i:00', $this->clock->now()))));
+		$this->log->debug($this->translator->translate('{{Reprogrammation automatique : }}') . date('Y-m-d H:i:s', strtotime('+' . $this->settings->cycle() . ' ' . $this->translator->translate('{{minutes}}') . ' ' . date('Y-m-d H:i:00', $this->clock->now()))));
 		$status = $this->display->status();
 		if ($status == $this->labels->suspended()) {
 			$this->log->debug($this->translator->translate('{{Thermostat suspendu}}'));
@@ -112,7 +116,7 @@ class TemporalEngine {
 		}
 		$reading = $this->sensors->indoorReading();
 		$temp_in = $reading->value();
-		if ($reading->collectDate() != '' && $reading->collectDate() < date('Y-m-d H:i:s', strtotime('-' . $this->settings->maxTimeUpdateTemp() . ' minutes' . date('Y-m-d H:i:s')))) {
+		if ($reading->collectDate() != '' && $reading->collectDate() < date('Y-m-d H:i:s', strtotime('-' . $this->settings->maxTimeUpdateTemp() . ' minutes' . date('Y-m-d H:i:s', $this->clock->now())))) {
 			if ($this->memory->temperatureAlert() == 0) {
 				$this->actuator->failure();
 				$this->log->error($this->translator->translate("{{Attention il n'y a pas eu de mise à jour de la température depuis plus de}}") . ' ' . $this->settings->maxTimeUpdateTemp() . ' ' . $this->translator->translate('{{minutes}}') . ' (' . $reading->collectDate() . ')');
@@ -164,7 +168,7 @@ class TemporalEngine {
 		$this->memory->setLastOrder($consigne);
 		$this->memory->setLastTempIn($temp_in);
 		$this->memory->setLastTempOut($temp_out);
-		$this->settings->setCycleEndDate(date('Y-m-d H:i:s', strtotime('+' . ceil($cycle * 0.9) . ' min ' . date('Y-m-d H:i:s'))));
+		$this->settings->setCycleEndDate(date('Y-m-d H:i:s', strtotime('+' . ceil($cycle * 0.9) . ' min ' . date('Y-m-d H:i:s', $this->clock->now()))));
 		$this->log->debug($this->translator->translate('{{Durée du cycle}}') . '  : ' . $duration);
 		if ($plan->isTooShort()) {
 			$this->log->debug($this->translator->translate('{{Durée du cycle trop courte, aucun lancement}}'));
@@ -175,7 +179,7 @@ class TemporalEngine {
 		}
 
 		if ($plan->stop() == Plan::STOP_AFTER) {
-			$this->scheduler->reschedule(date('Y-m-d H:i:s', strtotime('+' . $duration . ' min ' . date('Y-m-d H:i:s'))), true);
+			$this->scheduler->reschedule(date('Y-m-d H:i:s', strtotime('+' . $duration . ' min ' . date('Y-m-d H:i:s', $this->clock->now()))), true);
 		} else if ($plan->stop() == Plan::STOP_CANCEL) {
 			$this->scheduler->reschedule(null, true);
 		}

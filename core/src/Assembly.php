@@ -47,6 +47,7 @@ use Jeedom\Plugin\Thermostat\Jeedom\Persistence;
 use Jeedom\Plugin\Thermostat\Jeedom\Scheduler;
 use Jeedom\Plugin\Thermostat\Jeedom\Sensors;
 use Jeedom\Plugin\Thermostat\Jeedom\Settings;
+use Jeedom\Plugin\Thermostat\Jeedom\SystemClock;
 use Jeedom\Plugin\Thermostat\Jeedom\Translator;
 use Jeedom\Plugin\Thermostat\Jeedom\WindowSensors;
 
@@ -76,6 +77,10 @@ class Assembly {
 
 	public function commandLookup(): CommandLookup {
 		return new CommandLookup($this->thermostat, $this->translator(CommandLookup::class));
+	}
+
+	public function clock(): SystemClock {
+		return new SystemClock();
 	}
 
 	public function settings(): Settings {
@@ -119,7 +124,7 @@ class Assembly {
 	}
 
 	public function coefficientLearner(): CoefficientLearner {
-		return new CoefficientLearner($this->settings(), $this->memory(), $this->log(), $this->translator(CoefficientLearner::class));
+		return new CoefficientLearner($this->settings(), $this->memory(), $this->log(), $this->translator(CoefficientLearner::class), $this->clock());
 	}
 
 	public function scheduler(): Scheduler {
@@ -127,7 +132,7 @@ class Assembly {
 	}
 
 	public function smartStart(): SmartStart {
-		return new SmartStart($this->settings(), $this->memory(), $this->calendar(), $this->sensors(), $this->display(), new Controls($this->commandLookup()), $this->evaluator(), $this->powerCalculator(), $this->scheduler(), $this->log(), $this->translator(SmartStart::class));
+		return new SmartStart($this->settings(), $this->memory(), $this->calendar(), $this->sensors(), $this->display(), new Controls($this->commandLookup()), $this->evaluator(), $this->powerCalculator(), $this->scheduler(), $this->log(), $this->translator(SmartStart::class), $this->clock());
 	}
 
 	public function actuator(): Actuator {
@@ -135,19 +140,19 @@ class Assembly {
 	}
 
 	public function windows(): Windows {
-		return new Windows($this->settings(), $this->memory(), $this->display(), new WindowSensors(), $this->actuator(), $this->engineRunner(), $this->log(), $this->statusLabels(), $this->translator(Windows::class));
+		return new Windows($this->settings(), $this->memory(), $this->display(), new WindowSensors(), $this->actuator(), $this->engineRunner(), $this->log(), $this->statusLabels(), $this->translator(Windows::class), $this->clock());
 	}
 
 	public function temporalEngine(): TemporalEngine {
-		return new TemporalEngine($this->settings(), $this->memory(), $this->persistence(), $this->evaluator(), $this->display(), $this->sensors(), $this->actuator(), $this->scheduler(), $this->powerCalculator(), $this->smartStart(), $this->coefficientLearner(), new Planner(), $this->log(), $this->statusLabels(), $this->translator(TemporalEngine::class));
+		return new TemporalEngine($this->settings(), $this->memory(), $this->persistence(), $this->evaluator(), $this->display(), $this->sensors(), $this->actuator(), $this->scheduler(), $this->powerCalculator(), $this->smartStart(), $this->coefficientLearner(), new Planner(), $this->log(), $this->statusLabels(), $this->translator(TemporalEngine::class), $this->clock());
 	}
 
 	public function hysteresisEngine(): HysteresisEngine {
-		return new HysteresisEngine($this->settings(), $this->memory(), $this->display(), $this->sensors(), $this->actuator(), new HysteresisDecision($this->settings(), $this->log(), $this->statusLabels(), $this->translator(HysteresisDecision::class)), $this->log(), $this->statusLabels(), $this->translator(HysteresisEngine::class));
+		return new HysteresisEngine($this->settings(), $this->memory(), $this->display(), $this->sensors(), $this->actuator(), new HysteresisDecision($this->settings(), $this->log(), $this->statusLabels(), $this->translator(HysteresisDecision::class)), $this->log(), $this->statusLabels(), $this->translator(HysteresisEngine::class), $this->clock());
 	}
 
 	public function sensorWatch(): SensorWatch {
-		return new SensorWatch($this->settings(), $this->memory(), $this->display(), $this->sensors(), $this->actuator(), $this->log(), $this->translator(SensorWatch::class));
+		return new SensorWatch($this->settings(), $this->memory(), $this->display(), $this->sensors(), $this->actuator(), $this->log(), $this->translator(SensorWatch::class), $this->clock());
 	}
 
 	public function commandHandler(): Handler {
@@ -163,6 +168,6 @@ class Assembly {
 	}
 
 	public function statistics(): Statistics {
-		return new Statistics($this->settings(), $this->evaluator(), new History($this->thermostat));
+		return new Statistics($this->settings(), $this->evaluator(), new History($this->thermostat), $this->clock());
 	}
 }

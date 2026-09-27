@@ -19,6 +19,7 @@
 namespace Jeedom\Plugin\Thermostat\Domain\Engine;
 
 use Jeedom\Plugin\Thermostat\Domain\Actuator\Actuator;
+use Jeedom\Plugin\Thermostat\Domain\Clock;
 use Jeedom\Plugin\Thermostat\Domain\Display;
 use Jeedom\Plugin\Thermostat\Domain\HeatingAction;
 use Jeedom\Plugin\Thermostat\Domain\Log;
@@ -46,8 +47,10 @@ class HysteresisEngine {
 	private $labels;
 	/** @var Translator */
 	private $translator;
+	/** @var Clock */
+	private $clock;
 
-	public function __construct(Settings $_settings, Memory $_memory, Display $_display, Sensors $_sensors, Actuator $_actuator, HysteresisDecision $_decision, Log $_log, StatusLabels $_labels, Translator $_translator) {
+	public function __construct(Settings $_settings, Memory $_memory, Display $_display, Sensors $_sensors, Actuator $_actuator, HysteresisDecision $_decision, Log $_log, StatusLabels $_labels, Translator $_translator, Clock $_clock) {
 		$this->settings = $_settings;
 		$this->memory = $_memory;
 		$this->display = $_display;
@@ -57,6 +60,7 @@ class HysteresisEngine {
 		$this->log = $_log;
 		$this->labels = $_labels;
 		$this->translator = $_translator;
+		$this->clock = $_clock;
 	}
 
 	/**
@@ -78,7 +82,7 @@ class HysteresisEngine {
 		}
 		$reading = $this->sensors->indoorReading();
 		$temp = $reading->value();
-		if ($reading->collectDate() != '' && $reading->collectDate() < date('Y-m-d H:i:s', strtotime('-' . $this->settings->maxTimeUpdateTemp() . ' minutes' . date('Y-m-d H:i:s')))) {
+		if ($reading->collectDate() != '' && $reading->collectDate() < date('Y-m-d H:i:s', strtotime('-' . $this->settings->maxTimeUpdateTemp() . ' minutes' . date('Y-m-d H:i:s', $this->clock->now())))) {
 			if ($this->memory->temperatureAlert() == 0) {
 				$this->actuator->failure();
 				$this->log->error($this->translator->translate("{{Attention il n'y a pas eu de mise à jour de la température depuis plus de}}") . ' : ' . $this->settings->maxTimeUpdateTemp() . 'min (' . $reading->collectDate() . ')');

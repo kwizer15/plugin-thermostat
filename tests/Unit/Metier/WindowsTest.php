@@ -2,13 +2,12 @@
 
 namespace Jeedom\Plugin\Thermostat\Tests\Unit\Metier;
 
-require_once __DIR__ . '/../../Metier/bootstrap.php';
-
 use Jeedom\Plugin\Thermostat\Domain\Actuator\Actuator;
 use Jeedom\Plugin\Thermostat\Domain\StatusLabels;
 use Jeedom\Plugin\Thermostat\Domain\Window\Windows;
 use Jeedom\Plugin\Thermostat\Tests\Metier\CountingPersistence;
 use Jeedom\Plugin\Thermostat\Tests\Metier\CountingRunner;
+use Jeedom\Plugin\Thermostat\Tests\Metier\FixedClock;
 use Jeedom\Plugin\Thermostat\Tests\Metier\IdentityTranslator;
 use Jeedom\Plugin\Thermostat\Tests\Metier\InMemoryDisplay;
 use Jeedom\Plugin\Thermostat\Tests\Metier\InMemoryMemory;
@@ -26,9 +25,10 @@ class WindowsTest extends TestCase {
 	private $sensors;
 	private $actions;
 	private $engine;
+	private $clock;
 
 	protected function setUp() {
-		setMetierNow('2026-01-15 10:00:00');
+		$this->clock = new FixedClock('2026-01-15 10:00:00');
 		$this->settings = new InMemorySettings();
 		$this->memory = new InMemoryMemory();
 		$this->display = new InMemoryDisplay();
@@ -40,7 +40,7 @@ class WindowsTest extends TestCase {
 
 	private function windows() {
 		$actuator = new Actuator($this->settings, $this->memory, new CountingPersistence(), $this->display, $this->actions, $this->engine, new RecordingLog(), new StatusLabels(new IdentityTranslator()), new IdentityTranslator());
-		return new Windows($this->settings, $this->memory, $this->display, $this->sensors, $actuator, $this->engine, new RecordingLog(), new StatusLabels(new IdentityTranslator()), new IdentityTranslator());
+		return new Windows($this->settings, $this->memory, $this->display, $this->sensors, $actuator, $this->engine, new RecordingLog(), new StatusLabels(new IdentityTranslator()), new IdentityTranslator(), $this->clock);
 	}
 
 	private function configure(array $_windows) {
@@ -186,7 +186,7 @@ class WindowsTest extends TestCase {
 		$this->display->status = 'Suspendu';
 		$this->memory->setOpenSince(strtotime('2026-01-15 09:29:59'));
 		$log = new RecordingLog();
-		$windows = new Windows($this->settings, $this->memory, $this->display, $this->sensors, new Actuator($this->settings, $this->memory, new CountingPersistence(), $this->display, $this->actions, $this->engine, $log, new StatusLabels(new IdentityTranslator()), new IdentityTranslator()), $this->engine, $log, new StatusLabels(new IdentityTranslator()), new IdentityTranslator());
+		$windows = new Windows($this->settings, $this->memory, $this->display, $this->sensors, new Actuator($this->settings, $this->memory, new CountingPersistence(), $this->display, $this->actions, $this->engine, $log, new StatusLabels(new IdentityTranslator()), new IdentityTranslator()), $this->engine, $log, new StatusLabels(new IdentityTranslator()), new IdentityTranslator(), $this->clock);
 
 		$windows->alert();
 		$windows->alert();
