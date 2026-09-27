@@ -90,15 +90,14 @@ class ActionsTest extends ThermostatTestCase {
 		$this->assertSame(array('stop'), $this->executed());
 	}
 
-	public function testHeatWithUnsetActions() {
-		$this->allowPhpError('Invalid argument supplied for foreach()');
+	public function testHeatWithUnsetActionsStops() {
 		$thermostat = $this->equippedThermostat();
 		$thermostat->setConfiguration('heating', null)->save();
 
-		$this->assertTrue($thermostat->heat());
+		$this->assertFalse($thermostat->heat());
 
-		$this->assertSame(array(), $this->executed());
-		$this->assertSame(1, $this->valueOf($thermostat, 'actif'));
+		$this->assertSame(array('stop'), $this->executed());
+		$this->assertSame(0, $this->valueOf($thermostat, 'actif'));
 	}
 
 	public function testHeatRepeatOnlyResendsActions() {
@@ -226,7 +225,6 @@ class ActionsTest extends ThermostatTestCase {
 	}
 
 	public function testStopWithUnsetActions() {
-		$this->allowPhpError('Invalid argument supplied for foreach()');
 		$thermostat = $this->equippedThermostat(array('stoping' => null));
 
 		$thermostat->stopThermostat();
@@ -346,6 +344,15 @@ class ActionsTest extends ThermostatTestCase {
 		\scenarioExpression::reset();
 		$thermostat->executeMode('Confort');
 		$this->assertSame(array('orderChanged', 'heat'), $this->executed());
+	}
+
+	public function testExecuteModeWithUnsetModes() {
+		$thermostat = $this->equippedThermostat(array('existingMode' => null));
+
+		$thermostat->executeMode('Eco');
+
+		$this->assertSame('Eco', $this->valueOf($thermostat, 'mode'));
+		$this->assertSame(array('heat'), $this->executed());
 	}
 
 	public function testExecuteModeWithHysteresisEngine() {

@@ -715,21 +715,9 @@ parameters:
 			path: core/class/thermostat.class.php
 
 		-
-			message: '#^Argument of an invalid type list\<array\<string, list\<array\<string, array\<string, bool\|float\|int\|string\|null\>\|string\>\>\|string\>\>\|string supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
-			count: 1
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Parameter \#1 \$_actions of method Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actions\:\:execute\(\) expects list\<array\{cmd\: string, options\?\: array\<string, bool\|float\|int\|string\|null\>\}\>, list\<array\{cmd\: string, options\?\: array\<string, bool\|float\|int\|string\|null\>\}\>\|string given\.$#'
-			identifier: argument.type
+			message: '#^Call to function is_array\(\) with list\<array\{cmd\: string, options\?\: array\<string, bool\|float\|int\|string\|null\>\}\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
 			count: 3
-			path: core/src/Domain/Actuator/Actuator.php
-
-		-
-			message: '#^Parameter \#1 \$var of function count expects array\|Countable, list\<array\<string, array\<string, bool\|float\|int\|string\|null\>\|string\>\>\|string given\.$#'
-			identifier: argument.type
-			count: 2
 			path: core/src/Domain/Actuator/Actuator.php
 
 		-
@@ -1309,12 +1297,6 @@ parameters:
 			path: core/src/Domain/Statistics/Statistics.php
 
 		-
-			message: '#^Argument of an invalid type list\<array\<string, int\|string\>\>\|string supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
-			count: 2
-			path: core/src/Domain/Window/Windows.php
-
-		-
 			message: '#^Binary operation "\*" between float\|int\<1, max\>\|non\-empty\-string and 60 results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
@@ -1837,7 +1819,7 @@ parameters:
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:coolingActions\(\) should return list\<array\{cmd\: string, options\?\: array\<string, bool\|float\|int\|string\|null\>\}\>\|string but returns mixed\.$#'
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:coolingActions\(\) should return list\<array\{cmd\: string, options\?\: array\<string, bool\|float\|int\|string\|null\>\}\> but returns array\<mixed\>\.$#'
 			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
@@ -1873,13 +1855,13 @@ parameters:
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:failureActions\(\) should return list\<array\{cmd\: string, options\?\: array\<string, bool\|float\|int\|string\|null\>\}\>\|string but returns mixed\.$#'
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:failureActions\(\) should return list\<array\{cmd\: string, options\?\: array\<string, bool\|float\|int\|string\|null\>\}\> but returns array\<mixed\>\.$#'
 			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:failureActuatorActions\(\) should return list\<array\{cmd\: string, options\?\: array\<string, bool\|float\|int\|string\|null\>\}\>\|string but returns mixed\.$#'
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:failureActuatorActions\(\) should return list\<array\{cmd\: string, options\?\: array\<string, bool\|float\|int\|string\|null\>\}\> but returns array\<mixed\>\.$#'
 			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
@@ -1897,7 +1879,7 @@ parameters:
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:heatingActions\(\) should return list\<array\{cmd\: string, options\?\: array\<string, bool\|float\|int\|string\|null\>\}\>\|string but returns mixed\.$#'
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:heatingActions\(\) should return list\<array\{cmd\: string, options\?\: array\<string, bool\|float\|int\|string\|null\>\}\> but returns array\<mixed\>\.$#'
 			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
@@ -1939,7 +1921,7 @@ parameters:
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:modes\(\) should return list\<array\{name\: string, actions\: list\<array\{cmd\: string, options\?\: array\<string, bool\|float\|int\|string\|null\>\}\>\}\>\|string but returns mixed\.$#'
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:modes\(\) should return list\<array\{name\: string, actions\: list\<array\{cmd\: string, options\?\: array\<string, bool\|float\|int\|string\|null\>\}\>\}\> but returns array\<mixed\>\.$#'
 			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
@@ -1957,7 +1939,7 @@ parameters:
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:orderChangeActions\(\) should return list\<array\{cmd\: string, options\?\: array\<string, bool\|float\|int\|string\|null\>\}\>\|string but returns mixed\.$#'
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:orderChangeActions\(\) should return list\<array\{cmd\: string, options\?\: array\<string, bool\|float\|int\|string\|null\>\}\> but returns array\<mixed\>\.$#'
 			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
@@ -1969,7 +1951,7 @@ parameters:
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:stoppingActions\(\) should return list\<array\{cmd\: string, options\?\: array\<string, bool\|float\|int\|string\|null\>\}\>\|string but returns mixed\.$#'
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:stoppingActions\(\) should return list\<array\{cmd\: string, options\?\: array\<string, bool\|float\|int\|string\|null\>\}\> but returns array\<mixed\>\.$#'
 			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php
@@ -1987,7 +1969,7 @@ parameters:
 			path: core/src/Jeedom/Settings.php
 
 		-
-			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:windows\(\) should return list\<array\{cmd\: string, invert\?\: int\|string, stopTime\?\: int\|string, restartTime\?\: int\|string\}\>\|string but returns mixed\.$#'
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Settings\:\:windows\(\) should return list\<array\{cmd\: string, invert\?\: int\|string, stopTime\?\: int\|string, restartTime\?\: int\|string\}\> but returns array\<mixed\>\.$#'
 			identifier: return.type
 			count: 1
 			path: core/src/Jeedom/Settings.php

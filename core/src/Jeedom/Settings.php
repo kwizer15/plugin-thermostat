@@ -127,34 +127,34 @@ class Settings implements PowerSettings, LearningSettings, SmartStartSettings, H
 		return $this->eqLogic->getConfiguration(Key::HYSTERESIS_THRESHOLD, 1);
 	}
 	public function heatingActions() {
-		return $this->eqLogic->getConfiguration(Key::HEATING_ACTIONS);
+		return $this->listValue(Key::HEATING_ACTIONS);
 	}
 
 	public function coolingActions() {
-		return $this->eqLogic->getConfiguration(Key::COOLING_ACTIONS);
+		return $this->listValue(Key::COOLING_ACTIONS);
 	}
 
 	public function stoppingActions() {
-		return $this->eqLogic->getConfiguration(Key::STOPPING_ACTIONS);
+		return $this->listValue(Key::STOPPING_ACTIONS);
 	}
 
 	public function orderChangeActions() {
-		return $this->eqLogic->getConfiguration(Key::ORDER_CHANGE_ACTIONS);
+		return $this->listValue(Key::ORDER_CHANGE_ACTIONS);
 	}
 
 	public function failureActions() {
-		return $this->eqLogic->getConfiguration(Key::FAILURE_ACTIONS);
+		return $this->listValue(Key::FAILURE_ACTIONS);
 	}
 
 	public function failureActuatorActions() {
-		return $this->eqLogic->getConfiguration(Key::FAILURE_ACTUATOR_ACTIONS);
+		return $this->listValue(Key::FAILURE_ACTUATOR_ACTIONS);
 	}
 
 	public function modes() {
-		return $this->eqLogic->getConfiguration(Key::MODES);
+		return $this->listValue(Key::MODES);
 	}
 	public function windows() {
-		return $this->eqLogic->getConfiguration(Key::WINDOWS);
+		return $this->listValue(Key::WINDOWS);
 	}
 
 	public function windowAlertDelay() {
@@ -215,5 +215,14 @@ class Settings implements PowerSettings, LearningSettings, SmartStartSettings, H
 
 	public function setAllowMode($_mode) {
 		$this->eqLogic->setConfiguration(Key::ALLOW_MODE, $_mode);
+	}
+
+	/**
+	 * @param string $_key
+	 * @return array<mixed>
+	 */
+	private function listValue($_key) {
+		$value = $this->eqLogic->getConfiguration($_key);
+		return is_array($value) ? $value : array();
 	}
 }

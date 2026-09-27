@@ -33,6 +33,18 @@ class WindowTest extends ThermostatTestCase {
 		$this->assertSame(1, $thermostat->getCache('window::state::' . $window->getId()));
 	}
 
+	public function testEventWithUnsetWindowsIsIgnored() {
+		$window = $this->sensor(0, 'binary');
+		$thermostat = $this->windowThermostat(array($this->windowConfig($window)));
+		$thermostat->setConfiguration('window', null)->save(true);
+		$this->setValueOf($thermostat, 'status', 'Chauffage');
+
+		$this->notify($thermostat, $window, 1);
+
+		$this->assertSame(array(), $this->executed());
+		$this->assertSame('Chauffage', $this->valueOf($thermostat, 'status'));
+	}
+
 	public function testInvertedWindow() {
 		$window = $this->sensor(1, 'binary');
 		$thermostat = $this->windowThermostat(array($this->windowConfig($window, array('invert' => 1))));

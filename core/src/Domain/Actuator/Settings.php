@@ -26,37 +26,37 @@ interface Settings {
 	public function allowMode();
 
 	/**
-	 * @return list<array{cmd: string, options?: array<string, scalar|null>}>|string
+	 * @return list<array{cmd: string, options?: array<string, scalar|null>}>
 	 */
 	public function heatingActions();
 
 	/**
-	 * @return list<array{cmd: string, options?: array<string, scalar|null>}>|string
+	 * @return list<array{cmd: string, options?: array<string, scalar|null>}>
 	 */
 	public function coolingActions();
 
 	/**
-	 * @return list<array{cmd: string, options?: array<string, scalar|null>}>|string
+	 * @return list<array{cmd: string, options?: array<string, scalar|null>}>
 	 */
 	public function stoppingActions();
 
 	/**
-	 * @return list<array{cmd: string, options?: array<string, scalar|null>}>|string
+	 * @return list<array{cmd: string, options?: array<string, scalar|null>}>
 	 */
 	public function orderChangeActions();
 
 	/**
-	 * @return list<array{cmd: string, options?: array<string, scalar|null>}>|string
+	 * @return list<array{cmd: string, options?: array<string, scalar|null>}>
 	 */
 	public function failureActions();
 
 	/**
-	 * @return list<array{cmd: string, options?: array<string, scalar|null>}>|string
+	 * @return list<array{cmd: string, options?: array<string, scalar|null>}>
 	 */
 	public function failureActuatorActions();
 
 	/**
-	 * @return list<array{name: string, actions: list<array{cmd: string, options?: array<string, scalar|null>}>}>|string
+	 * @return list<array{name: string, actions: list<array{cmd: string, options?: array<string, scalar|null>}>}>
 	 */
 	public function modes();
 }
