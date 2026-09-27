@@ -17,6 +17,7 @@
 */
 
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
+require_once dirname(__FILE__) . '/thermostatActionList.class.php';
 
 class thermostat extends eqLogic {
 
@@ -1302,38 +1303,6 @@ class thermostat extends eqLogic {
 		}
 	}
 
-	private function actionOptions($_action, $_consigne) {
-		$options = array();
-		if (isset($_action['options'])) {
-			$options = $_action['options'];
-			foreach ($options as $key => $value) {
-				$options[$key] = str_replace('#slider#', $_consigne, $value);
-			}
-		}
-		return $options;
-	}
-
-	private function executeActions($_actions, $_skipOwnCmds, $_extraOptions = array()) {
-		$consigne = $this->getCmd(null, 'order')->execCmd();
-		foreach ($_actions as $action) {
-			try {
-				if ($_skipOwnCmds) {
-					$cmd = cmd::byId(str_replace('#', '', $action['cmd']));
-					if (is_object($cmd) && $this->getId() == $cmd->getEqLogic_id()) {
-						continue;
-					}
-				}
-				$options = $this->actionOptions($action, $consigne);
-				foreach ($_extraOptions as $key => $value) {
-					$options[$key] = $value;
-				}
-				scenarioExpression::createAndExec('action', $action['cmd'], $options);
-			} catch (Exception $e) {
-				log::add(__CLASS__, 'error', $this->getHumanName() . ' ' . __("Erreur lors de l'exécution de", __FILE__) . ' ' . $action['cmd'] . '. ' . __('Détails', __FILE__) . ' : ' . $e->getMessage());
-			}
-		}
-	}
-
 	public function heat($_repeat = false) {
 		if (!$_repeat) {
 			if ($this->getCmd(null, 'mode')->execCmd() == __('Off', __FILE__) || $this->getCmd(null, 'status')->execCmd() == __('Suspendu', __FILE__)) {
@@ -1350,7 +1319,7 @@ class thermostat extends eqLogic {
 		}
 		$this->getCmd(null, 'status')->event(__('Chauffage', __FILE__));
 		log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Action chauffage', __FILE__));
-		$this->executeActions($this->getConfiguration('heating'), true);
+		(new thermostatActionList($this))->execute($this->getConfiguration('heating'), true);
 		if (!$_repeat) {
 			$this->refresh();
 			$this->setCache('lastState', 'heat');
@@ -1375,7 +1344,7 @@ class thermostat extends eqLogic {
 		}
 		$this->getCmd(null, 'status')->event(__('Climatisation', __FILE__));
 		log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Action froid', __FILE__));
-		$this->executeActions($this->getConfiguration('cooling'), true);
+		(new thermostatActionList($this))->execute($this->getConfiguration('cooling'), true);
 		if (!$_repeat) {
 			$this->refresh();
 			$this->setCache('lastState', 'cool');
@@ -1394,7 +1363,7 @@ class thermostat extends eqLogic {
 			}
 		}
 		log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Action stop', __FILE__));
-		$this->executeActions($this->getConfiguration('stoping'), true);
+		(new thermostatActionList($this))->execute($this->getConfiguration('stoping'), true);
 		$power = $this->getCmd(null, 'power');
 		if (is_object($power)) {
 			$power->event(0);
@@ -1417,7 +1386,7 @@ class thermostat extends eqLogic {
 		if (!is_array($this->getConfiguration('orderChange')) || count($this->getConfiguration('orderChange')) == 0) {
 			return;
 		}
-		$this->executeActions($this->getConfiguration('orderChange'), true, array('modeChange' => true));
+		(new thermostatActionList($this))->execute($this->getConfiguration('orderChange'), true, array('modeChange' => true));
 	}
 
 	public function failure($_failureRepeat = 999) {
@@ -1428,7 +1397,7 @@ class thermostat extends eqLogic {
 			return;
 		}
 		log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Action défaillance sonde', __FILE__));
-		$this->executeActions($this->getConfiguration('failure'), false);
+		(new thermostatActionList($this))->execute($this->getConfiguration('failure'), false);
 		$this->getCmd(null, 'status')->event(__('Défaillance sonde', __FILE__));
 	}
 
@@ -1440,7 +1409,7 @@ class thermostat extends eqLogic {
 			return;
 		}
 		log::add(__CLASS__, 'debug', $this->getHumanName() . ' ' . __('Action défaillance chauffage', __FILE__));
-		$this->executeActions($this->getConfiguration('failureActuator'), false);
+		(new thermostatActionList($this))->execute($this->getConfiguration('failureActuator'), false);
 		$this->getCmd(null, 'status')->event(__('Défaillance chauffage', __FILE__));
 	}
 
@@ -1451,7 +1420,7 @@ class thermostat extends eqLogic {
 			if ($_name == $existingMode['name']) {
 				foreach ($existingMode['actions'] as $action) {
 					try {
-						$options = $this->actionOptions($action, $consigne);
+						$options = thermostatActionList::options($action, $consigne);
 						$cmd = (is_numeric(str_replace('#', '', $action['cmd']))) ? cmd::byString($action['cmd']) : '';
 						if (is_object($cmd) && $cmd->getEqLogic_id() == $this->getId() && $cmd->getLogicalId() == 'thermostat') {
 							$thermostatCmd = true;
@@ -1460,7 +1429,7 @@ class thermostat extends eqLogic {
 							scenarioExpression::createAndExec('action', $action['cmd'], $options);
 						}
 					} catch (Exception $e) {
-						log::add(__CLASS__, 'error', $this->getHumanName() . ' ' . __("Erreur lors de l'exécution de", __FILE__) . ' ' . $action['cmd'] . '. ' . __('Détails', __FILE__) . ' : ' . $e->getMessage());
+						(new thermostatActionList($this))->logError($action, $e);
 					}
 				}
 			}
