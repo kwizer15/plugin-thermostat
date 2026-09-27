@@ -57,6 +57,25 @@ class CmdExecuteTest extends ThermostatTestCase {
 		);
 	}
 
+	/**
+	 * @dataProvider allowModes
+	 */
+	public function testAllowModeRunsTemporalEngine($_logicalId, $_allowMode) {
+		$thermostat = $this->equippedThermostat(array(), 19, 5, 20);
+
+		$this->execute($thermostat, $_logicalId);
+
+		$this->assertSame($_allowMode == 'cool' ? array('stop') : array('heat'), $this->executed());
+	}
+
+	public function testAllowModeRunsHysteresisEngine() {
+		$thermostat = $this->equippedThermostat(array('engine' => 'hysteresis'), 18);
+
+		$this->execute($thermostat, 'all_allow');
+
+		$this->assertSame(array('heat'), $this->executed());
+	}
+
 	public function testTemperatureCommandsEvaluateExpressions() {
 		$indoor = $this->sensor(19.46);
 		$outdoor = $this->sensor(-3.04);
