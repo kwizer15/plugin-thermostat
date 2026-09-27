@@ -24,6 +24,8 @@ require_once dirname(__FILE__) . '/thermostatSmartStart.class.php';
 require_once dirname(__FILE__) . '/thermostatActuator.class.php';
 require_once dirname(__FILE__) . '/thermostatWindows.class.php';
 require_once dirname(__FILE__) . '/thermostatScheduler.class.php';
+require_once dirname(__FILE__) . '/thermostatHysteresisEngine.class.php';
+require_once dirname(__FILE__) . '/thermostatTemporalEngine.class.php';
 
 class thermostat extends eqLogic {
 
@@ -114,75 +116,7 @@ class thermostat extends eqLogic {
 		if (!is_object($thermostat) || $thermostat->getIsEnable() == 0) {
 			return;
 		}
-		log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __("Lancement du calcul d'hystérésis", __FILE__));
-		$status = $thermostat->getCmd(null, 'status')->execCmd();
-		if ($status == __('Suspendu', __FILE__)) {
-			log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Thermostat suspendu je ne fais rien', __FILE__));
-			return;
-		}
-		if ($thermostat->getCmd(null, 'mode')->execCmd() == __('Off', __FILE__)) {
-			log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Thermostat arrêté je ne fais rien', __FILE__));
-			if ($status != __('Arrêté', __FILE__)) {
-				$thermostat->stopThermostat();
-			}
-			return;
-		}
-		$cmd = $thermostat->getCmd(null, 'temperature');
-		$temp = $cmd->execCmd();
-		if ($cmd->getCollectDate() != '' && $cmd->getCollectDate() < date('Y-m-d H:i:s', strtotime('-' . $thermostat->getConfiguration('maxTimeUpdateTemp') . ' minutes' . date('Y-m-d H:i:s')))) {
-			if ($thermostat->getCache('temp_threshold', 0) == 0) {
-				$thermostat->failure();
-				log::add(__CLASS__, 'error', $thermostat->getHumanName() . ' ' . __("Attention il n'y a pas eu de mise à jour de la température depuis plus de", __FILE__) . ' : ' . $thermostat->getConfiguration('maxTimeUpdateTemp') . 'min (' . $cmd->getCollectDate() . ')');
-			}
-			$thermostat->setCache('temp_threshold', 1);
-			$thermostat->getCmd(null, 'status')->event(__('Défaillance sonde', __FILE__));
-			return;
-		}
-		$thermostat->setCache('temp_threshold', 0);
-		$consigne = $thermostat->getCmd(null, 'order')->execCmd();
-		$thermostat->getCmd(null, 'order')->addHistoryValue($consigne);
-		$hysteresis_low = ($thermostat->getConfiguration('allow_mode', 'all') == 'heat' && $thermostat->getConfiguration('positiveHysteresis', 0) == 1) ? $consigne : $consigne - $thermostat->getConfiguration('hysteresis_threshold', 1);
-		$hysteresis_hight = ($thermostat->getConfiguration('allow_mode', 'all') == 'cool' && $thermostat->getConfiguration('positiveHysteresis', 0) == 1) ? $consigne : $consigne + $thermostat->getConfiguration('hysteresis_threshold', 1);
-		log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Calcul', __FILE__) . ' => ' . __('consigne', __FILE__) . ' : ' . $consigne . ' hysteresis_low : ' . $hysteresis_low . ' hysteresis_hight : ' . $hysteresis_hight . ' temp : ' . $temp . ' ' . __('état précédent', __FILE__) . ' : ' . $thermostat->getCache('lastState'));
-		$action = 'none';
-		if ($temp < $hysteresis_low) {
-			$action = 'heat';
-		}
-		if ($temp > $hysteresis_hight) {
-			$action = 'cool';
-		}
-		if ($action == 'heat' && $thermostat->getCache('lastState') == 'cool' && ($consigne - 2 * $thermostat->getConfiguration('hysteresis_threshold', 1)) < $temp) {
-			$action = 'none';
-		}
-		if ($action == 'cool' && $thermostat->getCache('lastState') == 'heat' && ($consigne + 2 * $thermostat->getConfiguration('hysteresis_threshold', 1)) > $temp) {
-			$action = 'none';
-		}
-		if ($status == __('Chauffage', __FILE__) && $temp > $hysteresis_hight) {
-			$action = 'stop';
-		}
-		if ($status == __('Climatisation', __FILE__) && $temp < ($consigne - $thermostat->getConfiguration('hysteresis_threshold', 1))) {
-			$action = 'stop';
-		}
-		if (($action == 'cool' || $action == 'heat') && $thermostat->getConfiguration('allow_mode', 'all') != 'all' && $thermostat->getConfiguration('allow_mode', 'all') != $action) {
-			$action = 'none';
-		}
-
-		if ($action == 'heat') {
-			if ($status != __('Chauffage', __FILE__)) {
-				log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Je dois chauffer', __FILE__));
-				$thermostat->heat();
-			}
-		} else if ($action == 'cool') {
-			if ($status != __('Climatisation', __FILE__)) {
-				log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Je dois refroidir', __FILE__));
-				$thermostat->cool();
-			}
-		} else if ($action == 'stop') {
-			if ($status != __('Arrêté', __FILE__)) {
-				log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __("Je m'arrête", __FILE__));
-				$thermostat->stopThermostat();
-			}
-		}
+		(new thermostatHysteresisEngine($thermostat))->run();
 	}
 
 	public static function temporal($_options) {
@@ -190,126 +124,7 @@ class thermostat extends eqLogic {
 		if (!is_object($thermostat) || $thermostat->getIsEnable() == 0) {
 			return;
 		}
-		log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Début calcul temporel', __FILE__));
-		$thermostat->reschedule(date('Y-m-d H:i:00', strtotime('+' . $thermostat->getConfiguration('cycle') . ' min ' . date('Y-m-d H:i:00'))));
-		log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Reprogrammation automatique : ', __FILE__) . date('Y-m-d H:i:s', strtotime('+' . $thermostat->getConfiguration('cycle') . ' ' . __('minutes', __FILE__) . ' ' . date('Y-m-d H:i:00'))));
-		$status = $thermostat->getCmd(null, 'status')->execCmd();
-		if ($status == __('Suspendu', __FILE__)) {
-			log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Thermostat suspendu', __FILE__));
-			return;
-		}
-		if ($thermostat->getConfiguration('smart_start') == 1) {
-			log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Programmation Smartstart', __FILE__));
-			(new thermostatSmartStart($thermostat))->plan();
-			log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Arrêt Smartstart', __FILE__));
-		}
-		$mode = $thermostat->getCmd(null, 'mode')->execCmd();
-		if ($mode == 'Off') {
-			log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Thermostat sur off', __FILE__));
-			if ($status != __('Arrêté', __FILE__)) {
-				$thermostat->stopThermostat();
-			}
-			return;
-		}
-		$cmd = $thermostat->getCmd(null, 'temperature');
-		$temp_in = $cmd->execCmd();
-		if ($cmd->getCollectDate() != '' && $cmd->getCollectDate() < date('Y-m-d H:i:s', strtotime('-' . $thermostat->getConfiguration('maxTimeUpdateTemp') . ' minutes' . date('Y-m-d H:i:s')))) {
-			if ($thermostat->getCache('temp_threshold', 0) == 0) {
-				$thermostat->failure();
-				log::add(__CLASS__, 'error', $thermostat->getHumanName() . ' ' . __("Attention il n'y a pas eu de mise à jour de la température depuis plus de", __FILE__) . ' ' . $thermostat->getConfiguration('maxTimeUpdateTemp') . ' ' . __('minutes', __FILE__) . ' (' . $cmd->getCollectDate() . ')');
-			}
-			log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __("Je ne fais rien car il n'y a pas eu de mise a jour de la température depuis plus de", __FILE__) . ' ' . $thermostat->getConfiguration('maxTimeUpdateTemp') . ' ' . __('minutes', __FILE__));
-			$thermostat->setCache('temp_threshold', 1);
-			$thermostat->getCmd(null, 'status')->event(__('Défaillance sonde', __FILE__));
-			return;
-		}
-		$temp_out = $thermostat->getCmd(null, 'temperature_outdoor')->execCmd();
-		if (!is_numeric($temp_in)) {
-			if ($thermostat->getCache('temp_threshold', 0) == 0) {
-				log::add(__CLASS__, 'error', $thermostat->getHumanName() . ' ' . __("La température intérieure n'est pas un numérique", __FILE__) . ' : ' . $temp_in);
-			}
-			log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __("Je ne fais rien car la température intérieure n'est pas un numérique", __FILE__));
-			$thermostat->setCache('temp_threshold', 1);
-			$thermostat->getCmd(null, 'status')->event(__('Défaillance sonde', __FILE__));
-			return;
-		}
-		$thermostat->setCache('temp_threshold', 0);
-		(new thermostatSmartStart($thermostat))->learn($temp_in);
-		if (($temp_in < ($thermostat->getCache('lastOrder', 0) - $thermostat->getConfiguration('offsetHeatFaillure', 1)) && $temp_in < $thermostat->getCache('lastTempIn', 0) && $thermostat->getCache('lastState') == 'heat' && $thermostat->getConfiguration('coeff_indoor_heat_autolearn') > 25) ||
-			($temp_in > ($thermostat->getCache('lastOrder', 0) + $thermostat->getConfiguration('offsetColdFaillure', 1)) && $temp_in > $thermostat->getCache('lastTempIn', 0) && $thermostat->getCache('lastState') == 'cool' && $thermostat->getConfiguration('coeff_indoor_cool_autolearn') > 25)
-		) {
-			$thermostat->setCache('nbConsecutiveFaillure', $thermostat->getCache('nbConsecutiveFaillure', 0) + 1);
-			if ($thermostat->getCache('nbConsecutiveFaillure', 0) == 2) {
-				log::add(__CLASS__, 'error', $thermostat->getHumanName() . ' ' . __('Attention une défaillance du chauffage est détectée', __FILE__));
-				$thermostat->failureActuator();
-			}
-		} else {
-			$thermostat->setCache('nbConsecutiveFaillure', 0);
-		}
-		(new thermostatCoefficientLearner($thermostat))->learn($temp_in, $temp_out);
-		$delta = $thermostat->getCache('deltaOrder', 0);
-		if ($delta > 0) {
-			log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Delta consigne > 0', __FILE__) . ' (' . $delta . '), ' . __('je lance le calcul avec consigne - delta/2', __FILE__));
-			$delta = $delta / 2;
-		}
-		$consigne = $thermostat->getCmd(null, 'order')->execCmd();
-		$temporal_data = $thermostat->calculTemporalData(floatval($consigne) - $delta);
-		if ($temporal_data['power'] > 0 && $delta > 0) {
-			log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Power > 0 et delta consigne > 0', __FILE__) . ' (' . $delta . '), ' . __('je relance le calcul avec consigne + delta/2', __FILE__));
-			$temporal_data = $thermostat->calculTemporalData($consigne + $delta);
-		}
-		$thermostat->setCache('last_power', $temporal_data['power']);
-		$cycle = jeedom::evaluateExpression($thermostat->getConfiguration('cycle'));
-		$duration = round(($temporal_data['power'] * $cycle) / 100);
-		$thermostat->setCache('lastOrder', $consigne);
-		$thermostat->setCache('lastTempIn', $temp_in);
-		$thermostat->setCache('lastTempOut', $temp_out);
-		$thermostat->setConfiguration('endDate', date('Y-m-d H:i:s', strtotime('+' . ceil($cycle * 0.9) . ' min ' . date('Y-m-d H:i:s'))));
-		log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Durée du cycle', __FILE__) . '  : ' . $duration);
-		$wasHeating = ($thermostat->getCache('lastState') == 'heat');
-		$belowMinCycle = ($temporal_data['power'] < $thermostat->getConfiguration('minCycleDuration', 5));
-		if (($belowMinCycle && ($thermostat->getConfiguration('stove_boiler') == 0 || !$wasHeating)) || ($wasHeating && $temporal_data['power'] < 1)) {
-			log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Durée du cycle trop courte, aucun lancement', __FILE__));
-			$thermostat->setCache('lastState', 'stop');
-			$thermostat->stopThermostat();
-			$thermostat->save(true);
-			return;
-		}
-
-		if ($duration > 0 && $duration < $cycle) {
-			if ($thermostat->getConfiguration('stove_boiler') == 0) {
-				$thermostat->reschedule(date('Y-m-d H:i:s', strtotime('+' . $duration . ' min ' . date('Y-m-d H:i:s'))), true);
-			} else {
-				$thermostat->reschedule(null, true);
-			}
-		}
-		if ($duration >= $cycle) {
-			$thermostat->reschedule(null, true);
-		}
-
-		if ($thermostat->getCache('lastState','none') == 'heat' && $temporal_data['direction'] < 0) {
-			log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Je dois refroidir mais avant je chauffais, je stop tout avant', __FILE__));
-			$thermostat->setCache('lastState', 'stop');
-			$thermostat->stopThermostat();
-			sleep(5);
-		}else if ($thermostat->getCache('lastState','none') == 'cool' && $temporal_data['direction'] > 0) {
-			log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Je dois chauffer mais avant je refroidissait, je stop tout avant', __FILE__));
-			$thermostat->setCache('lastState', 'stop');
-			$thermostat->stopThermostat();
-			sleep(5);
-		}
-		$thermostat->save(true);
-		if ($duration > 0) {
-			if ($temporal_data['direction'] > 0) {
-				if ($thermostat->heat()) {
-					$thermostat->getCmd(null, 'power')->event(round($temporal_data['power']));
-				}
-			} else {
-				if ($thermostat->cool()) {
-					$thermostat->getCmd(null, 'power')->event(round($temporal_data['power']));
-				}
-			}
-		}
+		(new thermostatTemporalEngine($thermostat))->run();
 	}
 
 	public static function cron() {
@@ -326,17 +141,7 @@ class thermostat extends eqLogic {
 			}
 			(new thermostatWindows($thermostat))->alert();
 			(new thermostatScheduler($thermostat))->watchdog();
-			if ($thermostat->getConfiguration('engine', 'temporal') == 'hysteresis' && $thermostat->getConfiguration('hysteresis_cron') != '') {
-				try {
-					$c = new Cron\CronExpression(checkAndFixCron($thermostat->getConfiguration('hysteresis_cron')), new Cron\FieldFactory);
-					if ($c->isDue()) {
-						$thermostat->getCmd(null, 'temperature')->event(jeedom::evaluateExpression($thermostat->getConfiguration('temperature_indoor')));
-						thermostat::hysteresis(array('thermostat_id' => $thermostat->getId()));
-					}
-				} catch (Exception $e) {
-					log::add(__CLASS__, 'error', $thermostat->getHumanName() . ' : ' . $e->getMessage());
-				}
-			}
+			(new thermostatHysteresisEngine($thermostat))->cron();
 
 			if (strtolower($thermostat->getCmd(null, 'mode')->execCmd()) == 'off') {
 				continue;
