@@ -53,7 +53,7 @@ class thermostatAssembly {
 	}
 
 	public function calendar() {
-		return new thermostatJeedomCalendar($this->thermostat, $this->log());
+		return new thermostatJeedomCalendar($this->thermostat, $this->log(), $this->translator('thermostatJeedomCalendar'));
 	}
 
 	public function persistence() {
@@ -69,7 +69,7 @@ class thermostatAssembly {
 	}
 
 	public function actionList() {
-		return new thermostatActionList($this->thermostat, $this->log());
+		return new thermostatActionList($this->thermostat, $this->log(), $this->translator('thermostatActionList'));
 	}
 
 	public function powerCalculator() {
@@ -113,7 +113,7 @@ class thermostatAssembly {
 	}
 
 	public function commands() {
-		return new thermostatCommands($this->thermostat, $this->scheduler());
+		return new thermostatCommands($this->thermostat, $this->scheduler(), $this->translator('thermostatCommands'));
 	}
 
 	public function configuration() {

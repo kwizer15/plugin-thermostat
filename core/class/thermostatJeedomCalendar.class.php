@@ -20,10 +20,12 @@ class thermostatJeedomCalendar implements thermostatCalendar {
 
 	private $eqLogic;
 	private $log;
+	private $translator;
 
-	public function __construct($_eqLogic, thermostatLog $_log) {
+	public function __construct($_eqLogic, thermostatLog $_log, thermostatTranslator $_translator) {
 		$this->eqLogic = $_eqLogic;
 		$this->log = $_log;
+		$this->translator = $_translator;
 	}
 
 	public function available() {
@@ -33,7 +35,7 @@ class thermostatJeedomCalendar implements thermostatCalendar {
 				return false;
 			}
 		} catch (Exception $ex) {
-			$this->log->debug(__('Plugin agenda non détecté', __FILE__));
+			$this->log->debug($this->translator->translate('{{Plugin agenda non détecté}}'));
 			return false;
 		}
 		return class_exists('calendar_event');

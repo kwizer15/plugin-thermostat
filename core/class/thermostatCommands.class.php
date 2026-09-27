@@ -20,10 +20,12 @@ class thermostatCommands {
 
 	private $thermostat;
 	private $scheduler;
+	private $translator;
 
-	public function __construct($_thermostat, thermostatScheduler $_scheduler) {
+	public function __construct($_thermostat, thermostatScheduler $_scheduler, thermostatTranslator $_translator) {
 		$this->thermostat = $_thermostat;
 		$this->scheduler = $_scheduler;
+		$this->translator = $_translator;
 	}
 
 	private function upsertCmd($_logicalId, $_type, $_subType, $_onCreate = null) {
@@ -58,7 +60,7 @@ class thermostatCommands {
 		$order = $this->upsertCmd('order', 'info', 'numeric', function ($cmd) {
 			$cmd->setIsVisible(0);
 			$cmd->setUnite('°C');
-			$cmd->setName(__('Consigne', __FILE__));
+			$cmd->setName($this->translator->translate('{{Consigne}}'));
 			$cmd->setConfiguration('historizeMode', 'none');
 			$cmd->setIsHistorized(1);
 		});
@@ -69,7 +71,7 @@ class thermostatCommands {
 
 		$thermostat = $this->upsertCmd('thermostat', 'action', 'slider', function ($cmd) {
 			$cmd->setUnite('°C');
-			$cmd->setName(__('Thermostat', __FILE__));
+			$cmd->setName($this->translator->translate('{{Thermostat}}'));
 			$cmd->setIsVisible(1);
 			$cmd->setTemplate('dashboard', 'button');
 			$cmd->setTemplate('mobile', 'button');
@@ -82,13 +84,13 @@ class thermostatCommands {
 
 		$status = $this->upsertCmd('status', 'info', 'string', function ($cmd) {
 			$cmd->setIsVisible(1);
-			$cmd->setName(__('Statut', __FILE__));
+			$cmd->setName($this->translator->translate('{{Statut}}'));
 		});
 		$status->setGeneric_type('THERMOSTAT_STATE_NAME');
 		$status->save();
 
 		$actif = $this->upsertCmd('actif', 'info', 'binary', function ($cmd) {
-			$cmd->setName(__('Actif', __FILE__));
+			$cmd->setName($this->translator->translate('{{Actif}}'));
 			$cmd->setIsVisible(0);
 			$cmd->setIsHistorized(1);
 		});
@@ -98,7 +100,7 @@ class thermostatCommands {
 		$lockState = $this->upsertCmd('lock_state', 'info', 'binary', function ($cmd) {
 			$cmd->setTemplate('dashboard', 'lock');
 			$cmd->setTemplate('mobile', 'lock');
-			$cmd->setName(__('Verrouillage', __FILE__));
+			$cmd->setName($this->translator->translate('{{Verrouillage}}'));
 			$cmd->setIsVisible(0);
 		});
 		$lockState->setGeneric_type('THERMOSTAT_LOCK');
@@ -118,8 +120,8 @@ class thermostatCommands {
 		}
 
 		$temperatures = array(
-			'temperature' => array('temperature_indoor', __('Température', __FILE__), 'THERMOSTAT_TEMPERATURE'),
-			'temperature_outdoor' => array('temperature_outdoor', __('Température extérieure', __FILE__), 'THERMOSTAT_TEMPERATURE_OUTDOOR'),
+			'temperature' => array('temperature_indoor', $this->translator->translate('{{Température}}'), 'THERMOSTAT_TEMPERATURE'),
+			'temperature_outdoor' => array('temperature_outdoor', $this->translator->translate('{{Température extérieure}}'), 'THERMOSTAT_TEMPERATURE_OUTDOOR'),
 		);
 		foreach ($temperatures as $logicalId => $definition) {
 			list($configurationKey, $name, $genericType) = $definition;
@@ -140,7 +142,7 @@ class thermostatCommands {
 			}
 		}
 
-		foreach (array('offset_heat' => __('Offset chauffage', __FILE__), 'offset_cool' => __('Offset froid', __FILE__)) as $logicalId => $name) {
+		foreach (array('offset_heat' => $this->translator->translate('{{Offset chauffage}}'), 'offset_cool' => $this->translator->translate('{{Offset froid}}')) as $logicalId => $name) {
 			$cmd = $this->upsertCmd($logicalId, 'action', 'slider', function ($cmd) use ($name) {
 				$cmd->setName($name);
 				$cmd->setIsVisible(0);
@@ -149,7 +151,7 @@ class thermostatCommands {
 			$cmd->save();
 		}
 
-		foreach (array('heat_only' => __('Chauffage seulement', __FILE__), 'cool_only' => __('Climatisation seulement', __FILE__)) as $logicalId => $name) {
+		foreach (array('heat_only' => $this->translator->translate('{{Chauffage seulement}}'), 'cool_only' => $this->translator->translate('{{Climatisation seulement}}')) as $logicalId => $name) {
 			$cmd = $this->upsertCmd($logicalId, 'action', 'other', function ($cmd) use ($name) {
 				$cmd->setName($name);
 				$cmd->setIsVisible(0);
@@ -158,12 +160,12 @@ class thermostatCommands {
 		}
 
 		$allAllow = $this->upsertCmd('all_allow', 'action', 'other');
-		$allAllow->setName(__('Tout autorisé', __FILE__));
+		$allAllow->setName($this->translator->translate('{{Tout autorisé}}'));
 		$allAllow->setIsVisible(0);
 		$allAllow->save();
 
 		$mode = $this->upsertCmd('mode', 'info', 'string', function ($cmd) {
-			$cmd->setName(__('Mode', __FILE__));
+			$cmd->setName($this->translator->translate('{{Mode}}'));
 			$cmd->setIsVisible(1);
 		});
 		$mode->setGeneric_type('THERMOSTAT_MODE');
@@ -171,23 +173,23 @@ class thermostatCommands {
 
 		$off = $this->upsertCmd('off', 'action', 'other', function ($cmd) {
 			$cmd->setIsVisible(1);
-			$cmd->setName(__('Off', __FILE__));
+			$cmd->setName($this->translator->translate('{{Off}}'));
 		});
 		$off->setGeneric_type('THERMOSTAT_SET_MODE');
 		$off->setValue($mode->getId());
 		$off->save();
 
 		$coefficients = array(
-			'coeff_indoor_heat' => __('Coefficient chaud', __FILE__),
-			'coeff_outdoor_heat' => __('Isolation chaud', __FILE__),
-			'coeff_indoor_cool' => __('Coefficient froid', __FILE__),
-			'coeff_outdoor_cool' => __('Isolation froid', __FILE__),
-			'smart_start_factor' => __('Anticipation smart start', __FILE__),
+			'coeff_indoor_heat' => $this->translator->translate('{{Coefficient chaud}}'),
+			'coeff_outdoor_heat' => $this->translator->translate('{{Isolation chaud}}'),
+			'coeff_indoor_cool' => $this->translator->translate('{{Coefficient froid}}'),
+			'coeff_outdoor_cool' => $this->translator->translate('{{Isolation froid}}'),
+			'smart_start_factor' => $this->translator->translate('{{Anticipation smart start}}'),
 		);
 		if ($this->thermostat->getConfiguration('engine', 'temporal') == 'temporal') {
 			$deltaOrder = $this->upsertCmd('deltaOrder', 'action', 'slider', function ($cmd) {
 				$cmd->setUnite('°C');
-				$cmd->setName(__('Delta consigne', __FILE__));
+				$cmd->setName($this->translator->translate('{{Delta consigne}}'));
 				$cmd->setIsVisible(0);
 			});
 			$deltaOrder->setConfiguration('maxValue', 5);
@@ -214,7 +216,7 @@ class thermostatCommands {
 		if ($this->thermostat->getConfiguration('consumption') != '') {
 			$performance = $this->upsertCmd('performance', 'info', 'numeric', function ($cmd) {
 				$cmd->setIsVisible(0);
-				$cmd->setName(__('Performance', __FILE__));
+				$cmd->setName($this->translator->translate('{{Performance}}'));
 			});
 			$performance->setIsHistorized(1);
 			$performance->setDisplay('groupingType', 'high::day');
@@ -295,7 +297,7 @@ class thermostatCommands {
 		$power = $this->upsertCmd('power', 'info', 'numeric', function ($cmd) {
 			$cmd->setTemplate('dashboard', 'line');
 			$cmd->setTemplate('mobile', 'line');
-			$cmd->setName(__('Puissance', __FILE__));
+			$cmd->setName($this->translator->translate('{{Puissance}}'));
 			$cmd->setIsVisible(1);
 			$cmd->setIsHistorized(1);
 			$cmd->setConfiguration('historizeMode', 'none');

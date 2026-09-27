@@ -20,10 +20,12 @@ class thermostatActionList implements thermostatActions {
 
 	private $thermostat;
 	private $log;
+	private $translator;
 
-	public function __construct($_thermostat, thermostatLog $_log) {
+	public function __construct($_thermostat, thermostatLog $_log, thermostatTranslator $_translator) {
 		$this->thermostat = $_thermostat;
 		$this->log = $_log;
+		$this->translator = $_translator;
 	}
 
 	public static function options($_action, $_consigne) {
@@ -78,6 +80,6 @@ class thermostatActionList implements thermostatActions {
 	}
 
 	private function logError($_action, $_exception) {
-		$this->log->error(__("Erreur lors de l'exécution de", __FILE__) . ' ' . $_action['cmd'] . '. ' . __('Détails', __FILE__) . ' : ' . $_exception->getMessage());
+		$this->log->error($this->translator->translate("{{Erreur lors de l'exécution de}}") . ' ' . $_action['cmd'] . '. ' . $this->translator->translate('{{Détails}}') . ' : ' . $_exception->getMessage());
 	}
 }
