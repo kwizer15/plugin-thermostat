@@ -16,13 +16,9 @@
 * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 */
 
-/* * ***************************Includes********************************* */
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
 class thermostat extends eqLogic {
-	/*     * *************************Attributs****************************** */
-
-	/*     * ***********************Methode static*************************** */
 
 	public static function pull($_options = null) {
 		$thermostat = thermostat::byId($_options['thermostat_id']);
@@ -488,8 +484,6 @@ class thermostat extends eqLogic {
 		}
 		return $return;
 	}
-
-	/*     * *********************Methode d'instance************************* */
 
 	public function windowClose($_window) {
 		if ($this->getCache('window::state::' . str_replace('#', '', $_window['cmd']), 0) != 1) {
