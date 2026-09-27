@@ -247,32 +247,16 @@ class thermostat extends eqLogic {
 			log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Démarre auto-apprentissage', __FILE__));
 			if ($thermostat->getCache('last_power', 0) < 100 && $thermostat->getCache('last_power', 0) > 0) {
 				log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' Last power ok, check what I have to learn, last state : ' . $thermostat->getCache('lastState'));
-				$learn_outdoor = false;
 				if ($thermostat->getCache('lastState') == 'heat') {
 					log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' Last state is heat');
 					if ($temp_in > $thermostat->getCache('lastTempIn', 0) && $thermostat->getCache('lastOrder', 0) > $thermostat->getCache('lastTempIn', 0)) {
 						log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' Last temps in < at current temp in');
-						$coeff_indoor_heat = $thermostat->getConfiguration('coeff_indoor_heat') * (($thermostat->getCache('lastOrder', 0) - $thermostat->getCache('lastTempIn', 0)) / ($temp_in - $thermostat->getCache('lastTempIn', 0)));
-						$coeff_indoor_heat = ($thermostat->getConfiguration('coeff_indoor_heat') * $thermostat->getConfiguration('coeff_indoor_heat_autolearn') + $coeff_indoor_heat) / ($thermostat->getConfiguration('coeff_indoor_heat_autolearn') + 1);
-						$thermostat->setConfiguration('coeff_indoor_heat_autolearn', min($thermostat->getConfiguration('coeff_indoor_heat_autolearn') + 1, 50));
-						if ($coeff_indoor_heat < 0 || !is_numeric($coeff_indoor_heat)) {
-							$coeff_indoor_heat = 0;
-						}
-						$thermostat->setConfiguration('coeff_indoor_heat', round($coeff_indoor_heat, 2));
-						$thermostat->checkAndUpdateCmd('coeff_indoor_heat', round($coeff_indoor_heat, 2));
-						log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' New coeff heat indoor : ' . $coeff_indoor_heat);
+						$coeff = $thermostat->learnCoefficient('coeff_indoor_heat', $thermostat->getConfiguration('coeff_indoor_heat') * (($thermostat->getCache('lastOrder', 0) - $thermostat->getCache('lastTempIn', 0)) / ($temp_in - $thermostat->getCache('lastTempIn', 0))));
+						log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' New coeff heat indoor : ' . $coeff);
 					} else if ($temp_out < $thermostat->getCache('lastOrder', 0)) {
 						log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' Learn outdoor heat');
-						$coeff_in = $thermostat->getConfiguration('coeff_indoor_heat');
-						$coeff_outdoor = $coeff_in * (($thermostat->getCache('lastOrder', 0) - $temp_in) / ($thermostat->getCache('lastOrder', 0) - $temp_out)) + $thermostat->getConfiguration('coeff_outdoor_heat');
-						$coeff_outdoor = ($thermostat->getConfiguration('coeff_outdoor_heat') * $thermostat->getConfiguration('coeff_outdoor_heat_autolearn') + $coeff_outdoor) / ($thermostat->getConfiguration('coeff_outdoor_heat_autolearn') + 1);
-						$thermostat->setConfiguration('coeff_outdoor_heat_autolearn', min($thermostat->getConfiguration('coeff_outdoor_heat_autolearn') + 1, 50));
-						if ($coeff_outdoor < 0 || !is_numeric($coeff_outdoor)) {
-							$coeff_outdoor = 0;
-						}
-						$thermostat->setConfiguration('coeff_outdoor_heat', round($coeff_outdoor, 2));
-						$thermostat->checkAndUpdateCmd('coeff_outdoor_heat', round($coeff_outdoor, 2));
-						log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' New coeff outdoor heat: ' . $coeff_outdoor);
+						$coeff = $thermostat->learnCoefficient('coeff_outdoor_heat', $thermostat->getConfiguration('coeff_indoor_heat') * (($thermostat->getCache('lastOrder', 0) - $temp_in) / ($thermostat->getCache('lastOrder', 0) - $temp_out)) + $thermostat->getConfiguration('coeff_outdoor_heat'));
+						log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' New coeff outdoor heat: ' . $coeff);
 					}
 				}
 
@@ -280,27 +264,12 @@ class thermostat extends eqLogic {
 					log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' Last state is cool');
 					if ($temp_in < $thermostat->getCache('lastTempIn', 0) && $thermostat->getCache('lastOrder', 0) < $thermostat->getCache('lastTempIn', 0)) {
 						log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' Last temps in > at current temp in');
-						$coeff_indoor_cool = $thermostat->getConfiguration('coeff_indoor_cool') * (($thermostat->getCache('lastTempIn', 0) - $thermostat->getCache('lastOrder', 0)) / ($thermostat->getCache('lastTempIn', 0) - $temp_in));
-						$coeff_indoor_cool = ($thermostat->getConfiguration('coeff_indoor_cool') * $thermostat->getConfiguration('coeff_indoor_cool_autolearn') + $coeff_indoor_cool) / ($thermostat->getConfiguration('coeff_indoor_cool_autolearn') + 1);
-						$thermostat->setConfiguration('coeff_indoor_cool_autolearn', min($thermostat->getConfiguration('coeff_indoor_cool_autolearn') + 1, 50));
-						if ($coeff_indoor_cool < 0 || !is_numeric($coeff_indoor_cool)) {
-							$coeff_indoor_cool = 0;
-						}
-						$thermostat->setConfiguration('coeff_indoor_cool', round($coeff_indoor_cool, 2));
-						$thermostat->checkAndUpdateCmd('coeff_indoor_cool', round($coeff_indoor_cool, 2));
-						log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' New coeff cool indoor : ' . $coeff_indoor_cool);
+						$coeff = $thermostat->learnCoefficient('coeff_indoor_cool', $thermostat->getConfiguration('coeff_indoor_cool') * (($thermostat->getCache('lastTempIn', 0) - $thermostat->getCache('lastOrder', 0)) / ($thermostat->getCache('lastTempIn', 0) - $temp_in)));
+						log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' New coeff cool indoor : ' . $coeff);
 					} else if ($temp_out > $thermostat->getCache('lastOrder', 0)) {
 						log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' Learn outdoor cool');
-						$coeff_in = $thermostat->getConfiguration('coeff_indoor_cool');
-						$coeff_outdoor = $coeff_in * (($thermostat->getCache('lastOrder', 0) - $temp_in) / ($thermostat->getCache('lastOrder', 0) - $temp_out)) + $thermostat->getConfiguration('coeff_outdoor_cool');
-						$coeff_outdoor = ($thermostat->getConfiguration('coeff_outdoor_cool') * $thermostat->getConfiguration('coeff_outdoor_cool_autolearn') + $coeff_outdoor) / ($thermostat->getConfiguration('coeff_outdoor_cool_autolearn') + 1);
-						$thermostat->setConfiguration('coeff_outdoor_cool_autolearn', min($thermostat->getConfiguration('coeff_outdoor_cool_autolearn') + 1, 50));
-						if ($coeff_outdoor < 0 || !is_numeric($coeff_outdoor)) {
-							$coeff_outdoor = 0;
-						}
-						$thermostat->setConfiguration('coeff_outdoor_cool', round($coeff_outdoor, 2));
-						$thermostat->checkAndUpdateCmd('coeff_outdoor_cool', round($coeff_outdoor, 2));
-						log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' New coeff outdoor cool : ' . $coeff_outdoor);
+						$coeff = $thermostat->learnCoefficient('coeff_outdoor_cool', $thermostat->getConfiguration('coeff_indoor_cool') * (($thermostat->getCache('lastOrder', 0) - $temp_in) / ($thermostat->getCache('lastOrder', 0) - $temp_out)) + $thermostat->getConfiguration('coeff_outdoor_cool'));
+						log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' New coeff outdoor cool : ' . $coeff);
 					}
 				}
 			}
@@ -1279,6 +1248,18 @@ class thermostat extends eqLogic {
 		} else {
 			$this->unschedule();
 		}
+	}
+
+	public function learnCoefficient($_key, $_measured) {
+		$count = $this->getConfiguration($_key . '_autolearn');
+		$coeff = ($this->getConfiguration($_key) * $count + $_measured) / ($count + 1);
+		$this->setConfiguration($_key . '_autolearn', min($count + 1, 50));
+		if ($coeff < 0 || !is_numeric($coeff)) {
+			$coeff = 0;
+		}
+		$this->setConfiguration($_key, round($coeff, 2));
+		$this->checkAndUpdateCmd($_key, round($coeff, 2));
+		return $coeff;
 	}
 
 	public function runEngine() {
