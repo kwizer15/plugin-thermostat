@@ -9,7 +9,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 
 <div class="row row-overflow">
 	<div class="col-xs-12 eqLogicThumbnailDisplay">
-		<legend><i class="fas fa-cog"></i> {{Gestion}}</legend>
+		<legend><i class="fas fa-cog"></i> {{Gestion}} <span class="label label-warning">Version kwizer15</span></legend>
 		<div class="eqLogicThumbnailContainer">
 			<div class="cursor eqLogicAction logoPrimary" data-action="add">
 				<i class="fas fa-plus-circle"></i>
@@ -83,7 +83,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 				<form class="form-horizontal">
 					<fieldset>
 						<div class="col-lg-6">
-							<legend><i class="fas fa-wrench"></i> {{Général}}</legend>
+							<legend><i class="fas fa-wrench"></i> {{Général}} <span class="label label-warning">Version kwizer15</span></legend>
 							<div class="form-group">
 								<label class="col-sm-3 control-label">{{Nom du thermostat}}</label>
 								<div class="col-sm-7">
