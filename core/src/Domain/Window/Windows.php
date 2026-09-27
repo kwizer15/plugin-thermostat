@@ -118,8 +118,13 @@ class Windows {
 	 */
 	public function timer($_cmdId, $_phase) {
 		foreach ($this->settings->windows() as $window) {
-			if ($window['cmd'] == '#' . $_cmdId . '#' && $_phase == TimerPhase::OPEN) {
+			if ($window['cmd'] != '#' . $_cmdId . '#') {
+				continue;
+			}
+			if ($_phase == TimerPhase::OPEN) {
 				$this->confirmOpen($window, (int) strtotime($this->memory->openedAt($_cmdId)));
+			} else {
+				$this->resume();
 			}
 		}
 	}
@@ -174,8 +179,16 @@ class Windows {
 		$restartTime = (isset($_window['restartTime']) && $_window['restartTime'] != '') ? $_window['restartTime'] * 60 : 0;
 		if (is_numeric($restartTime) && $restartTime > 0) {
 			$this->log->debug('[windowClose] ' . $this->translator->translate('{{Pause de}}') . ' ' . $restartTime . 's');
-			sleep($restartTime);
+			$this->timer->schedule(str_replace('#', '', $_window['cmd']), TimerPhase::CLOSE, $this->clock->now() + (int) $restartTime);
+			return;
 		}
+		$this->resume();
+	}
+
+	/**
+	 * @return void
+	 */
+	private function resume() {
 		$windows = $this->settings->windows();
 		foreach ($windows as $window) {
 			$cmdId = str_replace('#', '', $window['cmd']);

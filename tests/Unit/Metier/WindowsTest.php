@@ -177,6 +177,44 @@ class WindowsTest extends TestCase {
 		$this->assertSame(1, $this->engine->runs);
 	}
 
+	public function testClosingWithPauseSchedulesResumeInsteadOfWaiting() {
+		$this->configure(array(array('cmd' => '#7#', 'restartTime' => 1)));
+		$this->notify(7, 1);
+
+		$this->notify(7, 0);
+
+		$this->assertSame('Suspendu', $this->display->status);
+		$this->assertSame(0, $this->engine->runs);
+		$this->assertSame(array(array('7', 'close', strtotime('2026-01-15 10:01:00'))), $this->timer->calls);
+		$this->assertSame('2026-01-15 10:00:00', $this->memory->closedAt(7));
+	}
+
+	public function testResumeTimerRestartsWhenWindowsClosedLongEnough() {
+		$this->configure(array(array('cmd' => '#7#', 'restartTime' => 1)));
+		$this->display->status = 'Suspendu';
+		$this->memory->setOpenSince(strtotime('2026-01-15 09:50:00'));
+		$this->memory->setClosedAt(7, '2026-01-15 09:59:00');
+		$this->sensors->set(7, 0);
+
+		$this->windows()->timer(7, 'close');
+
+		$this->assertSame('Calcul', $this->display->status);
+		$this->assertSame(-1, $this->memory->values['window::state::open']);
+		$this->assertSame(1, $this->engine->runs);
+	}
+
+	public function testResumeTimerWaitsWhenWindowOpenAgain() {
+		$this->configure(array(array('cmd' => '#7#', 'restartTime' => 1)));
+		$this->display->status = 'Suspendu';
+		$this->memory->setClosedAt(7, '2026-01-15 09:59:00');
+		$this->sensors->set(7, 1);
+
+		$this->windows()->timer(7, 'close');
+
+		$this->assertSame('Suspendu', $this->display->status);
+		$this->assertSame(0, $this->engine->runs);
+	}
+
 	public function testClosingNeverSeenOpenIsIgnored() {
 		$this->configure(array(array('cmd' => '#7#')));
 		$this->display->status = 'Suspendu';

@@ -1381,12 +1381,6 @@ parameters:
 			path: core/src/Domain/Window/Windows.php
 
 		-
-			message: '#^Parameter \#1 \$seconds of function sleep expects int, float\|int\<1, max\>\|string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/src/Domain/Window/Windows.php
-
-		-
 			message: '#^Parameter \#2 \$_consigne of static method Jeedom\\Plugin\\Thermostat\\Jeedom\\ActionList\:\:options\(\) expects bool\|float\|int\|string\|null, mixed given\.$#'
 			identifier: argument.type
 			count: 1

@@ -102,6 +102,33 @@ class WindowTest extends ThermostatTestCase {
 		$this->assertSame('02 10 15 01 *', $crons[0]->getSchedule());
 	}
 
+	public function testClosingWithPauseSchedulesWindowTimer() {
+		$window = $this->sensor(0, 'binary');
+		$thermostat = $this->windowThermostat(array($this->windowConfig($window, array('restartTime' => 1))));
+		$this->setValueOf($thermostat, 'status', 'Chauffage');
+		$this->notify($thermostat, $window, 1);
+
+		$this->notify($thermostat, $window, 0);
+
+		$this->assertSame('Suspendu', $this->valueOf($thermostat, 'status'));
+		$this->assertSame('01 10 15 01 *', $this->windowTimer($thermostat, $window, 'close')->getSchedule());
+	}
+
+	public function testWindowTimerResumesAfterPause() {
+		$window = $this->sensor(0, 'binary');
+		$thermostat = $this->windowThermostat(array($this->windowConfig($window, array('restartTime' => 1))));
+		$this->setValueOf($thermostat, 'status', 'Chauffage');
+		$this->notify($thermostat, $window, 1);
+		$this->notify($thermostat, $window, 0);
+		\scenarioExpression::reset();
+
+		$this->setNow('2026-01-15 10:01:00');
+		\thermostat::windowTimer(array('thermostat_id' => $thermostat->getId(), 'cmd' => $window->getId(), 'phase' => 'close'));
+
+		$this->assertSame(array('heat'), $this->executed());
+		$this->assertSame('Chauffage', $this->valueOf($thermostat, 'status'));
+	}
+
 	public function testRemovingThermostatRemovesWindowTimers() {
 		$window = $this->sensor(0, 'binary');
 		$thermostat = $this->windowThermostat(array($this->windowConfig($window, array('stopTime' => 1))));
