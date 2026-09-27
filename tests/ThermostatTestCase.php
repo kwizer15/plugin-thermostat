@@ -60,6 +60,7 @@ abstract class ThermostatTestCase extends TestCase {
 		\cmd::reset();
 		\calendar_event::reset();
 		\fakeTranslation::$texts = array();
+		\fakeTranslation::$calls = array();
 		$this->setNow(self::NOW);
 		$this->device = new \eqLogic();
 		$this->device->setName('Device');

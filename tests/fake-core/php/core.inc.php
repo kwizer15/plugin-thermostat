@@ -6,9 +6,11 @@ foreach (array('utils', 'cache', 'log', 'jeedom', 'scenarioExpression', 'cron', 
 
 class fakeTranslation {
 	public static $texts = array();
+	public static $calls = array();
 }
 
 function __($_content, $_name = '') {
+	fakeTranslation::$calls[] = array($_content, $_name);
 	return isset(fakeTranslation::$texts[$_content]) ? fakeTranslation::$texts[$_content] : $_content;
 }
 
