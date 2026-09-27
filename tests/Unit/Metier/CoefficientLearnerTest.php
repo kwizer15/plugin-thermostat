@@ -109,11 +109,20 @@ class CoefficientLearnerTest extends TestCase {
 		return array(
 			'autolearn off' => array(array('autolearn' => 0), array()),
 			'cycle not ended' => array(array('endDate' => '2099-01-01 00:00:00'), array()),
+			'cycle ending now' => array(array('endDate' => '2026-01-15 10:00:00'), array()),
 			'three failures' => array(array(), array('nbConsecutiveFaillure' => 3)),
 			'full power' => array(array(), array('last_power' => 100)),
 			'no power' => array(array(), array('last_power' => 0)),
 			'stopped' => array(array(), array('lastState' => 'stop')),
 		);
+	}
+
+	public function testLearnsOnceCycleHasEnded() {
+		$this->settings->values['endDate'] = '2026-01-15 09:59:59';
+
+		$this->learn(19.5, 5);
+
+		$this->assertArrayHasKey('coeff_indoor_heat', $this->settings->published);
 	}
 
 	public function testTwoFailuresStillLearn() {
