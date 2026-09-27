@@ -19,6 +19,7 @@
 namespace Jeedom\Plugin\Thermostat\Domain\Engine;
 
 use Jeedom\Plugin\Thermostat\Domain\Actuator\Actuator;
+use Jeedom\Plugin\Thermostat\Domain\Configuration\Key;
 use Jeedom\Plugin\Thermostat\Domain\Cycle\Plan;
 use Jeedom\Plugin\Thermostat\Domain\Cycle\Planner;
 use Jeedom\Plugin\Thermostat\Domain\Display;
@@ -134,8 +135,8 @@ class TemporalEngine {
 		}
 		$this->memory->setTemperatureAlert(0);
 		$this->smartStart->learn($temp_in);
-		if (($temp_in < ($this->memory->lastOrder() - $this->settings->heatFailureOffset()) && $temp_in < $this->memory->lastTempIn() && $this->memory->lastState() == HeatingAction::HEAT && $this->settings->learnedCount('coeff_indoor_heat') > 25) ||
-			($temp_in > ($this->memory->lastOrder() + $this->settings->coldFailureOffset()) && $temp_in > $this->memory->lastTempIn() && $this->memory->lastState() == HeatingAction::COOL && $this->settings->learnedCount('coeff_indoor_cool') > 25)
+		if (($temp_in < ($this->memory->lastOrder() - $this->settings->heatFailureOffset()) && $temp_in < $this->memory->lastTempIn() && $this->memory->lastState() == HeatingAction::HEAT && $this->settings->learnedCount(Key::COEFF_INDOOR_HEAT) > 25) ||
+			($temp_in > ($this->memory->lastOrder() + $this->settings->coldFailureOffset()) && $temp_in > $this->memory->lastTempIn() && $this->memory->lastState() == HeatingAction::COOL && $this->settings->learnedCount(Key::COEFF_INDOOR_COOL) > 25)
 		) {
 			$this->memory->setConsecutiveFailures($this->memory->consecutiveFailures() + 1);
 			if ($this->memory->consecutiveFailures() == 2) {

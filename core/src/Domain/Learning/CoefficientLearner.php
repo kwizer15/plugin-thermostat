@@ -18,6 +18,7 @@
 
 namespace Jeedom\Plugin\Thermostat\Domain\Learning;
 
+use Jeedom\Plugin\Thermostat\Domain\Configuration\Key;
 use Jeedom\Plugin\Thermostat\Domain\HeatingAction;
 use Jeedom\Plugin\Thermostat\Domain\Log;
 use Jeedom\Plugin\Thermostat\Domain\Translator;
@@ -62,11 +63,11 @@ class CoefficientLearner {
 			$this->log->debug('Last state is heat');
 			if ($_temp_in > $lastTempIn && $lastOrder > $lastTempIn) {
 				$this->log->debug('Last temps in < at current temp in');
-				$coeff = $this->learnCoefficient('coeff_indoor_heat', $this->settings->coefficient('coeff_indoor_heat') * (($lastOrder - $lastTempIn) / ($_temp_in - $lastTempIn)));
+				$coeff = $this->learnCoefficient(Key::COEFF_INDOOR_HEAT, $this->settings->coefficient(Key::COEFF_INDOOR_HEAT) * (($lastOrder - $lastTempIn) / ($_temp_in - $lastTempIn)));
 				$this->log->debug('New coeff heat indoor : ' . $coeff);
 			} else if ($_temp_out < $lastOrder) {
 				$this->log->debug('Learn outdoor heat');
-				$coeff = $this->learnCoefficient('coeff_outdoor_heat', $this->settings->coefficient('coeff_indoor_heat') * (($lastOrder - $_temp_in) / ($lastOrder - $_temp_out)) + $this->settings->coefficient('coeff_outdoor_heat'));
+				$coeff = $this->learnCoefficient(Key::COEFF_OUTDOOR_HEAT, $this->settings->coefficient(Key::COEFF_INDOOR_HEAT) * (($lastOrder - $_temp_in) / ($lastOrder - $_temp_out)) + $this->settings->coefficient(Key::COEFF_OUTDOOR_HEAT));
 				$this->log->debug('New coeff outdoor heat: ' . $coeff);
 			}
 		}
@@ -74,11 +75,11 @@ class CoefficientLearner {
 			$this->log->debug('Last state is cool');
 			if ($_temp_in < $lastTempIn && $lastOrder < $lastTempIn) {
 				$this->log->debug('Last temps in > at current temp in');
-				$coeff = $this->learnCoefficient('coeff_indoor_cool', $this->settings->coefficient('coeff_indoor_cool') * (($lastTempIn - $lastOrder) / ($lastTempIn - $_temp_in)));
+				$coeff = $this->learnCoefficient(Key::COEFF_INDOOR_COOL, $this->settings->coefficient(Key::COEFF_INDOOR_COOL) * (($lastTempIn - $lastOrder) / ($lastTempIn - $_temp_in)));
 				$this->log->debug('New coeff cool indoor : ' . $coeff);
 			} else if ($_temp_out > $lastOrder) {
 				$this->log->debug('Learn outdoor cool');
-				$coeff = $this->learnCoefficient('coeff_outdoor_cool', $this->settings->coefficient('coeff_indoor_cool') * (($lastOrder - $_temp_in) / ($lastOrder - $_temp_out)) + $this->settings->coefficient('coeff_outdoor_cool'));
+				$coeff = $this->learnCoefficient(Key::COEFF_OUTDOOR_COOL, $this->settings->coefficient(Key::COEFF_INDOOR_COOL) * (($lastOrder - $_temp_in) / ($lastOrder - $_temp_out)) + $this->settings->coefficient(Key::COEFF_OUTDOOR_COOL));
 				$this->log->debug('New coeff outdoor cool : ' . $coeff);
 			}
 		}

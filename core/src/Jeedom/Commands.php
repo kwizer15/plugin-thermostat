@@ -18,6 +18,8 @@
 
 namespace Jeedom\Plugin\Thermostat\Jeedom;
 
+use Jeedom\Plugin\Thermostat\Domain\Command\LogicalId;
+use Jeedom\Plugin\Thermostat\Domain\Configuration\Key;
 use Jeedom\Plugin\Thermostat\Domain\Engine\EngineType;
 use Jeedom\Plugin\Thermostat\Domain\Translator;
 
@@ -79,7 +81,7 @@ class Commands {
 	 * @return void
 	 */
 	public function define() {
-		$order = $this->upsertCmd('order', 'info', 'numeric', function ($cmd) {
+		$order = $this->upsertCmd(LogicalId::ORDER, 'info', 'numeric', function ($cmd) {
 			$cmd->setIsVisible(0);
 			$cmd->setUnite('°C');
 			$cmd->setName($this->translator->translate('{{Consigne}}'));
@@ -87,11 +89,11 @@ class Commands {
 			$cmd->setIsHistorized(1);
 		});
 		$order->setGeneric_type('THERMOSTAT_SETPOINT');
-		$order->setConfiguration('maxValue', $this->thermostat->getConfiguration('order_max'));
-		$order->setConfiguration('minValue', $this->thermostat->getConfiguration('order_min'));
+		$order->setConfiguration('maxValue', $this->thermostat->getConfiguration(Key::ORDER_MAX));
+		$order->setConfiguration('minValue', $this->thermostat->getConfiguration(Key::ORDER_MIN));
 		$order->save();
 
-		$thermostat = $this->upsertCmd('thermostat', 'action', 'slider', function ($cmd) {
+		$thermostat = $this->upsertCmd(LogicalId::THERMOSTAT, 'action', 'slider', function ($cmd) {
 			$cmd->setUnite('°C');
 			$cmd->setName($this->translator->translate('{{Thermostat}}'));
 			$cmd->setIsVisible(1);
@@ -99,19 +101,19 @@ class Commands {
 			$cmd->setTemplate('mobile', 'button');
 		});
 		$thermostat->setGeneric_type('THERMOSTAT_SET_SETPOINT');
-		$thermostat->setConfiguration('maxValue', $this->thermostat->getConfiguration('order_max'));
-		$thermostat->setConfiguration('minValue', $this->thermostat->getConfiguration('order_min'));
+		$thermostat->setConfiguration('maxValue', $this->thermostat->getConfiguration(Key::ORDER_MAX));
+		$thermostat->setConfiguration('minValue', $this->thermostat->getConfiguration(Key::ORDER_MIN));
 		$thermostat->setValue($order->getId());
 		$thermostat->save();
 
-		$status = $this->upsertCmd('status', 'info', 'string', function ($cmd) {
+		$status = $this->upsertCmd(LogicalId::STATUS, 'info', 'string', function ($cmd) {
 			$cmd->setIsVisible(1);
 			$cmd->setName($this->translator->translate('{{Statut}}'));
 		});
 		$status->setGeneric_type('THERMOSTAT_STATE_NAME');
 		$status->save();
 
-		$actif = $this->upsertCmd('actif', 'info', 'binary', function ($cmd) {
+		$actif = $this->upsertCmd(LogicalId::ACTIVE, 'info', 'binary', function ($cmd) {
 			$cmd->setName($this->translator->translate('{{Actif}}'));
 			$cmd->setIsVisible(0);
 			$cmd->setIsHistorized(1);
@@ -119,7 +121,7 @@ class Commands {
 		$actif->setGeneric_type('THERMOSTAT_STATE');
 		$actif->save();
 
-		$lockState = $this->upsertCmd('lock_state', 'info', 'binary', function ($cmd) {
+		$lockState = $this->upsertCmd(LogicalId::LOCK_STATE, 'info', 'binary', function ($cmd) {
 			$cmd->setTemplate('dashboard', 'lock');
 			$cmd->setTemplate('mobile', 'lock');
 			$cmd->setName($this->translator->translate('{{Verrouillage}}'));
@@ -128,7 +130,7 @@ class Commands {
 		$lockState->setGeneric_type('THERMOSTAT_LOCK');
 		$lockState->save();
 
-		foreach (array('lock' => 'THERMOSTAT_SET_LOCK', 'unlock' => 'THERMOSTAT_SET_UNLOCK') as $logicalId => $genericType) {
+		foreach (array(LogicalId::LOCK => 'THERMOSTAT_SET_LOCK', LogicalId::UNLOCK => 'THERMOSTAT_SET_UNLOCK') as $logicalId => $genericType) {
 			$cmd = $this->upsertCmd($logicalId, 'action', 'other', function ($cmd) use ($logicalId) {
 				$cmd->setTemplate('dashboard', 'lock');
 				$cmd->setTemplate('mobile', 'lock');
@@ -136,14 +138,14 @@ class Commands {
 				$cmd->setOrder(1);
 			});
 			$cmd->setGeneric_type($genericType);
-			$cmd->setIsVisible(($this->thermostat->getConfiguration('hideLockCmd') == 1) ? 0 : 1);
+			$cmd->setIsVisible(($this->thermostat->getConfiguration(Key::HIDE_LOCK_CMD) == 1) ? 0 : 1);
 			$cmd->setValue($lockState->getId());
 			$cmd->save();
 		}
 
 		$temperatures = array(
-			'temperature' => array('temperature_indoor', $this->translator->translate('{{Température}}'), 'THERMOSTAT_TEMPERATURE'),
-			'temperature_outdoor' => array('temperature_outdoor', $this->translator->translate('{{Température extérieure}}'), 'THERMOSTAT_TEMPERATURE_OUTDOOR'),
+			LogicalId::TEMPERATURE => array(Key::TEMPERATURE_INDOOR, $this->translator->translate('{{Température}}'), 'THERMOSTAT_TEMPERATURE'),
+			LogicalId::TEMPERATURE_OUTDOOR => array(Key::TEMPERATURE_OUTDOOR, $this->translator->translate('{{Température extérieure}}'), 'THERMOSTAT_TEMPERATURE_OUTDOOR'),
 		);
 		foreach ($temperatures as $logicalId => $definition) {
 			list($configurationKey, $name, $genericType) = $definition;
@@ -164,7 +166,7 @@ class Commands {
 			}
 		}
 
-		foreach (array('offset_heat' => $this->translator->translate('{{Offset chauffage}}'), 'offset_cool' => $this->translator->translate('{{Offset froid}}')) as $logicalId => $name) {
+		foreach (array(LogicalId::OFFSET_HEAT => $this->translator->translate('{{Offset chauffage}}'), LogicalId::OFFSET_COOL => $this->translator->translate('{{Offset froid}}')) as $logicalId => $name) {
 			$cmd = $this->upsertCmd($logicalId, 'action', 'slider', function ($cmd) use ($name) {
 				$cmd->setName($name);
 				$cmd->setIsVisible(0);
@@ -173,7 +175,7 @@ class Commands {
 			$cmd->save();
 		}
 
-		foreach (array('heat_only' => $this->translator->translate('{{Chauffage seulement}}'), 'cool_only' => $this->translator->translate('{{Climatisation seulement}}')) as $logicalId => $name) {
+		foreach (array(LogicalId::HEAT_ONLY => $this->translator->translate('{{Chauffage seulement}}'), LogicalId::COOL_ONLY => $this->translator->translate('{{Climatisation seulement}}')) as $logicalId => $name) {
 			$cmd = $this->upsertCmd($logicalId, 'action', 'other', function ($cmd) use ($name) {
 				$cmd->setName($name);
 				$cmd->setIsVisible(0);
@@ -181,19 +183,19 @@ class Commands {
 			$cmd->save();
 		}
 
-		$allAllow = $this->upsertCmd('all_allow', 'action', 'other');
+		$allAllow = $this->upsertCmd(LogicalId::ALL_ALLOW, 'action', 'other');
 		$allAllow->setName($this->translator->translate('{{Tout autorisé}}'));
 		$allAllow->setIsVisible(0);
 		$allAllow->save();
 
-		$mode = $this->upsertCmd('mode', 'info', 'string', function ($cmd) {
+		$mode = $this->upsertCmd(LogicalId::MODE, 'info', 'string', function ($cmd) {
 			$cmd->setName($this->translator->translate('{{Mode}}'));
 			$cmd->setIsVisible(1);
 		});
 		$mode->setGeneric_type('THERMOSTAT_MODE');
 		$mode->save();
 
-		$off = $this->upsertCmd('off', 'action', 'other', function ($cmd) {
+		$off = $this->upsertCmd(LogicalId::OFF, 'action', 'other', function ($cmd) {
 			$cmd->setIsVisible(1);
 			$cmd->setName($this->translator->translate('{{Off}}'));
 		});
@@ -202,14 +204,14 @@ class Commands {
 		$off->save();
 
 		$coefficients = array(
-			'coeff_indoor_heat' => $this->translator->translate('{{Coefficient chaud}}'),
-			'coeff_outdoor_heat' => $this->translator->translate('{{Isolation chaud}}'),
-			'coeff_indoor_cool' => $this->translator->translate('{{Coefficient froid}}'),
-			'coeff_outdoor_cool' => $this->translator->translate('{{Isolation froid}}'),
-			'smart_start_factor' => $this->translator->translate('{{Anticipation smart start}}'),
+			LogicalId::COEFF_INDOOR_HEAT => $this->translator->translate('{{Coefficient chaud}}'),
+			LogicalId::COEFF_OUTDOOR_HEAT => $this->translator->translate('{{Isolation chaud}}'),
+			LogicalId::COEFF_INDOOR_COOL => $this->translator->translate('{{Coefficient froid}}'),
+			LogicalId::COEFF_OUTDOOR_COOL => $this->translator->translate('{{Isolation froid}}'),
+			LogicalId::SMART_START_FACTOR => $this->translator->translate('{{Anticipation smart start}}'),
 		);
-		if ($this->thermostat->getConfiguration('engine', EngineType::TEMPORAL) == EngineType::TEMPORAL) {
-			$deltaOrder = $this->upsertCmd('deltaOrder', 'action', 'slider', function ($cmd) {
+		if ($this->thermostat->getConfiguration(Key::ENGINE, EngineType::TEMPORAL) == EngineType::TEMPORAL) {
+			$deltaOrder = $this->upsertCmd(LogicalId::DELTA_ORDER, 'action', 'slider', function ($cmd) {
 				$cmd->setUnite('°C');
 				$cmd->setName($this->translator->translate('{{Delta consigne}}'));
 				$cmd->setIsVisible(0);
@@ -227,7 +229,7 @@ class Commands {
 				$cmd->save();
 			}
 		} else {
-			foreach (array_merge(array('deltaOrder'), array_keys($coefficients)) as $logicalId) {
+			foreach (array_merge(array(LogicalId::DELTA_ORDER), array_keys($coefficients)) as $logicalId) {
 				$cmd = $this->thermostat->getCmd(null, $logicalId);
 				if (is_object($cmd)) {
 					$cmd->remove();
@@ -235,8 +237,8 @@ class Commands {
 			}
 		}
 
-		if ($this->thermostat->getConfiguration('consumption') != '') {
-			$performance = $this->upsertCmd('performance', 'info', 'numeric', function ($cmd) {
+		if ($this->thermostat->getConfiguration(Key::CONSUMPTION) != '') {
+			$performance = $this->upsertCmd(LogicalId::PERFORMANCE, 'info', 'numeric', function ($cmd) {
 				$cmd->setIsVisible(0);
 				$cmd->setName($this->translator->translate('{{Performance}}'));
 			});
@@ -245,13 +247,13 @@ class Commands {
 			$performance->setConfiguration('historizeMode', 'max');
 			$performance->setUnite('kWh/DJU');
 			$performance->save();
-			preg_match_all("/#([0-9]*)#/", $this->thermostat->getConfiguration('consumption'), $matches);
-			$matches[1][] = $this->thermostat->getCmd(null, 'temperature_outdoor')->getId();
-			$this->scheduler->listen('updatePerformance', $matches[1]);
+			preg_match_all("/#([0-9]*)#/", $this->thermostat->getConfiguration(Key::CONSUMPTION), $matches);
+			$matches[1][] = $this->thermostat->getCmd(null, LogicalId::TEMPERATURE_OUTDOOR)->getId();
+			$this->scheduler->listen(Callback::UPDATE_PERFORMANCE, $matches[1]);
 		}
 
-		if ($this->thermostat->getConfiguration('customCmd', '') != '') {
-			$customCmd = $this->thermostat->getCmd(null, 'customCmd');
+		if ($this->thermostat->getConfiguration(Key::CUSTOM_CMD, '') != '') {
+			$customCmd = $this->thermostat->getCmd(null, LogicalId::CUSTOM_CMD);
 			if (!is_object($customCmd)) {
 				$customCmd = new \thermostatCmd();
 				$customCmd->setTemplate('dashboard', 'line');
@@ -259,9 +261,9 @@ class Commands {
 				$customCmd->setIsVisible(1);
 			}
 			$customCmd->setEqLogic_id($this->thermostat->getId());
-			$customCmd->setLogicalId('customCmd');
+			$customCmd->setLogicalId(LogicalId::CUSTOM_CMD);
 			$customCmd->setType('info');
-			$cmd_id = $this->firstInfoCmdId($this->thermostat->getConfiguration('customCmd'));
+			$cmd_id = $this->firstInfoCmdId($this->thermostat->getConfiguration(Key::CUSTOM_CMD));
 			if ($cmd_id !== null) {
 				$cmd = \cmd::byId($cmd_id);
 				$customCmd->setValue('#' . $cmd_id . '#');
@@ -274,18 +276,18 @@ class Commands {
 			if ($customCmd->execCmd() == '') {
 				$customCmd->event($customCmd->execute());
 			}
-		} else if (is_object($customCmd = $this->thermostat->getCmd(null, 'customCmd'))) {
+		} else if (is_object($customCmd = $this->thermostat->getCmd(null, LogicalId::CUSTOM_CMD))) {
 			$customCmd->remove();
 		}
 
 		$knowModes = array();
-		if (is_array($this->thermostat->getConfiguration('existingMode'))) {
-			foreach ($this->thermostat->getConfiguration('existingMode') as $existingMode) {
+		if (is_array($this->thermostat->getConfiguration(Key::MODES))) {
+			foreach ($this->thermostat->getConfiguration(Key::MODES) as $existingMode) {
 				$knowModes[$existingMode['name']] = $existingMode;
 			}
 		}
 		foreach ($this->thermostat->getCmd() as $cmd) {
-			if ($cmd->getLogicalId() == 'modeAction') {
+			if ($cmd->getLogicalId() == LogicalId::MODE_ACTION) {
 				if (isset($knowModes[$cmd->getName()])) {
 					$cmd->setGeneric_type('THERMOSTAT_SET_MODE');
 					if (isset($knowModes[$cmd->getName()]['isVisible'])) {
@@ -305,7 +307,7 @@ class Commands {
 			$modeAction->setName($knowMode['name']);
 			$modeAction->setType('action');
 			$modeAction->setSubType('other');
-			$modeAction->setLogicalId('modeAction');
+			$modeAction->setLogicalId(LogicalId::MODE_ACTION);
 			if (isset($knowMode['isVisible'])) {
 				$modeAction->setIsVisible($knowMode['isVisible']);
 			}
@@ -319,7 +321,7 @@ class Commands {
 	 * @return void
 	 */
 	public function definePower() {
-		$power = $this->upsertCmd('power', 'info', 'numeric', function ($cmd) {
+		$power = $this->upsertCmd(LogicalId::POWER, 'info', 'numeric', function ($cmd) {
 			$cmd->setTemplate('dashboard', 'line');
 			$cmd->setTemplate('mobile', 'line');
 			$cmd->setName($this->translator->translate('{{Puissance}}'));
@@ -335,7 +337,7 @@ class Commands {
 	 * @return void
 	 */
 	public function removePower() {
-		$power = $this->thermostat->getCmd(null, 'power');
+		$power = $this->thermostat->getCmd(null, LogicalId::POWER);
 		if (is_object($power)) {
 			$power->remove();
 		}

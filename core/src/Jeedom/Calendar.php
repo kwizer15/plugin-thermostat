@@ -18,6 +18,8 @@
 
 namespace Jeedom\Plugin\Thermostat\Jeedom;
 
+use Jeedom\Plugin\Thermostat\Domain\Command\LogicalId;
+use Jeedom\Plugin\Thermostat\Domain\Configuration\Key;
 use Jeedom\Plugin\Thermostat\Domain\Log;
 use Jeedom\Plugin\Thermostat\Domain\SmartStart\Calendar as SmartStartCalendar;
 use Jeedom\Plugin\Thermostat\Domain\SmartStart\EventType;
@@ -52,10 +54,10 @@ class Calendar implements SmartStartCalendar {
 	}
 
 	public function nextEvent() {
-		$thermostat = $this->eqLogic->getCmd(null, 'thermostat');
+		$thermostat = $this->eqLogic->getCmd(null, LogicalId::THERMOSTAT);
 		$next = null;
 		$position = null;
-		foreach ($this->eqLogic->getCmd(null, 'modeAction', null, true) as $mode) {
+		foreach ($this->eqLogic->getCmd(null, LogicalId::MODE_ACTION, null, true) as $mode) {
 			if(!is_object($mode)){
 				continue;
 			}
@@ -84,7 +86,7 @@ class Calendar implements SmartStartCalendar {
 					$nextOccurence = $event->nextOccurrence($position, true);
 					if ($nextOccurence['date'] != '' && ($next == null || (strtotime($next['date']) > strtotime($nextOccurence['date']) && strtotime($nextOccurence['date']) > (strtotime('now') + 120)))) {
 						$consigne = null;
-						foreach ($this->eqLogic->getConfiguration('existingMode') as $existingMode) {
+						foreach ($this->eqLogic->getConfiguration(Key::MODES) as $existingMode) {
 							if ($mode->getName() == $existingMode['name']) {
 								foreach ($existingMode['actions'] as $action) {
 									if ('#' . $thermostat->getId() . '#' == $action['cmd']) {

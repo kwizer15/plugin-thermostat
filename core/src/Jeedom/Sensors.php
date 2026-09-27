@@ -18,6 +18,7 @@
 
 namespace Jeedom\Plugin\Thermostat\Jeedom;
 
+use Jeedom\Plugin\Thermostat\Domain\Command\LogicalId;
 use Jeedom\Plugin\Thermostat\Domain\Reading;
 use Jeedom\Plugin\Thermostat\Domain\Sensors as DomainSensors;
 
@@ -31,14 +32,14 @@ class Sensors implements DomainSensors {
 	}
 
 	public function indoorTemperature() {
-		return $this->eqLogic->getCmd(null, 'temperature')->execCmd();
+		return $this->eqLogic->getCmd(null, LogicalId::TEMPERATURE)->execCmd();
 	}
 
 	public function outdoorTemperature() {
-		return $this->eqLogic->getCmd(null, 'temperature_outdoor')->execCmd();
+		return $this->eqLogic->getCmd(null, LogicalId::TEMPERATURE_OUTDOOR)->execCmd();
 	}
 	public function indoorReading(): Reading {
-		$cmd = $this->eqLogic->getCmd(null, 'temperature');
+		$cmd = $this->eqLogic->getCmd(null, LogicalId::TEMPERATURE);
 		$value = $cmd->execCmd();
 		return new Reading($value, $cmd->getCollectDate(), $cmd->getValueDate());
 	}

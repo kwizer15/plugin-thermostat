@@ -18,6 +18,7 @@
 
 namespace Jeedom\Plugin\Thermostat\Jeedom;
 
+use Jeedom\Plugin\Thermostat\Domain\Command\LogicalId;
 use Jeedom\Plugin\Thermostat\Domain\Statistics\History as StatisticsHistory;
 
 class History implements StatisticsHistory {
@@ -30,7 +31,7 @@ class History implements StatisticsHistory {
 	}
 
 	public function outdoorStatistics($_start, $_end) {
-		$cmd = $this->eqLogic->getCmd(null, 'temperature_outdoor');
+		$cmd = $this->eqLogic->getCmd(null, LogicalId::TEMPERATURE_OUTDOOR);
 		if (!is_object($cmd)) {
 			return null;
 		}
@@ -38,7 +39,7 @@ class History implements StatisticsHistory {
 	}
 
 	public function activeHistory($_start, $_end) {
-		$cmd = $this->eqLogic->getCmd(null, 'actif');
+		$cmd = $this->eqLogic->getCmd(null, LogicalId::ACTIVE);
 		if (!is_object($cmd)) {
 			return null;
 		}
@@ -50,10 +51,10 @@ class History implements StatisticsHistory {
 	}
 
 	public function hasPerformance() {
-		return is_object($this->eqLogic->getCmd('info', 'performance'));
+		return is_object($this->eqLogic->getCmd('info', LogicalId::PERFORMANCE));
 	}
 
 	public function publishPerformance($_performance) {
-		$this->eqLogic->getCmd('info', 'performance')->event($_performance);
+		$this->eqLogic->getCmd('info', LogicalId::PERFORMANCE)->event($_performance);
 	}
 }

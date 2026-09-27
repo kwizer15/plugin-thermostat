@@ -37,68 +37,68 @@ class Configuration {
 	 * @return void
 	 */
 	public function apply() {
-		if ($this->store->value('order_max') === '') {
-			$this->store->change('order_max', 28);
+		if ($this->store->value(Key::ORDER_MAX) === '') {
+			$this->store->change(Key::ORDER_MAX, 28);
 		}
-		if ($this->store->value('order_min') === '') {
-			$this->store->change('order_min', 15);
+		if ($this->store->value(Key::ORDER_MIN) === '') {
+			$this->store->change(Key::ORDER_MIN, 15);
 		}
-		if ($this->store->value('order_min') > $this->store->value('order_max')) {
+		if ($this->store->value(Key::ORDER_MIN) > $this->store->value(Key::ORDER_MAX)) {
 			throw new \Exception($this->translator->translate('{{La température de consigne minimale ne peut être supérieure à la consigne maximale}}'));
 		}
-		if ($this->store->value('coeff_indoor_heat') === '') {
-			$this->store->change('coeff_indoor_heat', 10);
+		if ($this->store->value(Key::COEFF_INDOOR_HEAT) === '') {
+			$this->store->change(Key::COEFF_INDOOR_HEAT, 10);
 		}
-		if ($this->store->value('coeff_indoor_cool') === '') {
-			$this->store->change('coeff_indoor_cool', 10);
+		if ($this->store->value(Key::COEFF_INDOOR_COOL) === '') {
+			$this->store->change(Key::COEFF_INDOOR_COOL, 10);
 		}
-		if ($this->store->value('coeff_outdoor_heat') === '') {
-			$this->store->change('coeff_outdoor_heat', 2);
+		if ($this->store->value(Key::COEFF_OUTDOOR_HEAT) === '') {
+			$this->store->change(Key::COEFF_OUTDOOR_HEAT, 2);
 		}
-		if ($this->store->value('coeff_outdoor_cool') === '') {
-			$this->store->change('coeff_outdoor_cool', 2);
+		if ($this->store->value(Key::COEFF_OUTDOOR_COOL) === '') {
+			$this->store->change(Key::COEFF_OUTDOOR_COOL, 2);
 		}
-		if ($this->store->value('minCycleDuration') === '') {
-			$this->store->change('minCycleDuration', 5);
+		if ($this->store->value(Key::MIN_CYCLE_DURATION) === '') {
+			$this->store->change(Key::MIN_CYCLE_DURATION, 5);
 		}
-		if ($this->store->value('offset_heat') === '') {
-			$this->store->change('offset_heat', 0);
+		if ($this->store->value(Key::OFFSET_HEAT) === '') {
+			$this->store->change(Key::OFFSET_HEAT, 0);
 		}
-		if ($this->store->value('offset_cool') === '') {
-			$this->store->change('offset_cool', 0);
+		if ($this->store->value(Key::OFFSET_COOL) === '') {
+			$this->store->change(Key::OFFSET_COOL, 0);
 		}
-		if ($this->store->value('minCycleDuration') < 0 || $this->store->value('minCycleDuration') > 90) {
+		if ($this->store->value(Key::MIN_CYCLE_DURATION) < 0 || $this->store->value(Key::MIN_CYCLE_DURATION) > 90) {
 			throw new \Exception($this->translator->translate('{{Le temps de chauffe minimal doit être compris entre 0% et 90%}}'));
 		}
-		if ($this->store->value('cycle') === '') {
-			$this->store->change('cycle', 59);
+		if ($this->store->value(Key::CYCLE) === '') {
+			$this->store->change(Key::CYCLE, 59);
 		}
-		if ($this->store->value('smart_start') === '') {
-			$this->store->change('smart_start', 1);
+		if ($this->store->value(Key::SMART_START) === '') {
+			$this->store->change(Key::SMART_START, 1);
 		}
-		if ($this->store->value('cycle') < 15) {
+		if ($this->store->value(Key::CYCLE) < 15) {
 			throw new \Exception($this->translator->translate('{{Le temps de cycle doit être supérieur à 15 minutes}}'));
 		}
-		if ($this->store->value('autolearn') === '') {
-			$this->store->change('autolearn', 1);
+		if ($this->store->value(Key::AUTOLEARN) === '') {
+			$this->store->change(Key::AUTOLEARN, 1);
 		}
-		if ($this->store->value('coeff_indoor_cool_autolearn') === '' || $this->store->value('coeff_indoor_cool_autolearn') < 1) {
-			$this->store->change('coeff_indoor_cool_autolearn', 1);
+		if ($this->store->value(Key::COEFF_INDOOR_COOL_AUTOLEARN) === '' || $this->store->value(Key::COEFF_INDOOR_COOL_AUTOLEARN) < 1) {
+			$this->store->change(Key::COEFF_INDOOR_COOL_AUTOLEARN, 1);
 		}
-		if ($this->store->value('coeff_indoor_heat_autolearn') === '' || $this->store->value('coeff_indoor_heat_autolearn') < 1) {
-			$this->store->change('coeff_indoor_heat_autolearn', 1);
+		if ($this->store->value(Key::COEFF_INDOOR_HEAT_AUTOLEARN) === '' || $this->store->value(Key::COEFF_INDOOR_HEAT_AUTOLEARN) < 1) {
+			$this->store->change(Key::COEFF_INDOOR_HEAT_AUTOLEARN, 1);
 		}
-		if ($this->store->value('coeff_outdoor_heat_autolearn') === '' || $this->store->value('coeff_outdoor_heat_autolearn') < 1) {
-			$this->store->change('coeff_outdoor_heat_autolearn', 0);
+		if ($this->store->value(Key::COEFF_OUTDOOR_HEAT_AUTOLEARN) === '' || $this->store->value(Key::COEFF_OUTDOOR_HEAT_AUTOLEARN) < 1) {
+			$this->store->change(Key::COEFF_OUTDOOR_HEAT_AUTOLEARN, 0);
 		}
-		if ($this->store->value('coeff_outdoor_cool_autolearn') === '' || $this->store->value('coeff_outdoor_cool_autolearn') < 1) {
-			$this->store->change('coeff_outdoor_cool_autolearn', 0);
+		if ($this->store->value(Key::COEFF_OUTDOOR_COOL_AUTOLEARN) === '' || $this->store->value(Key::COEFF_OUTDOOR_COOL_AUTOLEARN) < 1) {
+			$this->store->change(Key::COEFF_OUTDOOR_COOL_AUTOLEARN, 0);
 		}
-		if ($this->store->value('engine') == EngineType::HYSTERESIS) {
-			$this->store->change('hysteresis_threshold', str_replace(',', '.', $this->store->value('hysteresis_threshold', 1)));
+		if ($this->store->value(Key::ENGINE) == EngineType::HYSTERESIS) {
+			$this->store->change(Key::HYSTERESIS_THRESHOLD, str_replace(',', '.', $this->store->value(Key::HYSTERESIS_THRESHOLD, 1)));
 		}
-		if (is_array($this->store->value('existingMode'))) {
-			foreach ($this->store->value('existingMode') as $existingMode) {
+		if (is_array($this->store->value(Key::MODES))) {
+			foreach ($this->store->value(Key::MODES) as $existingMode) {
 				if (strtolower($existingMode['name']) == $this->translator->translate('{{off}}')) {
 					throw new \Exception($this->translator->translate("{{Vous ne pouvez faire un mode s'appelant Off car une commande Off existe déjà}}"));
 				}

@@ -19,6 +19,7 @@
 namespace Jeedom\Plugin\Thermostat\Jeedom;
 
 use Jeedom\Plugin\Thermostat\Domain\Actuator\Actions;
+use Jeedom\Plugin\Thermostat\Domain\Command\LogicalId;
 use Jeedom\Plugin\Thermostat\Domain\Log;
 use Jeedom\Plugin\Thermostat\Domain\Translator;
 
@@ -54,7 +55,7 @@ class ActionList implements Actions {
 	}
 
 	public function execute($_actions, $_skipOwnCmds, $_extraOptions = array()) {
-		$consigne = $this->thermostat->getCmd(null, 'order')->execCmd();
+		$consigne = $this->thermostat->getCmd(null, LogicalId::ORDER)->execCmd();
 		foreach ($_actions as $action) {
 			try {
 				if ($_skipOwnCmds) {
@@ -80,9 +81,9 @@ class ActionList implements Actions {
 			try {
 				$options = self::options($action, $_consigne);
 				$cmd = (is_numeric(str_replace('#', '', $action['cmd']))) ? \cmd::byString($action['cmd']) : '';
-				if (is_object($cmd) && $cmd->getEqLogic_id() == $this->thermostat->getId() && $cmd->getLogicalId() == 'thermostat') {
+				if (is_object($cmd) && $cmd->getEqLogic_id() == $this->thermostat->getId() && $cmd->getLogicalId() == LogicalId::THERMOSTAT) {
 					$thermostatCmd = true;
-					$this->thermostat->getCmd(null, 'order')->event(\scenarioExpression::createAndExec('condition', $options['slider']));
+					$this->thermostat->getCmd(null, LogicalId::ORDER)->event(\scenarioExpression::createAndExec('condition', $options['slider']));
 				} else {
 					\scenarioExpression::createAndExec('action', $action['cmd'], $options);
 				}

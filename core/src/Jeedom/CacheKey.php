@@ -18,27 +18,23 @@
 
 namespace Jeedom\Plugin\Thermostat\Jeedom;
 
-use Jeedom\Plugin\Thermostat\Domain\Command\LogicalId;
-use Jeedom\Plugin\Thermostat\Domain\SmartStart\Controls as SmartStartControls;
+final class CacheKey {
 
-class Controls implements SmartStartControls {
+	const LAST_STATE = 'lastState';
+	const LAST_POWER = 'last_power';
+	const LAST_ORDER = 'lastOrder';
+	const LAST_TEMP_IN = 'lastTempIn';
+	const LAST_TEMP_OUT = 'lastTempOut';
+	const CONSECUTIVE_FAILURES = 'nbConsecutiveFaillure';
+	const TEMPERATURE_ALERT = 'temp_threshold';
+	const SMART_START = 'smartStart';
+	const WINDOW_OPEN_SINCE = 'window::state::open';
+	const WINDOW_STATE_PREFIX = 'window::state::';
+	const WINDOW_CLOSE_PREFIX = 'window::close::';
+	const WINDOW_ALERT_SENT = 'alertSendForWindow';
+	const DELTA_ORDER = 'deltaOrder';
+	const WINDOW_CLOSE_DATETIME_SUFFIX = '::datetime';
 
-	/** @var \thermostat */
-	private $eqLogic;
-
-	public function __construct(\thermostat $_eqLogic) {
-		$this->eqLogic = $_eqLogic;
-	}
-
-	public function requestSetpoint($_value) {
-		$this->eqLogic->getCmd(null, LogicalId::THERMOSTAT)->execCmd(array('slider' => $_value));
-	}
-
-	public function modeExists($_cmdId) {
-		return is_object(\cmd::byId($_cmdId));
-	}
-
-	public function runMode($_cmdId) {
-		\cmd::byId($_cmdId)->execCmd();
+	private function __construct() {
 	}
 }

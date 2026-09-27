@@ -18,27 +18,16 @@
 
 namespace Jeedom\Plugin\Thermostat\Jeedom;
 
-use Jeedom\Plugin\Thermostat\Domain\Command\LogicalId;
-use Jeedom\Plugin\Thermostat\Domain\SmartStart\Controls as SmartStartControls;
+final class Callback {
 
-class Controls implements SmartStartControls {
+	const PULL = 'pull';
+	const WINDOW = 'window';
+	const HYSTERESIS = 'hysteresis';
+	const UPDATE_PERFORMANCE = 'updatePerformance';
+	const OPTION_THERMOSTAT_ID = 'thermostat_id';
+	const OPTION_STOP = 'stop';
+	const OPTION_SMART_THERMOSTAT = 'smartThermostat';
 
-	/** @var \thermostat */
-	private $eqLogic;
-
-	public function __construct(\thermostat $_eqLogic) {
-		$this->eqLogic = $_eqLogic;
-	}
-
-	public function requestSetpoint($_value) {
-		$this->eqLogic->getCmd(null, LogicalId::THERMOSTAT)->execCmd(array('slider' => $_value));
-	}
-
-	public function modeExists($_cmdId) {
-		return is_object(\cmd::byId($_cmdId));
-	}
-
-	public function runMode($_cmdId) {
-		\cmd::byId($_cmdId)->execCmd();
+	private function __construct() {
 	}
 }

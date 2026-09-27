@@ -18,6 +18,8 @@
 
 namespace Jeedom\Plugin\Thermostat\Jeedom;
 
+use Jeedom\Plugin\Thermostat\Domain\Command\LogicalId;
+use Jeedom\Plugin\Thermostat\Domain\Configuration\Key;
 use Jeedom\Plugin\Thermostat\Domain\Engine\EngineType;
 use Jeedom\Plugin\Thermostat\Domain\Log;
 use Jeedom\Plugin\Thermostat\Domain\Scheduling;
@@ -38,26 +40,26 @@ class Scheduler implements Scheduling {
 	 * @return array{thermostat_id: int}
 	 */
 	private function options() {
-		return array('thermostat_id' => intval($this->thermostat->getId()));
+		return array(Callback::OPTION_THERMOSTAT_ID => intval($this->thermostat->getId()));
 	}
 
 	public function reschedule($_next = null, $_stop = false, $_smartThermostat = false) {
 		$this->log->debug('Reschedule, next : '.$_next.', stop : '.$_stop.', smartThermostat : '.json_encode($_smartThermostat));
-		$options = array('thermostat_id' => intval($this->thermostat->getId()));
+		$options = array(Callback::OPTION_THERMOSTAT_ID => intval($this->thermostat->getId()));
 		if ($_stop) {
-			$options['stop'] = intval(1);
+			$options[Callback::OPTION_STOP] = intval(1);
 		}
 		if ($_smartThermostat !== false) {
-			$crons = \cron::searchClassAndFunction('thermostat', 'pull', '"thermostat_id":' . intval($this->thermostat->getId()) . '%"smartThermostat":1');
+			$crons = \cron::searchClassAndFunction(\thermostat::class, Callback::PULL, '"thermostat_id":' . intval($this->thermostat->getId()) . '%"smartThermostat":1');
 			if (is_array($crons) && count($crons)) {
 				foreach ($crons as $cron) {
 					$cron->remove(false);
 				}
 			}
-			$options['smartThermostat'] = intval(1);
+			$options[Callback::OPTION_SMART_THERMOSTAT] = intval(1);
 			$options['next'] = $_smartThermostat;
 		}
-		$cron = \cron::byClassAndFunction('thermostat', 'pull', $options);
+		$cron = \cron::byClassAndFunction(\thermostat::class, Callback::PULL, $options);
 		if (is_object($cron)) {
 			$cron->remove(false);
 		}
@@ -65,11 +67,11 @@ class Scheduler implements Scheduling {
 			return;
 		}
 		$cron = new \cron();
-		$cron->setClass('thermostat');
-		$cron->setFunction('pull');
+		$cron->setClass(\thermostat::class);
+		$cron->setFunction(Callback::PULL);
 		$cron->setOption($options);
 		$_next = strtotime($_next);
-		$cron->setTimeout($this->thermostat->getConfiguration('cycle') + 10);
+		$cron->setTimeout($this->thermostat->getConfiguration(Key::CYCLE) + 10);
 		$cron->setSchedule(\cron::convertDateToCron($_next));
 		$cron->setOnce(1);
 		$cron->save();
@@ -79,17 +81,17 @@ class Scheduler implements Scheduling {
 	 * @return void
 	 */
 	public function unschedule() {
-		$cron = \cron::byClassAndFunction('thermostat', 'pull', $this->options());
+		$cron = \cron::byClassAndFunction(\thermostat::class, Callback::PULL, $this->options());
 		if (is_object($cron)) {
 			$cron->remove();
 		}
-		$cron = \cron::byClassAndFunction('thermostat', 'pull', array('thermostat_id' => intval($this->thermostat->getId()), 'stop' => intval(1)));
+		$cron = \cron::byClassAndFunction(\thermostat::class, Callback::PULL, array(Callback::OPTION_THERMOSTAT_ID => intval($this->thermostat->getId()), Callback::OPTION_STOP => intval(1)));
 		if (is_object($cron)) {
 			$cron->remove();
 		}
-		$this->forget('window');
-		$this->forget('hysteresis');
-		$this->forget('updatePerformance');
+		$this->forget(Callback::WINDOW);
+		$this->forget(Callback::HYSTERESIS);
+		$this->forget(Callback::UPDATE_PERFORMANCE);
 	}
 
 	/**
@@ -98,11 +100,11 @@ class Scheduler implements Scheduling {
 	 * @return void
 	 */
 	public function listen($_function, $_events) {
-		$listener = \listener::byClassAndFunction('thermostat', $_function, $this->options());
+		$listener = \listener::byClassAndFunction(\thermostat::class, $_function, $this->options());
 		if (!is_object($listener)) {
 			$listener = new \listener();
 		}
-		$listener->setClass('thermostat');
+		$listener->setClass(\thermostat::class);
 		$listener->setFunction($_function);
 		$listener->setOption($this->options());
 		$listener->emptyEvent();
@@ -117,7 +119,7 @@ class Scheduler implements Scheduling {
 	 * @return void
 	 */
 	public function forget($_function) {
-		$listener = \listener::byClassAndFunction('thermostat', $_function, $this->options());
+		$listener = \listener::byClassAndFunction(\thermostat::class, $_function, $this->options());
 		if (is_object($listener)) {
 			$listener->remove();
 		}
@@ -127,8 +129,8 @@ class Scheduler implements Scheduling {
 	 * @return void
 	 */
 	public function watchdog() {
-		if ($this->thermostat->getConfiguration('engine', EngineType::TEMPORAL) == EngineType::TEMPORAL && date('i') % 10 == 0) {
-			$cron = \cron::byClassAndFunction('thermostat', 'pull', array('thermostat_id' => intval($this->thermostat->getId())));
+		if ($this->thermostat->getConfiguration(Key::ENGINE, EngineType::TEMPORAL) == EngineType::TEMPORAL && date('i') % 10 == 0) {
+			$cron = \cron::byClassAndFunction(\thermostat::class, Callback::PULL, array(Callback::OPTION_THERMOSTAT_ID => intval($this->thermostat->getId())));
 			if (!is_object($cron)) {
 				$this->reschedule(date('Y-m-d H:i:s', strtotime('+2 min ' . date('Y-m-d H:i:s'))));
 			} else {
@@ -150,12 +152,12 @@ class Scheduler implements Scheduling {
 	 * @return void
 	 */
 	public function runHysteresisCron() {
-		if ($this->thermostat->getConfiguration('engine', EngineType::TEMPORAL) == EngineType::HYSTERESIS && $this->thermostat->getConfiguration('hysteresis_cron') != '') {
+		if ($this->thermostat->getConfiguration(Key::ENGINE, EngineType::TEMPORAL) == EngineType::HYSTERESIS && $this->thermostat->getConfiguration(Key::HYSTERESIS_CRON) != '') {
 			try {
-				$c = new \Cron\CronExpression(checkAndFixCron($this->thermostat->getConfiguration('hysteresis_cron')), new \Cron\FieldFactory);
+				$c = new \Cron\CronExpression(checkAndFixCron($this->thermostat->getConfiguration(Key::HYSTERESIS_CRON)), new \Cron\FieldFactory);
 				if ($c->isDue()) {
-					$this->thermostat->getCmd(null, 'temperature')->event(\jeedom::evaluateExpression($this->thermostat->getConfiguration('temperature_indoor')));
-					\thermostat::hysteresis(array('thermostat_id' => $this->thermostat->getId()));
+					$this->thermostat->getCmd(null, LogicalId::TEMPERATURE)->event(\jeedom::evaluateExpression($this->thermostat->getConfiguration(Key::TEMPERATURE_INDOOR)));
+					\thermostat::hysteresis(array(Callback::OPTION_THERMOSTAT_ID => $this->thermostat->getId()));
 				}
 			} catch (\Exception $e) {
 				$this->log->error(': ' . $e->getMessage());

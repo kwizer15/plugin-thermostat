@@ -18,7 +18,10 @@
 
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 use Jeedom\Plugin\Thermostat\Assembly;
+use Jeedom\Plugin\Thermostat\Domain\Command\LogicalId;
+use Jeedom\Plugin\Thermostat\Domain\Configuration\Key;
 use Jeedom\Plugin\Thermostat\Domain\Engine\EngineType;
+use Jeedom\Plugin\Thermostat\Jeedom\Callback;
 
 spl_autoload_register(function ($_class) {
 	$prefix = 'Jeedom\\Plugin\\Thermostat\\';
@@ -38,31 +41,31 @@ class thermostat extends eqLogic {
 	}
 
 	public static function pull($_options = null) {
-		$thermostat = thermostat::byId($_options['thermostat_id']);
+		$thermostat = thermostat::byId($_options[Callback::OPTION_THERMOSTAT_ID]);
 		if (!is_object($thermostat)) {
-			$cron = cron::byClassAndFunction(__CLASS__, 'pull', $_options);
+			$cron = cron::byClassAndFunction(__CLASS__, Callback::PULL, $_options);
 			if (is_object($cron)) {
 				$cron->remove();
 			}
-			throw new Exception(__('Thermostat ID non trouvé', __FILE__) . ' : ' . $_options['thermostat_id'] . '. ' . __('Tâche supprimée', __FILE__));
+			throw new Exception(__('Thermostat ID non trouvé', __FILE__) . ' : ' . $_options[Callback::OPTION_THERMOSTAT_ID] . '. ' . __('Tâche supprimée', __FILE__));
 		}
-		if ($thermostat->getConfiguration('engine', EngineType::TEMPORAL) != EngineType::TEMPORAL) {
-			$cron = cron::byClassAndFunction(__CLASS__, 'pull', $_options);
+		if ($thermostat->getConfiguration(Key::ENGINE, EngineType::TEMPORAL) != EngineType::TEMPORAL) {
+			$cron = cron::byClassAndFunction(__CLASS__, Callback::PULL, $_options);
 			if (is_object($cron)) {
 				$cron->remove();
 			}
 			return;
 		}
-		if (isset($_options['stop']) && $_options['stop'] == 1) {
-			$status = $thermostat->getCmd(null, 'status')->execCmd();
+		if (isset($_options[Callback::OPTION_STOP]) && $_options[Callback::OPTION_STOP] == 1) {
+			$status = $thermostat->getCmd(null, LogicalId::STATUS)->execCmd();
 			if ($status == __('Suspendu', __FILE__)) {
 				return;
 			}
 			$thermostat->stopThermostat();
 			return;
-		} elseif (isset($_options['smartThermostat']) && $_options['smartThermostat'] == 1) {
+		} elseif (isset($_options[Callback::OPTION_SMART_THERMOSTAT]) && $_options[Callback::OPTION_SMART_THERMOSTAT] == 1) {
 			log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Thermostat::pull => mode smart', __FILE__) . ' : ' . print_r($_options, true));
-			$cron = cron::byClassAndFunction(__CLASS__, 'pull', $_options);
+			$cron = cron::byClassAndFunction(__CLASS__, Callback::PULL, $_options);
 			if (is_object($cron)) {
 				$cron->remove(false);
 			}
@@ -73,7 +76,7 @@ class thermostat extends eqLogic {
 	}
 
 	public static function updatePerformance($_options) {
-		$thermostat = thermostat::byId($_options['thermostat_id']);
+		$thermostat = thermostat::byId($_options[Callback::OPTION_THERMOSTAT_ID]);
 		if (!is_object($thermostat)) {
 			return;
 		}
@@ -81,7 +84,7 @@ class thermostat extends eqLogic {
 	}
 
 	public static function hysteresis($_options) {
-		$thermostat = thermostat::byId($_options['thermostat_id']);
+		$thermostat = thermostat::byId($_options[Callback::OPTION_THERMOSTAT_ID]);
 		if (!is_object($thermostat) || $thermostat->getIsEnable() == 0) {
 			return;
 		}
@@ -89,7 +92,7 @@ class thermostat extends eqLogic {
 	}
 
 	public static function temporal($_options) {
-		$thermostat = thermostat::byId($_options['thermostat_id']);
+		$thermostat = thermostat::byId($_options[Callback::OPTION_THERMOSTAT_ID]);
 		if (!is_object($thermostat) || $thermostat->getIsEnable() == 0) {
 			return;
 		}
@@ -98,9 +101,9 @@ class thermostat extends eqLogic {
 
 	public static function cron() {
 		foreach (thermostat::byType('thermostat', true) as $thermostat) {
-			if ($thermostat->getConfiguration('repeat_commande_cron') != '') {
+			if ($thermostat->getConfiguration(Key::REPEAT_CRON) != '') {
 				try {
-					$c = new Cron\CronExpression(checkAndFixCron($thermostat->getConfiguration('repeat_commande_cron')), new Cron\FieldFactory);
+					$c = new Cron\CronExpression(checkAndFixCron($thermostat->getConfiguration(Key::REPEAT_CRON)), new Cron\FieldFactory);
 					if ($c->isDue()) {
 						$thermostat->assembly()->actuator()->repeat();
 					}
@@ -117,7 +120,7 @@ class thermostat extends eqLogic {
 
 	public static function start() {
 		foreach (thermostat::byType('thermostat', true) as $thermostat) {
-			if (strtolower($thermostat->getCmd(null, 'mode')->execCmd()) == 'off') {
+			if (strtolower($thermostat->getCmd(null, LogicalId::MODE)->execCmd()) == 'off') {
 				continue;
 			}
 			$thermostat->stopThermostat();
@@ -126,7 +129,7 @@ class thermostat extends eqLogic {
 	}
 
 	public static function window($_option) {
-		$thermostat = thermostat::byId($_option['thermostat_id']);
+		$thermostat = thermostat::byId($_option[Callback::OPTION_THERMOSTAT_ID]);
 		if (is_object($thermostat) && $thermostat->getIsEnable() == 1) {
 			$thermostat->assembly()->windows()->handle($_option);
 		}
@@ -163,7 +166,7 @@ class thermostat extends eqLogic {
 	}
 
 	public function calculTemporalData($_consigne, $_allowOverfull = false) {
-		return $this->assembly()->powerCalculator()->compute($_consigne, $this->getCmd(null, 'temperature')->execCmd(), $this->getCmd(null, 'temperature_outdoor')->execCmd(), $_allowOverfull);
+		return $this->assembly()->powerCalculator()->compute($_consigne, $this->getCmd(null, LogicalId::TEMPERATURE)->execCmd(), $this->getCmd(null, LogicalId::TEMPERATURE_OUTDOOR)->execCmd(), $_allowOverfull);
 	}
 
 	public function getNextState() {
@@ -183,25 +186,25 @@ class thermostat extends eqLogic {
 		$commands->define();
 		$scheduler = $this->assembly()->scheduler();
 		if ($this->getIsEnable() == 1) {
-			$windows = $this->getConfiguration('window');
+			$windows = $this->getConfiguration(Key::WINDOWS);
 			if (is_array($windows) && count($windows) > 0) {
 				$events = array();
 				foreach ($windows as $window) {
 					$events[] = $window['cmd'];
 				}
-				$scheduler->listen('window', $events);
+				$scheduler->listen(Callback::WINDOW, $events);
 			}
 
-			if ($this->getConfiguration('engine', EngineType::TEMPORAL) == EngineType::HYSTERESIS) {
-				preg_match_all("/#([0-9]*)#/", $this->getConfiguration('temperature_indoor'), $matches);
-				$scheduler->listen('hysteresis', $matches[1]);
+			if ($this->getConfiguration(Key::ENGINE, EngineType::TEMPORAL) == EngineType::HYSTERESIS) {
+				preg_match_all("/#([0-9]*)#/", $this->getConfiguration(Key::TEMPERATURE_INDOOR), $matches);
+				$scheduler->listen(Callback::HYSTERESIS, $matches[1]);
 				$commands->removePower();
 			} else {
-				$scheduler->forget('hysteresis');
+				$scheduler->forget(Callback::HYSTERESIS);
 				$commands->definePower();
 			}
-			if ($this->getConfiguration('engine', EngineType::TEMPORAL) != EngineType::TEMPORAL || $this->getIsEnable() != 1) {
-				$cron = cron::byClassAndFunction(__CLASS__, 'pull', array('thermostat_id' => intval($this->getId())));
+			if ($this->getConfiguration(Key::ENGINE, EngineType::TEMPORAL) != EngineType::TEMPORAL || $this->getIsEnable() != 1) {
+				$cron = cron::byClassAndFunction(__CLASS__, Callback::PULL, array(Callback::OPTION_THERMOSTAT_ID => intval($this->getId())));
 				if (is_object($cron)) {
 					$this->stopThermostat();
 					$cron->remove();
@@ -228,10 +231,10 @@ class thermostat extends eqLogic {
 	}
 
 	public function runEngine() {
-		if ($this->getConfiguration('engine', EngineType::TEMPORAL) == EngineType::TEMPORAL) {
-			thermostat::temporal(array('thermostat_id' => $this->getId()));
-		} else if ($this->getConfiguration('engine', EngineType::TEMPORAL) == EngineType::HYSTERESIS) {
-			thermostat::hysteresis(array('thermostat_id' => $this->getId()));
+		if ($this->getConfiguration(Key::ENGINE, EngineType::TEMPORAL) == EngineType::TEMPORAL) {
+			thermostat::temporal(array(Callback::OPTION_THERMOSTAT_ID => $this->getId()));
+		} else if ($this->getConfiguration(Key::ENGINE, EngineType::TEMPORAL) == EngineType::HYSTERESIS) {
+			thermostat::hysteresis(array(Callback::OPTION_THERMOSTAT_ID => $this->getId()));
 		}
 	}
 
@@ -280,12 +283,12 @@ class thermostatCmd extends cmd {
 
 	public function execute($_options = array()) {
 		$eqLogic = $this->getEqLogic();
-		if ($this->getLogicalId() == 'temperature') {
-			return round(jeedom::evaluateExpression($eqLogic->getConfiguration('temperature_indoor',0)), 1);
-		} else if ($this->getLogicalId() == 'temperature_outdoor') {
-			return round(jeedom::evaluateExpression($eqLogic->getConfiguration('temperature_outdoor',0)), 1);
-		} else if ($this->getLogicalId() == 'customCmd') {
-			return jeedom::evaluateExpression($eqLogic->getConfiguration('customCmd'));
+		if ($this->getLogicalId() == LogicalId::TEMPERATURE) {
+			return round(jeedom::evaluateExpression($eqLogic->getConfiguration(Key::TEMPERATURE_INDOOR,0)), 1);
+		} else if ($this->getLogicalId() == LogicalId::TEMPERATURE_OUTDOOR) {
+			return round(jeedom::evaluateExpression($eqLogic->getConfiguration(Key::TEMPERATURE_OUTDOOR,0)), 1);
+		} else if ($this->getLogicalId() == LogicalId::CUSTOM_CMD) {
+			return jeedom::evaluateExpression($eqLogic->getConfiguration(Key::CUSTOM_CMD));
 		}
 		return $eqLogic->assembly()->commandHandler()->handle($this->getLogicalId(), $this->getName(), $_options);
 	}

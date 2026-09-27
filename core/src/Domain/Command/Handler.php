@@ -59,36 +59,36 @@ class Handler {
 	 * @return void
 	 */
 	public function handle($_logicalId, $_name, $_options) {
-		if ($_logicalId == 'deltaOrder') {
+		if ($_logicalId == LogicalId::DELTA_ORDER) {
 			$this->memory->setDeltaOrder($_options['slider']);
 			return;
-		} else if ($_logicalId == 'lock') {
+		} else if ($_logicalId == LogicalId::LOCK) {
 			$this->display->lock();
-		} else if ($_logicalId == 'unlock') {
+		} else if ($_logicalId == LogicalId::UNLOCK) {
 			$this->display->unlock();
-		} else if ($_logicalId == 'offset_heat' || $_logicalId == 'offset_cool') {
+		} else if ($_logicalId == LogicalId::OFFSET_HEAT || $_logicalId == LogicalId::OFFSET_COOL) {
 			if (is_numeric($_options['slider'])) {
 				$this->settings->setOffset($_logicalId, $_options['slider']);
 				$this->persistence->saveWithCommands();
 			}
-		} else if ($_logicalId == 'cool_only') {
+		} else if ($_logicalId == LogicalId::COOL_ONLY) {
 			$this->allow(AllowMode::COOL);
-		} else if ($_logicalId == 'heat_only') {
+		} else if ($_logicalId == LogicalId::HEAT_ONLY) {
 			$this->allow(AllowMode::HEAT);
-		} else if ($_logicalId == 'all_allow') {
+		} else if ($_logicalId == LogicalId::ALL_ALLOW) {
 			$this->allow(AllowMode::ALL);
 		}
 		if (!$this->display->hasLockState() || $this->display->locked()) {
 			$this->display->refreshWidget();
 			return;
 		}
-		if ($_logicalId == 'modeAction') {
+		if ($_logicalId == LogicalId::MODE_ACTION) {
 			$this->actuator->executeMode($_name);
-		} else if ($_logicalId == 'off') {
+		} else if ($_logicalId == LogicalId::OFF) {
 			$this->actuator->stop(false);
 			$this->display->setMode($this->labels->off());
 			$this->display->setStatus($this->labels->stopped());
-		} else if ($_logicalId == 'thermostat') {
+		} else if ($_logicalId == LogicalId::THERMOSTAT) {
 			if (!isset($_options['slider']) || !is_numeric(str_replace(',', '.', $_options['slider']))) {
 				return;
 			}
