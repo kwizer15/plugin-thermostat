@@ -23,8 +23,9 @@ use Jeedom\Plugin\Thermostat\Domain\Configuration\Key;
 use Jeedom\Plugin\Thermostat\Domain\Engine\EngineType;
 use Jeedom\Plugin\Thermostat\Domain\Log;
 use Jeedom\Plugin\Thermostat\Domain\Scheduling;
+use Jeedom\Plugin\Thermostat\Domain\Window\Timer;
 
-class Scheduler implements Scheduling {
+class Scheduler implements Scheduling, Timer {
 
 	/** @var \thermostat */
 	private $thermostat;
@@ -80,6 +81,21 @@ class Scheduler implements Scheduling {
 		$cron->save();
 	}
 
+	public function schedule($_cmdId, $_phase, $_timestamp) {
+		$options = array(Callback::OPTION_THERMOSTAT_ID => intval($this->thermostat->getId()), Callback::OPTION_CMD => intval($_cmdId), Callback::OPTION_PHASE => $_phase);
+		$cron = \cron::byClassAndFunction(\thermostat::class, Callback::WINDOW_TIMER, $options);
+		if (is_object($cron)) {
+			$cron->remove(false);
+		}
+		$cron = new \cron();
+		$cron->setClass(\thermostat::class);
+		$cron->setFunction(Callback::WINDOW_TIMER);
+		$cron->setOption($options);
+		$cron->setSchedule(\cron::convertDateToCron((int) ceil($_timestamp / 60) * 60));
+		$cron->setOnce(1);
+		$cron->save();
+	}
+
 	/**
 	 * @return void
 	 */
@@ -90,6 +106,9 @@ class Scheduler implements Scheduling {
 		}
 		$cron = \cron::byClassAndFunction(\thermostat::class, Callback::PULL, array(Callback::OPTION_THERMOSTAT_ID => intval($this->thermostat->getId()), Callback::OPTION_STOP => intval(1)));
 		if (is_object($cron)) {
+			$cron->remove();
+		}
+		foreach (\cron::searchClassAndFunction(\thermostat::class, Callback::WINDOW_TIMER, '"thermostat_id":' . intval($this->thermostat->getId()) . ',') as $cron) {
 			$cron->remove();
 		}
 		$this->forget(Callback::WINDOW);

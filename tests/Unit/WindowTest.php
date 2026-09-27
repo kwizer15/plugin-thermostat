@@ -45,6 +45,59 @@ class WindowTest extends ThermostatTestCase {
 		$this->assertSame('Chauffage', $this->valueOf($thermostat, 'status'));
 	}
 
+	private function windowTimer(\thermostat $_thermostat, \cmd $_sensor, $_phase) {
+		return \cron::byClassAndFunction('thermostat', 'windowTimer', array('thermostat_id' => intval($_thermostat->getId()), 'cmd' => intval($_sensor->getId()), 'phase' => $_phase));
+	}
+
+	public function testOpeningWithPauseSchedulesWindowTimer() {
+		$window = $this->sensor(0, 'binary');
+		$thermostat = $this->windowThermostat(array($this->windowConfig($window, array('stopTime' => 1))));
+		$this->setValueOf($thermostat, 'status', 'Chauffage');
+
+		$this->notify($thermostat, $window, 1);
+
+		$this->assertSame(array(), $this->executed());
+		$this->assertSame('Chauffage', $this->valueOf($thermostat, 'status'));
+		$cron = $this->windowTimer($thermostat, $window, 'open');
+		$this->assertSame('01 10 15 01 *', $cron->getSchedule());
+		$this->assertSame(1, $cron->getOnce());
+	}
+
+	public function testPauseEndIsRoundedUpToNextMinute() {
+		$this->setNow('2026-01-15 10:00:30');
+		$window = $this->sensor(0, 'binary');
+		$thermostat = $this->windowThermostat(array($this->windowConfig($window, array('stopTime' => 1))));
+		$this->setValueOf($thermostat, 'status', 'Chauffage');
+
+		$this->notify($thermostat, $window, 1);
+
+		$this->assertSame('02 10 15 01 *', $this->windowTimer($thermostat, $window, 'open')->getSchedule());
+	}
+
+	public function testWindowTimerSuspendsWhenStillOpen() {
+		$window = $this->sensor(0, 'binary');
+		$thermostat = $this->windowThermostat(array($this->windowConfig($window, array('stopTime' => 1))));
+		$this->setValueOf($thermostat, 'status', 'Chauffage');
+		$this->notify($thermostat, $window, 1);
+
+		$this->setNow('2026-01-15 10:01:00');
+		\thermostat::windowTimer(array('thermostat_id' => $thermostat->getId(), 'cmd' => $window->getId(), 'phase' => 'open'));
+
+		$this->assertSame(array('stop'), $this->executed());
+		$this->assertSame('Suspendu', $this->valueOf($thermostat, 'status'));
+	}
+
+	public function testRemovingThermostatRemovesWindowTimers() {
+		$window = $this->sensor(0, 'binary');
+		$thermostat = $this->windowThermostat(array($this->windowConfig($window, array('stopTime' => 1))));
+		$this->setValueOf($thermostat, 'status', 'Chauffage');
+		$this->notify($thermostat, $window, 1);
+
+		$thermostat->remove();
+
+		$this->assertSame(array(), \cron::searchClassAndFunction('thermostat', 'windowTimer'));
+	}
+
 	public function testInvertedWindow() {
 		$window = $this->sensor(1, 'binary');
 		$thermostat = $this->windowThermostat(array($this->windowConfig($window, array('invert' => 1))));

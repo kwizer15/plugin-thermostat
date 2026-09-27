@@ -19,12 +19,8 @@ class InMemoryWindowSensors implements Sensors {
 		return '[Maison][' . $_cmd . ']';
 	}
 
-	public function exists($_cmdId) {
-		return isset($this->values[$_cmdId]);
-	}
-
 	public function read($_cmdId) {
-		if (!$this->exists($_cmdId)) {
+		if (!isset($this->values[$_cmdId])) {
 			return null;
 		}
 		return new Reading($this->values[$_cmdId], '', $this->valueDates[$_cmdId]);

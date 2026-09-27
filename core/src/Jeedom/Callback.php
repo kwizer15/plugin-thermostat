@@ -24,9 +24,12 @@ final class Callback {
 	const WINDOW = 'window';
 	const HYSTERESIS = 'hysteresis';
 	const UPDATE_PERFORMANCE = 'updatePerformance';
+	const WINDOW_TIMER = 'windowTimer';
 	const OPTION_THERMOSTAT_ID = 'thermostat_id';
 	const OPTION_STOP = 'stop';
 	const OPTION_SMART_THERMOSTAT = 'smartThermostat';
+	const OPTION_CMD = 'cmd';
+	const OPTION_PHASE = 'phase';
 
 	private function __construct() {
 	}

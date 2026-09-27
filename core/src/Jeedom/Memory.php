@@ -83,11 +83,19 @@ class Memory implements PowerMemory, CycleMemory, SmartStartMemory, StateMemory,
 	}
 
 	public function closedAt($_cmdId) {
-		return $this->eqLogic->getCache(CacheKey::WINDOW_CLOSE_PREFIX . $_cmdId . CacheKey::WINDOW_CLOSE_DATETIME_SUFFIX);
+		return $this->eqLogic->getCache(CacheKey::WINDOW_CLOSE_PREFIX . $_cmdId . CacheKey::WINDOW_DATETIME_SUFFIX);
 	}
 
 	public function setClosedAt($_cmdId, $_datetime) {
-		$this->eqLogic->setCache(CacheKey::WINDOW_CLOSE_PREFIX . $_cmdId . CacheKey::WINDOW_CLOSE_DATETIME_SUFFIX, $_datetime);
+		$this->eqLogic->setCache(CacheKey::WINDOW_CLOSE_PREFIX . $_cmdId . CacheKey::WINDOW_DATETIME_SUFFIX, $_datetime);
+	}
+
+	public function openedAt($_cmdId) {
+		return $this->eqLogic->getCache(CacheKey::WINDOW_OPEN_PREFIX . $_cmdId . CacheKey::WINDOW_DATETIME_SUFFIX);
+	}
+
+	public function setOpenedAt($_cmdId, $_datetime) {
+		$this->eqLogic->setCache(CacheKey::WINDOW_OPEN_PREFIX . $_cmdId . CacheKey::WINDOW_DATETIME_SUFFIX, $_datetime);
 	}
 
 	public function openSince() {

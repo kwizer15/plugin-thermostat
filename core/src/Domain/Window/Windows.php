@@ -48,8 +48,10 @@ class Windows {
 	private $translator;
 	/** @var Clock */
 	private $clock;
+	/** @var Timer */
+	private $timer;
 
-	public function __construct(Settings $_settings, Memory $_memory, Display $_display, Sensors $_sensors, Actuator $_actuator, EngineRunner $_engine, Log $_log, StatusLabels $_labels, Translator $_translator, Clock $_clock) {
+	public function __construct(Settings $_settings, Memory $_memory, Display $_display, Sensors $_sensors, Actuator $_actuator, EngineRunner $_engine, Log $_log, StatusLabels $_labels, Translator $_translator, Clock $_clock, Timer $_timer) {
 		$this->settings = $_settings;
 		$this->memory = $_memory;
 		$this->display = $_display;
@@ -60,6 +62,7 @@ class Windows {
 		$this->labels = $_labels;
 		$this->translator = $_translator;
 		$this->clock = $_clock;
+		$this->timer = $_timer;
 	}
 
 	/**
@@ -97,18 +100,41 @@ class Windows {
 			$this->log->debug('[windowOpen] ' . $this->translator->translate('{{Thermostat arreté ou suspendu je ne fais rien}}'));
 			return;
 		}
-		$startime = $this->clock->now();
 		$cmdId = str_replace('#', '', $_window['cmd']);
-		if (!$this->sensors->exists($cmdId)) {
-			$this->log->debug('[windowOpen] ' . $this->translator->translate('{{Commande introuvable je ne fais rien}}'));
-			return;
-		}
 		$stopTime = (isset($_window['stopTime']) && $_window['stopTime'] != '') ? $_window['stopTime'] : 0;
 		if (is_numeric($stopTime) && $stopTime > 0) {
 			$this->log->debug('[windowOpen] ' . $this->translator->translate('{{Pause de}}') . ' ' . $stopTime . ' ' . $this->translator->translate('{{minutes}}'));
-			sleep($stopTime * 60);
+			$this->memory->setOpenedAt($cmdId, date('Y-m-d H:i:s', $this->clock->now()));
+			$this->timer->schedule($cmdId, TimerPhase::OPEN, $this->clock->now() + (int) ($stopTime * 60));
+			return true;
 		}
-		$reading = $this->sensors->read($cmdId);
+		return $this->confirmOpen($_window, $this->clock->now());
+	}
+
+	/**
+	 * @param int|string $_cmdId
+	 * @param TimerPhase::* $_phase
+	 * @return void
+	 */
+	public function timer($_cmdId, $_phase) {
+		foreach ($this->settings->windows() as $window) {
+			if ($window['cmd'] == '#' . $_cmdId . '#' && $_phase == TimerPhase::OPEN) {
+				$this->confirmOpen($window, (int) strtotime($this->memory->openedAt($_cmdId)));
+			}
+		}
+	}
+
+	/**
+	 * @param array{cmd: string, invert?: int|string, stopTime?: int|string, restartTime?: int|string} $_window
+	 * @param int $_openedAt
+	 * @return true|null
+	 */
+	private function confirmOpen($_window, $_openedAt) {
+		$reading = $this->sensors->read(str_replace('#', '', $_window['cmd']));
+		if ($reading === null) {
+			$this->log->debug('[windowOpen] ' . $this->translator->translate('{{Commande introuvable je ne fais rien}}'));
+			return null;
+		}
 		$value = $reading->value();
 		if (isset($_window['invert']) && $_window['invert'] == 1) {
 			$value = ($value == 0) ? 1 : 0;
@@ -118,7 +144,7 @@ class Windows {
 			$this->log->debug('[windowOpen] ' . $this->translator->translate("{{L'ouvrant n'est plus ouvert, je ne fais rien}}"));
 			return true;
 		}
-		if (strtotime($reading->valueDate()) > ($startime + 5)) {
+		if (strtotime($reading->valueDate()) > ($_openedAt + 5)) {
 			$this->log->debug('[windowOpen] ' . $this->translator->translate("{{L'ouvrant à été refermé pendant la pause, je ne fais rien, refermé à}}") . ' ' . $reading->valueDate());
 			return true;
 		}

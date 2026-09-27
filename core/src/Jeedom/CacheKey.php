@@ -30,10 +30,11 @@ final class CacheKey {
 	const SMART_START = 'smartStart';
 	const WINDOW_OPEN_SINCE = 'window::state::open';
 	const WINDOW_STATE_PREFIX = 'window::state::';
+	const WINDOW_OPEN_PREFIX = 'window::open::';
 	const WINDOW_CLOSE_PREFIX = 'window::close::';
 	const WINDOW_ALERT_SENT = 'alertSendForWindow';
 	const DELTA_ORDER = 'deltaOrder';
-	const WINDOW_CLOSE_DATETIME_SUFFIX = '::datetime';
+	const WINDOW_DATETIME_SUFFIX = '::datetime';
 
 	private function __construct() {
 	}

@@ -15,6 +15,12 @@ parameters:
 		-
 			message: '#^Cannot access offset ''cmd'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: core/class/thermostat.class.php
+
+		-
+			message: '#^Cannot access offset ''phase'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
 			path: core/class/thermostat.class.php
 
@@ -33,7 +39,7 @@ parameters:
 		-
 			message: '#^Cannot access offset ''thermostat_id'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
-			count: 6
+			count: 7
 			path: core/class/thermostat.class.php
 
 		-
@@ -135,7 +141,7 @@ parameters:
 		-
 			message: '#^Cannot call method error\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 6
+			count: 7
 			path: core/class/thermostat.class.php
 
 		-
@@ -219,7 +225,7 @@ parameters:
 		-
 			message: '#^Cannot call method log\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 6
+			count: 7
 			path: core/class/thermostat.class.php
 
 		-
@@ -331,6 +337,12 @@ parameters:
 			path: core/class/thermostat.class.php
 
 		-
+			message: '#^Cannot call method timer\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: core/class/thermostat.class.php
+
+		-
 			message: '#^Cannot call method trigger\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 1
@@ -357,7 +369,7 @@ parameters:
 		-
 			message: '#^Cannot call method windows\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 4
+			count: 5
 			path: core/class/thermostat.class.php
 
 		-
@@ -691,6 +703,18 @@ parameters:
 			path: core/class/thermostat.class.php
 
 		-
+			message: '#^Method thermostat\:\:windowTimer\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: core/class/thermostat.class.php
+
+		-
+			message: '#^Method thermostat\:\:windowTimer\(\) has parameter \$_options with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: core/class/thermostat.class.php
+
+		-
 			message: '#^Method thermostatCmd\:\:dontRemoveCmd\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -711,7 +735,7 @@ parameters:
 		-
 			message: '#^Parameter \#1 \$_id of static method eqLogic\:\:byId\(\) expects int\|string, mixed given\.$#'
 			identifier: argument.type
-			count: 5
+			count: 6
 			path: core/class/thermostat.class.php
 
 		-
@@ -1351,26 +1375,8 @@ parameters:
 			path: core/src/Domain/Window/Windows.php
 
 		-
-			message: '#^Cannot call method value\(\) on Jeedom\\Plugin\\Thermostat\\Domain\\Reading\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Cannot call method valueDate\(\) on Jeedom\\Plugin\\Thermostat\\Domain\\Reading\|null\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/src/Domain/Window/Windows.php
-
-		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Windows\:\:open\(\) should return true\|null but empty return statement found\.$#'
 			identifier: return.empty
-			count: 2
-			path: core/src/Domain/Window/Windows.php
-
-		-
-			message: '#^Parameter \#1 \$seconds of function sleep expects int, float\|int given\.$#'
-			identifier: argument.type
 			count: 1
 			path: core/src/Domain/Window/Windows.php
 
@@ -1663,6 +1669,12 @@ parameters:
 			path: core/src/Jeedom/Memory.php
 
 		-
+			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:openedAt\(\) should return string but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: core/src/Jeedom/Memory.php
+
+		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Memory\:\:smartStart\(\) should return array\{start\: string, date\: string, consigne\: bool\|float\|int\|string\|null, temperature\: bool\|float\|int\|string\|null\}\|string\|null but returns mixed\.$#'
 			identifier: return.type
 			count: 1
@@ -1689,6 +1701,12 @@ parameters:
 		-
 			message: '#^Call to function is_array\(\) with array\<cron\> will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
+			count: 1
+			path: core/src/Jeedom/Scheduler.php
+
+		-
+			message: '#^Parameter \#1 \$_date of static method cron\:\:convertDateToCron\(\) expects string, int given\.$#'
+			identifier: argument.type
 			count: 1
 			path: core/src/Jeedom/Scheduler.php
 

@@ -47,6 +47,19 @@ interface Memory {
 	public function setClosedAt($_cmdId, $_datetime);
 
 	/**
+	 * @param int|string $_cmdId
+	 * @return string
+	 */
+	public function openedAt($_cmdId);
+
+	/**
+	 * @param int|string $_cmdId
+	 * @param string $_datetime
+	 * @return void
+	 */
+	public function setOpenedAt($_cmdId, $_datetime);
+
+	/**
 	 * @return int|float|string
 	 */
 	public function openSince();

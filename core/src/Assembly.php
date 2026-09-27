@@ -140,7 +140,7 @@ class Assembly {
 	}
 
 	public function windows(): Windows {
-		return new Windows($this->settings(), $this->memory(), $this->display(), new WindowSensors(), $this->actuator(), $this->engineRunner(), $this->log(), $this->statusLabels(), $this->translator(Windows::class), $this->clock());
+		return new Windows($this->settings(), $this->memory(), $this->display(), new WindowSensors(), $this->actuator(), $this->engineRunner(), $this->log(), $this->statusLabels(), $this->translator(Windows::class), $this->clock(), $this->scheduler());
 	}
 
 	public function temporalEngine(): TemporalEngine {

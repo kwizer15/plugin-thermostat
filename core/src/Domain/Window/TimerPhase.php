@@ -16,23 +16,13 @@
 * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 */
 
-namespace Jeedom\Plugin\Thermostat\Jeedom;
+namespace Jeedom\Plugin\Thermostat\Domain\Window;
 
-use Jeedom\Plugin\Thermostat\Domain\Reading;
-use Jeedom\Plugin\Thermostat\Domain\Window\Sensors;
+final class TimerPhase {
 
-class WindowSensors implements Sensors {
+	const OPEN = 'open';
+	const CLOSE = 'close';
 
-	public function name($_cmd) {
-		return \cmd::byString($_cmd)->getHumanName();
-	}
-
-	public function read($_cmdId) {
-		$cmd = \cmd::byId($_cmdId);
-		if (!is_object($cmd)) {
-			return null;
-		}
-		$value = $cmd->execCmd();
-		return new Reading($value, $cmd->getCollectDate(), $cmd->getValueDate());
+	private function __construct() {
 	}
 }

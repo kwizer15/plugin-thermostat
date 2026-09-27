@@ -15,6 +15,7 @@ use Jeedom\Plugin\Thermostat\Tests\Metier\InMemorySettings;
 use Jeedom\Plugin\Thermostat\Tests\Metier\InMemoryWindowSensors;
 use Jeedom\Plugin\Thermostat\Tests\Metier\RecordingActions;
 use Jeedom\Plugin\Thermostat\Tests\Metier\RecordingLog;
+use Jeedom\Plugin\Thermostat\Tests\Metier\RecordingWindowTimer;
 use PHPUnit\Framework\TestCase;
 
 class WindowsTest extends TestCase {
@@ -26,6 +27,7 @@ class WindowsTest extends TestCase {
 	private $actions;
 	private $engine;
 	private $clock;
+	private $timer;
 
 	protected function setUp() {
 		$this->clock = new FixedClock('2026-01-15 10:00:00');
@@ -36,11 +38,12 @@ class WindowsTest extends TestCase {
 		$this->sensors = new InMemoryWindowSensors();
 		$this->actions = new RecordingActions();
 		$this->engine = new CountingRunner();
+		$this->timer = new RecordingWindowTimer();
 	}
 
 	private function windows() {
 		$actuator = new Actuator($this->settings, $this->memory, new CountingPersistence(), $this->display, $this->actions, $this->engine, new RecordingLog(), new StatusLabels(new IdentityTranslator()), new IdentityTranslator());
-		return new Windows($this->settings, $this->memory, $this->display, $this->sensors, $actuator, $this->engine, new RecordingLog(), new StatusLabels(new IdentityTranslator()), new IdentityTranslator(), $this->clock);
+		return new Windows($this->settings, $this->memory, $this->display, $this->sensors, $actuator, $this->engine, new RecordingLog(), new StatusLabels(new IdentityTranslator()), new IdentityTranslator(), $this->clock, $this->timer);
 	}
 
 	private function configure(array $_windows) {
@@ -111,6 +114,54 @@ class WindowsTest extends TestCase {
 		$this->windows()->open(array('cmd' => '#7#'));
 
 		$this->assertSame('Chauffage', $this->display->status);
+	}
+
+	public function testOpeningWithPauseSchedulesCheckInsteadOfWaiting() {
+		$this->configure(array(array('cmd' => '#7#', 'stopTime' => 1)));
+
+		$this->notify(7, 1);
+
+		$this->assertSame('Chauffage', $this->display->status);
+		$this->assertSame(array(), $this->actions->executed);
+		$this->assertSame(array(array('7', 'open', strtotime('2026-01-15 10:01:00'))), $this->timer->calls);
+		$this->assertSame('2026-01-15 10:00:00', $this->memory->openedAt(7));
+	}
+
+	public function testPauseCheckSuspendsWhenWindowStillOpen() {
+		$this->configure(array(array('cmd' => '#7#', 'stopTime' => 2)));
+		$this->sensors->set(7, 1, '2026-01-15 09:58:00');
+		$this->memory->setOpenedAt(7, '2026-01-15 09:58:00');
+
+		$this->windows()->timer(7, 'open');
+
+		$this->assertSame('Suspendu', $this->display->status);
+		$this->assertSame(array('#stopper#'), $this->actions->executed);
+		$this->assertSame(strtotime('2026-01-15 10:00:00'), $this->memory->values['window::state::open']);
+	}
+
+	/**
+	 * @dataProvider pauseCheckIgnored
+	 */
+	public function testPauseCheckDoesNothing(array $_windows, $_value) {
+		$this->configure($_windows);
+		if ($_value !== null) {
+			$this->sensors->set(7, $_value, '2026-01-15 09:59:00');
+		}
+		$this->memory->setOpenedAt(7, '2026-01-15 09:58:00');
+
+		$this->windows()->timer(7, 'open');
+
+		$this->assertSame('Chauffage', $this->display->status);
+		$this->assertSame(array(), $this->actions->executed);
+	}
+
+	public function pauseCheckIgnored() {
+		return array(
+			'closed meanwhile' => array(array(array('cmd' => '#7#', 'stopTime' => 2)), 0),
+			'reopened after opening' => array(array(array('cmd' => '#7#', 'stopTime' => 2)), 1),
+			'command deleted' => array(array(array('cmd' => '#7#', 'stopTime' => 2)), null),
+			'window no longer configured' => array(array(array('cmd' => '#8#', 'stopTime' => 2)), 1),
+		);
 	}
 
 	public function testClosingResumesThermostat() {
@@ -186,7 +237,7 @@ class WindowsTest extends TestCase {
 		$this->display->status = 'Suspendu';
 		$this->memory->setOpenSince(strtotime('2026-01-15 09:29:59'));
 		$log = new RecordingLog();
-		$windows = new Windows($this->settings, $this->memory, $this->display, $this->sensors, new Actuator($this->settings, $this->memory, new CountingPersistence(), $this->display, $this->actions, $this->engine, $log, new StatusLabels(new IdentityTranslator()), new IdentityTranslator()), $this->engine, $log, new StatusLabels(new IdentityTranslator()), new IdentityTranslator(), $this->clock);
+		$windows = new Windows($this->settings, $this->memory, $this->display, $this->sensors, new Actuator($this->settings, $this->memory, new CountingPersistence(), $this->display, $this->actions, $this->engine, $log, new StatusLabels(new IdentityTranslator()), new IdentityTranslator()), $this->engine, $log, new StatusLabels(new IdentityTranslator()), new IdentityTranslator(), $this->clock, $this->timer);
 
 		$windows->alert();
 		$windows->alert();

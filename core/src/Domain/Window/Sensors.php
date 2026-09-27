@@ -30,12 +30,6 @@ interface Sensors {
 
 	/**
 	 * @param int|string $_cmdId
-	 * @return bool
-	 */
-	public function exists($_cmdId);
-
-	/**
-	 * @param int|string $_cmdId
 	 * @return Reading|null
 	 */
 	public function read($_cmdId);

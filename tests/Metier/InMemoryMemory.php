@@ -87,6 +87,14 @@ class InMemoryMemory implements PowerMemory, CycleMemory, SmartStartMemory, Stat
 		$this->values['window::close::' . $_cmdId . '::datetime'] = $_datetime;
 	}
 
+	public function openedAt($_cmdId) {
+		return isset($this->values['window::open::' . $_cmdId . '::datetime']) ? $this->values['window::open::' . $_cmdId . '::datetime'] : '';
+	}
+
+	public function setOpenedAt($_cmdId, $_datetime) {
+		$this->values['window::open::' . $_cmdId . '::datetime'] = $_datetime;
+	}
+
 	public function openSince() {
 		return $this->values['window::state::open'];
 	}

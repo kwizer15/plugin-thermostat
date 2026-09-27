@@ -160,6 +160,17 @@ class thermostat extends eqLogic {
 		}
 	}
 
+	public static function windowTimer($_options) {
+		$thermostat = thermostat::byId($_options[Callback::OPTION_THERMOSTAT_ID]);
+		if (is_object($thermostat) && $thermostat->getIsEnable() == 1) {
+			try {
+				$thermostat->assembly()->windows()->timer($_options[Callback::OPTION_CMD], $_options[Callback::OPTION_PHASE]);
+			} catch (MissingCommand $e) {
+				$thermostat->assembly()->log()->error($e->getMessage());
+			}
+		}
+	}
+
 	public static function deadCmd() {
 		$return = array();
 		foreach (eqLogic::byType('thermostat') as $thermostat) {
