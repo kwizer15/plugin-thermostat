@@ -1,0 +1,172 @@
+<?php
+
+class eqLogic {
+
+	/**
+	 * @param int|string $_id
+	 * @return static|false|null
+	 */
+	public static function byId($_id) {}
+
+	/**
+	 * @param string $_eqType_name
+	 * @param bool $_onlyEnable
+	 * @return static[]
+	 */
+	public static function byType($_eqType_name, $_onlyEnable = false) {}
+
+	/**
+	 * @param string|null $_type
+	 * @param string|null $_logicalId
+	 * @param mixed $_visible
+	 * @param bool $_multiple
+	 * @return ($_logicalId is null ? cmd[] : ($_multiple is true ? cmd[] : cmd|false))
+	 */
+	public function getCmd($_type = null, $_logicalId = null, $_visible = null, $_multiple = false) {}
+
+	/**
+	 * @return int|string
+	 */
+	public function getId() {}
+
+	/**
+	 * @return string
+	 */
+	public function getName() {}
+
+	/**
+	 * @param bool $_tag
+	 * @param bool $_prettify
+	 * @return string
+	 */
+	public function getHumanName($_tag = false, $_prettify = false) {}
+}
+
+class cmd {
+
+	/**
+	 * @param int|string $_id
+	 * @return static|false|null
+	 */
+	public static function byId($_id) {}
+
+	/**
+	 * @param string $_string
+	 * @return static
+	 */
+	public static function byString($_string) {}
+
+	/**
+	 * @return int|string
+	 */
+	public function getId() {}
+
+	/**
+	 * @return string
+	 */
+	public function getCollectDate() {}
+
+	/**
+	 * @return string
+	 */
+	public function getValueDate() {}
+
+	/**
+	 * @param string $_startTime
+	 * @param string $_endTime
+	 * @return array<string, mixed>
+	 */
+	public function getStatistique($_startTime, $_endTime) {}
+
+	/**
+	 * @param string|null $_dateStart
+	 * @param string|null $_dateEnd
+	 * @param string|null $_groupingType
+	 * @return history[]
+	 */
+	public function getHistory($_dateStart = null, $_dateEnd = null, $_groupingType = null) {}
+}
+
+class cron {
+
+	/**
+	 * @param string $_class
+	 * @param string $_function
+	 * @param mixed $_option
+	 * @return static|false
+	 */
+	public static function byClassAndFunction($_class, $_function, $_option = '') {}
+
+	/**
+	 * @param string $_class
+	 * @param string $_function
+	 * @param mixed $_option
+	 * @return static[]
+	 */
+	public static function searchClassAndFunction($_class, $_function, $_option = '') {}
+
+	/**
+	 * @param string $_date
+	 * @return string
+	 */
+	public static function convertDateToCron($_date) {}
+}
+
+class listener {
+
+	/**
+	 * @param string $_class
+	 * @param string $_function
+	 * @param mixed $_option
+	 * @return static|false
+	 */
+	public static function byClassAndFunction($_class, $_function, $_option = '') {}
+}
+
+class plugin {
+
+	/**
+	 * @param string $_id
+	 * @return static
+	 */
+	public static function byId($_id) {}
+}
+
+class calendar extends eqLogic {
+}
+
+class calendar_event {
+
+	/**
+	 * @param int|string $_cmd_id
+	 * @return static[]
+	 */
+	public static function searchByCmd($_cmd_id) {}
+
+	/**
+	 * @param string|null $_position
+	 * @param bool $_details
+	 * @return array{date?: string, position?: string}|string|null
+	 */
+	public function nextOccurrence($_position = null, $_details = false) {}
+}
+
+class history {
+
+	/**
+	 * @return string
+	 */
+	public function getDatetime() {}
+}
+
+class log {
+
+	/**
+	 * @param string $_log
+	 * @param string $_type
+	 * @param string $_message
+	 * @param string $_logicalId
+	 * @return void
+	 */
+	public static function add($_log, $_type, $_message, $_logicalId = '') {}
+}

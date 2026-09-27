@@ -7,6 +7,8 @@ parameters:
     paths:
         - core/class
         - core/src
+    stubFiles:
+        - tools/phpstan/jeedom.stub
     scanFiles:
         - tests/fake-core/php/core.inc.php
     scanDirectories:

@@ -1,81 +1,15 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
-			count: 3
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Binary operation "\." between ''Thermostat '' and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Binary operation "\." between mixed and '' '' results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
 			message: '#^Binary operation "\." between mixed and '' \: '' results in an error\.$#'
 			identifier: binaryOp.invalid
-			count: 2
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Binary operation "\." between mixed and '' thermostat\:…'' results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 5
+			count: 1
 			path: core/class/thermostat.class.php
 
 		-
 			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 3
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Call to an undefined method object\:\:assembly\(\)\.$#'
-			identifier: method.notFound
-			count: 5
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Call to an undefined method object\:\:getCmd\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Call to an undefined method object\:\:getConfiguration\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Call to an undefined method object\:\:getHumanName\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Call to an undefined method object\:\:getIsEnable\(\)\.$#'
-			identifier: method.notFound
-			count: 3
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Call to an undefined method object\:\:remove\(\)\.$#'
-			identifier: method.notFound
-			count: 4
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Call to an undefined method object\:\:stopThermostat\(\)\.$#'
-			identifier: method.notFound
-			count: 1
 			path: core/class/thermostat.class.php
 
 		-
@@ -123,7 +57,7 @@ parameters:
 		-
 			message: '#^Cannot call method assembly\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 6
+			count: 1
 			path: core/class/thermostat.class.php
 
 		-
@@ -193,7 +127,7 @@ parameters:
 			path: core/class/thermostat.class.php
 
 		-
-			message: '#^Cannot call method execCmd\(\) on mixed\.$#'
+			message: '#^Cannot call method execCmd\(\) on cmd\|false\.$#'
 			identifier: method.nonObject
 			count: 4
 			path: core/class/thermostat.class.php
@@ -223,21 +157,9 @@ parameters:
 			path: core/class/thermostat.class.php
 
 		-
-			message: '#^Cannot call method getCmd\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
 			message: '#^Cannot call method getConfiguration\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 5
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method getHumanName\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
+			count: 3
 			path: core/class/thermostat.class.php
 
 		-
@@ -331,12 +253,6 @@ parameters:
 			path: core/class/thermostat.class.php
 
 		-
-			message: '#^Cannot call method runEngine\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
 			message: '#^Cannot call method runHysteresisCron\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 1
@@ -374,12 +290,6 @@ parameters:
 
 		-
 			message: '#^Cannot call method stop\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method stopThermostat\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: core/class/thermostat.class.php
@@ -769,6 +679,12 @@ parameters:
 			path: core/class/thermostat.class.php
 
 		-
+			message: '#^Parameter \#1 \$_id of static method eqLogic\:\:byId\(\) expects int\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 5
+			path: core/class/thermostat.class.php
+
+		-
 			message: '#^Parameter \#1 \$expression of class Cron\\CronExpression constructor expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 1
@@ -782,12 +698,6 @@ parameters:
 
 		-
 			message: '#^Parameter \#1 \$str of function strtolower expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Parameter \#1 \$var of function intval expects array\|bool\|float\|GMP\|int\|resource\|SimpleXMLElement\|string\|null, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: core/class/thermostat.class.php
@@ -5893,18 +5803,6 @@ parameters:
 			path: core/src/Jeedom/ActionList.php
 
 		-
-			message: '#^Call to an undefined method object\:\:getEqLogic_id\(\)\.$#'
-			identifier: method.notFound
-			count: 2
-			path: core/src/Jeedom/ActionList.php
-
-		-
-			message: '#^Call to an undefined method object\:\:getLogicalId\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: core/src/Jeedom/ActionList.php
-
-		-
 			message: '#^Cannot access offset ''cmd'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 6
@@ -6055,6 +5953,12 @@ parameters:
 			path: core/src/Jeedom/ActionList.php
 
 		-
+			message: '#^Parameter \#1 \$_string of static method cmd\:\:byString\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/src/Jeedom/ActionList.php
+
+		-
 			message: '#^Parameter \#2 \$replace of function str_replace expects array\<string\>\|string, mixed given\.$#'
 			identifier: argument.type
 			count: 1
@@ -6099,13 +6003,7 @@ parameters:
 		-
 			message: '#^Call to an undefined method object\:\:execCmd\(\)\.$#'
 			identifier: method.notFound
-			count: 3
-			path: core/src/Jeedom/Calendar.php
-
-		-
-			message: '#^Call to an undefined method object\:\:getCmd\(\)\.$#'
-			identifier: method.notFound
-			count: 1
+			count: 2
 			path: core/src/Jeedom/Calendar.php
 
 		-
@@ -6115,20 +6013,20 @@ parameters:
 			path: core/src/Jeedom/Calendar.php
 
 		-
-			message: '#^Call to an undefined method object\:\:getIsEnable\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: core/src/Jeedom/Calendar.php
-
-		-
 			message: '#^Call to an undefined method object\:\:getName\(\)\.$#'
 			identifier: method.notFound
 			count: 1
 			path: core/src/Jeedom/Calendar.php
 
 		-
-			message: '#^Call to an undefined method object\:\:isActive\(\)\.$#'
-			identifier: method.notFound
+			message: '#^Call to function is_array\(\) with array\<calendar_event\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: core/src/Jeedom/Calendar.php
+
+		-
+			message: '#^Call to function is_object\(\) with plugin will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
 			count: 1
 			path: core/src/Jeedom/Calendar.php
 
@@ -6142,12 +6040,6 @@ parameters:
 			message: '#^Cannot access offset ''cmd'' on mixed\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 5
-			path: core/src/Jeedom/Calendar.php
-
-		-
-			message: '#^Cannot access offset ''date'' on mixed\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 2
 			path: core/src/Jeedom/Calendar.php
 
 		-
@@ -6181,21 +6073,9 @@ parameters:
 			path: core/src/Jeedom/Calendar.php
 
 		-
-			message: '#^Cannot call method getCmd_param\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 4
-			path: core/src/Jeedom/Calendar.php
-
-		-
 			message: '#^Cannot call method getConfiguration\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 1
-			path: core/src/Jeedom/Calendar.php
-
-		-
-			message: '#^Cannot call method getEqLogic\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
 			path: core/src/Jeedom/Calendar.php
 
 		-
@@ -6206,12 +6086,6 @@ parameters:
 
 		-
 			message: '#^Cannot call method getIsEnable\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/src/Jeedom/Calendar.php
-
-		-
-			message: '#^Cannot call method nextOccurrence\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 2
 			path: core/src/Jeedom/Calendar.php
@@ -6253,9 +6127,21 @@ parameters:
 			path: core/src/Jeedom/Calendar.php
 
 		-
-			message: '#^Parameter \#1 \$time of function strtotime expects string, mixed given\.$#'
+			message: '#^Offset ''date'' might not exist on array\{date\?\: string, position\?\: string\}\|string\|null\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: core/src/Jeedom/Calendar.php
+
+		-
+			message: '#^Parameter \#1 \$_cmd_id of static method calendar_event\:\:searchByCmd\(\) expects int\|string, mixed given\.$#'
 			identifier: argument.type
-			count: 6
+			count: 2
+			path: core/src/Jeedom/Calendar.php
+
+		-
+			message: '#^Parameter \#1 \$_id of static method eqLogic\:\:byId\(\) expects int\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
 			path: core/src/Jeedom/Calendar.php
 
 		-
@@ -6308,12 +6194,6 @@ parameters:
 
 		-
 			message: '#^Call to an undefined method object\:\:execute\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Call to an undefined method object\:\:getType\(\)\.$#'
 			identifier: method.notFound
 			count: 1
 			path: core/src/Jeedom/Commands.php
@@ -6421,7 +6301,7 @@ parameters:
 			path: core/src/Jeedom/Commands.php
 
 		-
-			message: '#^Cannot call method getGeneric_type\(\) on mixed\.$#'
+			message: '#^Cannot call method getGeneric_type\(\) on cmd\|false\|null\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: core/src/Jeedom/Commands.php
@@ -6439,19 +6319,25 @@ parameters:
 			path: core/src/Jeedom/Commands.php
 
 		-
-			message: '#^Cannot call method getName\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 5
-			path: core/src/Jeedom/Commands.php
-
-		-
-			message: '#^Cannot call method getSubType\(\) on mixed\.$#'
+			message: '#^Cannot call method getName\(\) on cmd\|false\|null\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: core/src/Jeedom/Commands.php
 
 		-
-			message: '#^Cannot call method getUnite\(\) on mixed\.$#'
+			message: '#^Cannot call method getName\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 4
+			path: core/src/Jeedom/Commands.php
+
+		-
+			message: '#^Cannot call method getSubType\(\) on cmd\|false\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: core/src/Jeedom/Commands.php
+
+		-
+			message: '#^Cannot call method getUnite\(\) on cmd\|false\|null\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: core/src/Jeedom/Commands.php
@@ -6607,6 +6493,12 @@ parameters:
 			path: core/src/Jeedom/Commands.php
 
 		-
+			message: '#^Parameter \#1 \$_id of static method cmd\:\:byId\(\) expects int\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/src/Jeedom/Commands.php
+
+		-
 			message: '#^Parameter \#2 \$subject of function preg_match_all expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 2
@@ -6643,9 +6535,15 @@ parameters:
 			path: core/src/Jeedom/Commands.php
 
 		-
+			message: '#^Cannot call method execCmd\(\) on cmd\|false\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: core/src/Jeedom/Controls.php
+
+		-
 			message: '#^Cannot call method execCmd\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 2
+			count: 1
 			path: core/src/Jeedom/Controls.php
 
 		-
@@ -6694,6 +6592,12 @@ parameters:
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\Controls\:\:runMode\(\) has parameter \$_cmdId with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
+			path: core/src/Jeedom/Controls.php
+
+		-
+			message: '#^Parameter \#1 \$_id of static method cmd\:\:byId\(\) expects int\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 2
 			path: core/src/Jeedom/Controls.php
 
 		-
@@ -7429,56 +7333,8 @@ parameters:
 			path: core/src/Jeedom/Scheduler.php
 
 		-
-			message: '#^Call to an undefined method object\:\:addEvent\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Call to an undefined method object\:\:emptyEvent\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Call to an undefined method object\:\:getSchedule\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Call to an undefined method object\:\:getState\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Call to an undefined method object\:\:remove\(\)\.$#'
-			identifier: method.notFound
-			count: 4
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Call to an undefined method object\:\:save\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Call to an undefined method object\:\:setClass\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Call to an undefined method object\:\:setFunction\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Call to an undefined method object\:\:setOption\(\)\.$#'
-			identifier: method.notFound
+			message: '#^Call to function is_array\(\) with array\<cron\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
 			count: 1
 			path: core/src/Jeedom/Scheduler.php
 
@@ -7516,12 +7372,6 @@ parameters:
 			message: '#^Cannot call method getId\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 6
-			path: core/src/Jeedom/Scheduler.php
-
-		-
-			message: '#^Cannot call method remove\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
 			path: core/src/Jeedom/Scheduler.php
 
 		-
@@ -7609,6 +7459,12 @@ parameters:
 			path: core/src/Jeedom/Scheduler.php
 
 		-
+			message: '#^Parameter \#1 \$_date of static method cron\:\:convertDateToCron\(\) expects string, \(int\|false\) given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/src/Jeedom/Scheduler.php
+
+		-
 			message: '#^Parameter \#1 \$expression of class Cron\\CronExpression constructor expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 2
@@ -7624,6 +7480,12 @@ parameters:
 			message: '#^Parameter \#1 \$var of function intval expects array\|bool\|float\|GMP\|int\|resource\|SimpleXMLElement\|string\|null, mixed given\.$#'
 			identifier: argument.type
 			count: 5
+			path: core/src/Jeedom/Scheduler.php
+
+		-
+			message: '#^Parameter \#2 \$_function of static method listener\:\:byClassAndFunction\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 2
 			path: core/src/Jeedom/Scheduler.php
 
 		-
@@ -8149,30 +8011,6 @@ parameters:
 			path: core/src/Jeedom/Translator.php
 
 		-
-			message: '#^Call to an undefined method object\:\:execCmd\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: core/src/Jeedom/WindowSensors.php
-
-		-
-			message: '#^Call to an undefined method object\:\:getCollectDate\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: core/src/Jeedom/WindowSensors.php
-
-		-
-			message: '#^Call to an undefined method object\:\:getValueDate\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: core/src/Jeedom/WindowSensors.php
-
-		-
-			message: '#^Cannot call method getHumanName\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/src/Jeedom/WindowSensors.php
-
-		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\WindowSensors\:\:exists\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -8205,5 +8043,17 @@ parameters:
 		-
 			message: '#^Method Jeedom\\Plugin\\Thermostat\\Jeedom\\WindowSensors\:\:read\(\) has parameter \$_cmdId with no type specified\.$#'
 			identifier: missingType.parameter
+			count: 1
+			path: core/src/Jeedom/WindowSensors.php
+
+		-
+			message: '#^Parameter \#1 \$_id of static method cmd\:\:byId\(\) expects int\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: core/src/Jeedom/WindowSensors.php
+
+		-
+			message: '#^Parameter \#1 \$_string of static method cmd\:\:byString\(\) expects string, mixed given\.$#'
+			identifier: argument.type
 			count: 1
 			path: core/src/Jeedom/WindowSensors.php
