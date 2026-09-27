@@ -62,9 +62,10 @@ class SensorWatchTest extends TestCase {
 	public function testBoundsAreInclusive() {
 		$this->sensors->indoor = 12;
 		$this->check();
+		$this->assertSame(0, $this->memory->values['temp_threshold']);
+
 		$this->sensors->indoor = 26;
 		$this->check();
-
 		$this->assertSame(0, $this->memory->values['temp_threshold']);
 	}
 

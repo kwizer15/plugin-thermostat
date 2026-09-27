@@ -56,6 +56,7 @@ class WindowsTest extends TestCase {
 
 		$this->assertSame('Chauffage', $this->display->status);
 		$this->assertSame(0, $this->memory->windowState(8));
+		$this->assertSame(0, $this->memory->windowState(7));
 	}
 
 	public function testInvertedWindow() {

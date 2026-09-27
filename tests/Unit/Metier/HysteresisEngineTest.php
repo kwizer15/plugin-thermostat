@@ -32,6 +32,7 @@ class HysteresisEngineTest extends TestCase {
 
 	public function testHeatsBelowBandAndHistorizesSetpoint() {
 		$this->sensors->indoor = 18.5;
+		$this->memory->values['temp_threshold'] = 1;
 
 		$this->run_();
 
@@ -101,6 +102,15 @@ class HysteresisEngineTest extends TestCase {
 		$this->assertSame('Défaillance sonde', $this->display->status);
 		$this->assertSame(1, $this->memory->values['temp_threshold']);
 		$this->assertCount(1, preg_grep('/^error Attention il n\'y a pas eu de mise à jour/', $this->log->lines));
+	}
+
+	public function testStaleSensorWithoutFailureActionsStillReportsFailure() {
+		$this->settings->values['failure'] = array();
+		$this->sensors->collectDate = '2026-01-15 08:59:59';
+
+		$this->run_();
+
+		$this->assertSame('Défaillance sonde', $this->display->status);
 	}
 
 	public function testRecentOrUnknownCollectDateIsNotStale() {
