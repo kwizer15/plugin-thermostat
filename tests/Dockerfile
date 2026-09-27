@@ -8,4 +8,5 @@ ENV TZ=Europe/Paris \
     FAKETIME_TIMESTAMP_FILE=/tmp/faketime \
     FAKETIME_NO_CACHE=1
 RUN echo "date.timezone=Europe/Paris" > /usr/local/etc/php/conf.d/timezone.ini \
-    && echo "2026-01-15 10:00:00" > /tmp/faketime
+    && echo "2026-01-15 10:00:00" > /tmp/faketime \
+    && chmod 666 /tmp/faketime

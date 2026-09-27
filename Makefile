@@ -1,6 +1,6 @@
 PHP_VERSION ?= 7.3
 image := plugin-thermostat-test:$(PHP_VERSION)
-docker_run := docker run --rm -t \
+docker_run := docker run --rm -t -u $(shell id -u):$(shell id -g) \
 	-v $(CURDIR):/jeedom/plugins/thermostat \
 	-v $(CURDIR)/tests/fake-core:/jeedom/core:ro \
 	-w /jeedom/plugins/thermostat \
