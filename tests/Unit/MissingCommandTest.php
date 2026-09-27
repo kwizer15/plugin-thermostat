@@ -49,6 +49,17 @@ class MissingCommandTest extends ThermostatTestCase {
 		$this->assertSame(array(), $this->executed());
 	}
 
+	public function testWindowTimerWithoutStatusIsLogged() {
+		$window = $this->sensor(1, 'binary');
+		$thermostat = $this->withoutCommand($this->equippedThermostat(array('window' => array(array('cmd' => '#' . $window->getId() . '#', 'stopTime' => 1)))), 'status');
+		$thermostat->setCache('window::open::' . $window->getId() . '::datetime', '2026-01-15 10:00:00');
+
+		\thermostat::windowTimer(array('thermostat_id' => $thermostat->getId(), 'cmd' => $window->getId(), 'phase' => 'open'));
+
+		$this->assertSame(array('[Salon] Commande introuvable : status'), \log::messages('error'));
+		$this->assertSame(array(), $this->executed());
+	}
+
 	public function testCronGoesOnWithNextThermostat() {
 		$this->withoutCommand($this->equippedThermostat(array('repeat_commande_cron' => '* * * * *')), 'mode');
 		$next = $this->equippedThermostat(array('repeat_commande_cron' => '* * * * *'));

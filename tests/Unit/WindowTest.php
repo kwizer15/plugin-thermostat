@@ -87,6 +87,21 @@ class WindowTest extends ThermostatTestCase {
 		$this->assertSame('Suspendu', $this->valueOf($thermostat, 'status'));
 	}
 
+	public function testReopeningDuringPauseKeepsOneTimer() {
+		$window = $this->sensor(0, 'binary');
+		$thermostat = $this->windowThermostat(array($this->windowConfig($window, array('stopTime' => 1))));
+		$this->setValueOf($thermostat, 'status', 'Chauffage');
+		$this->notify($thermostat, $window, 1);
+		$this->notify($thermostat, $window, 0);
+
+		$this->setNow('2026-01-15 10:00:40');
+		$this->notify($thermostat, $window, 1);
+
+		$crons = \cron::searchClassAndFunction('thermostat', 'windowTimer');
+		$this->assertCount(1, $crons);
+		$this->assertSame('02 10 15 01 *', $crons[0]->getSchedule());
+	}
+
 	public function testRemovingThermostatRemovesWindowTimers() {
 		$window = $this->sensor(0, 'binary');
 		$thermostat = $this->windowThermostat(array($this->windowConfig($window, array('stopTime' => 1))));
