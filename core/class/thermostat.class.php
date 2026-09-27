@@ -293,7 +293,9 @@ class thermostat extends eqLogic {
 		$thermostat->setCache('lastTempOut', $temp_out);
 		$thermostat->setConfiguration('endDate', date('Y-m-d H:i:s', strtotime('+' . ceil($cycle * 0.9) . ' min ' . date('Y-m-d H:i:s'))));
 		log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Durée du cycle', __FILE__) . '  : ' . $duration);
-		if (($thermostat->getConfiguration('stove_boiler') == 0 && $temporal_data['power'] < $thermostat->getConfiguration('minCycleDuration', 5)) || (($thermostat->getCache('lastState') == 'heat' && $temporal_data['power'] < 1) || ($thermostat->getCache('lastState') != 'heat' && $temporal_data['power'] < $thermostat->getConfiguration('minCycleDuration', 5)))) {
+		$wasHeating = ($thermostat->getCache('lastState') == 'heat');
+		$belowMinCycle = ($temporal_data['power'] < $thermostat->getConfiguration('minCycleDuration', 5));
+		if (($belowMinCycle && ($thermostat->getConfiguration('stove_boiler') == 0 || !$wasHeating)) || ($wasHeating && $temporal_data['power'] < 1)) {
 			log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Durée du cycle trop courte, aucun lancement', __FILE__));
 			$thermostat->setCache('lastState', 'stop');
 			$thermostat->stopThermostat();
