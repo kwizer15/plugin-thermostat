@@ -19,9 +19,11 @@
 class thermostatScheduler {
 
 	private $thermostat;
+	private $log;
 
-	public function __construct($_thermostat) {
+	public function __construct($_thermostat, thermostatLog $_log) {
 		$this->thermostat = $_thermostat;
+		$this->log = $_log;
 	}
 
 	private function options() {
@@ -29,7 +31,7 @@ class thermostatScheduler {
 	}
 
 	public function reschedule($_next = null, $_stop = false, $_smartThermostat = false) {
-		log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' Reschedule, next : '.$_next.', stop : '.$_stop.', smartThermostat : '.json_encode($_smartThermostat));
+		$this->log->debug('Reschedule, next : '.$_next.', stop : '.$_stop.', smartThermostat : '.json_encode($_smartThermostat));
 		$options = array('thermostat_id' => intval($this->thermostat->getId()));
 		if ($_stop) {
 			$options['stop'] = intval(1);

@@ -17,6 +17,8 @@
 */
 
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
+require_once dirname(__FILE__) . '/thermostatLog.class.php';
+require_once dirname(__FILE__) . '/thermostatJeedomLog.class.php';
 require_once dirname(__FILE__) . '/thermostatActionList.class.php';
 require_once dirname(__FILE__) . '/thermostatPowerCalculator.class.php';
 require_once dirname(__FILE__) . '/thermostatCoefficientLearner.class.php';
@@ -29,8 +31,13 @@ require_once dirname(__FILE__) . '/thermostatTemporalEngine.class.php';
 require_once dirname(__FILE__) . '/thermostatCommands.class.php';
 require_once dirname(__FILE__) . '/thermostatConfiguration.class.php';
 require_once dirname(__FILE__) . '/thermostatStatistics.class.php';
+require_once dirname(__FILE__) . '/thermostatAssembly.class.php';
 
 class thermostat extends eqLogic {
+
+	private function assembly() {
+		return new thermostatAssembly($this);
+	}
 
 	public static function pull($_options = null) {
 		$thermostat = thermostat::byId($_options['thermostat_id']);
@@ -77,14 +84,14 @@ class thermostat extends eqLogic {
 					log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Thermostat verrouillé je ne fais rien', __FILE__));
 				} else if ($_options['next']['type'] == 'thermostat') {
 					log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Type thermostat envoi de la consigne', __FILE__) . ' : ' . $_options['next']['consigne']);
-					(new thermostatSmartStart($thermostat))->remember($_options['next']);
+					$thermostat->assembly()->smartStart()->remember($_options['next']);
 					$cmd = $thermostat->getCmd(null, 'thermostat');
 					$cmd->execCmd(array('slider' => $_options['next']['consigne']));
 				} else if ($_options['next']['type'] == 'mode' && isset($_options['next']['cmd'])) {
 					$mode = cmd::byId($_options['next']['cmd']);
 					if (is_object($mode)) {
 						log::add(__CLASS__, 'debug', $thermostat->getHumanName() . ' ' . __('Type mode envoi de la commande', __FILE__) . ' : ' . $_options['next']['cmd']);
-						(new thermostatSmartStart($thermostat))->remember($_options['next']);
+						$thermostat->assembly()->smartStart()->remember($_options['next']);
 						$mode->execCmd();
 					}
 				}
@@ -99,7 +106,7 @@ class thermostat extends eqLogic {
 		if (!is_object($thermostat)) {
 			return;
 		}
-		(new thermostatStatistics($thermostat))->updatePerformance();
+		$thermostat->assembly()->statistics()->updatePerformance();
 	}
 
 	public static function hysteresis($_options) {
@@ -107,7 +114,7 @@ class thermostat extends eqLogic {
 		if (!is_object($thermostat) || $thermostat->getIsEnable() == 0) {
 			return;
 		}
-		(new thermostatHysteresisEngine($thermostat))->run();
+		$thermostat->assembly()->hysteresisEngine()->run();
 	}
 
 	public static function temporal($_options) {
@@ -115,7 +122,7 @@ class thermostat extends eqLogic {
 		if (!is_object($thermostat) || $thermostat->getIsEnable() == 0) {
 			return;
 		}
-		(new thermostatTemporalEngine($thermostat))->run();
+		$thermostat->assembly()->temporalEngine()->run();
 	}
 
 	public static function cron() {
@@ -124,15 +131,15 @@ class thermostat extends eqLogic {
 				try {
 					$c = new Cron\CronExpression(checkAndFixCron($thermostat->getConfiguration('repeat_commande_cron')), new Cron\FieldFactory);
 					if ($c->isDue()) {
-						(new thermostatActuator($thermostat))->repeat();
+						$thermostat->assembly()->actuator()->repeat();
 					}
 				} catch (Exception $e) {
 					log::add(__CLASS__, 'error', $thermostat->getHumanName() . ' : ' . $e->getMessage());
 				}
 			}
-			(new thermostatWindows($thermostat))->alert();
-			(new thermostatScheduler($thermostat))->watchdog();
-			(new thermostatHysteresisEngine($thermostat))->cron();
+			$thermostat->assembly()->windows()->alert();
+			$thermostat->assembly()->scheduler()->watchdog();
+			$thermostat->assembly()->hysteresisEngine()->cron();
 
 			if (strtolower($thermostat->getCmd(null, 'mode')->execCmd()) == 'off') {
 				continue;
@@ -184,7 +191,7 @@ class thermostat extends eqLogic {
 	public static function window($_option) {
 		$thermostat = thermostat::byId($_option['thermostat_id']);
 		if (is_object($thermostat) && $thermostat->getIsEnable() == 1) {
-			(new thermostatWindows($thermostat))->handle($_option);
+			$thermostat->assembly()->windows()->handle($_option);
 		}
 	}
 
@@ -206,38 +213,38 @@ class thermostat extends eqLogic {
 
 	public function windowClose($_window) {
 		log::add(__CLASS__, 'warning', $this->getHumanName() . ' thermostat::windowClose appelé de l\'extérieur, voir thermostatWindows');
-		return (new thermostatWindows($this))->close($_window);
+		return $this->assembly()->windows()->close($_window);
 	}
 
 	public function windowOpen($_window) {
 		log::add(__CLASS__, 'warning', $this->getHumanName() . ' thermostat::windowOpen appelé de l\'extérieur, voir thermostatWindows');
-		return (new thermostatWindows($this))->open($_window);
+		return $this->assembly()->windows()->open($_window);
 	}
 
 	public function reschedule($_next = null, $_stop = false, $_smartThermostat = false) {
-		(new thermostatScheduler($this))->reschedule($_next, $_stop, $_smartThermostat);
+		$this->assembly()->scheduler()->reschedule($_next, $_stop, $_smartThermostat);
 	}
 
 	public function calculTemporalData($_consigne, $_allowOverfull = false) {
-		return (new thermostatPowerCalculator($this))->compute($_consigne, $_allowOverfull);
+		return $this->assembly()->powerCalculator()->compute($_consigne, $_allowOverfull);
 	}
 
 	public function getNextState() {
-		return (new thermostatSmartStart($this))->plan();
+		return $this->assembly()->smartStart()->plan();
 	}
 
 	public function preRemove() {
-		(new thermostatScheduler($this))->unschedule();
+		$this->assembly()->scheduler()->unschedule();
 	}
 
 	public function preSave() {
-		(new thermostatConfiguration($this))->apply();
+		$this->assembly()->configuration()->apply();
 	}
 
 	public function postSave() {
-		$commands = new thermostatCommands($this);
+		$commands = $this->assembly()->commands();
 		$commands->define();
-		$scheduler = new thermostatScheduler($this);
+		$scheduler = $this->assembly()->scheduler();
 		if ($this->getIsEnable() == 1) {
 			$windows = $this->getConfiguration('window');
 			if (is_array($windows) && count($windows) > 0) {
@@ -270,17 +277,17 @@ class thermostat extends eqLogic {
 
 	public function rememberSmartStart($_next) {
 		log::add(__CLASS__, 'warning', $this->getHumanName() . ' thermostat::rememberSmartStart appelé de l\'extérieur, voir thermostatSmartStart');
-		return (new thermostatSmartStart($this))->remember($_next);
+		return $this->assembly()->smartStart()->remember($_next);
 	}
 
 	public function learnSmartStart($_temperature) {
 		log::add(__CLASS__, 'warning', $this->getHumanName() . ' thermostat::learnSmartStart appelé de l\'extérieur, voir thermostatSmartStart');
-		return (new thermostatSmartStart($this))->learn($_temperature);
+		return $this->assembly()->smartStart()->learn($_temperature);
 	}
 
 	public function learnCoefficient($_key, $_measured) {
 		log::add(__CLASS__, 'warning', $this->getHumanName() . ' thermostat::learnCoefficient appelé de l\'extérieur, voir thermostatCoefficientLearner');
-		return (new thermostatCoefficientLearner($this))->learnCoefficient($_key, $_measured);
+		return $this->assembly()->coefficientLearner()->learnCoefficient($_key, $_measured);
 	}
 
 	public function runEngine() {
@@ -292,39 +299,39 @@ class thermostat extends eqLogic {
 	}
 
 	public function heat($_repeat = false) {
-		return (new thermostatActuator($this))->heat($_repeat);
+		return $this->assembly()->actuator()->heat($_repeat);
 	}
 
 	public function cool($_repeat = false) {
-		return (new thermostatActuator($this))->cool($_repeat);
+		return $this->assembly()->actuator()->cool($_repeat);
 	}
 
 	public function stopThermostat($_repeat = false, $_suspend = false) {
-		(new thermostatActuator($this))->stop($_repeat, $_suspend);
+		$this->assembly()->actuator()->stop($_repeat, $_suspend);
 	}
 
 	public function orderChange() {
-		(new thermostatActuator($this))->orderChange();
+		$this->assembly()->actuator()->orderChange();
 	}
 
 	public function failure($_failureRepeat = 999) {
-		(new thermostatActuator($this))->failure();
+		$this->assembly()->actuator()->failure();
 	}
 
 	public function failureActuator() {
-		(new thermostatActuator($this))->failureActuator();
+		$this->assembly()->actuator()->failureActuator();
 	}
 
 	public function executeMode($_name) {
-		(new thermostatActuator($this))->executeMode($_name);
+		$this->assembly()->actuator()->executeMode($_name);
 	}
 
 	public function runtimeByDay($_startDate = null, $_endDate = null) {
-		return (new thermostatStatistics($this))->runtimeByDay($_startDate, $_endDate);
+		return $this->assembly()->statistics()->runtimeByDay($_startDate, $_endDate);
 	}
 
 	public function calculDju($_date = null) {
-		return (new thermostatStatistics($this))->dju($_date);
+		return $this->assembly()->statistics()->dju($_date);
 	}
 
 }

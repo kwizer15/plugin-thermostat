@@ -19,9 +19,11 @@
 class thermostatActionList {
 
 	private $thermostat;
+	private $log;
 
-	public function __construct($_thermostat) {
+	public function __construct($_thermostat, thermostatLog $_log) {
 		$this->thermostat = $_thermostat;
+		$this->log = $_log;
 	}
 
 	public static function options($_action, $_consigne) {
@@ -57,6 +59,6 @@ class thermostatActionList {
 	}
 
 	public function logError($_action, $_exception) {
-		log::add('thermostat', 'error', $this->thermostat->getHumanName() . ' ' . __("Erreur lors de l'exécution de", __FILE__) . ' ' . $_action['cmd'] . '. ' . __('Détails', __FILE__) . ' : ' . $_exception->getMessage());
+		$this->log->error(__("Erreur lors de l'exécution de", __FILE__) . ' ' . $_action['cmd'] . '. ' . __('Détails', __FILE__) . ' : ' . $_exception->getMessage());
 	}
 }

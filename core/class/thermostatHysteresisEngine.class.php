@@ -19,26 +19,26 @@
 class thermostatHysteresisEngine {
 
 	private $thermostat;
+	private $actuator;
+	private $log;
 
-	public function __construct($_thermostat) {
+	public function __construct($_thermostat, thermostatActuator $_actuator, thermostatLog $_log) {
 		$this->thermostat = $_thermostat;
-	}
-
-	private function actuator() {
-		return new thermostatActuator($this->thermostat);
+		$this->actuator = $_actuator;
+		$this->log = $_log;
 	}
 
 	public function run() {
-		log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' ' . __("Lancement du calcul d'hystérésis", __FILE__));
+		$this->log->debug(__("Lancement du calcul d'hystérésis", __FILE__));
 		$status = $this->thermostat->getCmd(null, 'status')->execCmd();
 		if ($status == __('Suspendu', __FILE__)) {
-			log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' ' . __('Thermostat suspendu je ne fais rien', __FILE__));
+			$this->log->debug(__('Thermostat suspendu je ne fais rien', __FILE__));
 			return;
 		}
 		if ($this->thermostat->getCmd(null, 'mode')->execCmd() == __('Off', __FILE__)) {
-			log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' ' . __('Thermostat arrêté je ne fais rien', __FILE__));
+			$this->log->debug(__('Thermostat arrêté je ne fais rien', __FILE__));
 			if ($status != __('Arrêté', __FILE__)) {
-				$this->actuator()->stop();
+				$this->actuator->stop();
 			}
 			return;
 		}
@@ -46,8 +46,8 @@ class thermostatHysteresisEngine {
 		$temp = $cmd->execCmd();
 		if ($cmd->getCollectDate() != '' && $cmd->getCollectDate() < date('Y-m-d H:i:s', strtotime('-' . $this->thermostat->getConfiguration('maxTimeUpdateTemp') . ' minutes' . date('Y-m-d H:i:s')))) {
 			if ($this->thermostat->getCache('temp_threshold', 0) == 0) {
-				$this->actuator()->failure();
-				log::add('thermostat', 'error', $this->thermostat->getHumanName() . ' ' . __("Attention il n'y a pas eu de mise à jour de la température depuis plus de", __FILE__) . ' : ' . $this->thermostat->getConfiguration('maxTimeUpdateTemp') . 'min (' . $cmd->getCollectDate() . ')');
+				$this->actuator->failure();
+				$this->log->error(__("Attention il n'y a pas eu de mise à jour de la température depuis plus de", __FILE__) . ' : ' . $this->thermostat->getConfiguration('maxTimeUpdateTemp') . 'min (' . $cmd->getCollectDate() . ')');
 			}
 			$this->thermostat->setCache('temp_threshold', 1);
 			$this->thermostat->getCmd(null, 'status')->event(__('Défaillance sonde', __FILE__));
@@ -58,7 +58,7 @@ class thermostatHysteresisEngine {
 		$this->thermostat->getCmd(null, 'order')->addHistoryValue($consigne);
 		$hysteresis_low = ($this->thermostat->getConfiguration('allow_mode', 'all') == 'heat' && $this->thermostat->getConfiguration('positiveHysteresis', 0) == 1) ? $consigne : $consigne - $this->thermostat->getConfiguration('hysteresis_threshold', 1);
 		$hysteresis_hight = ($this->thermostat->getConfiguration('allow_mode', 'all') == 'cool' && $this->thermostat->getConfiguration('positiveHysteresis', 0) == 1) ? $consigne : $consigne + $this->thermostat->getConfiguration('hysteresis_threshold', 1);
-		log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' ' . __('Calcul', __FILE__) . ' => ' . __('consigne', __FILE__) . ' : ' . $consigne . ' hysteresis_low : ' . $hysteresis_low . ' hysteresis_hight : ' . $hysteresis_hight . ' temp : ' . $temp . ' ' . __('état précédent', __FILE__) . ' : ' . $this->thermostat->getCache('lastState'));
+		$this->log->debug(__('Calcul', __FILE__) . ' => ' . __('consigne', __FILE__) . ' : ' . $consigne . ' hysteresis_low : ' . $hysteresis_low . ' hysteresis_hight : ' . $hysteresis_hight . ' temp : ' . $temp . ' ' . __('état précédent', __FILE__) . ' : ' . $this->thermostat->getCache('lastState'));
 		$action = 'none';
 		if ($temp < $hysteresis_low) {
 			$action = 'heat';
@@ -84,18 +84,18 @@ class thermostatHysteresisEngine {
 
 		if ($action == 'heat') {
 			if ($status != __('Chauffage', __FILE__)) {
-				log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' ' . __('Je dois chauffer', __FILE__));
-				$this->actuator()->heat();
+				$this->log->debug(__('Je dois chauffer', __FILE__));
+				$this->actuator->heat();
 			}
 		} else if ($action == 'cool') {
 			if ($status != __('Climatisation', __FILE__)) {
-				log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' ' . __('Je dois refroidir', __FILE__));
-				$this->actuator()->cool();
+				$this->log->debug(__('Je dois refroidir', __FILE__));
+				$this->actuator->cool();
 			}
 		} else if ($action == 'stop') {
 			if ($status != __('Arrêté', __FILE__)) {
-				log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' ' . __("Je m'arrête", __FILE__));
-				$this->actuator()->stop();
+				$this->log->debug(__("Je m'arrête", __FILE__));
+				$this->actuator->stop();
 			}
 		}
 	}
@@ -109,7 +109,7 @@ class thermostatHysteresisEngine {
 					thermostat::hysteresis(array('thermostat_id' => $this->thermostat->getId()));
 				}
 			} catch (Exception $e) {
-				log::add('thermostat', 'error', $this->thermostat->getHumanName() . ' : ' . $e->getMessage());
+				$this->log->error(': ' . $e->getMessage());
 			}
 		}
 	}

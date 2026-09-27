@@ -19,9 +19,11 @@
 class thermostatCommands {
 
 	private $thermostat;
+	private $scheduler;
 
-	public function __construct($_thermostat) {
+	public function __construct($_thermostat, thermostatScheduler $_scheduler) {
 		$this->thermostat = $_thermostat;
+		$this->scheduler = $_scheduler;
 	}
 
 	private function upsertCmd($_logicalId, $_type, $_subType, $_onCreate = null) {
@@ -221,7 +223,7 @@ class thermostatCommands {
 			$performance->save();
 			preg_match_all("/#([0-9]*)#/", $this->thermostat->getConfiguration('consumption'), $matches);
 			$matches[1][] = $this->thermostat->getCmd(null, 'temperature_outdoor')->getId();
-			(new thermostatScheduler($this->thermostat))->listen('updatePerformance', $matches[1]);
+			$this->scheduler->listen('updatePerformance', $matches[1]);
 		}
 
 		if ($this->thermostat->getConfiguration('customCmd', '') != '') {

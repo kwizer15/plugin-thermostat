@@ -19,9 +19,13 @@
 class thermostatActuator {
 
 	private $thermostat;
+	private $actionList;
+	private $log;
 
-	public function __construct($_thermostat) {
+	public function __construct($_thermostat, thermostatActionList $_actionList, thermostatLog $_log) {
 		$this->thermostat = $_thermostat;
+		$this->actionList = $_actionList;
+		$this->log = $_log;
 	}
 
 	public function heat($_repeat = false) {
@@ -39,8 +43,8 @@ class thermostatActuator {
 			}
 		}
 		$this->thermostat->getCmd(null, 'status')->event(__('Chauffage', __FILE__));
-		log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' ' . __('Action chauffage', __FILE__));
-		(new thermostatActionList($this->thermostat))->execute($this->thermostat->getConfiguration('heating'), true);
+		$this->log->debug(__('Action chauffage', __FILE__));
+		$this->actionList->execute($this->thermostat->getConfiguration('heating'), true);
 		if (!$_repeat) {
 			$this->thermostat->refresh();
 			$this->thermostat->setCache('lastState', 'heat');
@@ -64,8 +68,8 @@ class thermostatActuator {
 			}
 		}
 		$this->thermostat->getCmd(null, 'status')->event(__('Climatisation', __FILE__));
-		log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' ' . __('Action froid', __FILE__));
-		(new thermostatActionList($this->thermostat))->execute($this->thermostat->getConfiguration('cooling'), true);
+		$this->log->debug(__('Action froid', __FILE__));
+		$this->actionList->execute($this->thermostat->getConfiguration('cooling'), true);
 		if (!$_repeat) {
 			$this->thermostat->refresh();
 			$this->thermostat->setCache('lastState', 'cool');
@@ -83,8 +87,8 @@ class thermostatActuator {
 			   return;
 			}
 		}
-		log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' ' . __('Action stop', __FILE__));
-		(new thermostatActionList($this->thermostat))->execute($this->thermostat->getConfiguration('stoping'), true);
+		$this->log->debug(__('Action stop', __FILE__));
+		$this->actionList->execute($this->thermostat->getConfiguration('stoping'), true);
 		$power = $this->thermostat->getCmd(null, 'power');
 		if (is_object($power)) {
 			$power->event(0);
@@ -107,7 +111,7 @@ class thermostatActuator {
 		if (!is_array($this->thermostat->getConfiguration('orderChange')) || count($this->thermostat->getConfiguration('orderChange')) == 0) {
 			return;
 		}
-		(new thermostatActionList($this->thermostat))->execute($this->thermostat->getConfiguration('orderChange'), true, array('modeChange' => true));
+		$this->actionList->execute($this->thermostat->getConfiguration('orderChange'), true, array('modeChange' => true));
 	}
 
 	public function failure() {
@@ -117,8 +121,8 @@ class thermostatActuator {
 		if (!is_array($this->thermostat->getConfiguration('failure')) || count($this->thermostat->getConfiguration('failure')) == 0) {
 			return;
 		}
-		log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' ' . __('Action défaillance sonde', __FILE__));
-		(new thermostatActionList($this->thermostat))->execute($this->thermostat->getConfiguration('failure'), false);
+		$this->log->debug(__('Action défaillance sonde', __FILE__));
+		$this->actionList->execute($this->thermostat->getConfiguration('failure'), false);
 		$this->thermostat->getCmd(null, 'status')->event(__('Défaillance sonde', __FILE__));
 	}
 
@@ -129,8 +133,8 @@ class thermostatActuator {
 		if (!is_array($this->thermostat->getConfiguration('failureActuator')) || count($this->thermostat->getConfiguration('failureActuator')) == 0) {
 			return;
 		}
-		log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' ' . __('Action défaillance chauffage', __FILE__));
-		(new thermostatActionList($this->thermostat))->execute($this->thermostat->getConfiguration('failureActuator'), false);
+		$this->log->debug(__('Action défaillance chauffage', __FILE__));
+		$this->actionList->execute($this->thermostat->getConfiguration('failureActuator'), false);
 		$this->thermostat->getCmd(null, 'status')->event(__('Défaillance chauffage', __FILE__));
 	}
 
@@ -150,7 +154,7 @@ class thermostatActuator {
 							scenarioExpression::createAndExec('action', $action['cmd'], $options);
 						}
 					} catch (Exception $e) {
-						(new thermostatActionList($this->thermostat))->logError($action, $e);
+						$this->actionList->logError($action, $e);
 					}
 				}
 			}

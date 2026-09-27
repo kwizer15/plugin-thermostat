@@ -19,9 +19,15 @@
 class thermostatSmartStart {
 
 	private $thermostat;
+	private $powerCalculator;
+	private $scheduler;
+	private $log;
 
-	public function __construct($_thermostat) {
+	public function __construct($_thermostat, thermostatPowerCalculator $_powerCalculator, thermostatScheduler $_scheduler, thermostatLog $_log) {
 		$this->thermostat = $_thermostat;
+		$this->powerCalculator = $_powerCalculator;
+		$this->scheduler = $_scheduler;
+		$this->log = $_log;
 	}
 
 	public function plan() {
@@ -34,13 +40,13 @@ class thermostatSmartStart {
 				return '';
 			}
 		} catch (Exception $ex) {
-			log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' ' . __('Plugin agenda non détecté', __FILE__));
+			$this->log->debug(__('Plugin agenda non détecté', __FILE__));
 			return '';
 		}
 		if (!class_exists('calendar_event')) {
 			return '';
 		}
-		log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' ' . __('Plugin agenda détecté', __FILE__));
+		$this->log->debug(__('Plugin agenda détecté', __FILE__));
 
 		$thermostat = $this->thermostat->getCmd(null, 'thermostat');
 		$next = null;
@@ -134,26 +140,26 @@ class thermostatSmartStart {
 			}
 		}
 		if ($next == null || $next['date'] == '') {
-			log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' ' . __('Smartstart : aucun événement trouvé', __FILE__));
+			$this->log->debug(__('Smartstart : aucun événement trouvé', __FILE__));
 			return '';
 		}
 		$cycle = jeedom::evaluateExpression($this->thermostat->getConfiguration('cycle'));
 		if ($next['date'] != '' && strtotime($next['date']) > strtotime(date('Y-m-d H:i:s'))) {
-			$temporal_data = (new thermostatPowerCalculator($this->thermostat))->compute(jeedom::evaluateExpression($next['consigne']), true);
+			$temporal_data = $this->powerCalculator->compute(jeedom::evaluateExpression($next['consigne']), true);
 			if ($temporal_data['power'] < 0) {
-				log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' ' . __('Smartstart non pris en compte car power < 0 ', __FILE__) . ' ' . $temporal_data['power']);
+				$this->log->debug(__('Smartstart non pris en compte car power < 0 ', __FILE__) . ' ' . $temporal_data['power']);
 				return;
 			}
 			$duration = round(($temporal_data['power'] * $cycle) / 100 * $this->thermostat->getConfiguration('smart_start_factor', 1));
 			if ($duration < 5) {
-				log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' ' . __('Smartstart non pris en compte car la durée', __FILE__) . ' ' . $duration);
+				$this->log->debug(__('Smartstart non pris en compte car la durée', __FILE__) . ' ' . $duration);
 				return '';
 			}
 			$next['schedule'] = date('Y-m-d H:i:s', strtotime('-' . $duration . ' min ' . $next['date']));
-			log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' ' . __('Durée Smartstart', __FILE__) . ' : ' . $duration . ' ' . __('à', __FILE__) . ' ' . $next['date'] . ' ' . __('programmation', __FILE__) . ' : ' . $next['schedule']);
+			$this->log->debug(__('Durée Smartstart', __FILE__) . ' : ' . $duration . ' ' . __('à', __FILE__) . ' ' . $next['date'] . ' ' . __('programmation', __FILE__) . ' : ' . $next['schedule']);
 			if (strtotime($next['schedule']) > (strtotime('now') + 120)) {
-				log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' ' . __('Prochain Smartstart', __FILE__) . ' : ' . $next['schedule']);
-				(new thermostatScheduler($this->thermostat))->reschedule($next['schedule'], false, $next);
+				$this->log->debug(__('Prochain Smartstart', __FILE__) . ' : ' . $next['schedule']);
+				$this->scheduler->reschedule($next['schedule'], false, $next);
 			}
 		}
 	}
@@ -183,7 +189,7 @@ class thermostatSmartStart {
 		$needed = $smartStart['consigne'] - $smartStart['temperature'];
 		$achieved = $_temperature - $smartStart['temperature'];
 		if ($needed < 0.5 || $achieved <= 0) {
-			log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' ' . __('Smartstart : pas d\'apprentissage', __FILE__) . ' (' . $needed . ' / ' . $achieved . ')');
+			$this->log->debug(__('Smartstart : pas d\'apprentissage', __FILE__) . ' (' . $needed . ' / ' . $achieved . ')');
 			return;
 		}
 		$factor = $this->thermostat->getConfiguration('smart_start_factor', 1);
@@ -193,6 +199,6 @@ class thermostatSmartStart {
 		$this->thermostat->setConfiguration('smart_start_factor', round($factor, 2));
 		$this->thermostat->setConfiguration('smart_start_autolearn', min($count + 1, 10));
 		$this->thermostat->checkAndUpdateCmd('smart_start_factor', round($factor, 2));
-		log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' ' . __('Smartstart : nouvelle anticipation', __FILE__) . ' : ' . round($factor, 2) . ' (' . $achieved . '/' . $needed . '°C)');
+		$this->log->debug(__('Smartstart : nouvelle anticipation', __FILE__) . ' : ' . round($factor, 2) . ' (' . $achieved . '/' . $needed . '°C)');
 	}
 }

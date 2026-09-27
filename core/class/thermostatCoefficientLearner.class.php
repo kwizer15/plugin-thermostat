@@ -19,39 +19,41 @@
 class thermostatCoefficientLearner {
 
 	private $thermostat;
+	private $log;
 
-	public function __construct($_thermostat) {
+	public function __construct($_thermostat, thermostatLog $_log) {
 		$this->thermostat = $_thermostat;
+		$this->log = $_log;
 	}
 
 	public function learn($_temp_in, $_temp_out) {
 		if ($this->thermostat->getCache('nbConsecutiveFaillure', 0) < 3 && $this->thermostat->getConfiguration('autolearn') == 1 && strtotime($this->thermostat->getConfiguration('endDate')) < strtotime('now')) {
-			log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' ' . __('Démarre auto-apprentissage', __FILE__));
+			$this->log->debug(__('Démarre auto-apprentissage', __FILE__));
 			if ($this->thermostat->getCache('last_power', 0) < 100 && $this->thermostat->getCache('last_power', 0) > 0) {
-				log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' Last power ok, check what I have to learn, last state : ' . $this->thermostat->getCache('lastState'));
+				$this->log->debug('Last power ok, check what I have to learn, last state : ' . $this->thermostat->getCache('lastState'));
 				if ($this->thermostat->getCache('lastState') == 'heat') {
-					log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' Last state is heat');
+					$this->log->debug('Last state is heat');
 					if ($_temp_in > $this->thermostat->getCache('lastTempIn', 0) && $this->thermostat->getCache('lastOrder', 0) > $this->thermostat->getCache('lastTempIn', 0)) {
-						log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' Last temps in < at current temp in');
+						$this->log->debug('Last temps in < at current temp in');
 						$coeff = $this->learnCoefficient('coeff_indoor_heat', $this->thermostat->getConfiguration('coeff_indoor_heat') * (($this->thermostat->getCache('lastOrder', 0) - $this->thermostat->getCache('lastTempIn', 0)) / ($_temp_in - $this->thermostat->getCache('lastTempIn', 0))));
-						log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' New coeff heat indoor : ' . $coeff);
+						$this->log->debug('New coeff heat indoor : ' . $coeff);
 					} else if ($_temp_out < $this->thermostat->getCache('lastOrder', 0)) {
-						log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' Learn outdoor heat');
+						$this->log->debug('Learn outdoor heat');
 						$coeff = $this->learnCoefficient('coeff_outdoor_heat', $this->thermostat->getConfiguration('coeff_indoor_heat') * (($this->thermostat->getCache('lastOrder', 0) - $_temp_in) / ($this->thermostat->getCache('lastOrder', 0) - $_temp_out)) + $this->thermostat->getConfiguration('coeff_outdoor_heat'));
-						log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' New coeff outdoor heat: ' . $coeff);
+						$this->log->debug('New coeff outdoor heat: ' . $coeff);
 					}
 				}
 
 				if ($this->thermostat->getCache('lastState') == 'cool') {
-					log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' Last state is cool');
+					$this->log->debug('Last state is cool');
 					if ($_temp_in < $this->thermostat->getCache('lastTempIn', 0) && $this->thermostat->getCache('lastOrder', 0) < $this->thermostat->getCache('lastTempIn', 0)) {
-						log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' Last temps in > at current temp in');
+						$this->log->debug('Last temps in > at current temp in');
 						$coeff = $this->learnCoefficient('coeff_indoor_cool', $this->thermostat->getConfiguration('coeff_indoor_cool') * (($this->thermostat->getCache('lastTempIn', 0) - $this->thermostat->getCache('lastOrder', 0)) / ($this->thermostat->getCache('lastTempIn', 0) - $_temp_in)));
-						log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' New coeff cool indoor : ' . $coeff);
+						$this->log->debug('New coeff cool indoor : ' . $coeff);
 					} else if ($_temp_out > $this->thermostat->getCache('lastOrder', 0)) {
-						log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' Learn outdoor cool');
+						$this->log->debug('Learn outdoor cool');
 						$coeff = $this->learnCoefficient('coeff_outdoor_cool', $this->thermostat->getConfiguration('coeff_indoor_cool') * (($this->thermostat->getCache('lastOrder', 0) - $_temp_in) / ($this->thermostat->getCache('lastOrder', 0) - $_temp_out)) + $this->thermostat->getConfiguration('coeff_outdoor_cool'));
-						log::add('thermostat', 'debug', $this->thermostat->getHumanName() . ' New coeff outdoor cool : ' . $coeff);
+						$this->log->debug('New coeff outdoor cool : ' . $coeff);
 					}
 				}
 			}
