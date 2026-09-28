@@ -37,8 +37,14 @@ spl_autoload_register(function ($_class) {
 
 class thermostat extends eqLogic {
 
-	public function assembly() {
-		return new Assembly($this);
+	/** @var Assembly|null */
+	private $_assembly;
+
+	public function assembly(): Assembly {
+		if ($this->_assembly === null) {
+			$this->_assembly = new Assembly($this);
+		}
+		return $this->_assembly;
 	}
 
 	public static function pull($_options = null) {

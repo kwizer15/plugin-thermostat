@@ -43,31 +43,7 @@ parameters:
 			path: core/class/thermostat.class.php
 
 		-
-			message: '#^Cannot call method actuator\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 8
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method alert\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method apply\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
 			message: '#^Cannot call method assembly\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method check\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: core/class/thermostat.class.php
@@ -79,87 +55,9 @@ parameters:
 			path: core/class/thermostat.class.php
 
 		-
-			message: '#^Cannot call method commands\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method compute\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method configuration\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method cool\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method define\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method definePower\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method display\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method dju\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method error\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 7
-			path: core/class/thermostat.class.php
-
-		-
 			message: '#^Cannot call method execCmd\(\) on cmd\|false\.$#'
 			identifier: method.nonObject
 			count: 2
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method executeMode\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method failure\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method failureActuator\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method forget\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
 			path: core/class/thermostat.class.php
 
 		-
@@ -171,174 +69,6 @@ parameters:
 		-
 			message: '#^Cannot call method handle\(\) on mixed\.$#'
 			identifier: method.nonObject
-			count: 2
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method heat\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method hysteresisEngine\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method isOff\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method listen\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method log\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 7
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method orderChange\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method plan\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method powerCalculator\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method removePower\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method repeat\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method reschedule\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method run\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method runHysteresisCron\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method runtimeByDay\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method scheduler\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 5
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method sensorWatch\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method smartStart\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method statistics\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method status\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method stop\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method temporalEngine\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method timer\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method trigger\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method unschedule\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method updatePerformance\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method watchdog\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Cannot call method windows\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: core/class/thermostat.class.php
-
-		-
-			message: '#^Method thermostat\:\:assembly\(\) has no return type specified\.$#'
-			identifier: missingType.return
 			count: 1
 			path: core/class/thermostat.class.php
 
@@ -625,9 +355,75 @@ parameters:
 			path: core/class/thermostat.class.php
 
 		-
+			message: '#^Parameter \#1 \$_cmdId of method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Windows\:\:timer\(\) expects int\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/class/thermostat.class.php
+
+		-
+			message: '#^Parameter \#1 \$_consigne of method Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Calculator\:\:compute\(\) expects bool\|float\|int\|string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/class/thermostat.class.php
+
+		-
+			message: '#^Parameter \#1 \$_date of method Jeedom\\Plugin\\Thermostat\\Domain\\Statistics\\Statistics\:\:dju\(\) expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/class/thermostat.class.php
+
+		-
 			message: '#^Parameter \#1 \$_id of static method eqLogic\:\:byId\(\) expects int\|string, mixed given\.$#'
 			identifier: argument.type
 			count: 6
+			path: core/class/thermostat.class.php
+
+		-
+			message: '#^Parameter \#1 \$_name of method Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator\:\:executeMode\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/class/thermostat.class.php
+
+		-
+			message: '#^Parameter \#1 \$_next of method Jeedom\\Plugin\\Thermostat\\Jeedom\\Scheduler\:\:reschedule\(\) expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/class/thermostat.class.php
+
+		-
+			message: '#^Parameter \#1 \$_option of method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Windows\:\:handle\(\) expects array\{event_id\: int\|string, value\: bool\|float\|int\|string\|null\}, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/class/thermostat.class.php
+
+		-
+			message: '#^Parameter \#1 \$_options of method Jeedom\\Plugin\\Thermostat\\Domain\\SmartStart\\SmartStart\:\:trigger\(\) expects array\<string, mixed\>, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/class/thermostat.class.php
+
+		-
+			message: '#^Parameter \#1 \$_repeat of method Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator\:\:cool\(\) expects bool, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/class/thermostat.class.php
+
+		-
+			message: '#^Parameter \#1 \$_repeat of method Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator\:\:heat\(\) expects bool, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/class/thermostat.class.php
+
+		-
+			message: '#^Parameter \#1 \$_repeat of method Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator\:\:stop\(\) expects bool, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/class/thermostat.class.php
+
+		-
+			message: '#^Parameter \#1 \$_startDate of method Jeedom\\Plugin\\Thermostat\\Domain\\Statistics\\Statistics\:\:runtimeByDay\(\) expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
 			path: core/class/thermostat.class.php
 
 		-
@@ -643,6 +439,42 @@ parameters:
 			path: core/class/thermostat.class.php
 
 		-
+			message: '#^Parameter \#2 \$_endDate of method Jeedom\\Plugin\\Thermostat\\Domain\\Statistics\\Statistics\:\:runtimeByDay\(\) expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/class/thermostat.class.php
+
+		-
+			message: '#^Parameter \#2 \$_events of method Jeedom\\Plugin\\Thermostat\\Jeedom\\Scheduler\:\:listen\(\) expects list\<string\>, non\-empty\-list\<mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/class/thermostat.class.php
+
+		-
+			message: '#^Parameter \#2 \$_phase of method Jeedom\\Plugin\\Thermostat\\Domain\\Window\\Windows\:\:timer\(\) expects ''close''\|''open'', mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/class/thermostat.class.php
+
+		-
+			message: '#^Parameter \#2 \$_stop of method Jeedom\\Plugin\\Thermostat\\Jeedom\\Scheduler\:\:reschedule\(\) expects bool, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/class/thermostat.class.php
+
+		-
+			message: '#^Parameter \#2 \$_suspend of method Jeedom\\Plugin\\Thermostat\\Domain\\Actuator\\Actuator\:\:stop\(\) expects bool, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/class/thermostat.class.php
+
+		-
+			message: '#^Parameter \#2 \$_tempIn of method Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Calculator\:\:compute\(\) expects bool\|float\|int\|string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/class/thermostat.class.php
+
+		-
 			message: '#^Parameter \#2 \$subject of function preg_match_all expects string, mixed given\.$#'
 			identifier: argument.type
 			count: 1
@@ -650,6 +482,24 @@ parameters:
 
 		-
 			message: '#^Parameter \#2 \$subject of function preg_match_all expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/class/thermostat.class.php
+
+		-
+			message: '#^Parameter \#3 \$_smartThermostat of method Jeedom\\Plugin\\Thermostat\\Jeedom\\Scheduler\:\:reschedule\(\) expects array\<string, mixed\>\|false, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/class/thermostat.class.php
+
+		-
+			message: '#^Parameter \#3 \$_tempOut of method Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Calculator\:\:compute\(\) expects bool\|float\|int\|string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: core/class/thermostat.class.php
+
+		-
+			message: '#^Parameter \#4 \$_allowOverfull of method Jeedom\\Plugin\\Thermostat\\Domain\\Power\\Calculator\:\:compute\(\) expects bool, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: core/class/thermostat.class.php
